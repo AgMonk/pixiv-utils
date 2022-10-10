@@ -7,12 +7,15 @@ import okhttp3.Callback;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
 import org.gin.TimeUtils;
+import org.gin.exception.PixivClientException;
+import org.gin.exception.PixivServerException;
 import org.gin.response.PixivResponse;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 import java.net.SocketTimeoutException;
 import java.time.ZonedDateTime;
+import java.util.Objects;
 
 /**
  * @author : ginstone
@@ -31,21 +34,18 @@ public interface BasePixivCallback extends Callback {
      * 发生400+错误 (客户端错误) 时的处理方法
      * @param call     call
      * @param code         响应code
-     * @param responseBody 响应body
+     * @param message 响应body
      * @throws IOException 异常
      */
-    default void onClientError(Call call, int code, ResponseBody responseBody) throws IOException {
-        if (responseBody == null) {
+    default void onClientError(Call call, int code, String message) throws IOException {
+        if (message == null) {
             return;
         }
-        final String string = responseBody.string();
-        PixivResponse<Object> response = JSONObject.parseObject(string, new TypeReference<>() {
-        });
-        System.err.printf("%s [DEBUG]客户端错误: %s code:%d %s \n",
+        System.err.printf("%s [DEBUG]%s %s \n",
                 TimeUtils.format(ZonedDateTime.now()),
-                call.request().url(),
-                code,
-                response.getMessage());
+                message,
+                call.request().url()
+                );
     }
 
     /**
@@ -72,15 +72,12 @@ public interface BasePixivCallback extends Callback {
     @SuppressWarnings("AlibabaUndefineMagicConstant")
     @Override
     default void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-        final int code = response.code();
-        if (code >= 200 && code < 300) {
-            onSuccess(response.body());
-        } else if (code >= 400 && code < 500) {
-            onClientError(call, code, response.body());
-        } else if (code >= 500 && code < 600) {
-            onServerError(call, code);
-        } else {
-            System.err.printf("非预期的code:%d", code);
+        try {
+            onSuccess(handle(call, response));
+        } catch (PixivClientException e) {
+            onClientError(e.getCall(), e.getCode(),e.getMessage());
+        }catch (PixivServerException e) {
+            onServerError(e.getCall(), e.getCode());
         }
     }
 
@@ -94,5 +91,31 @@ public interface BasePixivCallback extends Callback {
                 TimeUtils.format(ZonedDateTime.now()) ,
                 call.request().url(),
                 code);
+    }
+
+    /**
+     * 处理响应
+     * @param call call
+     * @param response 响应
+     * @return body
+     * @throws PixivClientException 客户端错误
+     * @throws PixivServerException 服务器错误
+     */
+    static ResponseBody handle(@NotNull Call call, @NotNull Response response) throws IOException {
+        final int code = response.code();
+        final int co = code / 100;
+        switch (co){
+            case 3:
+            case 2:return response.body();
+            case 4:
+                final String string = Objects.requireNonNull(response.body()).string();
+                PixivResponse<Object> res = JSONObject.parseObject(string,new TypeReference<>(){});
+                throw new PixivClientException(code,call,res.getMessage());
+            case 5:
+                throw new PixivServerException(code,call);
+            default:
+                System.err.printf("非预期的code:%d", code);
+                throw new PixivClientException(code,call,null);
+        }
     }
 }

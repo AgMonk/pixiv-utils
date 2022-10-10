@@ -1,7 +1,7 @@
 # pixiv-utils
 Pixiv工具类
 
-# 使用方法
+# 引入
 ```xml
 <project>
     <repositories>
@@ -19,3 +19,10 @@ Pixiv工具类
     </dependency>
 </project>
 ```
+
+# 使用方法
+
+`PixivRequestAsync` 和 `PixivRequestSync` 类下有两套名称相同的方法,分别为异步和同步请求方法。
+
+- 查询作品详情: detail
+- 查询关注作者最新作品: followLatest
