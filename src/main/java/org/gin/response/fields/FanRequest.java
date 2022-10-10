@@ -23,4 +23,8 @@ public class FanRequest {
      */
     FanRequestInfo request;
 
+    @Data
+    static class FanRequestInfo {
+        Long requestId;
+    }
 }

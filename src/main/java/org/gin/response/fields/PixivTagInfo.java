@@ -2,6 +2,7 @@ package org.gin.response.fields;
 
 import lombok.Data;
 
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -16,4 +17,17 @@ public class PixivTagInfo {
     List<PixivTag> tags;
     boolean writable;
 
+    @Data
+    static class PixivTag {
+        boolean deletable;
+        boolean locked;
+        /**
+         * 标签原名
+         */
+        String tag;
+        /**
+         * 翻译
+         */
+        HashMap<String,String> translation;
+    }
 }

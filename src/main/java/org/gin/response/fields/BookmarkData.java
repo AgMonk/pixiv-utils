@@ -19,5 +19,5 @@ public class BookmarkData {
      * 私有收藏
      */
     @JSONField(alternateNames = "private")
-    boolean personal;
+    boolean pri;
 }
