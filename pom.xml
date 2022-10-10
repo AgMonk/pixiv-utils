@@ -15,6 +15,14 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
+    <repositories>
+        <repository>
+            <id>org.gin</id>
+            <name>common-utils</name>
+            <url>https://agmonk.github.io/common-utils/maven-repo/</url>
+        </repository>
+    </repositories>
+
     <dependencies>
         <!-- fastJson -->
         <!--suppress VulnerableLibrariesLocal -->
@@ -25,14 +33,26 @@
             <version>1.2.79</version>
         </dependency>
 
-        <!-- http请求 -->
-        <!--suppress VulnerableLibrariesLocal -->
         <dependency>
-            <groupId>org.apache.httpcomponents</groupId>
-            <artifactId>httpmime</artifactId>
-            <!--suppress MavenPackageUpdate -->
-            <version>4.5.13</version>
+            <groupId>com.squareup.okhttp3</groupId>
+            <artifactId>okhttp</artifactId>
+            <version>4.10.0</version>
         </dependency>
+
+
+        <dependency>
+            <groupId>org.gin</groupId>
+            <artifactId>common-utils</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.24</version>
+        </dependency>
+
+
     </dependencies>
 
 
