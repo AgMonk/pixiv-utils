@@ -35,11 +35,20 @@ Pixiv工具类
 
 - URL：`https://www.pixiv.net/ajax/illust/${pid}`
 - 请求方法：`GET`
+- 参数含义：
+  - pid：作品ID、pid
 
 ### 搜索
 
-- URL：
+- URL：`https://www.pixiv.net/ajax/search/artworks/${keyword}`
 - 请求方法：`GET`
+- 传参方式：`QUERY`
+- 参数结构：
+  - keyword：关键字，中文需使用UTF-8编码
+- 参数含义：
+  - mode：模式，可选值：`all`,`r18`
+  - lang：语言，简中为 `zh`
+  - p：页码
 
 ## 收藏
 
@@ -108,3 +117,33 @@ Pixiv工具类
 - 参数含义：
 
   - bookmarkIds：收藏id，从作品信息的bookmarkData字段中获取
+
+## 关注
+
+### 查询关注作者的最新作品
+
+- URL：`https://www.pixiv.net/ajax/follow_latest/illust `
+
+- 请求方法：`GET`
+
+- 传参方式：`QUERY`
+
+- 参数结构：
+
+  ```json
+  {
+      "mode": "",
+      "lang": "",
+      "p": 1
+  }
+  ```
+
+- 参数含义：
+
+  - mode：模式，可选值：`all`,`r18`
+  - lang：语言，简中为 `zh`
+  - p：页码
+
+### 关注作者
+
+### 取关作者

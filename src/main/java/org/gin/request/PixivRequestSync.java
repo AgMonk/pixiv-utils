@@ -4,11 +4,15 @@ import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.TypeReference;
 import okhttp3.*;
 import org.gin.callback.BasePixivCallback;
-import org.gin.callback.FollowLatestCallback;
+import org.gin.params.PixivParamsBookmarksAdd;
 import org.gin.response.PixivResponse;
 import org.gin.response.body.ArtworkBody;
+import org.gin.response.body.BookmarkAddBody;
+import org.gin.response.body.FollowLatestBody;
 
 import java.io.IOException;
+import java.util.Collection;
+import java.util.HashMap;
 
 /**
  * 同步请求方法
@@ -26,24 +30,73 @@ public class PixivRequestSync {
      */
     @SuppressWarnings("UnusedReturnValue")
     public static PixivResponse<ArtworkBody> detail(long pid, String cookie) throws IOException {
-        final Request request = PixivCommon.createGetRequest(cookie,String.format(PixivUrl.URL_ILLUST_DETAIL,pid));
-        final Call call = PixivCommon.CLIENT.newCall(request);
-        final Response response = call.execute();
-        final ResponseBody responseBody = BasePixivCallback.handle(call, response);
-        return JSONObject.parseObject(responseBody.string(), new TypeReference<>() {});
+        final Request request = PixivCommon.createGetRequest(cookie, String.format(PixivUrl.URL_ILLUST_DETAIL, pid));
+        final ResponseBody responseBody = getResponseBody(request);
+        return JSONObject.parseObject(responseBody.string(), new TypeReference<>() {
+        });
     }
 
     /**
      * 查询关注作者最新作品
-     * @param page     页码
-     * @param callback 响应处理
-     * @param cookie   cookie
+     * @param page   页码
+     * @param cookie cookie
      */
-    public static void followLatest(int page, FollowLatestCallback callback, String cookie) {
-        final HttpUrl url = PixivUrl.followLatestUrl(page,"all","zh");
-        final Request request = PixivCommon.createGetRequest(cookie,url);
-        final Call call = PixivCommon.CLIENT.newCall(request);
-        call.enqueue(callback);
+    public static PixivResponse<FollowLatestBody> followLatest(int page, String cookie) throws IOException {
+        final HttpUrl url = PixivUrl.followLatestUrl(page, "all", "zh");
+        final Request request = PixivCommon.createGetRequest(cookie, url);
+        final ResponseBody responseBody = getResponseBody(request);
+        return JSONObject.parseObject(responseBody.string(), new TypeReference<>() {
+        });
     }
+
+    /**
+     * 添加收藏
+     * @param param  参数
+     * @param cookie cookie
+     * @param token  x-csrf-token
+     */
+    public static PixivResponse<BookmarkAddBody> bmkAdd(PixivParamsBookmarksAdd param, String cookie, String token) throws IOException {
+        final RequestBody body = RequestBody.create(JSONObject.toJSONString(param), PixivCommon.MEDIA_TYPE_JSON);
+        final Request request = PixivCommon.createPostRequest(cookie, PixivUrl.ADD_BOOKMARKS, token, body);
+        final ResponseBody responseBody = getResponseBody(request);
+        return JSONObject.parseObject(responseBody.string(), new TypeReference<>() {
+        });
+    }
+
+    /**
+     * 删除收藏
+     * @param bookmarkId 收藏id
+     * @param cookie     cookie
+     * @param token      x-csrf-token
+     */
+    public static PixivResponse<JSONObject> bmkDel(long bookmarkId, String cookie, String token) throws IOException {
+        final FormBody body = new FormBody.Builder().add("bookmark_id", String.valueOf(bookmarkId)).build();
+        final Request request = PixivCommon.createPostRequest(cookie, PixivUrl.DEL_BOOKMARKS, token, body);
+        final ResponseBody responseBody = getResponseBody(request);
+        return JSONObject.parseObject(responseBody.string(), new TypeReference<>() {
+        });
+    }
+
+    private static ResponseBody getResponseBody(Request request) throws IOException {
+        final Call call = PixivCommon.CLIENT.newCall(request);
+        final Response response = call.execute();
+        return BasePixivCallback.handle(call, response);
+    }
+
+    /**
+     * 批量删除收藏
+     * @param bookmarkIds 收藏id
+     * @param cookie      cookie
+     * @param token       x-csrf-token
+     */
+    public static PixivResponse<JSONObject> bmkDel(Collection<Long> bookmarkIds, String cookie, String token) throws IOException {
+        final HashMap<String, Collection<Long>> map = new HashMap<>(1){{put("bookmarkIds", bookmarkIds);}};
+        final RequestBody body = RequestBody.create(JSONObject.toJSONString(map), PixivCommon.MEDIA_TYPE_JSON);
+        final Request request = PixivCommon.createPostRequest(cookie, PixivUrl.REMOVE_BOOKMARKS, token, body);
+        final ResponseBody responseBody = getResponseBody(request);
+        return JSONObject.parseObject(responseBody.string(), new TypeReference<>() {
+        });
+    }
+
 
 }

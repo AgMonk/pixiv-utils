@@ -27,8 +27,7 @@ public class PixivRequestAsync {
      */
     public static void detail(long pid, String cookie, DetailCallback callback) {
         final Request request = PixivCommon.createGetRequest(cookie,String.format(PixivUrl.URL_ILLUST_DETAIL,pid));
-        final Call call = PixivCommon.CLIENT.newCall(request);
-        call.enqueue(callback);
+        PixivCommon.CLIENT.newCall(request).enqueue(callback);
     }
 
     /**
@@ -40,8 +39,7 @@ public class PixivRequestAsync {
     public static void followLatest(int page, String cookie, FollowLatestCallback callback) {
         final HttpUrl url = PixivUrl.followLatestUrl(page,"all","zh");
         final Request request = PixivCommon.createGetRequest(cookie,url);
-        final Call call = PixivCommon.CLIENT.newCall(request);
-        call.enqueue(callback);
+        PixivCommon.CLIENT.newCall(request).enqueue(callback);
     }
 
     /**
@@ -54,8 +52,7 @@ public class PixivRequestAsync {
     public static void bmkAdd(PixivParamsBookmarksAdd param, String cookie, String token, BookmarkAddCallback callback){
         final RequestBody body = RequestBody.create(JSONObject.toJSONString(param), PixivCommon.MEDIA_TYPE_JSON);
         final Request request = PixivCommon.createPostRequest(cookie,PixivUrl.ADD_BOOKMARKS,token, body);
-        final Call call = PixivCommon.CLIENT.newCall(request);
-        call.enqueue(callback);
+        PixivCommon.CLIENT.newCall(request).enqueue(callback);
     }
 
     /**
@@ -68,8 +65,7 @@ public class PixivRequestAsync {
     public static void bmkDel(long bookmarkId, String cookie, String token, BasePixivCallback callback){
         final FormBody body = new FormBody.Builder().add("bookmark_id", String.valueOf(bookmarkId)).build();
         final Request request = PixivCommon.createPostRequest(cookie,PixivUrl.DEL_BOOKMARKS,token, body);
-        final Call call = PixivCommon.CLIENT.newCall(request);
-        call.enqueue(callback);
+        PixivCommon.CLIENT.newCall(request).enqueue(callback);
     }
 
      /**
@@ -80,12 +76,10 @@ public class PixivRequestAsync {
      * @param callback 响应处理
      */
     public static void bmkDel(Collection<Long> bookmarkIds, String cookie, String token, BasePixivCallback callback){
-        final HashMap<String, Collection<Long>> map = new HashMap<>();
-        map.put("bookmarkIds",bookmarkIds);
+        final HashMap<String, Collection<Long>> map = new HashMap<>(1){{put("bookmarkIds", bookmarkIds);}};
         final RequestBody body = RequestBody.create(JSONObject.toJSONString(map), PixivCommon.MEDIA_TYPE_JSON);
         final Request request = PixivCommon.createPostRequest(cookie,PixivUrl.REMOVE_BOOKMARKS,token, body);
-        final Call call = PixivCommon.CLIENT.newCall(request);
-        call.enqueue(callback);
+        PixivCommon.CLIENT.newCall(request).enqueue(callback);
     }
 
 
