@@ -92,9 +92,17 @@ public class ArtworkBody {
      * 图片url
      */
     ArtworkUrls urls;
+    /**
+     * 用户账号
+     */
     String userAccount;
+    /**
+     * 用户id
+     */
     Long userId;
-
+    /**
+     * 用户昵称
+     */
     String userName;
     /**
      * 浏览次数
