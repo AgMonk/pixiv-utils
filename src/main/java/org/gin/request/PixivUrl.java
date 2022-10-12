@@ -25,13 +25,15 @@ public class PixivUrl {
      */
     public static final String URL_BOOKMARKS_GET = DOMAIN_AJAX + "user/%d/illusts/bookmarks";
     /**
-     * 添加收藏 需要cookie、token
+     * 添加收藏 需要cookie、x-csrf-token
+     * body传参
      */
     public static final String ADD_BOOKMARKS = DOMAIN_AJAX + "illusts/bookmarks/add";
     /**
-     * 删除收藏
+     * 移除收藏 需要cookie x-csrf-token
+     * 表单传参
      */
-    public static final String DEL_BOOKMARKS = DOMAIN + "rpc/index.php";
+    public static final String DEL_BOOKMARKS = DOMAIN_AJAX + "illusts/bookmarks/delete";
     /**
      * 搜索作品
      */
@@ -51,6 +53,5 @@ public class PixivUrl {
                 .addQueryParameter("lang", lang)
                 .addQueryParameter("p", String.valueOf(page))
                 .build();
-
     }
 }

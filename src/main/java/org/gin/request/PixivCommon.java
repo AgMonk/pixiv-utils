@@ -1,8 +1,6 @@
 package org.gin.request;
 
-import okhttp3.HttpUrl;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
+import okhttp3.*;
 import org.gin.interceptor.LoggingInterceptor;
 
 import java.util.concurrent.TimeUnit;
@@ -14,6 +12,8 @@ import java.util.concurrent.TimeUnit;
  **/
 @SuppressWarnings("unused")
 public class PixivCommon {
+    public static final MediaType MEDIA_TYPE_JSON = MediaType.parse("application/json; charset=utf-8");
+
     public static final String DOMAIN = "https://www.pixiv.net/";
     public static final String DOMAIN_AJAX = DOMAIN + "ajax/";
     public static final OkHttpClient CLIENT = new OkHttpClient.Builder()
@@ -33,6 +33,26 @@ public class PixivCommon {
                 .url(url)
                 .header("cookie", cookie)
                 .build();
+    }
+
+    public static Request createPostRequest(String cookie, HttpUrl url, String token, RequestBody body) {
+        return new Request.Builder()
+                .url(url)
+                .header("cookie", cookie)
+                .header("x-csrf-token", token)
+                .post(body)
+                .build()
+                ;
+    }
+
+    public static Request createPostRequest(String cookie, String url, String token, RequestBody body) {
+        return new Request.Builder()
+                .url(url)
+                .header("cookie", cookie)
+                .header("x-csrf-token", token)
+                .post(body)
+                .build()
+                ;
     }
 
 
