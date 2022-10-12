@@ -58,7 +58,7 @@ public class PixivRequestSync {
      * @param token  x-csrf-token
      */
     public static PixivResponse<BookmarkAddBody> bmkAdd(PixivParamsBookmarksAdd param, String cookie, String token) throws IOException {
-        final RequestBody body = RequestBody.create(JSONObject.toJSONString(param), PixivCommon.MEDIA_TYPE_JSON);
+        final RequestBody body = PixivCommon.createJsonBody(param);
         final Request request = PixivCommon.createPostRequest(cookie, PixivUrl.ADD_BOOKMARKS, token, body);
         final ResponseBody responseBody = getResponseBody(request);
         return JSONObject.parseObject(responseBody.string(), new TypeReference<>() {
@@ -93,7 +93,7 @@ public class PixivRequestSync {
      */
     public static PixivResponse<JSONObject> bmkDel(Collection<Long> bookmarkIds, String cookie, String token) throws IOException {
         final HashMap<String, Collection<Long>> map = new HashMap<>(1){{put("bookmarkIds", bookmarkIds);}};
-        final RequestBody body = RequestBody.create(JSONObject.toJSONString(map), PixivCommon.MEDIA_TYPE_JSON);
+        final RequestBody body = PixivCommon.createJsonBody(map);
         final Request request = PixivCommon.createPostRequest(cookie, PixivUrl.REMOVE_BOOKMARKS, token, body);
         final ResponseBody responseBody = getResponseBody(request);
         return JSONObject.parseObject(responseBody.string(), new TypeReference<>() {

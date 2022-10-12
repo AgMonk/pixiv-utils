@@ -1,6 +1,5 @@
 package org.gin.request;
 
-import com.alibaba.fastjson.JSONObject;
 import okhttp3.FormBody;
 import okhttp3.HttpUrl;
 import okhttp3.Request;
@@ -51,7 +50,7 @@ public class PixivRequestAsync {
      * @param callback 响应处理
      */
     public static void bmkAdd(PixivParamsBookmarksAdd param, String cookie, String token, BookmarkAddCallback callback){
-        final RequestBody body = RequestBody.create(JSONObject.toJSONString(param), PixivCommon.MEDIA_TYPE_JSON);
+        final RequestBody body = PixivCommon.createJsonBody(param);
         final Request request = PixivCommon.createPostRequest(cookie,PixivUrl.ADD_BOOKMARKS,token, body);
         PixivCommon.CLIENT.newCall(request).enqueue(callback);
     }
@@ -78,7 +77,7 @@ public class PixivRequestAsync {
      */
     public static void bmkDel(Collection<Long> bookmarkIds, String cookie, String token, BasePixivCallback callback){
         final HashMap<String, Collection<Long>> map = new HashMap<>(1){{put("bookmarkIds", bookmarkIds);}};
-        final RequestBody body = RequestBody.create(JSONObject.toJSONString(map), PixivCommon.MEDIA_TYPE_JSON);
+        final RequestBody body = PixivCommon.createJsonBody(map);
         final Request request = PixivCommon.createPostRequest(cookie,PixivUrl.REMOVE_BOOKMARKS,token, body);
         PixivCommon.CLIENT.newCall(request).enqueue(callback);
     }

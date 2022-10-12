@@ -1,5 +1,6 @@
 package org.gin.request;
 
+import com.alibaba.fastjson.JSONObject;
 import okhttp3.*;
 import org.gin.interceptor.LoggingInterceptor;
 
@@ -18,7 +19,7 @@ public class PixivCommon {
     public static final String DOMAIN_AJAX = DOMAIN + "ajax/";
     public static final OkHttpClient CLIENT = new OkHttpClient.Builder()
             .callTimeout(30, TimeUnit.SECONDS)
-            .connectTimeout(30,TimeUnit.SECONDS)
+            .connectTimeout(30, TimeUnit.SECONDS)
             .addInterceptor(new LoggingInterceptor())
             .build();
 
@@ -56,5 +57,7 @@ public class PixivCommon {
                 ;
     }
 
-
+    public static RequestBody createJsonBody(Object obj) {
+        return RequestBody.create(JSONObject.toJSONString(obj), PixivCommon.MEDIA_TYPE_JSON);
+    }
 }
