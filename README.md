@@ -7,7 +7,7 @@ Pixiv工具类
     <repositories>
         <repository>
             <id>org.gin</id>
-            <name>common-utils</name>
+            <name>pixiv-utils</name>
             <url>https://agmonk.github.io/pixiv-utils/maven-repo/</url>
         </repository>
     </repositories>
