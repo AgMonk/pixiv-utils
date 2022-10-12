@@ -26,3 +26,85 @@ Pixiv工具类
 
 - 查询作品详情: detail
 - 查询关注作者最新作品: followLatest
+
+# Pixiv API
+
+## 作品
+
+### 查询详情
+
+- URL：`https://www.pixiv.net/ajax/illust/${pid}`
+- 请求方法：`GET`
+
+### 搜索
+
+- URL：
+- 请求方法：`GET`
+
+## 收藏
+
+收藏相关的操作，请求头中均需要添加字段 `x-csrf-token`，可以打开F12面板，进行一次操作查看请求头中发送的该字段
+
+### 添加收藏
+
+- URL：`https://www.pixiv.net/ajax/illusts/bookmarks/add`
+
+- 请求方法：`POST`
+
+- 传参方式：`BODY`
+
+- 参数结构：
+
+  ```json
+  {
+      "illust_id": 1111,
+      "restrict": 0,
+      "comment": "",
+      "tags": []
+  }
+  ```
+
+- 参数含义：
+
+  - illust_id：作品ID、pid
+  - restrict：是否为公开收藏。0 = 公开，1 = 非公开
+  - comment：备注
+  - tags：标签
+
+### 删除收藏
+
+- URL：`https://www.pixiv.net/ajax/illusts/bookmarks/del `
+
+- 请求方法：`POST`
+
+- 传参方式：`FORM`
+
+- 参数结构：
+
+  ```json
+  {
+      "bookmark_id": 11111
+  }
+  ```
+
+- 参数含义：
+
+  - bookmark_id：收藏id，从作品信息的bookmarkData字段中获取
+
+### 删除收藏(批量)
+
+- URL：`https://www.pixiv.net/ajax/illusts/bookmarks/remove `
+- 请求方法：`POST`
+- 传参方式：`BODY`
+
+- 参数结构：
+
+  ```json
+  {
+      "bookmarkIds": []
+  }
+  ```
+
+- 参数含义：
+
+  - bookmarkIds：收藏id，从作品信息的bookmarkData字段中获取
