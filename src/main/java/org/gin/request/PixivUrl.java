@@ -35,6 +35,12 @@ public class PixivUrl {
      */
     public static final String DEL_BOOKMARKS = DOMAIN_AJAX + "illusts/bookmarks/delete";
     /**
+     * 批量移除收藏 需要cookie x-csrf-token
+     * 表单传参
+     */
+    public static final String REMOVE_BOOKMARKS = DOMAIN_AJAX + "illusts/bookmarks/remove";
+
+    /**
      * 搜索作品
      */
     public static final String SEARCH_ARTWORKS = DOMAIN_AJAX + "search/artworks/%s";
