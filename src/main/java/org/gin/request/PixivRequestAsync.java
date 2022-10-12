@@ -1,11 +1,12 @@
 package org.gin.request;
 
 import com.alibaba.fastjson.JSONObject;
-import okhttp3.*;
-import org.gin.callback.BasePixivCallback;
-import org.gin.callback.BookmarkAddCallback;
-import org.gin.callback.DetailCallback;
-import org.gin.callback.FollowLatestCallback;
+import okhttp3.FormBody;
+import okhttp3.HttpUrl;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import org.gin.callback.*;
+import org.gin.params.PixivParamSearch;
 import org.gin.params.PixivParamsBookmarksAdd;
 
 import java.util.Collection;
@@ -79,6 +80,20 @@ public class PixivRequestAsync {
         final HashMap<String, Collection<Long>> map = new HashMap<>(1){{put("bookmarkIds", bookmarkIds);}};
         final RequestBody body = RequestBody.create(JSONObject.toJSONString(map), PixivCommon.MEDIA_TYPE_JSON);
         final Request request = PixivCommon.createPostRequest(cookie,PixivUrl.REMOVE_BOOKMARKS,token, body);
+        PixivCommon.CLIENT.newCall(request).enqueue(callback);
+    }
+
+    /**
+     * 搜索作品
+     * @param keywords 关键字
+     * @param page 页码
+     * @param param 其他参数
+     * @param cookie cookie
+     * @param callback 响应处理
+     */
+    public static void search(String keywords,int page,PixivParamSearch param, String cookie, SearchCallback callback){
+        final HttpUrl url = PixivUrl.searchUrl(keywords,page,param);
+        final Request request = PixivCommon.createGetRequest(cookie,url);
         PixivCommon.CLIENT.newCall(request).enqueue(callback);
     }
 

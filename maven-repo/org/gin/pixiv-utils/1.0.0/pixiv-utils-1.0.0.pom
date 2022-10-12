@@ -24,14 +24,6 @@
     </repositories>
 
     <dependencies>
-        <!-- fastJson -->
-        <!--suppress VulnerableLibrariesLocal -->
-        <dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>fastjson</artifactId>
-            <!--suppress MavenPackageUpdate -->
-            <version>1.2.79</version>
-        </dependency>
 
         <dependency>
             <groupId>com.squareup.okhttp3</groupId>
@@ -40,6 +32,7 @@
         </dependency>
 
 
+        <!--suppress VulnerableLibrariesLocal -->
         <dependency>
             <groupId>org.gin</groupId>
             <artifactId>common-utils</artifactId>

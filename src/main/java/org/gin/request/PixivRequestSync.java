@@ -4,11 +4,13 @@ import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.TypeReference;
 import okhttp3.*;
 import org.gin.callback.BasePixivCallback;
+import org.gin.params.PixivParamSearch;
 import org.gin.params.PixivParamsBookmarksAdd;
 import org.gin.response.PixivResponse;
 import org.gin.response.body.ArtworkBody;
 import org.gin.response.body.BookmarkAddBody;
 import org.gin.response.body.FollowLatestBody;
+import org.gin.response.body.SearchBody;
 
 import java.io.IOException;
 import java.util.Collection;
@@ -98,5 +100,18 @@ public class PixivRequestSync {
         });
     }
 
-
+    /**
+     * 搜索作品
+     * @param keywords 关键字
+     * @param page     页码
+     * @param param    其他参数
+     * @param cookie   cookie
+     */
+    public static  PixivResponse<SearchBody> search(String keywords, int page, PixivParamSearch param, String cookie) throws IOException {
+        final HttpUrl url = PixivUrl.searchUrl(keywords,page,param);
+        final Request request = PixivCommon.createGetRequest(cookie,url);
+        final ResponseBody responseBody = getResponseBody(request);
+        return JSONObject.parseObject(responseBody.string(), new TypeReference<>() {
+        });
+    }
 }

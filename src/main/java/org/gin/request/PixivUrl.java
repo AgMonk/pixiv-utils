@@ -1,10 +1,14 @@
 package org.gin.request;
 
+import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.TypeReference;
 import okhttp3.HttpUrl;
+import org.gin.params.PixivParamSearch;
 
+import java.util.HashMap;
 import java.util.Objects;
 
-import static org.gin.request.PixivCommon.*;
+import static org.gin.request.PixivCommon.DOMAIN_AJAX;
 
 /**
  * @author : ginstone
@@ -59,5 +63,22 @@ public class PixivUrl {
                 .addQueryParameter("lang", lang)
                 .addQueryParameter("p", String.valueOf(page))
                 .build();
+    }
+
+    /**
+     * 生成搜索URL
+     * @param param 参数
+     * @return URL
+     */
+    public static HttpUrl searchUrl(String keywords,int page,PixivParamSearch param) {
+        final HttpUrl.Builder builder = Objects.requireNonNull(HttpUrl.parse(String.format(PixivUrl.SEARCH_ARTWORKS, keywords))).newBuilder();
+        builder.addQueryParameter("p", String.valueOf(page));
+        addQueryParameter(builder,param);
+        return builder.build();
+    }
+
+    public static void addQueryParameter(HttpUrl.Builder builder ,Object object){
+        final HashMap<String,String> json = JSONObject.parseObject(JSONObject.toJSONString(object),new TypeReference<>(){});
+        json.forEach(builder::addQueryParameter);
     }
 }

@@ -26,6 +26,10 @@ Pixiv工具类
 
 - 查询作品详情: detail
 - 查询关注作者最新作品: followLatest
+- 收藏作品：bmkAdd
+- 删除收藏：bmkDel
+- 删除收藏（批量）：bmkDel（重载）
+- 搜索作品：search
 
 # Pixiv API
 

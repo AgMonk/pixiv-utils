@@ -65,7 +65,6 @@ public class ArtworkInfo {
      * 图片url
      */
     String url;
-    String userAccount;
     Long userId;
 
     String userName;
