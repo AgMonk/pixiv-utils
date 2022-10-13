@@ -15,8 +15,6 @@ import java.util.concurrent.TimeUnit;
 public class PixivCommon {
     public static final MediaType MEDIA_TYPE_JSON = MediaType.parse("application/json; charset=utf-8");
 
-    public static final String DOMAIN = "https://www.pixiv.net/";
-    public static final String DOMAIN_AJAX = DOMAIN + "ajax/";
     public static final OkHttpClient CLIENT = new OkHttpClient.Builder()
             .callTimeout(30, TimeUnit.SECONDS)
             .connectTimeout(30, TimeUnit.SECONDS)

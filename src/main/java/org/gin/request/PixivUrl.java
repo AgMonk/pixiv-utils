@@ -9,14 +9,14 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Objects;
 
-import static org.gin.request.PixivCommon.DOMAIN_AJAX;
-
 /**
  * @author : ginstone
  * @version : v1.0.0
  * @since : 2022/10/11 17:27
  **/
 public class PixivUrl {
+    public static final String DOMAIN = "https://www.pixiv.net/";
+    public static final String DOMAIN_AJAX = DOMAIN + "ajax/";
     /**
      * 作品详情接口 cookie可选
      */
@@ -45,14 +45,6 @@ public class PixivUrl {
      */
     public static final String URL_FOLLOW_LATEST = DOMAIN_AJAX + "follow_latest/illust";
     /**
-     * php接口 bookmark_add
-     */
-    public static final String URL_PHP_BOOKMARK_ADD = PixivCommon.DOMAIN + "bookmark_add.php";
-    /**
-     * php接口 rpc_group_setting
-     */
-    public static final String URL_PHP_RPC_GROUP_SETTING = PixivCommon.DOMAIN + "rpc_group_setting.php";
-    /**
      * 获取收藏作品接口 需要cookie
      */
     public static final String URL_USER_BOOKMARKS = DOMAIN_AJAX + "user/%d/illusts/bookmarks";
@@ -66,6 +58,14 @@ public class PixivUrl {
      */
     public static final String URL_USER_INFO = DOMAIN_AJAX + "user/%d";
     public static final String URL_USER_PROFILE = DOMAIN_AJAX + "user/%d/profile/all";
+    /**
+     * php接口 bookmark_add
+     */
+    public static final String URL_PHP_BOOKMARK_ADD = DOMAIN + "bookmark_add.php";
+    /**
+     * php接口 rpc_group_setting
+     */
+    public static final String URL_PHP_RPC_GROUP_SETTING = DOMAIN + "rpc_group_setting.php";
 
     /**
      * 生成查询关注作者最新作品的URL
@@ -144,10 +144,11 @@ public class PixivUrl {
         builder.addQueryParameter("lang", lang);
         builder.addQueryParameter("tag", tag == null ? "" : tag);
         builder.addQueryParameter("offset", String.valueOf((page - 1) * size));
-        builder.addQueryParameter("limit", String.valueOf(Math.min(size,100)));
+        builder.addQueryParameter("limit", String.valueOf(Math.min(size, 100)));
         builder.addQueryParameter("rest", rest);
         return builder.build();
     }
+
     /**
      * 查询用户的收藏作品中使用的标签
      * @param userId 用户id
