@@ -153,7 +153,20 @@ public class PixivRequestAsync {
      * @param callback 响应处理
      */
     public static void userProfile(long userId,String cookie,UserProfileCallback callback){
-        final HttpUrl url = PixivUrl.userProfile(userId,"zh");
+        final HttpUrl url = PixivUrl.userProfileUrl(userId,"zh");
+        final Request request = PixivCommon.createGetRequest(cookie,url);
+        PixivCommon.CLIENT.newCall(request).enqueue(callback);
+    }
+
+    /**
+     * 查询用户的作品信息
+     * @param userId 用户id
+     * @param ids  需要查询的作品id
+     * @param cookie cookie
+     * @param callback 响应处理
+     */
+    public static void userIllusts(long userId, Collection<Long> ids,String cookie,UserIllustCallback callback){
+        final HttpUrl url = PixivUrl.userIllustUrl(userId,ids,"zh");
         final Request request = PixivCommon.createGetRequest(cookie,url);
         PixivCommon.CLIENT.newCall(request).enqueue(callback);
     }

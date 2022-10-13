@@ -169,7 +169,21 @@ public class PixivRequestSync {
      * @param cookie cookie
      */
     public static PixivResponse<ProfileBody> userProfile(long userId, String cookie) throws IOException {
-        final HttpUrl url = PixivUrl.userProfile(userId,"zh");
+        final HttpUrl url = PixivUrl.userProfileUrl(userId,"zh");
+        final Request request = PixivCommon.createGetRequest(cookie,url);
+        final ResponseBody responseBody = getResponseBody(request);
+        return JSONObject.parseObject(responseBody.string(), new TypeReference<>() {
+        });
+    }
+
+    /**
+     * 查询用户的作品信息
+     * @param userId 用户id
+     * @param ids  需要查询的作品id
+     * @param cookie cookie
+     */
+    public static PixivResponse<UserIllustBody> userIllusts(long userId, Collection<Long> ids, String cookie) throws IOException {
+        final HttpUrl url = PixivUrl.userIllustUrl(userId,ids,"zh");
         final Request request = PixivCommon.createGetRequest(cookie,url);
         final ResponseBody responseBody = getResponseBody(request);
         return JSONObject.parseObject(responseBody.string(), new TypeReference<>() {

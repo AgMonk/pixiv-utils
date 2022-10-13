@@ -5,6 +5,7 @@ import com.alibaba.fastjson.TypeReference;
 import okhttp3.HttpUrl;
 import org.gin.params.PixivParamSearch;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Objects;
 
@@ -65,7 +66,6 @@ public class PixivUrl {
     public static final String USER_ILLUST = DOMAIN_AJAX + "user/%d/profile/illusts";
 
 
-
     /**
      * 生成查询关注作者最新作品的URL
      * @param page 页码
@@ -86,30 +86,49 @@ public class PixivUrl {
      * @param param 参数
      * @return URL
      */
-    public static HttpUrl searchUrl(String keywords,int page,PixivParamSearch param) {
+    public static HttpUrl searchUrl(String keywords, int page, PixivParamSearch param) {
         final HttpUrl.Builder builder = Objects.requireNonNull(HttpUrl.parse(String.format(PixivUrl.SEARCH_ARTWORKS, keywords))).newBuilder();
         builder.addQueryParameter("p", String.valueOf(page));
-        addQueryParameter(builder,param);
+        addQueryParameter(builder, param);
         return builder.build();
     }
 
-    public static void addQueryParameter(HttpUrl.Builder builder ,Object object){
-        final HashMap<String,String> json = JSONObject.parseObject(JSONObject.toJSONString(object),new TypeReference<>(){});
+    public static void addQueryParameter(HttpUrl.Builder builder, Object object) {
+        final HashMap<String, String> json = JSONObject.parseObject(JSONObject.toJSONString(object), new TypeReference<>() {
+        });
         json.forEach(builder::addQueryParameter);
     }
 
     public static HttpUrl userInfoUrl(long userId, boolean fullInfo, String lang) {
         final HttpUrl.Builder builder = Objects.requireNonNull(HttpUrl.parse(String.format(PixivUrl.USER_INFO, userId))).newBuilder();
-        builder.addQueryParameter("lang",lang);
+        builder.addQueryParameter("lang", lang);
         if (fullInfo) {
-            builder.addQueryParameter("full","1");
+            builder.addQueryParameter("full", "1");
         }
         return builder.build();
     }
 
-    public static HttpUrl userProfile(long userId,String lang){
+    public static HttpUrl userProfileUrl(long userId, String lang) {
         final HttpUrl.Builder builder = Objects.requireNonNull(HttpUrl.parse(String.format(PixivUrl.USER_PROFILE, userId))).newBuilder();
-        builder.addQueryParameter("lang",lang);
+        builder.addQueryParameter("lang", lang);
+        return builder.build();
+    }
+
+    /**
+     * 生成用户作品url
+     * @param userId        用户id
+     * @param ids 需要查询的作品pid
+     * @param lang 预言
+     * @return url
+     */
+    public static HttpUrl userIllustUrl(long userId, Collection<Long> ids, String lang) {
+        final HttpUrl.Builder builder = Objects.requireNonNull(HttpUrl.parse(String.format(PixivUrl.USER_ILLUST, userId))).newBuilder();
+        builder.addQueryParameter("lang", lang);
+        builder.addQueryParameter("work_category", "illustManga");
+        builder.addQueryParameter("is_first_page", "1");
+        for (Long id : ids) {
+            builder.addQueryParameter("ids[]", String.valueOf(id));
+        }
         return builder.build();
     }
 }

@@ -214,9 +214,9 @@ Pixiv工具类
 - 传参方式：`QUERY`
 - 参数含义：
   - lang：语言，简中为 `zh`
-  - is_first_page：是否为第一页。1 = 是 ，0 = 否。也许不需要传递
-  - work_category： 作品类型，可选值：`illust`(插画)、`manga`(漫画)、`illustManga`(二者混合)
-  - ids：需要查询的作品id，可以传多个
+  - is_first_page：是否为第一页。1 = 是 ，0 = 否。返回结果疑似没有区别
+  - work_category： 作品类型，可选值：`illust`(插画)、`manga`(漫画)、`illustManga`(二者混合)。疑似不敏感，但是不能省略
+  - ids[]：需要查询的作品id，可以传多个
 
 ### 查询用户的收藏作品
 
