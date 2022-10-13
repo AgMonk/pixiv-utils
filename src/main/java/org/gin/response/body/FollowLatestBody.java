@@ -1,8 +1,8 @@
 package org.gin.response.body;
 
 import lombok.Data;
-import org.gin.response.fields.ArtworkInfo;
 import org.gin.response.fields.TagTranslation;
+import org.gin.response.fields.Thumbnails;
 
 import java.util.HashMap;
 import java.util.List;
@@ -23,9 +23,5 @@ public class FollowLatestBody {
         List<Long> ids;
     }
 
-    @Data
-    static class Thumbnails {
-        List<ArtworkInfo> illust;
-    }
 
 }

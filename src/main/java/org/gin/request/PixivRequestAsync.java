@@ -199,4 +199,15 @@ public class PixivRequestAsync {
         final Request request = PixivCommon.createGetRequest(cookie, url);
         PixivCommon.CLIENT.newCall(request).enqueue(callback);
     }
+    /**
+     * 查询用户发出约稿的作品
+     * @param userId 用户id
+     * @param cookie cookie
+     * @param callback 响应处理
+     */
+    public static void userCommissionRequestSent(long userId,  String cookie, UserCommissionCallback callback) {
+        final HttpUrl url = PixivUrl.userCommissionRequestSent(userId, "zh");
+        final Request request = PixivCommon.createGetRequest(cookie, url);
+        PixivCommon.CLIENT.newCall(request).enqueue(callback);
+    }
 }

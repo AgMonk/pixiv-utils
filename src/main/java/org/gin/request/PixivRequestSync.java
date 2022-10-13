@@ -221,4 +221,17 @@ public class PixivRequestSync {
         return JSONObject.parseObject(responseBody.string(), new TypeReference<>() {
         });
     }
+
+    /**
+     * 查询用户发出约稿的作品
+     * @param userId 用户id
+     * @param cookie cookie
+     */
+    public static PixivResponse<UserCommissionBody> userCommissionRequestSent(long userId,  String cookie) throws IOException {
+        final HttpUrl url = PixivUrl.userCommissionRequestSent(userId, "zh");
+        final Request request = PixivCommon.createGetRequest(cookie, url);
+        final ResponseBody responseBody = getResponseBody(request);
+        return JSONObject.parseObject(responseBody.string(), new TypeReference<>() {
+        });
+    }
 }

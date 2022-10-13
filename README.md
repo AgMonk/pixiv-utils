@@ -37,7 +37,7 @@ Pixiv工具类
 - 查询用户的作品信息：userIllusts
 - 查询用户的收藏作品：userBookmarks
 - 查询用户的收藏作品中使用的标签：userBookmarkTags
-- 查询用户发出约稿的作品：userRequestSent
+- 查询用户发出约稿的作品：userCommissionRequestSent
 
 # Pixiv API
 

@@ -49,6 +49,10 @@ public class PixivUrl {
      */
     public static final String URL_USER_BOOKMARKS = DOMAIN_AJAX + "user/%d/illusts/bookmarks";
     /**
+     * 查询用户发出约稿的作品
+     */
+    public static final String URL_USER_COMMISSION = DOMAIN_AJAX + "commission/page/users/%d/request/sent";
+    /**
      * 查询用户的收藏作品中使用的标签
      */
     public static final String URL_USER_BOOKMARKS_TAGS = DOMAIN_AJAX + "user/%d/illusts/bookmark/tags";
@@ -157,6 +161,19 @@ public class PixivUrl {
      */
     public static HttpUrl userBookmarkTags(long userId, String lang) {
         final HttpUrl.Builder builder = Objects.requireNonNull(HttpUrl.parse(String.format(PixivUrl.URL_USER_BOOKMARKS_TAGS, userId))).newBuilder();
+        builder.addQueryParameter("lang", lang);
+        return builder.build();
+    }
+
+   /**
+    *  查询用户发出约稿的作品
+    * @param userId 用户id
+    * @param lang 语言 
+    * @return okhttp3.HttpUrl
+    * @author bx002
+    */
+    public static HttpUrl userCommissionRequestSent(long userId, String lang) {
+        final HttpUrl.Builder builder = Objects.requireNonNull(HttpUrl.parse(String.format(PixivUrl.URL_USER_COMMISSION, userId))).newBuilder();
         builder.addQueryParameter("lang", lang);
         return builder.build();
     }
