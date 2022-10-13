@@ -30,6 +30,8 @@ Pixiv工具类
 - 删除收藏：bmkDel
 - 删除收藏（批量）：bmkDel（重载）
 - 搜索作品：search
+- 关注用户：followUser
+- 取关用户：unFollowUser
 
 # Pixiv API
 
@@ -191,7 +193,7 @@ Pixiv工具类
 - 传参方式：`QUERY`
 - 参数含义：
   - uid：(PATH传递)用户id
-  - full：固定为`1`，可能含义为“是否为完整信息”
+  - full：固定为`1`，传递该参数将获得额外信息
   - lang：语言，简中为 `zh`
 
 ### 查询用户的作品概况
