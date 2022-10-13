@@ -32,6 +32,7 @@ Pixiv工具类
 - 搜索作品：search
 - 关注用户：followUser
 - 取关用户：unFollowUser
+- 查询用户信息：userInf
 
 # Pixiv API
 

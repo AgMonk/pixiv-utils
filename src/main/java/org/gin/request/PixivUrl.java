@@ -57,6 +57,12 @@ public class PixivUrl {
      */
     public static final String PHP_RPC_GROUP_SETTING = PixivCommon.DOMAIN + "rpc_group_setting.php";
 
+    /**
+     * 用户信息
+     */
+    public static final String USER_INFO = DOMAIN_AJAX + "user/%d";
+
+
 
     /**
      * 生成查询关注作者最新作品的URL
@@ -88,5 +94,14 @@ public class PixivUrl {
     public static void addQueryParameter(HttpUrl.Builder builder ,Object object){
         final HashMap<String,String> json = JSONObject.parseObject(JSONObject.toJSONString(object),new TypeReference<>(){});
         json.forEach(builder::addQueryParameter);
+    }
+
+    public static HttpUrl userInfoUrl(long userId, boolean fullInfo, String lang) {
+        final HttpUrl.Builder builder = Objects.requireNonNull(HttpUrl.parse(String.format(PixivUrl.USER_INFO, userId))).newBuilder();
+        builder.addQueryParameter("lang",lang);
+        if (fullInfo) {
+            builder.addQueryParameter("full","1");
+        }
+        return builder.build();
     }
 }

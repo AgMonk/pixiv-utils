@@ -8,10 +8,7 @@ import org.gin.params.PixivParamSearch;
 import org.gin.params.PixivParamsBookmarksAdd;
 import org.gin.response.PixivResponse;
 import org.gin.response.RpcGroupResponse;
-import org.gin.response.body.ArtworkBody;
-import org.gin.response.body.BookmarkAddBody;
-import org.gin.response.body.FollowLatestBody;
-import org.gin.response.body.SearchBody;
+import org.gin.response.body.*;
 
 import java.io.IOException;
 import java.util.Collection;
@@ -150,5 +147,19 @@ public class PixivRequestSync {
         final Request request = PixivCommon.createPostRequest(cookie,PixivUrl.PHP_RPC_GROUP_SETTING,token, body);
         final ResponseBody responseBody = getResponseBody(request);
         return JSONObject.parseObject(responseBody.string(), RpcGroupResponse.class);
+    }
+
+    /**
+     * 获取用户信息
+     * @param userId 用户id
+     * @param cookie cookie
+     * @param fullInfo 是否需要获取完整信息
+     */
+    public static PixivResponse<UserInfoBody> userInfo(long userId, String cookie, boolean fullInfo) throws IOException {
+        final HttpUrl url = PixivUrl.userInfoUrl(userId,fullInfo,"zh");
+        final Request request = PixivCommon.createGetRequest(cookie,url);
+        final ResponseBody responseBody = getResponseBody(request);
+        return JSONObject.parseObject(responseBody.string(), new TypeReference<>() {
+        });
     }
 }
