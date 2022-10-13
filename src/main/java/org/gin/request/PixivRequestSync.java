@@ -30,7 +30,7 @@ public class PixivRequestSync {
      */
     @SuppressWarnings("UnusedReturnValue")
     public static PixivResponse<ArtworkBody> detail(long pid, String cookie) throws IOException {
-        final Request request = PixivCommon.createGetRequest(cookie, String.format(PixivUrl.URL_ILLUST_DETAIL, pid));
+        final Request request = PixivCommon.createGetRequest(cookie, String.format(PixivUrl.URL_ARTWORK_DETAIL, pid));
         final ResponseBody responseBody = getResponseBody(request);
         return JSONObject.parseObject(responseBody.string(), new TypeReference<>() {
         });
@@ -57,7 +57,7 @@ public class PixivRequestSync {
      */
     public static PixivResponse<BookmarkAddBody> bmkAdd(PixivParamsBookmarksAdd param, String cookie, String token) throws IOException {
         final RequestBody body = PixivCommon.createJsonBody(param);
-        final Request request = PixivCommon.createPostRequest(cookie, PixivUrl.ADD_BOOKMARKS, token, body);
+        final Request request = PixivCommon.createPostRequest(cookie, PixivUrl.URL_BOOKMARKS_ADD, token, body);
         final ResponseBody responseBody = getResponseBody(request);
         return JSONObject.parseObject(responseBody.string(), new TypeReference<>() {
         });
@@ -71,7 +71,7 @@ public class PixivRequestSync {
      */
     public static PixivResponse<JSONObject> bmkDel(long bookmarkId, String cookie, String token) throws IOException {
         final FormBody body = new FormBody.Builder().add("bookmark_id", String.valueOf(bookmarkId)).build();
-        final Request request = PixivCommon.createPostRequest(cookie, PixivUrl.DEL_BOOKMARKS, token, body);
+        final Request request = PixivCommon.createPostRequest(cookie, PixivUrl.URL_BOOKMARKS_DEL, token, body);
         final ResponseBody responseBody = getResponseBody(request);
         return JSONObject.parseObject(responseBody.string(), new TypeReference<>() {
         });
@@ -92,7 +92,7 @@ public class PixivRequestSync {
     public static PixivResponse<JSONObject> bmkDel(Collection<Long> bookmarkIds, String cookie, String token) throws IOException {
         final HashMap<String, Collection<Long>> map = new HashMap<>(1){{put("bookmarkIds", bookmarkIds);}};
         final RequestBody body = PixivCommon.createJsonBody(map);
-        final Request request = PixivCommon.createPostRequest(cookie, PixivUrl.REMOVE_BOOKMARKS, token, body);
+        final Request request = PixivCommon.createPostRequest(cookie, PixivUrl.URL_BOOKMARKS_REMOVE, token, body);
         final ResponseBody responseBody = getResponseBody(request);
         return JSONObject.parseObject(responseBody.string(), new TypeReference<>() {
         });
@@ -128,7 +128,7 @@ public class PixivRequestSync {
                 .add("restrict", String.valueOf(restrict))
                 .add("format","json")
                 .build();
-        final Request request = PixivCommon.createPostRequest(cookie,PixivUrl.PHP_BOOKMARK_ADD,token, body);
+        final Request request = PixivCommon.createPostRequest(cookie,PixivUrl.URL_PHP_BOOKMARK_ADD,token, body);
         getResponseBody(request);
     }
 
@@ -144,7 +144,7 @@ public class PixivRequestSync {
                 .add("type","bookuser")
                 .add("id", String.valueOf(userId))
                 .build();
-        final Request request = PixivCommon.createPostRequest(cookie,PixivUrl.PHP_RPC_GROUP_SETTING,token, body);
+        final Request request = PixivCommon.createPostRequest(cookie,PixivUrl.URL_PHP_RPC_GROUP_SETTING,token, body);
         final ResponseBody responseBody = getResponseBody(request);
         return JSONObject.parseObject(responseBody.string(), RpcGroupResponse.class);
     }

@@ -34,6 +34,7 @@ Pixiv工具类
 - 取关用户：unFollowUser
 - 查询用户信息：userInfo
 - 查询用户的作品概况：userProfile
+- 查询用户的作品信息：userIllusts
 
 # Pixiv API
 
