@@ -61,6 +61,8 @@ public class PixivUrl {
      * 用户信息
      */
     public static final String USER_INFO = DOMAIN_AJAX + "user/%d";
+    public static final String USER_PROFILE = DOMAIN_AJAX + "user/%d/profile/all";
+    public static final String USER_ILLUST = DOMAIN_AJAX + "user/%d/profile/illusts";
 
 
 
@@ -102,6 +104,12 @@ public class PixivUrl {
         if (fullInfo) {
             builder.addQueryParameter("full","1");
         }
+        return builder.build();
+    }
+
+    public static HttpUrl userProfile(long userId,String lang){
+        final HttpUrl.Builder builder = Objects.requireNonNull(HttpUrl.parse(String.format(PixivUrl.USER_PROFILE, userId))).newBuilder();
+        builder.addQueryParameter("lang",lang);
         return builder.build();
     }
 }

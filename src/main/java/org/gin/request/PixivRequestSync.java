@@ -162,4 +162,17 @@ public class PixivRequestSync {
         return JSONObject.parseObject(responseBody.string(), new TypeReference<>() {
         });
     }
+
+    /**
+     * 获取用户作品概况
+     * @param userId 用户id
+     * @param cookie cookie
+     */
+    public static PixivResponse<ProfileBody> userProfile(long userId, String cookie) throws IOException {
+        final HttpUrl url = PixivUrl.userProfile(userId,"zh");
+        final Request request = PixivCommon.createGetRequest(cookie,url);
+        final ResponseBody responseBody = getResponseBody(request);
+        return JSONObject.parseObject(responseBody.string(), new TypeReference<>() {
+        });
+    }
 }

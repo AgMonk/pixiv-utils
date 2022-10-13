@@ -32,7 +32,8 @@ Pixiv工具类
 - 搜索作品：search
 - 关注用户：followUser
 - 取关用户：unFollowUser
-- 查询用户信息：userInf
+- 查询用户信息：userInfo
+- 查询用户的作品概况：userProfile
 
 # Pixiv API
 
@@ -235,6 +236,16 @@ Pixiv工具类
 ### 查询用户的收藏作品中使用的标签
 
 - URL：`https://www.pixiv.net/ajax/user/${uid}/illusts/bookmark/tags`
+- 请求方法：`GET`
+- 传参方式：`QUERY`
+- 参数含义：
+  - uid：(PATH传递)用户id
+  - lang：语言，简中为 `zh`
+
+### 查询用户约稿的作品
+
+- URL：`https://www.pixiv.net/ajax/commission/page/users/${uid}/request/sent`
+
 - 请求方法：`GET`
 - 传参方式：`QUERY`
 - 参数含义：
