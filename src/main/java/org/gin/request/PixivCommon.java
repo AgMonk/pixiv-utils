@@ -27,6 +27,7 @@ public class PixivCommon {
         return new Request.Builder()
                 .url(url)
                 .header("cookie", cookie)
+                .header("referer", "https://www.pixiv.net/")
                 .build();
     }
 
@@ -34,6 +35,7 @@ public class PixivCommon {
         return new Request.Builder()
                 .url(url)
                 .header("cookie", cookie)
+                .header("referer", "https://www.pixiv.net/")
                 .build();
     }
 
@@ -42,6 +44,7 @@ public class PixivCommon {
                 .url(url)
                 .header("cookie", cookie)
                 .header("x-csrf-token", token)
+                .header("referer", "https://www.pixiv.net/")
                 .post(body)
                 .build()
                 ;
@@ -52,6 +55,7 @@ public class PixivCommon {
                 .url(url)
                 .header("cookie", cookie)
                 .header("x-csrf-token", token)
+                .header("referer", "https://www.pixiv.net/")
                 .post(body)
                 .build()
                 ;

@@ -7,6 +7,7 @@ import org.gin.callback.BasePixivCallback;
 import org.gin.params.PixivParamSearch;
 import org.gin.params.PixivParamsBookmarksAdd;
 import org.gin.response.PixivResponse;
+import org.gin.response.RpcGroupResponse;
 import org.gin.response.body.ArtworkBody;
 import org.gin.response.body.BookmarkAddBody;
 import org.gin.response.body.FollowLatestBody;
@@ -132,5 +133,22 @@ public class PixivRequestSync {
                 .build();
         final Request request = PixivCommon.createPostRequest(cookie,PixivUrl.PHP_BOOKMARK_ADD,token, body);
         getResponseBody(request);
+    }
+
+    /**
+     * 取关用户
+     * @param userId 需要取关的用户id
+     * @param cookie cookie
+     * @param token  x-csrf-token
+     */
+    public static RpcGroupResponse unFollowUser(long userId, String cookie, String token) throws IOException {
+        final FormBody body = new FormBody.Builder()
+                .add("mode","del")
+                .add("type","bookuser")
+                .add("id", String.valueOf(userId))
+                .build();
+        final Request request = PixivCommon.createPostRequest(cookie,PixivUrl.PHP_RPC_GROUP_SETTING,token, body);
+        final ResponseBody responseBody = getResponseBody(request);
+        return JSONObject.parseObject(responseBody.string(), RpcGroupResponse.class);
     }
 }
