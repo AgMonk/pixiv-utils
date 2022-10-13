@@ -96,6 +96,23 @@ public class PixivRequestAsync {
         PixivCommon.CLIENT.newCall(request).enqueue(callback);
     }
 
-
+    /**
+     * 关注用户
+     * @param userId 需要关注的用户id
+     * @param restrict 是否公开。0 = 公开，1 = 非公开
+     * @param cookie cookie
+     * @param token x-csrf-token
+     */
+    public static void followUser(long userId,int restrict, String cookie, String token,BasePixivCallback callback){
+        final FormBody body = new FormBody.Builder()
+                .add("mode","add")
+                .add("type","user")
+                .add("user_id", String.valueOf(userId))
+                .add("restrict", String.valueOf(restrict))
+                .add("format","json")
+                .build();
+        final Request request = PixivCommon.createPostRequest(cookie,PixivUrl.PHP_BOOKMARK_ADD,token, body);
+        PixivCommon.CLIENT.newCall(request).enqueue(callback);
+    }
 
 }

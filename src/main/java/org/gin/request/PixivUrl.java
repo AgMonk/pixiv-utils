@@ -48,6 +48,14 @@ public class PixivUrl {
      * 搜索作品
      */
     public static final String SEARCH_ARTWORKS = DOMAIN_AJAX + "search/artworks/%s";
+    /**
+     * php接口 bookmark_add
+     */
+    public static final String PHP_BOOKMARK_ADD = PixivCommon.DOMAIN + "bookmark_add.php";
+    /**
+     * php接口 rpc_group_setting
+     */
+    public static final String PHP_RPC_GROUP_SETTING = PixivCommon.DOMAIN + "rpc_group_setting.php";
 
 
     /**
