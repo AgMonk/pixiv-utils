@@ -22,11 +22,12 @@ public class LoggingInterceptor implements Interceptor {
     public Response intercept(Chain chain) throws IOException {
         Request request = chain.request();
         long startTime = System.nanoTime();
-        System.out.printf("%s [DEBUG]发送请求 %s on %s%n%s \n",
+        System.out.printf("%s [DEBUG]发送请求 %s on %s\n",
                 TimeUtils.format(ZonedDateTime.now()),
                 request.url(),
-                chain.connection(),
-                request.headers());
+                chain.connection()
+        );
+//        System.out.println(request.headers());
         Response response = chain.proceed(request);
 
         long endTime = System.nanoTime();

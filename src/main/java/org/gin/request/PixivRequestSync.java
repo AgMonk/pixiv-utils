@@ -189,4 +189,21 @@ public class PixivRequestSync {
         return JSONObject.parseObject(responseBody.string(), new TypeReference<>() {
         });
     }
+
+    /**
+     * 查询用户的收藏作品
+     * @param userId 用户id
+     * @param page   页码
+     * @param size   每页数量 最大100
+     * @param tag    标签
+     * @param rest   `show`公开的，`hide`不公开的(仅自己)
+     * @param cookie cookie
+     */
+    public static PixivResponse<UserBookmarkBody>  userBookmarks(long userId, int page, int size, String tag, String rest, String cookie) throws IOException {
+        final HttpUrl url = PixivUrl.userBookmarks(userId, page, size, tag, rest, "zh");
+        final Request request = PixivCommon.createGetRequest(cookie, url);
+        final ResponseBody responseBody = getResponseBody(request);
+        return JSONObject.parseObject(responseBody.string(), new TypeReference<>() {
+        });
+    }
 }

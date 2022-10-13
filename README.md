@@ -35,6 +35,7 @@ Pixiv工具类
 - 查询用户信息：userInfo
 - 查询用户的作品概况：userProfile
 - 查询用户的作品信息：userIllusts
+- 查询用户的收藏作品：userBookmarks
 
 # Pixiv API
 
@@ -229,7 +230,7 @@ Pixiv工具类
   - lang：语言，简中为 `zh`
   - tag：带有的标签
   - offset： 跳过前面 x 个查询结果
-  - limit：每次查询返回的结果条数上限
+  - limit：每次查询返回的结果条数上限，最大为100
   - rest：`show`公开的，`hide`不公开的(仅自己)
 
 - 备注：tag参数写`未分類`可以查询到添加收藏时未提供标签(网页端/APP的默认操作)的作品

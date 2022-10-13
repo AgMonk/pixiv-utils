@@ -133,7 +133,7 @@ public class PixivUrl {
      * 查询用户的收藏作品
      * @param userId 用户id
      * @param page   页码
-     * @param size   每页数量
+     * @param size   每页数量 最大100
      * @param tag    标签
      * @param rest   `show`公开的，`hide`不公开的(仅自己)
      * @param lang   语言，简中为 `zh`
@@ -144,7 +144,7 @@ public class PixivUrl {
         builder.addQueryParameter("lang", lang);
         builder.addQueryParameter("tag", tag == null ? "" : tag);
         builder.addQueryParameter("offset", String.valueOf((page - 1) * size));
-        builder.addQueryParameter("limit", String.valueOf(size));
+        builder.addQueryParameter("limit", String.valueOf(Math.min(size,100)));
         builder.addQueryParameter("rest", rest);
         return builder.build();
     }
