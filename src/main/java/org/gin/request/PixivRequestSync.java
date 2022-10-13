@@ -3,12 +3,13 @@ package org.gin.request;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.TypeReference;
 import okhttp3.*;
-import org.gin.callback.BasePixivCallback;
+import org.gin.response.callback.BasePixivCallback;
 import org.gin.params.PixivParamSearch;
 import org.gin.params.PixivParamsBookmarksAdd;
 import org.gin.response.PixivResponse;
 import org.gin.response.RpcGroupResponse;
 import org.gin.response.body.*;
+import org.gin.response.callback.UserBookmarkTagsCallback;
 
 import java.io.IOException;
 import java.util.Collection;
@@ -201,6 +202,20 @@ public class PixivRequestSync {
      */
     public static PixivResponse<UserBookmarkBody>  userBookmarks(long userId, int page, int size, String tag, String rest, String cookie) throws IOException {
         final HttpUrl url = PixivUrl.userBookmarks(userId, page, size, tag, rest, "zh");
+        final Request request = PixivCommon.createGetRequest(cookie, url);
+        final ResponseBody responseBody = getResponseBody(request);
+        return JSONObject.parseObject(responseBody.string(), new TypeReference<>() {
+        });
+    }
+
+    /**
+     * 查询用户的收藏作品中使用的标签
+     * @param userId 用户id
+     * @param cookie cookie
+     * @param callback 响应处理
+     */
+    public static PixivResponse<UserBookmarkTagsBody> userBookmarkTags(long userId,  String cookie, UserBookmarkTagsCallback callback) throws IOException {
+        final HttpUrl url = PixivUrl.userBookmarkTags(userId, "zh");
         final Request request = PixivCommon.createGetRequest(cookie, url);
         final ResponseBody responseBody = getResponseBody(request);
         return JSONObject.parseObject(responseBody.string(), new TypeReference<>() {

@@ -4,9 +4,9 @@ import okhttp3.FormBody;
 import okhttp3.HttpUrl;
 import okhttp3.Request;
 import okhttp3.RequestBody;
-import org.gin.callback.*;
 import org.gin.params.PixivParamSearch;
 import org.gin.params.PixivParamsBookmarksAdd;
+import org.gin.response.callback.*;
 
 import java.util.Collection;
 import java.util.HashMap;
@@ -183,8 +183,19 @@ public class PixivRequestAsync {
      * @param cookie cookie
      * @param callback 响应处理
      */
-    public static void userBookmarks(long userId, int page, int size, String tag, String rest,String cookie,UserBookmarkCallback callback) {
+    public static void userBookmarks(long userId, int page, int size, String tag, String rest, String cookie, UserBookmarkCallback callback) {
         final HttpUrl url = PixivUrl.userBookmarks(userId, page, size, tag, rest, "zh");
+        final Request request = PixivCommon.createGetRequest(cookie, url);
+        PixivCommon.CLIENT.newCall(request).enqueue(callback);
+    }
+    /**
+     * 查询用户的收藏作品中使用的标签
+     * @param userId 用户id
+     * @param cookie cookie
+     * @param callback 响应处理
+     */
+    public static void userBookmarkTags(long userId,  String cookie, UserBookmarkTagsCallback callback) {
+        final HttpUrl url = PixivUrl.userBookmarkTags(userId, "zh");
         final Request request = PixivCommon.createGetRequest(cookie, url);
         PixivCommon.CLIENT.newCall(request).enqueue(callback);
     }

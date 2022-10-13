@@ -1,4 +1,4 @@
-package org.gin.callback;
+package org.gin.response.callback;
 
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.TypeReference;

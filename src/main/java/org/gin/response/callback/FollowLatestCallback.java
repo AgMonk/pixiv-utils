@@ -1,4 +1,4 @@
-package org.gin.callback;
+package org.gin.response.callback;
 
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.TypeReference;
@@ -15,6 +15,7 @@ import java.io.IOException;
  **/
 public interface FollowLatestCallback extends BasePixivCallback  {
     /**
+     * 请求成功时的处理方法
      * @param responseBody 响应body
      * @throws IOException 异常
      */

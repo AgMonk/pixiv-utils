@@ -36,6 +36,8 @@ Pixiv工具类
 - 查询用户的作品概况：userProfile
 - 查询用户的作品信息：userIllusts
 - 查询用户的收藏作品：userBookmarks
+- 查询用户的收藏作品中使用的标签：userBookmarkTags
+- 查询用户发出约稿的作品：userRequestSent
 
 # Pixiv API
 
@@ -244,7 +246,7 @@ Pixiv工具类
   - uid：(PATH传递)用户id
   - lang：语言，简中为 `zh`
 
-### 查询用户约稿的作品
+### 查询用户发出约稿的作品
 
 - URL：`https://www.pixiv.net/ajax/commission/page/users/${uid}/request/sent`
 
