@@ -3,7 +3,6 @@ package org.gin.request;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.TypeReference;
 import okhttp3.HttpUrl;
-import org.gin.params.PixivParamSearch;
 
 import java.util.Collection;
 import java.util.HashMap;
@@ -15,53 +14,43 @@ import java.util.Objects;
  * @since : 2022/10/11 17:27
  **/
 public class PixivUrl {
-    public static final String DOMAIN = "https://www.pixiv.net/";
-    public static final String DOMAIN_AJAX = DOMAIN + "ajax/";
     /**
-     * 作品详情接口 cookie可选
+     * 根域名，可以修改
      */
-    public static final String URL_ARTWORK_DETAIL = DOMAIN_AJAX + "illust/%d";
-    /**
-     * 搜索作品
-     */
-    public static final String URL_ARTWORK_SEARCH = DOMAIN_AJAX + "search/artworks/%s";
+    public static String DOMAIN = "https://www.pixiv.net";
     /**
      * 添加收藏 需要cookie、x-csrf-token
      * body传参
      */
-    public static final String URL_BOOKMARKS_ADD = DOMAIN_AJAX + "illusts/bookmarks/add";
+    public static final String URL_BOOKMARKS_ADD = DOMAIN + "/ajax/illusts/bookmarks/add";
     /**
      * 移除收藏 需要cookie x-csrf-token
      * 表单传参
      */
-    public static final String URL_BOOKMARKS_DEL = DOMAIN_AJAX + "illusts/bookmarks/delete";
+    public static final String URL_BOOKMARKS_DEL = DOMAIN + "/ajax/illusts/bookmarks/delete";
     /**
      * 批量移除收藏 需要cookie x-csrf-token
      * 表单传参
      */
-    public static final String URL_BOOKMARKS_REMOVE = DOMAIN_AJAX + "illusts/bookmarks/remove";
-    /**
-     * 查询关注作者最新作品的URL 需要cookie
-     */
-    public static final String URL_FOLLOW_LATEST = DOMAIN_AJAX + "follow_latest/illust";
+    public static final String URL_BOOKMARKS_REMOVE = DOMAIN + "/ajax/illusts/bookmarks/remove";
     /**
      * 获取收藏作品接口 需要cookie
      */
-    public static final String URL_USER_BOOKMARKS = DOMAIN_AJAX + "user/%d/illusts/bookmarks";
+    public static final String URL_USER_BOOKMARKS = DOMAIN + "/ajax/user/%d/illusts/bookmarks";
     /**
      * 查询用户发出约稿的作品
      */
-    public static final String URL_USER_COMMISSION = DOMAIN_AJAX + "commission/page/users/%d/request/sent";
+    public static final String URL_USER_COMMISSION = DOMAIN + "/ajax/commission/page/users/%d/request/sent";
     /**
      * 查询用户的收藏作品中使用的标签
      */
-    public static final String URL_USER_BOOKMARKS_TAGS = DOMAIN_AJAX + "user/%d/illusts/bookmark/tags";
-    public static final String URL_USER_ILLUST = DOMAIN_AJAX + "user/%d/profile/illusts";
+    public static final String URL_USER_BOOKMARKS_TAGS = DOMAIN + "/ajax/user/%d/illusts/bookmark/tags";
+    public static final String URL_USER_ILLUST = DOMAIN + "/ajax/user/%d/profile/illusts";
     /**
      * 用户信息
      */
-    public static final String URL_USER_INFO = DOMAIN_AJAX + "user/%d";
-    public static final String URL_USER_PROFILE = DOMAIN_AJAX + "user/%d/profile/all";
+    public static final String URL_USER_INFO = DOMAIN + "/ajax/user/%d";
+    public static final String URL_USER_PROFILE = DOMAIN + "/ajax/user/%d/profile/all";
     /**
      * php接口 bookmark_add
      */
@@ -71,28 +60,6 @@ public class PixivUrl {
      */
     public static final String URL_PHP_RPC_GROUP_SETTING = DOMAIN + "rpc_group_setting.php";
 
-    /**
-     * 生成查询关注作者最新作品的URL
-     * @param page 页码
-     * @param mode 模式
-     * @param lang 语言
-     * @return URL
-     */
-    public static HttpUrl followLatestUrl(int page, String mode, String lang) {
-        return Objects.requireNonNull(HttpUrl.parse(PixivUrl.URL_FOLLOW_LATEST)).newBuilder().addQueryParameter("mode", mode).addQueryParameter("lang", lang).addQueryParameter("p", String.valueOf(page)).build();
-    }
-
-    /**
-     * 生成搜索URL
-     * @param param 参数
-     * @return URL
-     */
-    public static HttpUrl searchUrl(String keywords, int page, PixivParamSearch param) {
-        final HttpUrl.Builder builder = Objects.requireNonNull(HttpUrl.parse(String.format(PixivUrl.URL_ARTWORK_SEARCH, keywords))).newBuilder();
-        builder.addQueryParameter("p", String.valueOf(page));
-        addQueryParameter(builder, param);
-        return builder.build();
-    }
 
     public static void addQueryParameter(HttpUrl.Builder builder, Object object) {
         final HashMap<String, String> json = JSONObject.parseObject(JSONObject.toJSONString(object), new TypeReference<>() {
@@ -165,13 +132,12 @@ public class PixivUrl {
         return builder.build();
     }
 
-   /**
-    *  查询用户发出约稿的作品
-    * @param userId 用户id
-    * @param lang 语言 
-    * @return okhttp3.HttpUrl
-    * @author bx002
-    */
+    /**
+     * 查询用户发出约稿的作品
+     * @param userId 用户id
+     * @param lang   语言
+     * @return okhttp3.HttpUrl
+     */
     public static HttpUrl userCommissionRequestSent(long userId, String lang) {
         final HttpUrl.Builder builder = Objects.requireNonNull(HttpUrl.parse(String.format(PixivUrl.URL_USER_COMMISSION, userId))).newBuilder();
         builder.addQueryParameter("lang", lang);

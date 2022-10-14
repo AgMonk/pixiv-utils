@@ -31,6 +31,15 @@
             <version>4.10.0</version>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/com.github.huanying04.utils/jixiv -->
+        <dependency>
+            <groupId>com.github.huanying04.utils</groupId>
+            <artifactId>jixiv</artifactId>
+            <version>0.1.0.15</version>
+        </dependency>
+
+
+
 
         <!--suppress VulnerableLibrariesLocal -->
         <dependency>

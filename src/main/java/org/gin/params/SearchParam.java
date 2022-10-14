@@ -1,5 +1,6 @@
 package org.gin.params;
 
+import com.alibaba.fastjson.annotation.JSONField;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,7 +13,12 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class PixivParamSearch {
+public class SearchParam {
+    /**
+     * 页码
+     */
+    @JSONField(name = "p")
+    int page = 1;
     /**
      * 排序模式: 可选值：`date_d`从新到旧(默认),`date`从旧到新
      */
@@ -33,6 +39,5 @@ public class PixivParamSearch {
      * 发布时间（止），以东九区为准，格式：yyyy-MM-dd
      */
     String ecd;
-
 
 }

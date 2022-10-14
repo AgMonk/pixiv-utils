@@ -4,7 +4,6 @@ import okhttp3.FormBody;
 import okhttp3.HttpUrl;
 import okhttp3.Request;
 import okhttp3.RequestBody;
-import org.gin.params.PixivParamSearch;
 import org.gin.params.PixivParamsBookmarksAdd;
 import org.gin.response.callback.*;
 
@@ -17,30 +16,9 @@ import java.util.HashMap;
  * @version : v1.0.0
  * @since : 2022/10/11 16:53
  **/
-@SuppressWarnings("unused")
-public class PixivRequestAsync {
-    /**
-     * 查询作品详情(异步)
-     * @param pid      pid
-     * @param cookie   cookie
-     * @param callback 响应处理
-     */
-    public static void detail(long pid, String cookie, DetailCallback callback) {
-        final Request request = PixivCommon.createGetRequest(cookie, String.format(PixivUrl.URL_ARTWORK_DETAIL, pid));
-        PixivCommon.CLIENT.newCall(request).enqueue(callback);
-    }
 
-    /**
-     * 查询关注作者最新作品
-     * @param page     页码
-     * @param cookie   cookie
-     * @param callback 响应处理
-     */
-    public static void followLatest(int page, String cookie, FollowLatestCallback callback) {
-        final HttpUrl url = PixivUrl.followLatestUrl(page, "all", "zh");
-        final Request request = PixivCommon.createGetRequest(cookie, url);
-        PixivCommon.CLIENT.newCall(request).enqueue(callback);
-    }
+public class PixivRequestAsync {
+
 
     /**
      * 添加收藏
@@ -84,19 +62,6 @@ public class PixivRequestAsync {
         PixivCommon.CLIENT.newCall(request).enqueue(callback);
     }
 
-    /**
-     * 搜索作品
-     * @param keywords 关键字
-     * @param page     页码
-     * @param param    其他参数
-     * @param cookie   cookie
-     * @param callback 响应处理
-     */
-    public static void search(String keywords, int page, PixivParamSearch param, String cookie, SearchCallback callback) {
-        final HttpUrl url = PixivUrl.searchUrl(keywords, page, param);
-        final Request request = PixivCommon.createGetRequest(cookie, url);
-        PixivCommon.CLIENT.newCall(request).enqueue(callback);
-    }
 
     /**
      * 关注用户

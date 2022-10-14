@@ -3,12 +3,11 @@ package org.gin.request;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.TypeReference;
 import okhttp3.*;
-import org.gin.response.callback.BasePixivCallback;
-import org.gin.params.PixivParamSearch;
 import org.gin.params.PixivParamsBookmarksAdd;
 import org.gin.response.PixivResponse;
 import org.gin.response.RpcGroupResponse;
 import org.gin.response.body.*;
+import org.gin.response.callback.BasePixivCallback;
 import org.gin.response.callback.UserBookmarkTagsCallback;
 
 import java.io.IOException;
@@ -21,34 +20,7 @@ import java.util.HashMap;
  * @version : v1.0.0
  * @since : 2022/10/10 14:19
  **/
-@SuppressWarnings("unused")
 public class PixivRequestSync {
-
-    /**
-     * 查询作品详情(同步)
-     * @param pid    pid
-     * @param cookie cookie
-     */
-    @SuppressWarnings("UnusedReturnValue")
-    public static PixivResponse<ArtworkBody> detail(long pid, String cookie) throws IOException {
-        final Request request = PixivCommon.createGetRequest(cookie, String.format(PixivUrl.URL_ARTWORK_DETAIL, pid));
-        final ResponseBody responseBody = getResponseBody(request);
-        return JSONObject.parseObject(responseBody.string(), new TypeReference<>() {
-        });
-    }
-
-    /**
-     * 查询关注作者最新作品
-     * @param page   页码
-     * @param cookie cookie
-     */
-    public static PixivResponse<FollowLatestBody> followLatest(int page, String cookie) throws IOException {
-        final HttpUrl url = PixivUrl.followLatestUrl(page, "all", "zh");
-        final Request request = PixivCommon.createGetRequest(cookie, url);
-        final ResponseBody responseBody = getResponseBody(request);
-        return JSONObject.parseObject(responseBody.string(), new TypeReference<>() {
-        });
-    }
 
     /**
      * 添加收藏
@@ -99,20 +71,6 @@ public class PixivRequestSync {
         });
     }
 
-    /**
-     * 搜索作品
-     * @param keywords 关键字
-     * @param page     页码
-     * @param param    其他参数
-     * @param cookie   cookie
-     */
-    public static  PixivResponse<SearchBody> search(String keywords, int page, PixivParamSearch param, String cookie) throws IOException {
-        final HttpUrl url = PixivUrl.searchUrl(keywords,page,param);
-        final Request request = PixivCommon.createGetRequest(cookie,url);
-        final ResponseBody responseBody = getResponseBody(request);
-        return JSONObject.parseObject(responseBody.string(), new TypeReference<>() {
-        });
-    }
 
     /**
      * 关注用户

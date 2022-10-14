@@ -41,7 +41,16 @@ Pixiv工具类
 
 # Pixiv API
 
-以`POST`发出的`修改`操作，请求头中均需要添加字段 `x-csrf-token`，可以打开F12面板，进行一次操作查看请求头中发送的该字段
+
+
+## Token说明
+
+以`POST`发出的`修改`操作，请求头中均需要添加字段 `x-csrf-token`
+
+获取方式：
+
+- 可以打开F12面板，进行一次操作查看请求头中发送的该字段
+- 请求 `https://www.pixiv.net/setting_user.php` 页面，页面源码中有 `pixiv.context.token = "xxxxxxx";`
 
 ## 作品
 
@@ -92,7 +101,12 @@ Pixiv工具类
   - scd：发布时间（起），以东九区为准，格式：yyyy-MM-dd
   - ecd：发布时间（止），以东九区为准，格式：yyyy-MM-dd
 
+### 查询动图的其他信息
 
+- URL：`https://www.pixiv.net/ajax/illust/${pid}/ugoira_meta`
+- 请求方法：`GET`
+- 传参方式：`无参`
+- 
 
 ## 收藏
 
