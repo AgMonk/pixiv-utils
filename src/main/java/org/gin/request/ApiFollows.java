@@ -13,7 +13,7 @@ import org.gin.response.body.FollowLatestBody;
  * @version : v1.0.0
  * @since : 2022/10/14 16:59
  **/
-public class Follows {
+public class ApiFollows {
    /**
     * 查询关注作者的最新作品
     * @param followLatestParam 参数

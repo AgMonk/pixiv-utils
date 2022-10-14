@@ -1,11 +1,8 @@
 package org.gin.request;
 
-import com.alibaba.fastjson.JSONObject;
-import com.alibaba.fastjson.TypeReference;
 import okhttp3.HttpUrl;
 
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.Objects;
 
 /**
@@ -46,10 +43,6 @@ public class PixivUrl {
      */
     public static final String URL_USER_BOOKMARKS_TAGS = DOMAIN + "/ajax/user/%d/illusts/bookmark/tags";
     public static final String URL_USER_ILLUST = DOMAIN + "/ajax/user/%d/profile/illusts";
-    /**
-     * 用户信息
-     */
-    public static final String URL_USER_INFO = DOMAIN + "/ajax/user/%d";
     public static final String URL_USER_PROFILE = DOMAIN + "/ajax/user/%d/profile/all";
     /**
      * php接口 bookmark_add
@@ -60,21 +53,6 @@ public class PixivUrl {
      */
     public static final String URL_PHP_RPC_GROUP_SETTING = DOMAIN + "rpc_group_setting.php";
 
-
-    public static void addQueryParameter(HttpUrl.Builder builder, Object object) {
-        final HashMap<String, String> json = JSONObject.parseObject(JSONObject.toJSONString(object), new TypeReference<>() {
-        });
-        json.forEach(builder::addQueryParameter);
-    }
-
-    public static HttpUrl userInfoUrl(long userId, boolean fullInfo, String lang) {
-        final HttpUrl.Builder builder = Objects.requireNonNull(HttpUrl.parse(String.format(PixivUrl.URL_USER_INFO, userId))).newBuilder();
-        builder.addQueryParameter("lang", lang);
-        if (fullInfo) {
-            builder.addQueryParameter("full", "1");
-        }
-        return builder.build();
-    }
 
     public static HttpUrl userProfileUrl(long userId, String lang) {
         final HttpUrl.Builder builder = Objects.requireNonNull(HttpUrl.parse(String.format(PixivUrl.URL_USER_PROFILE, userId))).newBuilder();

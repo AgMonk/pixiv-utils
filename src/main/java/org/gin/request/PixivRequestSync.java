@@ -109,20 +109,6 @@ public class PixivRequestSync {
     }
 
     /**
-     * 获取用户信息
-     * @param userId 用户id
-     * @param cookie cookie
-     * @param fullInfo 是否需要获取完整信息
-     */
-    public static PixivResponse<UserInfoBody> userInfo(long userId, String cookie, boolean fullInfo) throws IOException {
-        final HttpUrl url = PixivUrl.userInfoUrl(userId,fullInfo,"zh");
-        final Request request = PixivCommon.createGetRequest(cookie,url);
-        final ResponseBody responseBody = getResponseBody(request);
-        return JSONObject.parseObject(responseBody.string(), new TypeReference<>() {
-        });
-    }
-
-    /**
      * 获取用户作品概况
      * @param userId 用户id
      * @param cookie cookie

@@ -2,8 +2,8 @@ package org.gin.request;
 
 import okhttp3.*;
 import org.gin.exception.PixivException;
-import org.gin.response.callback.BaseCallback;
-import org.gin.response.callback.Convertor;
+import org.gin.response.callback.Callback;
+import org.gin.response.convertor.Convertor;
 
 import java.io.IOException;
 
@@ -30,15 +30,16 @@ public class PixivRequest<R> {
      * 异步请求
      * @param callback 响应处理
      */
-    public void async(Callback callback) {
+    public void async(okhttp3.Callback callback) {
         client.newCall(request).enqueue(callback);
     }
+
     /**
      * 异步请求
      * @param callback 响应处理
      */
-    public void async(BaseCallback<R> callback) {
-        async((Callback) callback);
+    public void async(Callback<R> callback) {
+        async((okhttp3.Callback) callback);
     }
 
     /**
@@ -50,12 +51,11 @@ public class PixivRequest<R> {
     public ResponseBody sync() throws IOException, PixivException {
         final Call call = client.newCall(request);
         final Response response = call.execute();
-        return BaseCallback.handle(call, response);
+        return Callback.handle(call, response);
     }
 
     /**
      * 同步请求
-     * @param convert 转换方法
      * @return R
      * @throws IOException    异常
      * @throws PixivException pixiv异常

@@ -15,7 +15,7 @@ import org.jetbrains.annotations.NotNull;
  * @since : 2022/10/14 15:52
  **/
 
-public class IllustManga {
+public class ApiIllustManga {
 
     /**
      * 查询插画 / 漫画的详情信息

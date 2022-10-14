@@ -3,11 +3,11 @@ package org.gin.response.callback;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.TypeReference;
 import okhttp3.Call;
-import okhttp3.Callback;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
 import org.gin.exception.PixivException;
 import org.gin.response.PixivResponse;
+import org.gin.response.convertor.Convertor;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
@@ -18,7 +18,7 @@ import java.util.Objects;
  * @version : v1.0.0
  * @since : 2022/10/14 15:47
  **/
-public interface BaseCallback<R> extends Callback, Convertor<R> {
+public interface Callback<R> extends okhttp3.Callback, Convertor<R> {
     /**
      * 处理响应
      * @param call     call

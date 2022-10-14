@@ -101,19 +101,6 @@ public class PixivRequestAsync {
     }
 
     /**
-     * 获取用户信息
-     * @param userId   用户id
-     * @param cookie   cookie
-     * @param fullInfo 是否需要获取完整信息
-     * @param callback 响应处理
-     */
-    public static void userInfo(long userId, String cookie, boolean fullInfo, UserInfoCallback callback) {
-        final HttpUrl url = PixivUrl.userInfoUrl(userId, fullInfo, "zh");
-        final Request request = PixivCommon.createGetRequest(cookie, url);
-        PixivCommon.CLIENT.newCall(request).enqueue(callback);
-    }
-
-    /**
      * 获取用户作品概况
      * @param userId   用户id
      * @param cookie   cookie
