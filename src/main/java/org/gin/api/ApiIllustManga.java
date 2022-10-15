@@ -2,12 +2,10 @@ package org.gin.api;
 
 import okhttp3.OkHttpClient;
 import org.gin.params.SearchParam;
-import org.gin.request.Pixiv;
-import org.gin.request.PixivCookieToken;
-import org.gin.request.PixivRequest;
-import org.gin.request.PixivUrl;
+import org.gin.request.*;
 import org.gin.response.PixivResponse;
 import org.gin.response.body.ArtworkBody;
+import org.gin.response.body.LikeBody;
 import org.gin.response.body.SearchBody;
 import org.jetbrains.annotations.NotNull;
 
@@ -48,13 +46,34 @@ public class ApiIllustManga {
                                                                  @NotNull SearchParam param,
                                                                  @NotNull PixivCookieToken pixivCookieToken,
                                                                  @NotNull OkHttpClient client) {
-        return new PixivRequest<>(PixivUrl.createHttpUrl(param, Pixiv.DOMAIN + "/ajax/search/artworks/%s", keywords)
-                , client, pixivCookieToken);
+        return new PixivRequest<>(
+                PixivUrl.createHttpUrl(param, Pixiv.DOMAIN + "/ajax/search/artworks/%s", keywords),
+                client, pixivCookieToken
+        );
     }
+
+    /**
+     * 喜欢作品
+     * @param pid              作品id
+     * @param pixivCookieToken cooke和token
+     * @param client           客户端
+     * @return org.gin.request.PixivRequest<org.gin.response.PixivResponse < java.lang.String>>
+     * @since 2022/10/15 16:06
+     */
+    public static PixivRequest<PixivResponse<LikeBody>> like(long pid,
+                                                             @NotNull PixivCookieToken pixivCookieToken,
+                                                             @NotNull OkHttpClient client
+    ) {
+        return new PixivRequest<>(
+                PixivUrl.createHttpUrl(Pixiv.DOMAIN + "/ajax/illusts/like"),
+                PixivRequestBody.createJsonBody("illust_id", pid),
+                client, pixivCookieToken
+        );
+    }
+
 
     //todo 获取评论(根和楼中楼)
     //todo 发表评论
-    //todo 喜欢
     //todo 取消喜欢
     //todo 查询动图的其他信息
 

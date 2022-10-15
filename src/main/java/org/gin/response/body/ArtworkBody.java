@@ -69,6 +69,10 @@ public class ArtworkBody {
      */
     Integer likeCount;
     /**
+     * 是否喜欢
+     */
+    Boolean likeData;
+    /**
      * 作品含有的图片数量
      */
     Integer pageCount;
