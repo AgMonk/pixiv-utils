@@ -29,7 +29,7 @@ public class ApiUser {
                                                                      @NotNull UserInfoParam param,
                                                                      @NotNull PixivCookieToken pixivCookieToken,
                                                                      @NotNull OkHttpClient client) {
-        return new PixivRequest<>(PixivCommon.createHttpUrl(param, Pixiv.DOMAIN + "/ajax/user/%d", userId)
+        return new PixivRequest<>(PixivUrl.createHttpUrl(param, Pixiv.DOMAIN + "/ajax/user/%d", userId)
                 , client, pixivCookieToken);
     }
 
@@ -46,7 +46,7 @@ public class ApiUser {
                                                                           @NotNull SimpleParam param,
                                                                           @NotNull PixivCookieToken pixivCookieToken,
                                                                           @NotNull OkHttpClient client) {
-        return new PixivRequest<>(PixivCommon.createHttpUrl(param, Pixiv.DOMAIN + "/ajax/user/%d/profile/all", userId)
+        return new PixivRequest<>(PixivUrl.createHttpUrl(param, Pixiv.DOMAIN + "/ajax/user/%d/profile/all", userId)
                 , client, pixivCookieToken);
     }
 
@@ -63,7 +63,7 @@ public class ApiUser {
                                                                                  @NotNull ProfileIllustsParam param,
                                                                                  @NotNull PixivCookieToken pixivCookieToken,
                                                                                  @NotNull OkHttpClient client) {
-        return new PixivRequest<>(PixivCommon.createHttpUrl(param, Pixiv.DOMAIN + "/ajax/user/%d/profile/illusts", userId)
+        return new PixivRequest<>(PixivUrl.createHttpUrl(param, Pixiv.DOMAIN + "/ajax/user/%d/profile/illusts", userId)
                 , client, pixivCookieToken);
     }
 
@@ -80,7 +80,7 @@ public class ApiUser {
                                                                                      @NotNull IllustsBookmarksParam param,
                                                                                      @NotNull PixivCookieToken pixivCookieToken,
                                                                                      @NotNull OkHttpClient client) {
-        return new PixivRequest<>(PixivCommon.createHttpUrl(param, Pixiv.DOMAIN + "/ajax/user/%d/illusts/bookmarks", userId)
+        return new PixivRequest<>(PixivUrl.createHttpUrl(param, Pixiv.DOMAIN + "/ajax/user/%d/illusts/bookmarks", userId)
                 , client, pixivCookieToken);
     }
 
@@ -97,7 +97,7 @@ public class ApiUser {
                                                                                           @NotNull SimpleParam param,
                                                                                           @NotNull PixivCookieToken pixivCookieToken,
                                                                                           @NotNull OkHttpClient client) {
-        return new PixivRequest<>(PixivCommon.createHttpUrl(param, Pixiv.DOMAIN + "/ajax/user/%d/illusts/bookmark/tags", userId)
+        return new PixivRequest<>(PixivUrl.createHttpUrl(param, Pixiv.DOMAIN + "/ajax/user/%d/illusts/bookmark/tags", userId)
                 , client, pixivCookieToken);
     }
 
@@ -114,7 +114,7 @@ public class ApiUser {
                                                                                                @NotNull SimpleParam param,
                                                                                                @NotNull PixivCookieToken pixivCookieToken,
                                                                                                @NotNull OkHttpClient client) {
-        return new PixivRequest<>(PixivCommon.createHttpUrl(param, Pixiv.DOMAIN + "/ajax/commission/page/users/%d/request/sent", userId)
+        return new PixivRequest<>(PixivUrl.createHttpUrl(param, Pixiv.DOMAIN + "/ajax/commission/page/users/%d/request/sent", userId)
                 , client, pixivCookieToken);
     }
 }

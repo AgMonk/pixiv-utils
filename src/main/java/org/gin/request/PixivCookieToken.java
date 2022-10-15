@@ -39,8 +39,8 @@ public class PixivCookieToken {
     }
 
     public String findToken(OkHttpClient client) throws PixivException, IOException {
-        final HttpUrl httpUrl = PixivCommon.createHttpUrl(Pixiv.DOMAIN + URL);
-        final Request request = PixivCommon.createGetRequest(cookie, httpUrl);
+        final HttpUrl httpUrl = PixivUrl.createHttpUrl(Pixiv.DOMAIN + URL);
+        final Request request = PixivRequest.createGetRequest(cookie, httpUrl);
         try (final Response response = client.newCall(request).execute()) {
             final String html = Objects.requireNonNull(response.body()).string();
             final Matcher matcher = PATTERN.matcher(html);

@@ -28,8 +28,8 @@ public class ApiBookmark {
                                                                          @NonNull OkHttpClient client
     ) {
         return new PixivRequest<>(
-                PixivCommon.createHttpUrl(Pixiv.DOMAIN + "/ajax/illusts/bookmarks/add")
-                , PixivCommon.createJsonBody(param)
+                PixivUrl.createHttpUrl(Pixiv.DOMAIN + "/ajax/illusts/bookmarks/add")
+                , PixivRequestBody.createJsonBody(param)
                 , client, pixivCookieToken);
     }
 
@@ -46,8 +46,8 @@ public class ApiBookmark {
                                                                 @NonNull OkHttpClient client
     ) {
         return new PixivRequest<>(
-                PixivCommon.createHttpUrl(Pixiv.DOMAIN + "/ajax/illusts/bookmarks/delete")
-                , PixivCommon.createFormBody("bookmark_id", bookmarkId)
+                PixivUrl.createHttpUrl(Pixiv.DOMAIN + "/ajax/illusts/bookmarks/delete")
+                , PixivRequestBody.createFormBody("bookmark_id", bookmarkId)
                 , client, pixivCookieToken);
     }
 
@@ -64,8 +64,8 @@ public class ApiBookmark {
                                                                 @NonNull OkHttpClient client
     ) {
         return new PixivRequest<>(
-                PixivCommon.createHttpUrl(Pixiv.DOMAIN + "/ajax/illusts/bookmarks/remove")
-                , PixivCommon.createJsonBody("bookmarkIds", bookmarkIds)
+                PixivUrl.createHttpUrl(Pixiv.DOMAIN + "/ajax/illusts/bookmarks/remove")
+                , PixivRequestBody.createJsonBody("bookmarkIds", bookmarkIds)
                 , client, pixivCookieToken);
     }
 

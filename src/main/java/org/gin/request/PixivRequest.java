@@ -1,6 +1,7 @@
 package org.gin.request;
 
 import okhttp3.*;
+import org.gin.StringUtils;
 import org.gin.exception.PixivException;
 import org.gin.exception.PixivRequestException;
 import org.gin.response.callback.BaseCallback;
@@ -17,18 +18,19 @@ import java.io.IOException;
 public class PixivRequest<R> {
     final Request request;
     final OkHttpClient client;
-/**
- * POST请求
- * @param httpUrl          url
- * @param client           客户端
- * @param pixivCookieToken cooke和token
- * @param body             请求body参数
- * @since 2022/10/15 12:11
- */
-public PixivRequest(HttpUrl httpUrl, RequestBody body, OkHttpClient client, PixivCookieToken pixivCookieToken) {
-    this.client = client;
-    this.request = PixivCommon.createRequest(pixivCookieToken, httpUrl, body);
-}
+
+    /**
+     * POST请求
+     * @param httpUrl          url
+     * @param client           客户端
+     * @param pixivCookieToken cooke和token
+     * @param body             请求body参数
+     * @since 2022/10/15 12:11
+     */
+    public PixivRequest(HttpUrl httpUrl, RequestBody body, OkHttpClient client, PixivCookieToken pixivCookieToken) {
+        this.client = client;
+        this.request = createRequest(pixivCookieToken, httpUrl, body);
+    }
 
     /**
      * GET请求
@@ -39,7 +41,63 @@ public PixivRequest(HttpUrl httpUrl, RequestBody body, OkHttpClient client, Pixi
      */
     public PixivRequest(HttpUrl httpUrl, OkHttpClient client, PixivCookieToken pixivCookieToken) {
         this.client = client;
-        this.request = PixivCommon.createRequest(pixivCookieToken, httpUrl, null);
+        this.request = createRequest(pixivCookieToken, httpUrl, null);
+    }
+
+    public static Request createGetRequest(String cookie, String url) {
+        return createRequest(cookie, url, null, null);
+    }
+
+    public static Request createGetRequest(String cookie, HttpUrl url) {
+        return createRequest(cookie, url, null, null);
+    }
+
+    public static Request createPostRequest(String cookie, HttpUrl url, String token, RequestBody body) {
+        return createRequest(cookie, url, token, body);
+    }
+
+    public static Request createPostRequest(String cookie, String url, String token, RequestBody body) {
+        return createRequest(cookie, url, token, body);
+    }
+
+    /**
+     * 创建请求对象
+     * @param cookie cookie
+     * @param url    url
+     * @param token  token
+     * @param body   body
+     * @return okhttp3.Request
+     */
+    public static Request createRequest(String cookie, String url, String token, RequestBody body) {
+        return createRequest(cookie, HttpUrl.parse(url), token, body);
+    }
+
+    public static Request createRequest(PixivCookieToken pixivCookieToken, HttpUrl httpUrl, RequestBody body) {
+        return createRequest(pixivCookieToken.getCookie(), httpUrl, pixivCookieToken.getToken(), body);
+    }
+
+    /**
+     * 创建请求对象
+     * @param cookie  cookie
+     * @param httpUrl url
+     * @param token   token
+     * @param body    body
+     * @return okhttp3.Request
+     */
+    public static Request createRequest(String cookie, HttpUrl httpUrl, String token, RequestBody body) {
+        final Request.Builder builder = new Request.Builder().url(httpUrl)
+                .header("referer", "https://www.pixiv.net/")
+                .header("cookie", cookie);
+//        如果传入了token 添加token header
+        if (StringUtils.isNotEmpty(token)) {
+            builder.header("x-csrf-token", token);
+        }
+        //有 body 表示为post请求
+        if (body != null) {
+            return builder.post(body).build();
+        }
+//       否则为get请求
+        return builder.get().build();
     }
 
     /**
