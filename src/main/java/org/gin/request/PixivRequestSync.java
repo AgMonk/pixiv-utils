@@ -3,10 +3,8 @@ package org.gin.request;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.TypeReference;
 import okhttp3.*;
-import org.gin.params.PixivParamsBookmarksAdd;
 import org.gin.response.PixivResponse;
 import org.gin.response.RpcGroupResponse;
-import org.gin.response.body.BookmarkAddBody;
 import org.gin.response.callback.BasePixivCallback;
 
 import java.io.IOException;
@@ -20,34 +18,6 @@ import java.util.HashMap;
  * @since : 2022/10/10 14:19
  **/
 public class PixivRequestSync {
-
-    /**
-     * 添加收藏
-     * @param param  参数
-     * @param cookie cookie
-     * @param token  x-csrf-token
-     */
-    public static PixivResponse<BookmarkAddBody> bmkAdd(PixivParamsBookmarksAdd param, String cookie, String token) throws IOException {
-        final RequestBody body = PixivCommon.createJsonBody(param);
-        final Request request = PixivCommon.createPostRequest(cookie, PixivUrl.URL_BOOKMARKS_ADD, token, body);
-        final ResponseBody responseBody = getResponseBody(request);
-        return JSONObject.parseObject(responseBody.string(), new TypeReference<>() {
-        });
-    }
-
-    /**
-     * 删除收藏
-     * @param bookmarkId 收藏id
-     * @param cookie     cookie
-     * @param token      x-csrf-token
-     */
-    public static PixivResponse<JSONObject> bmkDel(long bookmarkId, String cookie, String token) throws IOException {
-        final FormBody body = new FormBody.Builder().add("bookmark_id", String.valueOf(bookmarkId)).build();
-        final Request request = PixivCommon.createPostRequest(cookie, PixivUrl.URL_BOOKMARKS_DEL, token, body);
-        final ResponseBody responseBody = getResponseBody(request);
-        return JSONObject.parseObject(responseBody.string(), new TypeReference<>() {
-        });
-    }
 
     private static ResponseBody getResponseBody(Request request) throws IOException {
         final Call call = PixivCommon.CLIENT.newCall(request);

@@ -15,7 +15,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class PixivParamsBookmarksAdd implements Serializable {
+public class BookmarksAddParam implements Serializable {
     @JSONField(name = "illust_id")
     long pid;
     /**
@@ -31,8 +31,12 @@ public class PixivParamsBookmarksAdd implements Serializable {
      */
     List<String> tags = new ArrayList<>();
 
-    public PixivParamsBookmarksAdd(long pid, List<String> tags) {
+    public BookmarksAddParam(long pid, List<String> tags) {
         this.pid = pid;
         this.tags = tags;
+    }
+
+    public BookmarksAddParam(long pid) {
+        this.pid = pid;
     }
 }

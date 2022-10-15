@@ -17,5 +17,5 @@ public class BookmarkAddBody {
     Long lastBookmarkId;
 
     @JSONField(alternateNames = "stacc_status_id")
-    Long staccStatusId;
+    Long statusId;
 }

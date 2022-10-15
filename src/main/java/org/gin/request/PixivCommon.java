@@ -53,8 +53,9 @@ public class PixivCommon {
     public static Request createRequest(String cookie, String url, String token, RequestBody body) {
         return createRequest(cookie, HttpUrl.parse(url), token, body);
     }
-    public static Request createRequest( PixivCookieToken pixivCookieToken, HttpUrl httpUrl, RequestBody body) {
-        return createRequest(pixivCookieToken.getCookie(),httpUrl,pixivCookieToken.getToken(),body);
+
+    public static Request createRequest(PixivCookieToken pixivCookieToken, HttpUrl httpUrl, RequestBody body) {
+        return createRequest(pixivCookieToken.getCookie(), httpUrl, pixivCookieToken.getToken(), body);
     }
 
     /**
@@ -127,23 +128,50 @@ public class PixivCommon {
 
     /**
      * 创建 RequestBody
+     * @param key   key
+     * @param value value
+     * @return okhttp3.RequestBody
+     * @since 2022/10/15 14:24
+     */
+    public static RequestBody createJsonBody(String key, Serializable value) {
+        final HashMap<String, String> map = new HashMap<>();
+        map.put(key, String.valueOf(value));
+        return createJsonBody(map);
+    }
+
+    /**
+     * 创建 RequestBody
      * @param obj 对象 推荐使用HashMap ，传入null的字段会传递空串
      * @return RequestBody
      */
     public static RequestBody createJsonBody(Object obj) {
         return RequestBody.create(JSONObject.toJSONString(obj, SerializerFeature.WriteMapNullValue), PixivCommon.MEDIA_TYPE_JSON);
     }
+
+    /**
+     * 创建 FormBody
+     * @param key   key
+     * @param value value
+     * @return FormBody
+     */
+    public static FormBody createFormBody(String key, Serializable value) {
+        final HashMap<String, String> map = new HashMap<>();
+        map.put(key, String.valueOf(value));
+        return createFormBody(map);
+    }
+
     /**
      * 创建 FormBody
      * @param obj 对象 推荐使用HashMap ，传入null的字段会传递空串
      * @return FormBody
      */
-    public static FormBody createFormBody(Object obj){
+    public static FormBody createFormBody(Object obj) {
         final HashMap<String, Serializable> map = jsonToMap(obj);
         final FormBody.Builder builder = new FormBody.Builder();
         map.forEach((k, v) -> builder.add(k, v == null ? "" : String.valueOf(v)));
         return builder.build();
     }
+
 
     /**
      * 把对象转换为HashMap

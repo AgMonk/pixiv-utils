@@ -134,9 +134,11 @@ final PixivResponse<ProfileIllustsBody> res=ApiUser.profileIllusts(userId,
 
 ## 收藏
 
-
+类名：`ApiBookmark`
 
 ### 添加收藏
+
+- 方法名：addIllust
 
 - URL：`https://www.pixiv.net/ajax/illusts/bookmarks/add`
 
@@ -166,7 +168,8 @@ final PixivResponse<ProfileIllustsBody> res=ApiUser.profileIllusts(userId,
 
 ### 删除收藏
 
-- URL：`https://www.pixiv.net/ajax/illusts/bookmarks/del `
+- 方法名：delIllust
+- URL：`https://www.pixiv.net/ajax/illusts/bookmarks/delete`
 - 请求方法：`POST`
 - 传参方式：`FORM`
 - 参数含义：

@@ -25,7 +25,7 @@ public class PixivRequest<R> {
  * @param body             请求body参数
  * @since 2022/10/15 12:11
  */
-public PixivRequest(HttpUrl httpUrl, OkHttpClient client, PixivCookieToken pixivCookieToken, RequestBody body) {
+public PixivRequest(HttpUrl httpUrl, RequestBody body, OkHttpClient client, PixivCookieToken pixivCookieToken) {
     this.client = client;
     this.request = PixivCommon.createRequest(pixivCookieToken, httpUrl, body);
 }

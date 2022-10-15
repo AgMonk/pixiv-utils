@@ -3,9 +3,7 @@ package org.gin.request;
 import okhttp3.FormBody;
 import okhttp3.Request;
 import okhttp3.RequestBody;
-import org.gin.params.PixivParamsBookmarksAdd;
 import org.gin.response.callback.BasePixivCallback;
-import org.gin.response.callback.BookmarkAddCallback;
 import org.gin.response.callback.RpcGroupCallback;
 
 import java.util.Collection;
@@ -20,32 +18,6 @@ import java.util.HashMap;
 
 public class PixivRequestAsync {
 
-
-    /**
-     * 添加收藏
-     * @param param    参数
-     * @param cookie   cookie
-     * @param token    x-csrf-token
-     * @param callback 响应处理
-     */
-    public static void bmkAdd(PixivParamsBookmarksAdd param, String cookie, String token, BookmarkAddCallback callback) {
-        final RequestBody body = PixivCommon.createJsonBody(param);
-        final Request request = PixivCommon.createPostRequest(cookie, PixivUrl.URL_BOOKMARKS_ADD, token, body);
-        PixivCommon.CLIENT.newCall(request).enqueue(callback);
-    }
-
-    /**
-     * 删除收藏
-     * @param bookmarkId 收藏id
-     * @param cookie     cookie
-     * @param token      x-csrf-token
-     * @param callback   响应处理
-     */
-    public static void bmkDel(long bookmarkId, String cookie, String token, BasePixivCallback callback) {
-        final FormBody body = new FormBody.Builder().add("bookmark_id", String.valueOf(bookmarkId)).build();
-        final Request request = PixivCommon.createPostRequest(cookie, PixivUrl.URL_BOOKMARKS_DEL, token, body);
-        PixivCommon.CLIENT.newCall(request).enqueue(callback);
-    }
 
     /**
      * 批量删除收藏
