@@ -2,6 +2,7 @@ package org.gin.api;
 
 import okhttp3.OkHttpClient;
 import org.gin.params.SearchParam;
+import org.gin.params.SimpleParam;
 import org.gin.request.*;
 import org.gin.response.PixivResponse;
 import org.gin.response.body.ArtworkBody;
@@ -61,19 +62,31 @@ public class ApiIllustManga {
      * @since 2022/10/15 16:06
      */
     public static PixivRequest<PixivResponse<LikeBody>> like(long pid,
+                                                             @NotNull SimpleParam param,
                                                              @NotNull PixivCookieToken pixivCookieToken,
                                                              @NotNull OkHttpClient client
     ) {
         return new PixivRequest<>(
-                PixivUrl.createHttpUrl(Pixiv.DOMAIN + "/ajax/illusts/like"),
+                PixivUrl.createHttpUrl(param, Pixiv.DOMAIN + "/ajax/illusts/like"),
+                PixivRequestBody.createJsonBody("illust_id", pid),
+                client, pixivCookieToken
+        );
+    }
+
+    public static PixivRequest<PixivResponse<LikeBody>> dislike(long pid,
+                                                                @NotNull SimpleParam param,
+                                                                @NotNull PixivCookieToken pixivCookieToken,
+                                                                @NotNull OkHttpClient client
+    ) {
+        //todo 地址不正确
+        return new PixivRequest<>(
+                PixivUrl.createHttpUrl(param, Pixiv.DOMAIN + "/ajax/illusts/like/del"),
                 PixivRequestBody.createJsonBody("illust_id", pid),
                 client, pixivCookieToken
         );
     }
 
 
-    //todo 获取评论(根和楼中楼)
-    //todo 发表评论
     //todo 取消喜欢
     //todo 查询动图的其他信息
 

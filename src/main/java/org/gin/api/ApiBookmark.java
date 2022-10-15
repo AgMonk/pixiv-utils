@@ -3,9 +3,11 @@ package org.gin.api;
 import lombok.NonNull;
 import okhttp3.OkHttpClient;
 import org.gin.params.BookmarksAddParam;
+import org.gin.params.SimpleParam;
 import org.gin.request.*;
 import org.gin.response.PixivResponse;
 import org.gin.response.body.BookmarkAddBody;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Collection;
 
@@ -36,6 +38,7 @@ public class ApiBookmark {
 
     /**
      * 删除收藏
+     * @param param            参数
      * @param bookmarkId       收藏id
      * @param pixivCookieToken cooke和token
      * @param client           客户端
@@ -43,17 +46,19 @@ public class ApiBookmark {
      * @since 2022/10/15 14:33
      */
     public static PixivRequest<PixivResponse<String>> delIllust(long bookmarkId,
+                                                                @NotNull SimpleParam param,
                                                                 @NonNull PixivCookieToken pixivCookieToken,
                                                                 @NonNull OkHttpClient client
     ) {
         return new PixivRequest<>(
-                PixivUrl.createHttpUrl(Pixiv.DOMAIN + "/ajax/illusts/bookmarks/delete")
+                PixivUrl.createHttpUrl(param, Pixiv.DOMAIN + "/ajax/illusts/bookmarks/delete")
                 , PixivRequestBody.createFormBody("bookmark_id", bookmarkId)
                 , client, pixivCookieToken);
     }
 
     /**
      * 删除收藏(批量)
+     * @param param            参数
      * @param bookmarkIds      收藏id
      * @param pixivCookieToken cooke和token
      * @param client           客户端
@@ -61,11 +66,12 @@ public class ApiBookmark {
      * @since 2022/10/15 14:33
      */
     public static PixivRequest<PixivResponse<String>> delIllust(Collection<Long> bookmarkIds,
+                                                                @NotNull SimpleParam param,
                                                                 @NonNull PixivCookieToken pixivCookieToken,
                                                                 @NonNull OkHttpClient client
     ) {
         return new PixivRequest<>(
-                PixivUrl.createHttpUrl(Pixiv.DOMAIN + "/ajax/illusts/bookmarks/remove")
+                PixivUrl.createHttpUrl(param, Pixiv.DOMAIN + "/ajax/illusts/bookmarks/remove")
                 , PixivRequestBody.createJsonBody("bookmarkIds", bookmarkIds)
                 , client, pixivCookieToken);
     }
