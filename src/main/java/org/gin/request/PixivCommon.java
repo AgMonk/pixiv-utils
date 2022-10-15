@@ -141,6 +141,20 @@ public class PixivCommon {
 
     /**
      * 创建 RequestBody
+     * @param key   key
+     * @param value value
+     * @return okhttp3.RequestBody
+     * @since 2022/10/15 14:24
+     */
+    public static RequestBody createJsonBody(String key, Collection<?> value) {
+        final HashMap<String, Collection<?>> map = new HashMap<>();
+        map.put(key, value);
+        return createJsonBody(map);
+    }
+
+
+    /**
+     * 创建 RequestBody
      * @param obj 对象 推荐使用HashMap ，传入null的字段会传递空串
      * @return RequestBody
      */

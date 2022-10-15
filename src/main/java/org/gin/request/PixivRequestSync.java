@@ -1,15 +1,11 @@
 package org.gin.request;
 
 import com.alibaba.fastjson.JSONObject;
-import com.alibaba.fastjson.TypeReference;
 import okhttp3.*;
-import org.gin.response.PixivResponse;
 import org.gin.response.RpcGroupResponse;
 import org.gin.response.callback.BasePixivCallback;
 
 import java.io.IOException;
-import java.util.Collection;
-import java.util.HashMap;
 
 /**
  * 同步请求方法
@@ -25,21 +21,6 @@ public class PixivRequestSync {
         return BasePixivCallback.handle(call, response);
     }
 
-    /**
-     * 批量删除收藏
-     * @param bookmarkIds 收藏id
-     * @param cookie      cookie
-     * @param token       x-csrf-token
-     */
-    public static PixivResponse<JSONObject> bmkDel(Collection<Long> bookmarkIds, String cookie, String token) throws IOException {
-        final HashMap<String, Collection<Long>> map = new HashMap<>(1){{put("bookmarkIds", bookmarkIds);}};
-        final RequestBody body = PixivCommon.createJsonBody(map);
-        final Request request = PixivCommon.createPostRequest(cookie, PixivUrl.URL_BOOKMARKS_REMOVE, token, body);
-        final ResponseBody responseBody = getResponseBody(request);
-        return JSONObject.parseObject(responseBody.string(), new TypeReference<>() {
-        });
-    }
-
 
     /**
      * 关注用户
@@ -50,13 +31,13 @@ public class PixivRequestSync {
      */
     public static void followUser(long userId,int restrict, String cookie, String token) throws IOException {
         final FormBody body = new FormBody.Builder()
-                .add("mode","add")
-                .add("type","user")
+                .add("mode", "add")
+                .add("type", "user")
                 .add("user_id", String.valueOf(userId))
                 .add("restrict", String.valueOf(restrict))
-                .add("format","json")
+                .add("format", "json")
                 .build();
-        final Request request = PixivCommon.createPostRequest(cookie,PixivUrl.URL_PHP_BOOKMARK_ADD,token, body);
+        final Request request = PixivCommon.createPostRequest(cookie, Pixiv.URL_PHP_BOOKMARK_ADD, token, body);
         getResponseBody(request);
     }
 
@@ -68,11 +49,11 @@ public class PixivRequestSync {
      */
     public static RpcGroupResponse unFollowUser(long userId, String cookie, String token) throws IOException {
         final FormBody body = new FormBody.Builder()
-                .add("mode","del")
-                .add("type","bookuser")
+                .add("mode", "del")
+                .add("type", "bookuser")
                 .add("id", String.valueOf(userId))
                 .build();
-        final Request request = PixivCommon.createPostRequest(cookie,PixivUrl.URL_PHP_RPC_GROUP_SETTING,token, body);
+        final Request request = PixivCommon.createPostRequest(cookie, Pixiv.URL_PHP_RPC_GROUP_SETTING, token, body);
         final ResponseBody responseBody = getResponseBody(request);
         return JSONObject.parseObject(responseBody.string(), RpcGroupResponse.class);
     }

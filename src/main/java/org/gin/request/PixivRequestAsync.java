@@ -2,12 +2,8 @@ package org.gin.request;
 
 import okhttp3.FormBody;
 import okhttp3.Request;
-import okhttp3.RequestBody;
 import org.gin.response.callback.BasePixivCallback;
 import org.gin.response.callback.RpcGroupCallback;
-
-import java.util.Collection;
-import java.util.HashMap;
 
 /**
  * 异步请求方法
@@ -17,23 +13,6 @@ import java.util.HashMap;
  **/
 
 public class PixivRequestAsync {
-
-
-    /**
-     * 批量删除收藏
-     * @param bookmarkIds 收藏id
-     * @param cookie      cookie
-     * @param token       x-csrf-token
-     * @param callback    响应处理
-     */
-    public static void bmkDel(Collection<Long> bookmarkIds, String cookie, String token, BasePixivCallback callback) {
-        final HashMap<String, Collection<Long>> map = new HashMap<>(1) {{
-            put("bookmarkIds", bookmarkIds);
-        }};
-        final RequestBody body = PixivCommon.createJsonBody(map);
-        final Request request = PixivCommon.createPostRequest(cookie, PixivUrl.URL_BOOKMARKS_REMOVE, token, body);
-        PixivCommon.CLIENT.newCall(request).enqueue(callback);
-    }
 
 
     /**
@@ -52,7 +31,7 @@ public class PixivRequestAsync {
                 .add("restrict", String.valueOf(restrict))
                 .add("format", "json")
                 .build();
-        final Request request = PixivCommon.createPostRequest(cookie, PixivUrl.URL_PHP_BOOKMARK_ADD, token, body);
+        final Request request = PixivCommon.createPostRequest(cookie, Pixiv.URL_PHP_BOOKMARK_ADD, token, body);
         PixivCommon.CLIENT.newCall(request).enqueue(callback);
     }
 
@@ -69,7 +48,7 @@ public class PixivRequestAsync {
                 .add("type", "bookuser")
                 .add("id", String.valueOf(userId))
                 .build();
-        final Request request = PixivCommon.createPostRequest(cookie, PixivUrl.URL_PHP_RPC_GROUP_SETTING, token, body);
+        final Request request = PixivCommon.createPostRequest(cookie, Pixiv.URL_PHP_RPC_GROUP_SETTING, token, body);
         PixivCommon.CLIENT.newCall(request).enqueue(callback);
     }
 

@@ -26,7 +26,7 @@ public class ApiFollows {
                                                                             @NonNull PixivCookieToken pixivCookieToken,
                                                                             @NonNull OkHttpClient client
    ) {
-       return new PixivRequest<>(PixivCommon.createHttpUrl(followLatestParam, PixivUrl.DOMAIN + "/ajax/follow_latest/illust")
+       return new PixivRequest<>(PixivCommon.createHttpUrl(followLatestParam, Pixiv.DOMAIN + "/ajax/follow_latest/illust")
                , client, pixivCookieToken);
    }
 

@@ -6,6 +6,8 @@ import org.gin.params.BookmarksAddParam;
 import org.gin.response.PixivResponse;
 import org.gin.response.body.BookmarkAddBody;
 
+import java.util.Collection;
+
 /**
  * 收藏相关接口
  * @author : ginstone
@@ -26,7 +28,7 @@ public class ApiBookmark {
                                                                          @NonNull OkHttpClient client
     ) {
         return new PixivRequest<>(
-                PixivCommon.createHttpUrl(PixivUrl.DOMAIN + "/ajax/illusts/bookmarks/add")
+                PixivCommon.createHttpUrl(Pixiv.DOMAIN + "/ajax/illusts/bookmarks/add")
                 , PixivCommon.createJsonBody(param)
                 , client, pixivCookieToken);
     }
@@ -38,13 +40,32 @@ public class ApiBookmark {
  * @return org.gin.request.PixivRequest<org.gin.response.PixivResponse < java.lang.String>>
  * @since 2022/10/15 14:33
  */
-    public static PixivRequest<PixivResponse<String>> delIllust(long bookmarkId,
+public static PixivRequest<PixivResponse<String>> delIllust(long bookmarkId,
+                                                            @NonNull PixivCookieToken pixivCookieToken,
+                                                            @NonNull OkHttpClient client
+) {
+    return new PixivRequest<>(
+            PixivCommon.createHttpUrl(Pixiv.DOMAIN + "/ajax/illusts/bookmarks/delete")
+            , PixivCommon.createFormBody("bookmark_id", bookmarkId)
+            , client, pixivCookieToken);
+}
+
+    /**
+     * 删除收藏(批量)
+     * @param bookmarkIds      收藏id
+     * @param pixivCookieToken cooke和token
+     * @param client           客户端
+     * @return org.gin.request.PixivRequest<org.gin.response.PixivResponse < java.lang.String>>
+     * @since 2022/10/15 14:33
+     */
+    public static PixivRequest<PixivResponse<String>> delIllust(Collection<Long> bookmarkIds,
                                                                 @NonNull PixivCookieToken pixivCookieToken,
                                                                 @NonNull OkHttpClient client
     ) {
         return new PixivRequest<>(
-                PixivCommon.createHttpUrl(PixivUrl.DOMAIN + "/ajax/illusts/bookmarks/delete")
-                , PixivCommon.createFormBody("bookmark_id", bookmarkId)
+                PixivCommon.createHttpUrl(Pixiv.DOMAIN + "/ajax/illusts/bookmarks/remove")
+                , PixivCommon.createJsonBody("bookmarkIds", bookmarkIds)
                 , client, pixivCookieToken);
     }
+
 }

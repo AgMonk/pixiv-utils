@@ -23,7 +23,7 @@ Pixiv工具类
 # 使用方法
 
 - API静态方法分组保存在`Api开头` 的类中，各类名在后续说明中标注
-- `PixivUrl`类的`DOMAIN`静态变量可以修改，如果你想要连接某个反代的话。
+- `Pixiv`类的`DOMAIN`静态变量可以修改，如果你想要连接某个反代的话。
 - 所有方法均需要`OkHttpClient`作为参数，请自行创建
 - 所有方法均需要`PixivCookieToken`作为参数
     - 构造方法的参数`phpSessionId`通过在WEB端登陆Pixiv之后，在`cookie`中获取，其前缀为`PHPSESSID=`
@@ -178,8 +178,12 @@ final PixivResponse<ProfileIllustsBody> res=ApiUser.profileIllusts(userId,
 
 ### 删除收藏(批量)
 
+- 方法名：delIllust
+
 - URL：`https://www.pixiv.net/ajax/illusts/bookmarks/remove `
+
 - 请求方法：`POST`
+
 - 传参方式：`BODY`
 
 - 参数结构：
@@ -192,7 +196,7 @@ final PixivResponse<ProfileIllustsBody> res=ApiUser.profileIllusts(userId,
 
 - 参数含义：
 
-    - bookmarkIds：收藏id，从作品信息的bookmarkData字段中获取
+  - bookmarkIds：收藏id，从作品信息的bookmarkData字段中获取
 
 ## 关注
 

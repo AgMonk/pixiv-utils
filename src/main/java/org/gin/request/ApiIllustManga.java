@@ -27,7 +27,7 @@ public class ApiIllustManga {
     public static PixivRequest<PixivResponse<ArtworkBody>> detail(int pid,
                                                                   @NotNull PixivCookieToken pixivCookieToken,
                                                                   @NotNull OkHttpClient client) {
-        return new PixivRequest<>(PixivCommon.createHttpUrl(PixivUrl.DOMAIN + "/ajax/illust/%d", pid)
+        return new PixivRequest<>(PixivCommon.createHttpUrl(Pixiv.DOMAIN + "/ajax/illust/%d", pid)
                 , client, pixivCookieToken);
     }
 
@@ -44,7 +44,7 @@ public class ApiIllustManga {
                                                                  @NotNull SearchParam param,
                                                                  @NotNull PixivCookieToken pixivCookieToken,
                                                                  @NotNull OkHttpClient client) {
-        return new PixivRequest<>(PixivCommon.createHttpUrl(param, PixivUrl.DOMAIN + "/ajax/search/artworks/%s", keywords)
+        return new PixivRequest<>(PixivCommon.createHttpUrl(param, Pixiv.DOMAIN + "/ajax/search/artworks/%s", keywords)
                 , client, pixivCookieToken);
     }
 
