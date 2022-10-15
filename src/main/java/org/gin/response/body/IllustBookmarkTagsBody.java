@@ -12,7 +12,7 @@ import java.util.List;
  * @since : 2022/10/13 15:19
  **/
 @Data
-public class UserBookmarkTagsBody {
+public class IllustBookmarkTagsBody {
     @JSONField(alternateNames = "private")
     List<Tag> privateTag;
     @JSONField(alternateNames = "public")
@@ -21,7 +21,7 @@ public class UserBookmarkTagsBody {
     Boolean tooManyBookmarkTags;
 
     @Data
-    static class Tag{
+    static class Tag {
         @JSONField(alternateNames = "cnt")
         long count;
         String tag;

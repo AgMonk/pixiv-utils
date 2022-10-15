@@ -78,39 +78,41 @@ final PixivResponse<ProfileIllustsBody> res=ApiUser.profileIllusts(userId,
 
 ### 查询详情
 
+- 方法名：detail
 - URL：`https://www.pixiv.net/ajax/illust/${pid}`
 - 请求方法：`GET`
 - 参数含义：
-    - pid：作品ID、pid
+  - pid：作品ID、pid
 - 响应结构(部分)：
-    - alt： 网页标题
-    - bookmarkCount： 收藏数
-    - bookmarkData： 收藏数据
-    - commentCount： 评论数
-    - createDate： 创建时间
-    - description： 作品描述
-    - height： 高
-    - id： pid
-    - illustComment： 作品描述
-    - illustId： pid
-    - illustTitle： 作品标题
-    - illustType： 作品类型 插画=0 漫画=1 动图=2
-    - likeCount： 喜欢数量
-    - pageCount： 作品含有的图片数量
-    - request： 约稿信息(如果是约稿作品)
-    - tags： 标签
-    - title： 标题
-    - uploadDate： 上传时间
-    - urls： 图片url
-    - userAccount： 用户账号
-    - userId： 用户id
-    - userName： 用户昵称
-    - viewCount： 浏览次数
-    - width： 宽
+  - alt： 网页标题
+  - bookmarkCount： 收藏数
+  - bookmarkData： 收藏数据
+  - commentCount： 评论数
+  - createDate： 创建时间
+  - description： 作品描述
+  - height： 高
+  - id： pid
+  - illustComment： 作品描述
+  - illustId： pid
+  - illustTitle： 作品标题
+  - illustType： 作品类型 插画=0 漫画=1 动图=2
+  - likeCount： 喜欢数量
+  - pageCount： 作品含有的图片数量
+  - request： 约稿信息(如果是约稿作品)
+  - tags： 标签
+  - title： 标题
+  - uploadDate： 上传时间
+  - urls： 图片url
+  - userAccount： 用户账号
+  - userId： 用户id
+  - userName： 用户昵称
+  - viewCount： 浏览次数
+  - width： 宽
 - 提示：对于动图，原图地址需要把`img-original`替换为`img-zip-ugoira`，把结尾的`_ugoira0.jpg`替换为`_ugoira1920x1080.zip`，即只能下载压缩包，需要把里面的图片自行合成为GIF。
 
 ### 搜索
 
+- 方法名：search
 - URL：`https://www.pixiv.net/ajax/search/artworks/${keyword}`
 - 请求方法：`GET`
 - 传参方式：`QUERY`
@@ -195,13 +197,14 @@ final PixivResponse<ProfileIllustsBody> res=ApiUser.profileIllusts(userId,
 
 ### 查询关注作者的最新作品
 
+- 方法名：followLatest
 - URL：`https://www.pixiv.net/ajax/follow_latest/illust `
 - 请求方法：`GET`
 - 传参方式：`QUERY`
 - 参数含义：
-    - mode：模式，可选值：`all`,`r18`
-    - lang：语言，简中为 `zh`
-    - p：页码
+  - mode：模式，可选值：`all`,`r18`
+  - lang：语言，简中为 `zh`
+  - p：页码
 
 ### 关注作者
 
@@ -234,16 +237,18 @@ final PixivResponse<ProfileIllustsBody> res=ApiUser.profileIllusts(userId,
 
 ### 查询用户信息
 
+- 方法名：userInfo
 - URL：`https://www.pixiv.net/ajax/user/${uid}`
 - 请求方法：`GET`
 - 传参方式：`QUERY`
 - 参数含义：
-    - uid：(PATH传递)用户id
-    - full：固定为`1`，传递该参数将获得额外信息
-    - lang：语言，简中为 `zh`
+  - uid：(PATH传递)用户id
+  - full：固定为`1`，传递该参数将获得额外信息
+  - lang：语言，简中为 `zh`
 
 ### 查询用户的作品概况
 
+- 方法名：profileAll
 - URL：`https://www.pixiv.net/ajax/user/${uid}/profile/all`
 - 请求方法：`GET`
 - 传参方式：`QUERY`
@@ -253,6 +258,7 @@ final PixivResponse<ProfileIllustsBody> res=ApiUser.profileIllusts(userId,
 
 ### 查询用户的作品信息
 
+- 方法名：profileIllusts
 - URL：`https://www.pixiv.net/ajax/user/${uid}/profile/illusts`
 - 请求方法：`GET`
 - 传参方式：`QUERY`
@@ -264,6 +270,7 @@ final PixivResponse<ProfileIllustsBody> res=ApiUser.profileIllusts(userId,
 
 ### 查询用户的收藏作品
 
+- 方法名：illustsBookmarks
 - URL：`https://www.pixiv.net/ajax/user/${uid}/illusts/bookmarks`
 - 请求方法：`GET`
 - 传参方式：`QUERY`
@@ -274,7 +281,6 @@ final PixivResponse<ProfileIllustsBody> res=ApiUser.profileIllusts(userId,
   - offset： 跳过前面 x 个查询结果
   - limit：每次查询返回的结果条数上限，最大为100
   - rest：`show`公开的，`hide`不公开的(仅自己)
-
 - 备注：tag参数写`未分類`可以查询到添加收藏时未提供标签(网页端/APP的默认操作)的作品
 
 ### 查询用户的收藏作品中使用的标签

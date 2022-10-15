@@ -17,11 +17,28 @@ import java.io.IOException;
 public class PixivRequest<R> {
     final Request request;
     final OkHttpClient client;
+/**
+ * POST请求
+ * @param httpUrl          url
+ * @param client           客户端
+ * @param pixivCookieToken cooke和token
+ * @param body             请求body参数
+ * @return PixivRequest
+ * @since 2022/10/15 12:11
+ */
+public PixivRequest(HttpUrl httpUrl, OkHttpClient client, PixivCookieToken pixivCookieToken, RequestBody body) {
+    this.client = client;
+    this.request = PixivCommon.createRequest(pixivCookieToken, httpUrl, body);
+}
 
-    public PixivRequest(HttpUrl httpUrl, OkHttpClient client, PixivCookieToken pixivCookieToken, RequestBody body) {
-        this.client = client;
-        this.request = PixivCommon.createRequest(pixivCookieToken, httpUrl, body);
-    }
+    /**
+     * GET请求
+     * @param httpUrl          url
+     * @param client           客户端
+     * @param pixivCookieToken cooke和token
+     * @return PixivRequest
+     * @since 2022/10/15 12:11
+     */
     public PixivRequest(HttpUrl httpUrl, OkHttpClient client, PixivCookieToken pixivCookieToken) {
         this.client = client;
         this.request = PixivCommon.createRequest(pixivCookieToken, httpUrl, null);

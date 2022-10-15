@@ -101,21 +101,6 @@ public class PixivRequestAsync {
     }
 
     /**
-     * 查询用户的收藏作品
-     * @param userId 用户id
-     * @param page   页码
-     * @param size   每页数量 最大100
-     * @param tag    标签
-     * @param rest   `show`公开的，`hide`不公开的(仅自己)
-     * @param cookie cookie
-     * @param callback 响应处理
-     */
-    public static void userBookmarks(long userId, int page, int size, String tag, String rest, String cookie, UserBookmarkCallback callback) {
-        final HttpUrl url = PixivUrl.userBookmarks(userId, page, size, tag, rest, "zh");
-        final Request request = PixivCommon.createGetRequest(cookie, url);
-        PixivCommon.CLIENT.newCall(request).enqueue(callback);
-    }
-    /**
      * 查询用户的收藏作品中使用的标签
      * @param userId 用户id
      * @param cookie cookie

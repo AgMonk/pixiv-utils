@@ -12,7 +12,7 @@ import java.util.List;
  * @since : 2022/10/13 14:35
  **/
 @Data
-public class UserBookmarkBody {
+public class IllustsBookmarksBody {
     Long total;
     List<ArtworkInfo> works;
 }

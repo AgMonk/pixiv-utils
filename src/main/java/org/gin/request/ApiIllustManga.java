@@ -33,22 +33,20 @@ public class ApiIllustManga {
     }
 /**
  * 搜索
- * @param keywords 关键字
- * @param param 参数
+ * @param keywords         关键字
+ * @param param            参数
  * @param pixivCookieToken cooke和token
- * @param client 客户端
+ * @param client           客户端
  * @return org.gin.request.PixivRequest<org.gin.response.PixivResponse < org.gin.response.body.SearchBody>>
- * @author bx002
  * @since 2022/10/14 17:28
  */
-    public static PixivRequest<PixivResponse<SearchBody>> search(
-                                                                 @NotNull String keywords,
-                                                                 @NotNull SearchParam param,
-                                                                 @NotNull PixivCookieToken pixivCookieToken,
-                                                                 @NotNull OkHttpClient client) throws PixivUrlCreateException {
-        return new PixivRequest<>(PixivCommon.createHttpUrl(param,PixivUrl.DOMAIN+"/ajax/search/artworks/%s",keywords)
-                , client, pixivCookieToken);
-    }
+public static PixivRequest<PixivResponse<SearchBody>> search(@NotNull String keywords,
+                                                             @NotNull SearchParam param,
+                                                             @NotNull PixivCookieToken pixivCookieToken,
+                                                             @NotNull OkHttpClient client) throws PixivUrlCreateException {
+    return new PixivRequest<>(PixivCommon.createHttpUrl(param, PixivUrl.DOMAIN + "/ajax/search/artworks/%s", keywords)
+            , client, pixivCookieToken);
+}
 
     //todo 收藏
     //todo 移除收藏
