@@ -1,11 +1,21 @@
 package org.gin.request;
 
+import okhttp3.OkHttpClient;
+import org.gin.interceptor.LoggingInterceptor;
+
+import java.util.concurrent.TimeUnit;
+
 /**
  * @author : ginstone
  * @version : v1.0.0
  * @since : 2022/10/11 17:27
  **/
 public class Pixiv {
+    public static final OkHttpClient CLIENT = new OkHttpClient.Builder()
+            .callTimeout(30, TimeUnit.SECONDS)
+            .connectTimeout(30, TimeUnit.SECONDS)
+            .addInterceptor(new LoggingInterceptor())
+            .build();
     /**
      * 根域名，可以修改
      */

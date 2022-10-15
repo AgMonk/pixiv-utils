@@ -5,12 +5,10 @@ import com.alibaba.fastjson.TypeReference;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import okhttp3.*;
 import org.gin.StringUtils;
-import org.gin.interceptor.LoggingInterceptor;
 
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.concurrent.TimeUnit;
 
 /**
  * @author : ginstone
@@ -19,11 +17,6 @@ import java.util.concurrent.TimeUnit;
  **/
 
 public class PixivCommon {
-    public static final OkHttpClient CLIENT = new OkHttpClient.Builder()
-            .callTimeout(30, TimeUnit.SECONDS)
-            .connectTimeout(30, TimeUnit.SECONDS)
-            .addInterceptor(new LoggingInterceptor())
-            .build();
     public static final MediaType MEDIA_TYPE_JSON = MediaType.parse("application/json; charset=utf-8");
 
     public static Request createGetRequest(String cookie, String url) {

@@ -24,10 +24,10 @@ Pixiv工具类
 
 - API静态方法分组保存在`Api开头` 的类中，各类名在后续说明中标注
 - `Pixiv`类的`DOMAIN`静态变量可以修改，如果你想要连接某个反代的话。
-- 所有方法均需要`OkHttpClient`作为参数，请自行创建
+- 所有方法均需要`OkHttpClient`作为参数，请自行创建，或者可以使用`Pixiv.CLIENT`的默认Client
 - 所有方法均需要`PixivCookieToken`作为参数
-    - 构造方法的参数`phpSessionId`通过在WEB端登陆Pixiv之后，在`cookie`中获取，其前缀为`PHPSESSID=`
-    - 构造方法的参数`token`在所有`POST`请求中使用，可以在WEB端通过F12在请求头中获取，其字段名为`x-csrf-token`，或者使用本类的`findToken`方法获取。
+  - 构造方法的参数`phpSessionId`通过在WEB端登陆Pixiv之后，在`cookie`中获取，其前缀为`PHPSESSID=`
+  - 构造方法的参数`token`在所有`POST`请求中使用，可以在WEB端通过F12在请求头中获取，其字段名为`x-csrf-token`，或者使用本类的`findToken`方法获取。
 - 所有方法都会返回`PixivRequest`对象，该类的`sync`(同步)和`async`(异步)方法用于发送请求
     - 异步方法在`Callback`参数中处理异常和响应，更推荐使用参数为`BaseCallback`的重载方法
     - 同步方法直接返回响应结果，可以通过传递一个`Convertor`接口将`ResponseBody`类转换为指定对象，`Convertor`
@@ -204,7 +204,7 @@ final PixivResponse<ProfileIllustsBody> res=ApiUser.profileIllusts(userId,
 
 ### 查询关注作者的最新作品
 
-- 方法名：followLatest
+- 方法名：latest
 - URL：`https://www.pixiv.net/ajax/follow_latest/illust `
 - 请求方法：`GET`
 - 传参方式：`QUERY`
@@ -215,6 +215,7 @@ final PixivResponse<ProfileIllustsBody> res=ApiUser.profileIllusts(userId,
 
 ### 关注作者
 
+- 方法名：add
 - URL：`https://www.pixiv.net/bookmark_add.php`
 - 请求方法：`POST`
 - 传参方式：`FORM`
@@ -229,14 +230,15 @@ final PixivResponse<ProfileIllustsBody> res=ApiUser.profileIllusts(userId,
 
 ### 取关作者
 
+- 方法名：del
 - URL：`https://www.pixiv.net/rpc_group_setting.php`
 - 请求方法：`POST`
 - 传参方式：`FORM`
 - 参数含义：
 
-    - mode：固定为`del`
-    - type：固定为`bookuser`
-    - id：需要取关的用户id
+  - mode：固定为`del`
+  - type：固定为`bookuser`
+  - id：需要取关的用户id
 
 ## 用户
 

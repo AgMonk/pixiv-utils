@@ -32,23 +32,24 @@ public class ApiBookmark {
                 , PixivCommon.createJsonBody(param)
                 , client, pixivCookieToken);
     }
-/**
- * 删除收藏
- * @param bookmarkId       收藏id
- * @param pixivCookieToken cooke和token
- * @param client           客户端
- * @return org.gin.request.PixivRequest<org.gin.response.PixivResponse < java.lang.String>>
- * @since 2022/10/15 14:33
- */
-public static PixivRequest<PixivResponse<String>> delIllust(long bookmarkId,
-                                                            @NonNull PixivCookieToken pixivCookieToken,
-                                                            @NonNull OkHttpClient client
-) {
-    return new PixivRequest<>(
-            PixivCommon.createHttpUrl(Pixiv.DOMAIN + "/ajax/illusts/bookmarks/delete")
-            , PixivCommon.createFormBody("bookmark_id", bookmarkId)
-            , client, pixivCookieToken);
-}
+
+    /**
+     * 删除收藏
+     * @param bookmarkId       收藏id
+     * @param pixivCookieToken cooke和token
+     * @param client           客户端
+     * @return org.gin.request.PixivRequest<org.gin.response.PixivResponse < java.lang.String>>
+     * @since 2022/10/15 14:33
+     */
+    public static PixivRequest<PixivResponse<String>> delIllust(long bookmarkId,
+                                                                @NonNull PixivCookieToken pixivCookieToken,
+                                                                @NonNull OkHttpClient client
+    ) {
+        return new PixivRequest<>(
+                PixivCommon.createHttpUrl(Pixiv.DOMAIN + "/ajax/illusts/bookmarks/delete")
+                , PixivCommon.createFormBody("bookmark_id", bookmarkId)
+                , client, pixivCookieToken);
+    }
 
     /**
      * 删除收藏(批量)

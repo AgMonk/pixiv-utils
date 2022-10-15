@@ -48,9 +48,6 @@ public class ApiIllustManga {
                 , client, pixivCookieToken);
     }
 
-    //todo 收藏
-    //todo 移除收藏
-    //todo 移除收藏(批量)
     //todo 获取评论(根和楼中楼)
     //todo 发表评论
     //todo 喜欢

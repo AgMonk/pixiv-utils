@@ -25,7 +25,7 @@ public class ApiUser {
      * @return org.gin.request.PixivRequest<org.gin.response.PixivResponse < org.gin.response.body.UserInfoBody>>
      * @since 2022/10/14 17:47
      */
-    public static PixivRequest<PixivResponse<UserInfoBody>> userInfo(int userId,
+    public static PixivRequest<PixivResponse<UserInfoBody>> userInfo(long userId,
                                                                      @NotNull UserInfoParam param,
                                                                      @NotNull PixivCookieToken pixivCookieToken,
                                                                      @NotNull OkHttpClient client) {
@@ -42,7 +42,7 @@ public class ApiUser {
      * @return org.gin.request.PixivRequest<org.gin.response.PixivResponse < org.gin.response.body.UserInfoBody>>
      * @since 2022/10/14 17:51
      */
-    public static PixivRequest<PixivResponse<ProfileRealBody>> profileAll(int userId,
+    public static PixivRequest<PixivResponse<ProfileRealBody>> profileAll(long userId,
                                                                           @NotNull SimpleParam param,
                                                                           @NotNull PixivCookieToken pixivCookieToken,
                                                                           @NotNull OkHttpClient client) {
@@ -59,7 +59,7 @@ public class ApiUser {
      * @return org.gin.request.PixivRequest<org.gin.response.PixivResponse < org.gin.response.body.ProfileRealBody>>
      * @since 2022/10/15 11:18
      */
-    public static PixivRequest<PixivResponse<ProfileIllustsBody>> profileIllusts(int userId,
+    public static PixivRequest<PixivResponse<ProfileIllustsBody>> profileIllusts(long userId,
                                                                                  @NotNull ProfileIllustsParam param,
                                                                                  @NotNull PixivCookieToken pixivCookieToken,
                                                                                  @NotNull OkHttpClient client) {
@@ -76,7 +76,7 @@ public class ApiUser {
      * @return org.gin.request.PixivRequest<org.gin.response.PixivResponse < org.gin.response.body.IllustsBookmarksBody>>
      * @since 2022/10/15 12:19
      */
-    public static PixivRequest<PixivResponse<IllustsBookmarksBody>> illustsBookmarks(int userId,
+    public static PixivRequest<PixivResponse<IllustsBookmarksBody>> illustsBookmarks(long userId,
                                                                                      @NotNull IllustsBookmarksParam param,
                                                                                      @NotNull PixivCookieToken pixivCookieToken,
                                                                                      @NotNull OkHttpClient client) {
@@ -93,7 +93,7 @@ public class ApiUser {
      * @return org.gin.request.PixivRequest<org.gin.response.PixivResponse < org.gin.response.body.IllustsBookmarksBody>>
      * @since 2022/10/15 12:29
      */
-    public static PixivRequest<PixivResponse<IllustBookmarkTagsBody>> illustsBookmarkTags(int userId,
+    public static PixivRequest<PixivResponse<IllustBookmarkTagsBody>> illustsBookmarkTags(long userId,
                                                                                           @NotNull SimpleParam param,
                                                                                           @NotNull PixivCookieToken pixivCookieToken,
                                                                                           @NotNull OkHttpClient client) {
@@ -110,7 +110,7 @@ public class ApiUser {
      * @return org.gin.request.PixivRequest<org.gin.response.PixivResponse < org.gin.response.body.UserCommissionBody>>
      * @since 2022/10/15 14:01
      */
-    public static PixivRequest<PixivResponse<CommissionRequestSentBody>> commissionRequestSent(int userId,
+    public static PixivRequest<PixivResponse<CommissionRequestSentBody>> commissionRequestSent(long userId,
                                                                                                @NotNull SimpleParam param,
                                                                                                @NotNull PixivCookieToken pixivCookieToken,
                                                                                                @NotNull OkHttpClient client) {
