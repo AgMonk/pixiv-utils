@@ -8,6 +8,7 @@ import org.gin.response.PixivResponse;
 import org.gin.response.body.ArtworkBody;
 import org.gin.response.body.LikeBody;
 import org.gin.response.body.SearchBody;
+import org.gin.response.body.UgoiraMetaBody;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -86,8 +87,26 @@ public class ApiIllustManga {
         );
     }
 
+    /**
+     * 查询动图的其他信息
+     * @param pid              作品id
+     * @param param            参数
+     * @param pixivCookieToken cooke和token
+     * @param client           客户端
+     * @return org.gin.request.PixivRequest<org.gin.response.PixivResponse < org.gin.response.body.UgoiraMetaBody>>
+     * @since 2022/10/15 16:52
+     */
+    public static PixivRequest<PixivResponse<UgoiraMetaBody>> ugoiraMeta(long pid,
+                                                                         @NotNull SimpleParam param,
+                                                                         @NotNull PixivCookieToken pixivCookieToken,
+                                                                         @NotNull OkHttpClient client
+    ) {
+        return new PixivRequest<>(
+                PixivUrl.createHttpUrl(param, Pixiv.DOMAIN + "/ajax/illust/%d/ugoira_meta", pid),
+                client, pixivCookieToken
+        );
+    }
 
-    //todo 取消喜欢
-    //todo 查询动图的其他信息
+
 
 }
