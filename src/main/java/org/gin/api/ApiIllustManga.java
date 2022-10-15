@@ -5,10 +5,7 @@ import org.gin.params.SearchParam;
 import org.gin.params.SimpleParam;
 import org.gin.request.*;
 import org.gin.response.PixivResponse;
-import org.gin.response.body.ArtworkBody;
-import org.gin.response.body.LikeBody;
-import org.gin.response.body.SearchBody;
-import org.gin.response.body.UgoiraMetaBody;
+import org.gin.response.body.*;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -107,6 +104,25 @@ public class ApiIllustManga {
         );
     }
 
+    /**
+     * 查询作品的收藏状态
+     * @param pid              作品id
+     * @param param            参数
+     * @param pixivCookieToken cooke和token
+     * @param client           客户端
+     * @return org.gin.request.PixivRequest<org.gin.response.PixivResponse < org.gin.response.body.BookmarkDataBody>>
+     * @since 2022/10/15 17:19
+     */
+    public static PixivRequest<PixivResponse<BookmarkDataBody>> bookmarkData(long pid,
+                                                                             @NotNull SimpleParam param,
+                                                                             @NotNull PixivCookieToken pixivCookieToken,
+                                                                             @NotNull OkHttpClient client
+    ) {
+        return new PixivRequest<>(
+                PixivUrl.createHttpUrl(param, Pixiv.DOMAIN + "/ajax/illust/%d/bookmarkData", pid),
+                client, pixivCookieToken
+        );
+    }
 
 
 }

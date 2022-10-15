@@ -125,12 +125,23 @@ final PixivResponse<ProfileIllustsBody> res=ApiUser.profileIllusts(userId,
   - scd：发布时间（起），以东九区为准，格式：yyyy-MM-dd
   - ecd：发布时间（止），以东九区为准，格式：yyyy-MM-dd
 
+### 查询作品的收藏状态
+
+- 方法名：bookmarkData
+- URL：`https://www.pixiv.net/ajax/illust/${pid}/bookmarkData`
+- 请求方法：`GET`
+- 传参方式：`PATH`
+- 参数含义：
+  - pid：作品id
+
 ### 查询动图的其他信息
 
+- 方法名：ugoiraMeta
 - URL：`https://www.pixiv.net/ajax/illust/${pid}/ugoira_meta`
 - 请求方法：`GET`
-- 传参方式：`无参`
-- 
+- 传参方式：`PATH`
+- 参数含义：
+  - pid：动图作品id
 
 ## 收藏
 
@@ -310,4 +321,31 @@ final PixivResponse<ProfileIllustsBody> res=ApiUser.profileIllusts(userId,
 - 传参方式：`QUERY`
 - 参数含义：
   - uid：(PATH传递)用户id
+  - lang：语言，简中为 `zh`
+
+## 评论区
+
+类名：`ApiComments`
+
+### 查询作品评论（根）
+
+- 方法名：illustsRoots
+- URL：`https://www.pixiv.net/ajax/illusts/comments/roots`
+- 请求方法：`GET`
+- 传参方式：`QUERY`
+- 参数含义：
+  - illust_id：作品pid
+  - offset：
+  - limit：
+  - lang：语言，简中为 `zh`
+
+### 查询作品回复（楼中楼）
+
+- 方法名：illustsReplies
+- URL：`https://www.pixiv.net/ajax/illusts/comments/replies`
+- 请求方法：`GET`
+- 传参方式：`QUERY`
+- 参数含义：
+  - comment_id：评论id
+  - page：
   - lang：语言，简中为 `zh`
