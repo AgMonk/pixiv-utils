@@ -101,31 +101,6 @@ public class PixivRequestAsync {
     }
 
     /**
-     * 获取用户作品概况
-     * @param userId   用户id
-     * @param cookie   cookie
-     * @param callback 响应处理
-     */
-    public static void userProfile(long userId, String cookie, UserProfileCallback callback) {
-        final HttpUrl url = PixivUrl.userProfileUrl(userId, "zh");
-        final Request request = PixivCommon.createGetRequest(cookie, url);
-        PixivCommon.CLIENT.newCall(request).enqueue(callback);
-    }
-
-    /**
-     * 查询用户的作品信息
-     * @param userId   用户id
-     * @param ids      需要查询的作品id
-     * @param cookie   cookie
-     * @param callback 响应处理
-     */
-    public static void userIllusts(long userId, Collection<Long> ids, String cookie, UserIllustCallback callback) {
-        final HttpUrl url = PixivUrl.userIllustUrl(userId, ids, "zh");
-        final Request request = PixivCommon.createGetRequest(cookie, url);
-        PixivCommon.CLIENT.newCall(request).enqueue(callback);
-    }
-
-    /**
      * 查询用户的收藏作品
      * @param userId 用户id
      * @param page   页码

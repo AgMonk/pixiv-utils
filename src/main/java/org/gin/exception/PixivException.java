@@ -2,7 +2,6 @@ package org.gin.exception;
 
 import lombok.Getter;
 import lombok.Setter;
-import okhttp3.Call;
 
 /**
  * Pixiv异常
@@ -14,7 +13,6 @@ import okhttp3.Call;
 @Setter
 public class PixivException extends Exception {
     int code;
-    Call call;
 
     /**
      * Constructs a new exception with the specified detail message.  The
@@ -23,10 +21,9 @@ public class PixivException extends Exception {
      * @param message the detail message. The detail message is saved for
      *                later retrieval by the {@link #getMessage()} method.
      */
-    public PixivException(int code, String message, Call call) {
+    public PixivException(int code, String message) {
         super(message);
         this.code = code;
-        this.call = call;
     }
 
     /**

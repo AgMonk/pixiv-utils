@@ -8,6 +8,8 @@ import org.gin.StringUtils;
 import org.gin.exception.PixivUrlCreateException;
 import org.gin.interceptor.LoggingInterceptor;
 
+import java.io.Serializable;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.concurrent.TimeUnit;
 
@@ -110,8 +112,16 @@ public class PixivCommon {
         }
         //添加查询条件
         final HttpUrl.Builder builder = httpUrl.newBuilder();
-        final HashMap<String, String> map = jsonToMap(queryParam);
-        map.forEach((k, v) -> builder.addQueryParameter(k, v == null ? "" : v));
+        final HashMap<String, Serializable> map = jsonToMap(queryParam);
+        map.forEach((k, v) -> {
+            if (v instanceof Collection<?>) {
+                ((Collection<?>) v).forEach(i -> {
+                    builder.addQueryParameter(k, String.valueOf(i));
+                });
+            } else {
+                builder.addQueryParameter(k, v == null ? "" : v.toString());
+            }
+        });
         return builder.build();
     }
 
@@ -129,9 +139,9 @@ public class PixivCommon {
      * @return FormBody
      */
     public static FormBody createFormBody(Object obj){
-        final HashMap<String, String> map = jsonToMap(obj);
+        final HashMap<String, Serializable> map = jsonToMap(obj);
         final FormBody.Builder builder = new FormBody.Builder();
-        map.forEach((k, v) -> builder.add(k, v == null ? "" : v));
+        map.forEach((k, v) -> builder.add(k, v == null ? "" : String.valueOf(v)));
         return builder.build();
     }
 
@@ -140,8 +150,8 @@ public class PixivCommon {
      * @param obj 对象 推荐使用HashMap ，传入null的字段会传递空串
      * @return HashMap
      */
-    public static HashMap<String,String> jsonToMap(Object obj){
-        return  JSONObject.parseObject(JSONObject.toJSONString(obj, SerializerFeature.WriteMapNullValue), new TypeReference<>() {
+    public static HashMap<String, Serializable> jsonToMap(Object obj) {
+        return JSONObject.parseObject(JSONObject.toJSONString(obj, SerializerFeature.WriteMapNullValue), new TypeReference<>() {
         });
     }
 }

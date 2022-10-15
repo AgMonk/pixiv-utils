@@ -22,44 +22,66 @@ Pixiv工具类
 
 # 使用方法
 
-`PixivRequestAsync` 和 `PixivRequestSync` 类下有两套名称相同的方法,分别为异步和同步请求方法。
+- API静态方法分组保存在`Api开头` 的类中，各类名在后续说明中标注
+- `PixivUrl`类的`DOMAIN`静态变量可以修改，如果你想要连接某个反代的话。
+- 所有方法均需要`OkHttpClient`作为参数，请自行创建
+- 所有方法均需要`PixivCookieToken`作为参数
+    - 构造方法的参数`phpSessionId`通过在WEB端登陆Pixiv之后，在`cookie`中获取，其前缀为`PHPSESSID=`
+    - 构造方法的参数`token`在所有`POST`请求中使用，可以在WEB端通过F12在请求头中获取，其字段名为`x-csrf-token`，或者使用本类的`findToken`方法获取。
+- 所有方法都会返回`PixivRequest`对象，该类的`sync`(同步)和`async`(异步)方法用于发送请求
+    - 异步方法在`Callback`参数中处理异常和响应，更推荐使用参数为`BaseCallback`的重载方法
+    - 同步方法直接返回响应结果，可以通过传递一个`Convertor`接口将`ResponseBody`类转换为指定对象，`Convertor`
+      中自带了部分接口的预设转换方法，或者使用`common`通用方法
 
-- 查询作品详情: detail
-- 查询关注作者最新作品: followLatest
-- 收藏作品：bmkAdd
-- 删除收藏：bmkDel
-- 删除收藏（批量）：bmkDel（重载）
-- 搜索作品：search
-- 关注用户：followUser
-- 取关用户：unFollowUser
-- 查询用户信息：userInfo
-- 查询用户的作品概况：userProfile
-- 查询用户的作品信息：userIllusts
-- 查询用户的收藏作品：userBookmarks
-- 查询用户的收藏作品中使用的标签：userBookmarkTags
-- 查询用户发出约稿的作品：userCommissionRequestSent
+示例：
+
+异步:
+
+```java
+ApiUser.profileIllusts(userId,
+        new ProfileIllustsParam(Collections.singletonList(97966275)),
+        cookieToken,
+        client)
+        .async(new BaseCallback<>(){
+@Override
+public void onPixivException(PixivException e){
+
+        }
+
+@Override
+public void onSuccess(PixivResponse<ProfileIllustsBody> res){
+
+        }
+
+@Override
+public PixivResponse<UserIllustBody> convert(ResponseBody responseBody)throws IOException{
+        return Convertor.common(responseBody,ProfileIllustsBody.class);
+        }
+        });
+```
+
+同步：
+
+```java
+final PixivResponse<ProfileIllustsBody> res=ApiUser.profileIllusts(userId,
+        new ProfileIllustsParam(Collections.singletonList(97966275)),
+        cookieToken,
+        client)
+        .sync(body->Convertor.common(body,ProfileIllustsBody.class));
+```
 
 # Pixiv API
 
-
-
-## Token说明
-
-以`POST`发出的`修改`操作，请求头中均需要添加字段 `x-csrf-token`
-
-获取方式：
-
-- 可以打开F12面板，进行一次操作查看请求头中发送的该字段
-- 请求 `https://www.pixiv.net/setting_user.php` 页面，页面源码中有 `pixiv.context.token = "xxxxxxx";`
-
 ## 作品
+
+类名：`ApiIllustManga`
 
 ### 查询详情
 
 - URL：`https://www.pixiv.net/ajax/illust/${pid}`
 - 请求方法：`GET`
 - 参数含义：
-  - pid：作品ID、pid
+    - pid：作品ID、pid
 - 响应结构(部分)：
     - alt： 网页标题
     - bookmarkCount： 收藏数
@@ -165,9 +187,11 @@ Pixiv工具类
 
 - 参数含义：
 
-  - bookmarkIds：收藏id，从作品信息的bookmarkData字段中获取
+    - bookmarkIds：收藏id，从作品信息的bookmarkData字段中获取
 
 ## 关注
+
+类名：`ApiFollows`
 
 ### 查询关注作者的最新作品
 
@@ -175,9 +199,9 @@ Pixiv工具类
 - 请求方法：`GET`
 - 传参方式：`QUERY`
 - 参数含义：
-  - mode：模式，可选值：`all`,`r18`
-  - lang：语言，简中为 `zh`
-  - p：页码
+    - mode：模式，可选值：`all`,`r18`
+    - lang：语言，简中为 `zh`
+    - p：页码
 
 ### 关注作者
 
@@ -200,11 +224,13 @@ Pixiv工具类
 - 传参方式：`FORM`
 - 参数含义：
 
-  - mode：固定为`del`
-  - type：固定为`bookuser`
-  - id：需要取关的用户id
+    - mode：固定为`del`
+    - type：固定为`bookuser`
+    - id：需要取关的用户id
 
 ## 用户
+
+类名：`ApiUser`
 
 ### 查询用户信息
 
@@ -212,9 +238,9 @@ Pixiv工具类
 - 请求方法：`GET`
 - 传参方式：`QUERY`
 - 参数含义：
-  - uid：(PATH传递)用户id
-  - full：固定为`1`，传递该参数将获得额外信息
-  - lang：语言，简中为 `zh`
+    - uid：(PATH传递)用户id
+    - full：固定为`1`，传递该参数将获得额外信息
+    - lang：语言，简中为 `zh`
 
 ### 查询用户的作品概况
 

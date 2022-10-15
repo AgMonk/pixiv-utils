@@ -12,6 +12,6 @@ import java.util.HashMap;
  * @since : 2022/10/13 14:01
  **/
 @Data
-public class UserIllustBody {
+public class ProfileIllustsBody {
     HashMap<Long, ArtworkInfo> works;
 }

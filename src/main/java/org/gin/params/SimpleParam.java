@@ -13,5 +13,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class SimpleParam {
+    /**
+     * 语言
+     */
     String lang = "zh";
 }

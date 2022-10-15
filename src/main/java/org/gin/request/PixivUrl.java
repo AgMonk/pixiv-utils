@@ -2,7 +2,6 @@ package org.gin.request;
 
 import okhttp3.HttpUrl;
 
-import java.util.Collection;
 import java.util.Objects;
 
 /**
@@ -42,8 +41,6 @@ public class PixivUrl {
      * 查询用户的收藏作品中使用的标签
      */
     public static final String URL_USER_BOOKMARKS_TAGS = DOMAIN + "/ajax/user/%d/illusts/bookmark/tags";
-    public static final String URL_USER_ILLUST = DOMAIN + "/ajax/user/%d/profile/illusts";
-    public static final String URL_USER_PROFILE = DOMAIN + "/ajax/user/%d/profile/all";
     /**
      * php接口 bookmark_add
      */
@@ -53,30 +50,6 @@ public class PixivUrl {
      */
     public static final String URL_PHP_RPC_GROUP_SETTING = DOMAIN + "rpc_group_setting.php";
 
-
-    public static HttpUrl userProfileUrl(long userId, String lang) {
-        final HttpUrl.Builder builder = Objects.requireNonNull(HttpUrl.parse(String.format(PixivUrl.URL_USER_PROFILE, userId))).newBuilder();
-        builder.addQueryParameter("lang", lang);
-        return builder.build();
-    }
-
-    /**
-     * 生成用户作品url
-     * @param userId 用户id
-     * @param ids    需要查询的作品pid
-     * @param lang   预言
-     * @return url
-     */
-    public static HttpUrl userIllustUrl(long userId, Collection<Long> ids, String lang) {
-        final HttpUrl.Builder builder = Objects.requireNonNull(HttpUrl.parse(String.format(PixivUrl.URL_USER_ILLUST, userId))).newBuilder();
-        builder.addQueryParameter("lang", lang);
-        builder.addQueryParameter("work_category", "illustManga");
-        builder.addQueryParameter("is_first_page", "1");
-        for (Long id : ids) {
-            builder.addQueryParameter("ids[]", String.valueOf(id));
-        }
-        return builder.build();
-    }
 
     /**
      * 查询用户的收藏作品

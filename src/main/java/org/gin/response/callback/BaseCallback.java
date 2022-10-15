@@ -3,9 +3,11 @@ package org.gin.response.callback;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.TypeReference;
 import okhttp3.Call;
+import okhttp3.Callback;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
 import org.gin.exception.PixivException;
+import org.gin.exception.PixivRequestException;
 import org.gin.response.PixivResponse;
 import org.gin.response.convertor.Convertor;
 import org.jetbrains.annotations.NotNull;
@@ -18,16 +20,16 @@ import java.util.Objects;
  * @version : v1.0.0
  * @since : 2022/10/14 15:47
  **/
-public interface Callback<R> extends okhttp3.Callback, Convertor<R> {
+public interface BaseCallback<R> extends Callback, Convertor<R> {
     /**
      * 处理响应
      * @param call     call
      * @param response 响应
      * @return body
-     * @throws PixivException 异常
-     * @throws IOException    异常
+     * @throws PixivRequestException 异常
+     * @throws IOException           异常
      */
-    static ResponseBody handle(@NotNull Call call, @NotNull Response response) throws PixivException, IOException {
+    static ResponseBody handle(@NotNull Call call, @NotNull Response response) throws PixivRequestException, IOException {
         final int code = response.code();
         final int co = code / 100;
         switch (co) {
@@ -37,11 +39,11 @@ public interface Callback<R> extends okhttp3.Callback, Convertor<R> {
             case 4:
                 PixivResponse<Object> res = JSONObject.parseObject(Objects.requireNonNull(response.body()).string(), new TypeReference<>() {
                 });
-                throw new PixivException(code, res.getMessage(), call);
+                throw new PixivRequestException(code, res.getMessage(), call);
             case 5:
-                throw new PixivException(code, null, call);
+                throw new PixivRequestException(code, "服务器异常",call);
             default:
-                throw new PixivException(code, "非预期的code", call);
+                throw new PixivRequestException(code, "非预期的code",call);
         }
     }
 
