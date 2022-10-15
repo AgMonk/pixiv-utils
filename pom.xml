@@ -84,8 +84,8 @@
                     </execution>
                 </executions>
             </plugin>
+            <!--                生成javadoc的插件-->
             <plugin>
-                <!--                生成javadoc的插件-->
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <version>3.4.1</version>
@@ -96,6 +96,9 @@
                         <goals>
                             <goal>jar</goal>
                         </goals>
+                        <configuration>
+                            <additionalJOption>-Xdoclint:none</additionalJOption>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>
