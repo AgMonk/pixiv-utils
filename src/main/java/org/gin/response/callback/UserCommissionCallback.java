@@ -4,7 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.TypeReference;
 import okhttp3.ResponseBody;
 import org.gin.response.PixivResponse;
-import org.gin.response.body.UserCommissionBody;
+import org.gin.response.body.CommissionRequestSentBody;
 
 import java.io.IOException;
 
@@ -13,7 +13,14 @@ import java.io.IOException;
  * @version : v1.0.0
  * @since : 2022/10/11 16:55
  **/
-public interface UserCommissionCallback extends BasePixivCallback   {
+public interface UserCommissionCallback extends BasePixivCallback {
+    /**
+     * 处理body数据
+     * @param body body数据
+     * @throws IOException 异常
+     */
+    void handleBody(CommissionRequestSentBody body) throws IOException;
+
     /**
      * 请求成功时的处理方法
      * @param responseBody 响应body
@@ -21,14 +28,8 @@ public interface UserCommissionCallback extends BasePixivCallback   {
      */
     @Override
     default void onSuccess(ResponseBody responseBody) throws IOException {
-        PixivResponse<UserCommissionBody> response = JSONObject.parseObject(responseBody.string(),new TypeReference<>(){});
+        PixivResponse<CommissionRequestSentBody> response = JSONObject.parseObject(responseBody.string(), new TypeReference<>() {
+        });
         handleBody(response.getBody());
     }
-
-    /**
-     * 处理body数据
-     * @param body  body数据
-     * @throws IOException 异常
-     */
-    void handleBody(UserCommissionBody body) throws IOException;
 }

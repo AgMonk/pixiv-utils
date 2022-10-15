@@ -5,7 +5,6 @@ import com.alibaba.fastjson.TypeReference;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import okhttp3.*;
 import org.gin.StringUtils;
-import org.gin.exception.PixivUrlCreateException;
 import org.gin.interceptor.LoggingInterceptor;
 
 import java.io.Serializable;
@@ -88,7 +87,7 @@ public class PixivCommon {
      * @param args        url参数
      * @return HttpUrl
      */
-    public static HttpUrl createHttpUrl(String urlTemplate, Object... args) throws PixivUrlCreateException {
+    public static HttpUrl createHttpUrl(String urlTemplate, Object... args) {
         return createHttpUrl(null, urlTemplate, args);
     }
 
@@ -99,13 +98,14 @@ public class PixivCommon {
      * @param args        url参数
      * @return HttpUrl
      */
-    public static HttpUrl createHttpUrl(Object queryParam, String urlTemplate, Object... args) throws PixivUrlCreateException {
+    public static HttpUrl createHttpUrl(Object queryParam, String urlTemplate, Object... args) {
         final String url = String.format(urlTemplate, args);
         final HttpUrl httpUrl = HttpUrl.parse(url);
         //解析url失败 抛出异常
-        if (httpUrl == null) {
-            throw new PixivUrlCreateException(url, args);
-        }
+//        if (httpUrl == null) {
+//            throw new PixivUrlCreateException(url, args);
+//        }
+        assert httpUrl != null;
         //如果没有查询条件，直接返回url
         if (queryParam == null) {
             return httpUrl;

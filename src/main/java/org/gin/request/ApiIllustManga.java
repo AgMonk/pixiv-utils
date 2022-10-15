@@ -1,7 +1,6 @@
 package org.gin.request;
 
 import okhttp3.OkHttpClient;
-import org.gin.exception.PixivUrlCreateException;
 import org.gin.params.SearchParam;
 import org.gin.response.PixivResponse;
 import org.gin.response.body.ArtworkBody;
@@ -27,26 +26,27 @@ public class ApiIllustManga {
      */
     public static PixivRequest<PixivResponse<ArtworkBody>> detail(int pid,
                                                                   @NotNull PixivCookieToken pixivCookieToken,
-                                                                  @NotNull OkHttpClient client) throws PixivUrlCreateException {
+                                                                  @NotNull OkHttpClient client) {
         return new PixivRequest<>(PixivCommon.createHttpUrl(PixivUrl.DOMAIN + "/ajax/illust/%d", pid)
                 , client, pixivCookieToken);
     }
-/**
- * 搜索
- * @param keywords         关键字
- * @param param            参数
- * @param pixivCookieToken cooke和token
- * @param client           客户端
- * @return org.gin.request.PixivRequest<org.gin.response.PixivResponse < org.gin.response.body.SearchBody>>
- * @since 2022/10/14 17:28
- */
-public static PixivRequest<PixivResponse<SearchBody>> search(@NotNull String keywords,
-                                                             @NotNull SearchParam param,
-                                                             @NotNull PixivCookieToken pixivCookieToken,
-                                                             @NotNull OkHttpClient client) throws PixivUrlCreateException {
-    return new PixivRequest<>(PixivCommon.createHttpUrl(param, PixivUrl.DOMAIN + "/ajax/search/artworks/%s", keywords)
-            , client, pixivCookieToken);
-}
+
+    /**
+     * 搜索
+     * @param keywords         关键字
+     * @param param            参数
+     * @param pixivCookieToken cooke和token
+     * @param client           客户端
+     * @return org.gin.request.PixivRequest<org.gin.response.PixivResponse < org.gin.response.body.SearchBody>>
+     * @since 2022/10/14 17:28
+     */
+    public static PixivRequest<PixivResponse<SearchBody>> search(@NotNull String keywords,
+                                                                 @NotNull SearchParam param,
+                                                                 @NotNull PixivCookieToken pixivCookieToken,
+                                                                 @NotNull OkHttpClient client) {
+        return new PixivRequest<>(PixivCommon.createHttpUrl(param, PixivUrl.DOMAIN + "/ajax/search/artworks/%s", keywords)
+                , client, pixivCookieToken);
+    }
 
     //todo 收藏
     //todo 移除收藏

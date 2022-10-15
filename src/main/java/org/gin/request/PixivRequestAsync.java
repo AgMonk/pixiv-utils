@@ -1,11 +1,12 @@
 package org.gin.request;
 
 import okhttp3.FormBody;
-import okhttp3.HttpUrl;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import org.gin.params.PixivParamsBookmarksAdd;
-import org.gin.response.callback.*;
+import org.gin.response.callback.BasePixivCallback;
+import org.gin.response.callback.BookmarkAddCallback;
+import org.gin.response.callback.RpcGroupCallback;
 
 import java.util.Collection;
 import java.util.HashMap;
@@ -100,26 +101,4 @@ public class PixivRequestAsync {
         PixivCommon.CLIENT.newCall(request).enqueue(callback);
     }
 
-    /**
-     * 查询用户的收藏作品中使用的标签
-     * @param userId 用户id
-     * @param cookie cookie
-     * @param callback 响应处理
-     */
-    public static void userBookmarkTags(long userId,  String cookie, UserBookmarkTagsCallback callback) {
-        final HttpUrl url = PixivUrl.userBookmarkTags(userId, "zh");
-        final Request request = PixivCommon.createGetRequest(cookie, url);
-        PixivCommon.CLIENT.newCall(request).enqueue(callback);
-    }
-    /**
-     * 查询用户发出约稿的作品
-     * @param userId 用户id
-     * @param cookie cookie
-     * @param callback 响应处理
-     */
-    public static void userCommissionRequestSent(long userId,  String cookie, UserCommissionCallback callback) {
-        final HttpUrl url = PixivUrl.userCommissionRequestSent(userId, "zh");
-        final Request request = PixivCommon.createGetRequest(cookie, url);
-        PixivCommon.CLIENT.newCall(request).enqueue(callback);
-    }
 }

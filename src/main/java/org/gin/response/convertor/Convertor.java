@@ -6,6 +6,7 @@ import okhttp3.ResponseBody;
 import org.gin.response.PixivResponse;
 import org.gin.response.body.ProfileBody;
 import org.gin.response.body.ProfileRealBody;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 
@@ -41,13 +42,28 @@ public interface Convertor<R> {
      * @since 2022/10/15 11:01
      */
     static <T> PixivResponse<T> common(ResponseBody responseBody, Class<T> clazz) throws IOException {
-        final PixivResponse<String> response = JSONObject.parseObject(responseBody.string(), new TypeReference<>() {
+        String string = responseBody.string();
+        string = replaceEmptyArray(string, "tagTranslation");
+        final PixivResponse<String> response = JSONObject.parseObject(string, new TypeReference<>() {
         });
         final T t = JSONObject.parseObject(response.getBody(), clazz);
         final PixivResponse<T> res = new PixivResponse<>();
         res.setBody(t);
         return res;
     }
+
+    /**
+     * 把来源json字符串中指定字段名的空数组，修改为空对象
+     * @param source json字符串
+     * @param field  字段名
+     * @return 字符串
+     */
+    static String replaceEmptyArray(String source, @NotNull String field) {
+        final String r1 = String.format("\"%s\":[]", field);
+        final String r2 = String.format("\"%s\":{}", field);
+        return source.replace(r1, r2);
+    }
+
 
     /**
      * 从 ResponseBody 转换到R的方法

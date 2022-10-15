@@ -2,7 +2,6 @@ package org.gin.request;
 
 import lombok.NonNull;
 import okhttp3.OkHttpClient;
-import org.gin.exception.PixivUrlCreateException;
 import org.gin.params.FollowLatestParam;
 import org.gin.response.PixivResponse;
 import org.gin.response.body.FollowLatestBody;
@@ -23,13 +22,13 @@ public class ApiFollows {
     * @author bx002
     * @since 2022/10/14 17:05
     */
-    public static PixivRequest<PixivResponse<FollowLatestBody>> followLatest(@NonNull FollowLatestParam followLatestParam,
-                                                                             @NonNull PixivCookieToken pixivCookieToken,
-                                                                             @NonNull OkHttpClient client
-    ) throws PixivUrlCreateException {
-        return new PixivRequest<>(PixivCommon.createHttpUrl(followLatestParam, PixivUrl.DOMAIN + "/ajax/follow_latest/illust")
-                , client, pixivCookieToken);
-    }
+   public static PixivRequest<PixivResponse<FollowLatestBody>> followLatest(@NonNull FollowLatestParam followLatestParam,
+                                                                            @NonNull PixivCookieToken pixivCookieToken,
+                                                                            @NonNull OkHttpClient client
+   ) {
+       return new PixivRequest<>(PixivCommon.createHttpUrl(followLatestParam, PixivUrl.DOMAIN + "/ajax/follow_latest/illust")
+               , client, pixivCookieToken);
+   }
 
 
     //todo 关注用户

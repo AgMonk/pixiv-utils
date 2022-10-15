@@ -285,6 +285,7 @@ final PixivResponse<ProfileIllustsBody> res=ApiUser.profileIllusts(userId,
 
 ### 查询用户的收藏作品中使用的标签
 
+- 方法名：illustsBookmarkTags
 - URL：`https://www.pixiv.net/ajax/user/${uid}/illusts/bookmark/tags`
 - 请求方法：`GET`
 - 传参方式：`QUERY`
@@ -294,8 +295,8 @@ final PixivResponse<ProfileIllustsBody> res=ApiUser.profileIllusts(userId,
 
 ### 查询用户发出约稿的作品
 
+- 方法名：commissionRequestSent
 - URL：`https://www.pixiv.net/ajax/commission/page/users/${uid}/request/sent`
-
 - 请求方法：`GET`
 - 传参方式：`QUERY`
 - 参数含义：

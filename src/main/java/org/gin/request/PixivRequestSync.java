@@ -7,10 +7,7 @@ import org.gin.params.PixivParamsBookmarksAdd;
 import org.gin.response.PixivResponse;
 import org.gin.response.RpcGroupResponse;
 import org.gin.response.body.BookmarkAddBody;
-import org.gin.response.body.IllustBookmarkTagsBody;
-import org.gin.response.body.UserCommissionBody;
 import org.gin.response.callback.BasePixivCallback;
-import org.gin.response.callback.UserBookmarkTagsCallback;
 
 import java.io.IOException;
 import java.util.Collection;
@@ -110,30 +107,4 @@ public class PixivRequestSync {
         return JSONObject.parseObject(responseBody.string(), RpcGroupResponse.class);
     }
 
-    /**
-     * 查询用户的收藏作品中使用的标签
-     * @param userId   用户id
-     * @param cookie   cookie
-     * @param callback 响应处理
-     */
-    public static PixivResponse<IllustBookmarkTagsBody> userBookmarkTags(long userId, String cookie, UserBookmarkTagsCallback callback) throws IOException {
-        final HttpUrl url = PixivUrl.userBookmarkTags(userId, "zh");
-        final Request request = PixivCommon.createGetRequest(cookie, url);
-        final ResponseBody responseBody = getResponseBody(request);
-        return JSONObject.parseObject(responseBody.string(), new TypeReference<>() {
-        });
-    }
-
-    /**
-     * 查询用户发出约稿的作品
-     * @param userId 用户id
-     * @param cookie cookie
-     */
-    public static PixivResponse<UserCommissionBody> userCommissionRequestSent(long userId,  String cookie) throws IOException {
-        final HttpUrl url = PixivUrl.userCommissionRequestSent(userId, "zh");
-        final Request request = PixivCommon.createGetRequest(cookie, url);
-        final ResponseBody responseBody = getResponseBody(request);
-        return JSONObject.parseObject(responseBody.string(), new TypeReference<>() {
-        });
-    }
 }

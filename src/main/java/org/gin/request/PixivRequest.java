@@ -23,7 +23,6 @@ public class PixivRequest<R> {
  * @param client           客户端
  * @param pixivCookieToken cooke和token
  * @param body             请求body参数
- * @return PixivRequest
  * @since 2022/10/15 12:11
  */
 public PixivRequest(HttpUrl httpUrl, OkHttpClient client, PixivCookieToken pixivCookieToken, RequestBody body) {
@@ -36,7 +35,6 @@ public PixivRequest(HttpUrl httpUrl, OkHttpClient client, PixivCookieToken pixiv
      * @param httpUrl          url
      * @param client           客户端
      * @param pixivCookieToken cooke和token
-     * @return PixivRequest
      * @since 2022/10/15 12:11
      */
     public PixivRequest(HttpUrl httpUrl, OkHttpClient client, PixivCookieToken pixivCookieToken) {

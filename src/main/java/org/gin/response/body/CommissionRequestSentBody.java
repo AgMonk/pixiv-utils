@@ -14,7 +14,7 @@ import java.util.List;
  * @since : 2022/10/13 15:48
  **/
 @Data
-public class UserCommissionBody {
+public class CommissionRequestSentBody {
     RequestInfo page;
     List<CommissionRequest> requests;
     HashMap<String, TagTranslation> tagTranslation;

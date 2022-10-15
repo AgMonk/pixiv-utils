@@ -1,16 +1,12 @@
 package org.gin.request;
 
 import okhttp3.OkHttpClient;
-import org.gin.exception.PixivUrlCreateException;
 import org.gin.params.IllustsBookmarksParam;
 import org.gin.params.ProfileIllustsParam;
 import org.gin.params.SimpleParam;
 import org.gin.params.UserInfoParam;
 import org.gin.response.PixivResponse;
-import org.gin.response.body.IllustsBookmarksBody;
-import org.gin.response.body.ProfileIllustsBody;
-import org.gin.response.body.ProfileRealBody;
-import org.gin.response.body.UserInfoBody;
+import org.gin.response.body.*;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -32,7 +28,7 @@ public class ApiUser {
     public static PixivRequest<PixivResponse<UserInfoBody>> userInfo(int userId,
                                                                      @NotNull UserInfoParam param,
                                                                      @NotNull PixivCookieToken pixivCookieToken,
-                                                                     @NotNull OkHttpClient client) throws PixivUrlCreateException {
+                                                                     @NotNull OkHttpClient client) {
         return new PixivRequest<>(PixivCommon.createHttpUrl(param, PixivUrl.DOMAIN + "/ajax/user/%d", userId)
                 , client, pixivCookieToken);
     }
@@ -49,7 +45,7 @@ public class ApiUser {
     public static PixivRequest<PixivResponse<ProfileRealBody>> profileAll(int userId,
                                                                           @NotNull SimpleParam param,
                                                                           @NotNull PixivCookieToken pixivCookieToken,
-                                                                          @NotNull OkHttpClient client) throws PixivUrlCreateException {
+                                                                          @NotNull OkHttpClient client) {
         return new PixivRequest<>(PixivCommon.createHttpUrl(param, PixivUrl.DOMAIN + "/ajax/user/%d/profile/all", userId)
                 , client, pixivCookieToken);
     }
@@ -66,7 +62,7 @@ public class ApiUser {
     public static PixivRequest<PixivResponse<ProfileIllustsBody>> profileIllusts(int userId,
                                                                                  @NotNull ProfileIllustsParam param,
                                                                                  @NotNull PixivCookieToken pixivCookieToken,
-                                                                                 @NotNull OkHttpClient client) throws PixivUrlCreateException {
+                                                                                 @NotNull OkHttpClient client) {
         return new PixivRequest<>(PixivCommon.createHttpUrl(param, PixivUrl.DOMAIN + "/ajax/user/%d/profile/illusts", userId)
                 , client, pixivCookieToken);
     }
@@ -83,13 +79,42 @@ public class ApiUser {
     public static PixivRequest<PixivResponse<IllustsBookmarksBody>> illustsBookmarks(int userId,
                                                                                      @NotNull IllustsBookmarksParam param,
                                                                                      @NotNull PixivCookieToken pixivCookieToken,
-                                                                                     @NotNull OkHttpClient client) throws PixivUrlCreateException {
+                                                                                     @NotNull OkHttpClient client) {
         return new PixivRequest<>(PixivCommon.createHttpUrl(param, PixivUrl.DOMAIN + "/ajax/user/%d/illusts/bookmarks", userId)
                 , client, pixivCookieToken);
     }
 
+    /**
+     * 查询用户收藏中使用的标签
+     * @param userId           用户id
+     * @param param            参数
+     * @param pixivCookieToken cooke和token
+     * @param client           客户端
+     * @return org.gin.request.PixivRequest<org.gin.response.PixivResponse < org.gin.response.body.IllustsBookmarksBody>>
+     * @since 2022/10/15 12:29
+     */
+    public static PixivRequest<PixivResponse<IllustBookmarkTagsBody>> illustsBookmarkTags(int userId,
+                                                                                          @NotNull SimpleParam param,
+                                                                                          @NotNull PixivCookieToken pixivCookieToken,
+                                                                                          @NotNull OkHttpClient client) {
+        return new PixivRequest<>(PixivCommon.createHttpUrl(param, PixivUrl.DOMAIN + "/ajax/user/%d/illusts/bookmark/tags", userId)
+                , client, pixivCookieToken);
+    }
 
-    //todo 查询用户的收藏
-    //todo 查询用户收藏中使用的标签
-    //todo 查询用户发出的约稿
+    /**
+     * 查询用户发出的约稿
+     * @param userId           用户id
+     * @param param            参数
+     * @param pixivCookieToken cooke和token
+     * @param client           客户端
+     * @return org.gin.request.PixivRequest<org.gin.response.PixivResponse < org.gin.response.body.UserCommissionBody>>
+     * @since 2022/10/15 14:01
+     */
+    public static PixivRequest<PixivResponse<CommissionRequestSentBody>> commissionRequestSent(int userId,
+                                                                                               @NotNull SimpleParam param,
+                                                                                               @NotNull PixivCookieToken pixivCookieToken,
+                                                                                               @NotNull OkHttpClient client) {
+        return new PixivRequest<>(PixivCommon.createHttpUrl(param, PixivUrl.DOMAIN + "/ajax/commission/page/users/%d/request/sent", userId)
+                , client, pixivCookieToken);
+    }
 }
