@@ -1,10 +1,14 @@
-package org.gin.request;
+package org.gin.api;
 
 import okhttp3.OkHttpClient;
 import org.gin.params.IllustsBookmarksParam;
 import org.gin.params.ProfileIllustsParam;
 import org.gin.params.SimpleParam;
 import org.gin.params.UserInfoParam;
+import org.gin.request.Pixiv;
+import org.gin.request.PixivCookieToken;
+import org.gin.request.PixivRequest;
+import org.gin.request.PixivUrl;
 import org.gin.response.PixivResponse;
 import org.gin.response.body.*;
 import org.jetbrains.annotations.NotNull;

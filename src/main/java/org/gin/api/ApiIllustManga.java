@@ -1,7 +1,11 @@
-package org.gin.request;
+package org.gin.api;
 
 import okhttp3.OkHttpClient;
 import org.gin.params.SearchParam;
+import org.gin.request.Pixiv;
+import org.gin.request.PixivCookieToken;
+import org.gin.request.PixivRequest;
+import org.gin.request.PixivUrl;
 import org.gin.response.PixivResponse;
 import org.gin.response.body.ArtworkBody;
 import org.gin.response.body.SearchBody;

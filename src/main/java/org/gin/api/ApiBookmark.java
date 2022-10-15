@@ -1,8 +1,9 @@
-package org.gin.request;
+package org.gin.api;
 
 import lombok.NonNull;
 import okhttp3.OkHttpClient;
 import org.gin.params.BookmarksAddParam;
+import org.gin.request.*;
 import org.gin.response.PixivResponse;
 import org.gin.response.body.BookmarkAddBody;
 
