@@ -1,7 +1,6 @@
 package org.gin.request;
 
 import lombok.Getter;
-import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -39,8 +38,10 @@ public class PixivCookieToken {
     }
 
     public String findToken(OkHttpClient client) throws PixivException, IOException {
-        final HttpUrl httpUrl = PixivUrl.createHttpUrl(Pixiv.DOMAIN + URL);
-        final Request request = PixivRequest.createGetRequest(cookie, httpUrl);
+        final Request request = new Request.Builder().url(Pixiv.DOMAIN + URL)
+                .header("referer", "https://www.pixiv.net/")
+                .header("cookie", cookie)
+                .build();
         try (final Response response = client.newCall(request).execute()) {
             final String html = Objects.requireNonNull(response.body()).string();
             final Matcher matcher = PATTERN.matcher(html);

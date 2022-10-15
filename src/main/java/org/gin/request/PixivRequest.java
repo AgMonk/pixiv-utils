@@ -44,50 +44,19 @@ public class PixivRequest<R> {
         this.request = createRequest(pixivCookieToken, httpUrl, null);
     }
 
-    public static Request createGetRequest(String cookie, String url) {
-        return createRequest(cookie, url, null, null);
-    }
-
-    public static Request createGetRequest(String cookie, HttpUrl url) {
-        return createRequest(cookie, url, null, null);
-    }
-
-    public static Request createPostRequest(String cookie, HttpUrl url, String token, RequestBody body) {
-        return createRequest(cookie, url, token, body);
-    }
-
-    public static Request createPostRequest(String cookie, String url, String token, RequestBody body) {
-        return createRequest(cookie, url, token, body);
-    }
-
     /**
      * 创建请求对象
-     * @param cookie cookie
-     * @param url    url
-     * @param token  token
-     * @param body   body
+     * @param pixivCookieToken cooke和token
+     * @param httpUrl          HttpUrl
+     * @param body             body
      * @return okhttp3.Request
+     * @since 2022/10/15 17:00
      */
-    public static Request createRequest(String cookie, String url, String token, RequestBody body) {
-        return createRequest(cookie, HttpUrl.parse(url), token, body);
-    }
-
-    public static Request createRequest(PixivCookieToken pixivCookieToken, HttpUrl httpUrl, RequestBody body) {
-        return createRequest(pixivCookieToken.getCookie(), httpUrl, pixivCookieToken.getToken(), body);
-    }
-
-    /**
-     * 创建请求对象
-     * @param cookie  cookie
-     * @param httpUrl url
-     * @param token   token
-     * @param body    body
-     * @return okhttp3.Request
-     */
-    public static Request createRequest(String cookie, HttpUrl httpUrl, String token, RequestBody body) {
+    private static Request createRequest(PixivCookieToken pixivCookieToken, HttpUrl httpUrl, RequestBody body) {
+        String token = pixivCookieToken.getToken();
         final Request.Builder builder = new Request.Builder().url(httpUrl)
                 .header("referer", "https://www.pixiv.net/")
-                .header("cookie", cookie);
+                .header("cookie", pixivCookieToken.getCookie());
 //        如果传入了token 添加token header
         if (StringUtils.isNotEmpty(token)) {
             builder.header("x-csrf-token", token);
