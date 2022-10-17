@@ -11,7 +11,7 @@ import org.gin.request.PixivCookieToken;
 import org.gin.request.PixivRequest;
 import org.gin.request.PixivUrl;
 import org.gin.response.PixivResponse;
-import org.gin.response.body.illustmanga.IllustBookmarkTagsBody;
+import org.gin.response.body.illustmanga.CommonBookmarkTagsBody;
 import org.gin.response.body.illustmanga.IllustMangaBookmarksBody;
 import org.gin.response.body.user.*;
 import org.jetbrains.annotations.NotNull;
@@ -100,7 +100,7 @@ public class ApiUser {
      * @return org.gin.request.PixivRequest<org.gin.response.PixivResponse < org.gin.response.body.illustmanga.IllustsBookmarksBody>>
      * @since 2022/10/15 12:29
      */
-    public static PixivRequest<PixivResponse<IllustBookmarkTagsBody>> illustsBookmarkTags(long userId,
+    public static PixivRequest<PixivResponse<CommonBookmarkTagsBody>> illustsBookmarkTags(long userId,
                                                                                           @NotNull SimpleParam param,
                                                                                           @NotNull PixivCookieToken pixivCookieToken,
                                                                                           @NotNull OkHttpClient client) {
@@ -134,5 +134,23 @@ public class ApiUser {
      */
     public static PixivRequest<PixivResponse<ProfileNovelsBody>> profileNovels(long userId, @NotNull ProfileNovelsParam param, @NotNull PixivCookieToken pixivCookieToken, @NotNull OkHttpClient client) {
         return new PixivRequest<>(PixivUrl.createHttpUrl(param, Pixiv.DOMAIN + "/ajax/user/%d/profile/novels", userId), client, pixivCookieToken);
+    }
+
+    /**
+     * 查询用户收藏小说中使用的标签
+     * @param userId           用户id
+     * @param param            参数
+     * @param pixivCookieToken cooke和token
+     * @param client           客户端
+     * @return org.gin.request.PixivRequest<org.gin.response.PixivResponse < org.gin.response.body.illustmanga.CommonBookmarkTagsBody>>
+     * @since 2022/10/17 13:34
+     */
+
+    public static PixivRequest<PixivResponse<CommonBookmarkTagsBody>> novelsBookmarkTags(long userId,
+                                                                                         @NotNull SimpleParam param,
+                                                                                         @NotNull PixivCookieToken pixivCookieToken,
+                                                                                         @NotNull OkHttpClient client) {
+        return new PixivRequest<>(PixivUrl.createHttpUrl(param, Pixiv.DOMAIN + "/ajax/user/%d/novels/bookmark/tags", userId)
+                , client, pixivCookieToken);
     }
 }

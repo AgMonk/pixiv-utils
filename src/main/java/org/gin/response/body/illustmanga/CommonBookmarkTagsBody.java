@@ -12,7 +12,7 @@ import java.util.List;
  * @since : 2022/10/13 15:19
  **/
 @Data
-public class IllustBookmarkTagsBody {
+public class CommonBookmarkTagsBody {
     @JSONField(alternateNames = "private")
     List<Tag> privateTag;
     @JSONField(alternateNames = "public")

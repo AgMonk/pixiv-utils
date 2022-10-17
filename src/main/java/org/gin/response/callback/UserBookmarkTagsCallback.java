@@ -4,7 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.TypeReference;
 import okhttp3.ResponseBody;
 import org.gin.response.PixivResponse;
-import org.gin.response.body.illustmanga.IllustBookmarkTagsBody;
+import org.gin.response.body.illustmanga.CommonBookmarkTagsBody;
 
 import java.io.IOException;
 
@@ -19,7 +19,7 @@ public interface UserBookmarkTagsCallback extends BasePixivCallback {
      * @param body body数据
      * @throws IOException 异常
      */
-    void handleBody(IllustBookmarkTagsBody body) throws IOException;
+    void handleBody(CommonBookmarkTagsBody body) throws IOException;
 
     /**
      * 请求成功时的处理方法
@@ -28,7 +28,7 @@ public interface UserBookmarkTagsCallback extends BasePixivCallback {
      */
     @Override
     default void onSuccess(ResponseBody responseBody) throws IOException {
-        PixivResponse<IllustBookmarkTagsBody> response = JSONObject.parseObject(responseBody.string(), new TypeReference<>() {
+        PixivResponse<CommonBookmarkTagsBody> response = JSONObject.parseObject(responseBody.string(), new TypeReference<>() {
         });
         handleBody(response.getBody());
     }
