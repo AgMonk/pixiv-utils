@@ -51,7 +51,7 @@ public class NovelSeriesBody {
     String userName;
 
     @Data
-    static class Cover {
+    public static class Cover {
         HashMap<String, String> urls;
     }
 }

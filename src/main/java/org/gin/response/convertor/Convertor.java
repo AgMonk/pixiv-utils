@@ -25,7 +25,11 @@ public interface Convertor<R> {
      * @since 2022/10/15 10:14
      */
     static PixivResponse<ProfileRealBody> profileAll(ResponseBody responseBody) throws IOException {
-        final PixivResponse<ProfileBody> response = JSONObject.parseObject(responseBody.string(), new TypeReference<>() {
+        String string = responseBody.string();
+        string = replaceEmptyArray(string, "manga");
+        string = replaceEmptyArray(string, "illusts");
+        string = replaceEmptyArray(string, "novels");
+        final PixivResponse<ProfileBody> response = JSONObject.parseObject(string, new TypeReference<>() {
         });
         final ProfileRealBody body = new ProfileRealBody(response.getBody());
         final PixivResponse<ProfileRealBody> res = new PixivResponse<>();

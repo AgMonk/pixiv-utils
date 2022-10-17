@@ -1,8 +1,10 @@
 package org.gin.response.body.user;
 
 import lombok.Data;
+import org.gin.response.body.novel.NovelSeriesBody;
 import org.gin.response.fields.MangaSeriesInfo;
 
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -16,15 +18,20 @@ public class ProfileBody {
     /**
      * 插画信息
      */
-    Object illusts;
+    HashMap<Long, Object> illusts;
     /**
      * 漫画信息
      */
-    Object manga;
+    HashMap<Long, Object> manga;
+    /**
+     * 小说系列信息
+     */
+    List<NovelSeriesBody> novelSeries;
     /**
      * 漫画系列信息
      */
     List<MangaSeriesInfo> mangaSeries;
+    HashMap<Long, Object> novels;
     /**
      * 首页精选推荐
      */

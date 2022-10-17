@@ -1,11 +1,12 @@
 package org.gin.response.body.user;
 
-import com.alibaba.fastjson.JSONObject;
 import lombok.Data;
+import org.gin.response.body.novel.NovelSeriesBody;
 import org.gin.response.fields.MangaSeriesInfo;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * 用户作品概况 适配插画和漫画为空的情况
@@ -28,21 +29,26 @@ public class ProfileRealBody {
      */
     List<MangaSeriesInfo> mangaSeries;
     /**
+     * 小说系列信息
+     */
+    List<NovelSeriesBody> novelSeries;
+    /**
+     * 小说信息
+     */
+    List<Long> novels;
+    /**
      * 首页精选推荐
      */
     List<Object> pickup;
 
     public ProfileRealBody(ProfileBody profileBody) {
-        final Object ill = profileBody.getIllusts();
-        if (ill instanceof JSONObject) {
-            this.illusts = ((JSONObject) ill).keySet().stream().map(Long::parseLong).sorted().collect(Collectors.toList());
-        }
-
-        final Object man = profileBody.getManga();
-        if (man instanceof JSONObject) {
-            this.manga = ((JSONObject) man).keySet().stream().map(Long::parseLong).sorted().collect(Collectors.toList());
-        }
+        this.illusts = new ArrayList<>(profileBody.getIllusts().keySet());
+        this.manga = new ArrayList<>(profileBody.getManga().keySet());
+        this.novels = new ArrayList<>(profileBody.getNovels().keySet());
         this.mangaSeries = profileBody.getMangaSeries();
         this.pickup = profileBody.getPickup();
+        Collections.sort(this.illusts);
+        Collections.sort(this.manga);
+        Collections.sort(this.novels);
     }
 }
