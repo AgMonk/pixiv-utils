@@ -121,4 +121,8 @@ public class ApiUser {
         return new PixivRequest<>(PixivUrl.createHttpUrl(param, Pixiv.DOMAIN + "/ajax/commission/page/users/%d/request/sent", userId)
                 , client, pixivCookieToken);
     }
+
+    //todo 搜索用户
+    //todo 推荐用户
+    //todo 查询用户的小说
 }

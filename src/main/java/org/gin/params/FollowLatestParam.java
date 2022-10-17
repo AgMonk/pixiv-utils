@@ -23,4 +23,8 @@ public class FollowLatestParam {
      * 语言
      */
     String lang = "zh";
+
+    public FollowLatestParam(int page) {
+        this.page = page;
+    }
 }

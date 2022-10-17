@@ -171,22 +171,33 @@ Pixiv工具类
 
 - 参数含义：
 
-  - bookmarkIds：收藏id，从作品信息的bookmarkData字段中获取
+    - bookmarkIds：收藏id，从作品信息的bookmarkData字段中获取
 
 ## 关注
 
 类名：`ApiFollows`
 
-### 查询关注作者的最新作品
+### 查询关注作者的最新插画/漫画
 
-- 方法名：latest
+- 方法名：latestIllust
 - URL：`https://www.pixiv.net/ajax/follow_latest/illust `
 - 请求方法：`GET`
 - 传参方式：`QUERY`
 - 参数含义：
-  - mode：模式，可选值：`all`,`r18`
-  - lang：语言，简中为 `zh`
-  - p：页码
+    - mode：模式，可选值：`all`,`r18`
+    - lang：语言，简中为 `zh`
+    - p：页码
+
+### 查询关注作者的最新小说
+
+- 方法名：latestNovel
+- URL：`https://www.pixiv.net/ajax/follow_latest/illust `
+- 请求方法：`GET`
+- 传参方式：`QUERY`
+- 参数含义：
+    - mode：模式，可选值：`all`,`r18`
+    - lang：语言，简中为 `zh`
+    - p：页码
 
 ### 关注作者
 
@@ -284,8 +295,31 @@ Pixiv工具类
 - 请求方法：`GET`
 - 传参方式：`QUERY`
 - 参数含义：
-  - uid：(PATH传递)用户id
-  - lang：语言，简中为 `zh`
+    - uid：(PATH传递)用户id
+    - lang：语言，简中为 `zh`
+
+## 小说
+
+### 搜索
+
+- URL：`https://www.pixiv.net/ajax/search/novels/${keywords}`
+- 请求方法：`GET`
+- 传参方式：`QUERY`
+- 参数含义：
+    - keyword：(PATH传递)关键字，需使用UTF-8编码，编码前的空格(编码后的+号)需要替换为`%20`
+    - order：排序模式，可选值：`date_d`从新到旧(默认),`date`从旧到新
+    - mode：模式，可选值：`all`、`safe`、`r18`
+    - s_mode：检索范围，`s_tag`(默认),`s_tag_only`(标签、部分一致),`s_tag_full`(标签，完全一致),`s_tc`(正文)
+    - lang：语言，简中为 `zh`
+    - p：页码
+    - scd：发布时间（起），以东九区为准，格式：yyyy-MM-dd
+    - ecd：发布时间（止），以东九区为准，格式：yyyy-MM-dd
+    - tlt：字数范围（最低）
+    - tgt：字数范围（最高），官方提供的字数范围选项为：`0-4999`,`5000-19999`,`20000-79999`,`80000-`，指定文字数为会员功能
+    - gs：默认为0，含义不明
+    -
+
+### 详情
 
 ## 评论区
 

@@ -17,20 +17,37 @@ import org.gin.response.body.FollowLatestBody;
  **/
 public class ApiFollows {
     /**
-     * 查询关注作者的最新作品
+     * 查询关注作者的最新插画/漫画
      * @param followLatestParam 参数
      * @param pixivCookieToken  cooke和token
      * @param client            客户端
      * @return org.gin.request.PixivRequest<org.gin.response.PixivResponse < org.gin.response.body.FollowLatestBody>>
      * @since 2022/10/14 17:05
      */
-    public static PixivRequest<PixivResponse<FollowLatestBody>> latest(@NonNull FollowLatestParam followLatestParam,
-                                                                       @NonNull PixivCookieToken pixivCookieToken,
-                                                                       @NonNull OkHttpClient client
+    public static PixivRequest<PixivResponse<FollowLatestBody>> latestIllust(@NonNull FollowLatestParam followLatestParam,
+                                                                             @NonNull PixivCookieToken pixivCookieToken,
+                                                                             @NonNull OkHttpClient client
     ) {
         return new PixivRequest<>(PixivUrl.createHttpUrl(followLatestParam, Pixiv.DOMAIN + "/ajax/follow_latest/illust")
                 , client, pixivCookieToken);
     }
+
+    /**
+     * 查询关注作者的最新小说
+     * @param followLatestParam 参数
+     * @param pixivCookieToken  cooke和token
+     * @param client            客户端
+     * @return org.gin.request.PixivRequest<org.gin.response.PixivResponse < org.gin.response.body.FollowLatestBody>>
+     * @since 2022/10/17 9:23
+     */
+    public static PixivRequest<PixivResponse<FollowLatestBody>> latestNovel(@NonNull FollowLatestParam followLatestParam,
+                                                                            @NonNull PixivCookieToken pixivCookieToken,
+                                                                            @NonNull OkHttpClient client
+    ) {
+        return new PixivRequest<>(PixivUrl.createHttpUrl(followLatestParam, Pixiv.DOMAIN + "/ajax/follow_latest/novel")
+                , client, pixivCookieToken);
+    }
+
 
     /**
      * 关注用户

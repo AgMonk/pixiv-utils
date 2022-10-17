@@ -21,6 +21,7 @@ public class FollowLatestBody {
     @Data
     static class Page {
         List<Long> ids;
+        Boolean isLastPage;
     }
 
 

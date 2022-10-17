@@ -12,5 +12,6 @@ import java.util.List;
 @Data
 public class Thumbnails {
     List<ArtworkInfo> illust;
+    List<NovelInfo> novel;
 
 }
