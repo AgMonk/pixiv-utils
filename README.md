@@ -333,7 +333,13 @@ Pixiv工具类
 
 ### 查询系列
 
-`todo`
+- 方法名：series
+- URL：`https://www.pixiv.net/ajax/novel/series/${seriesId}`
+- 请求方法：`GET`
+- 传参方式：`QUERY`
+- 参数含义：
+  - seriesId：(PATH传递)小说系列的id
+  - lang：语言，简中为 `zh`
 
 ## 评论区
 
