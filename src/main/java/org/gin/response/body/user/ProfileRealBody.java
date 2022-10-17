@@ -46,6 +46,7 @@ public class ProfileRealBody {
         this.manga = new ArrayList<>(profileBody.getManga().keySet());
         this.novels = new ArrayList<>(profileBody.getNovels().keySet());
         this.mangaSeries = profileBody.getMangaSeries();
+        this.novelSeries = profileBody.getNovelSeries();
         this.pickup = profileBody.getPickup();
         Collections.sort(this.illusts);
         Collections.sort(this.manga);

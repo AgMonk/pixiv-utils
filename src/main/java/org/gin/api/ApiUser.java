@@ -1,10 +1,7 @@
 package org.gin.api;
 
 import okhttp3.OkHttpClient;
-import org.gin.params.IllustsBookmarksParam;
-import org.gin.params.ProfileIllustsParam;
-import org.gin.params.SimpleParam;
-import org.gin.params.UserInfoParam;
+import org.gin.params.*;
 import org.gin.request.Pixiv;
 import org.gin.request.PixivCookieToken;
 import org.gin.request.PixivRequest;
@@ -12,10 +9,7 @@ import org.gin.request.PixivUrl;
 import org.gin.response.PixivResponse;
 import org.gin.response.body.illustmanga.IllustBookmarkTagsBody;
 import org.gin.response.body.illustmanga.IllustMangaBookmarksBody;
-import org.gin.response.body.user.CommissionRequestSentBody;
-import org.gin.response.body.user.ProfileIllustsBody;
-import org.gin.response.body.user.ProfileRealBody;
-import org.gin.response.body.user.UserInfoBody;
+import org.gin.response.body.user.*;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -119,15 +113,22 @@ public class ApiUser {
      * @return org.gin.request.PixivRequest<org.gin.response.PixivResponse < org.gin.response.body.UserCommissionBody>>
      * @since 2022/10/15 14:01
      */
-    public static PixivRequest<PixivResponse<CommissionRequestSentBody>> commissionRequestSent(long userId,
-                                                                                               @NotNull SimpleParam param,
-                                                                                               @NotNull PixivCookieToken pixivCookieToken,
-                                                                                               @NotNull OkHttpClient client) {
-        return new PixivRequest<>(PixivUrl.createHttpUrl(param, Pixiv.DOMAIN + "/ajax/commission/page/users/%d/request/sent", userId)
-                , client, pixivCookieToken);
+    public static PixivRequest<PixivResponse<CommissionRequestSentBody>> commissionRequestSent(long userId, @NotNull SimpleParam param, @NotNull PixivCookieToken pixivCookieToken, @NotNull OkHttpClient client) {
+        return new PixivRequest<>(PixivUrl.createHttpUrl(param, Pixiv.DOMAIN + "/ajax/commission/page/users/%d/request/sent", userId), client, pixivCookieToken);
     }
 
     //todo 搜索用户
-    //todo 推荐用户
-    //todo 查询用户的小说
+
+    /**
+     * 查询用户的小说
+     * @param userId           用户id
+     * @param param            参数
+     * @param pixivCookieToken cooke和token
+     * @param client           客户端
+     * @return org.gin.request.PixivRequest<org.gin.response.PixivResponse < org.gin.response.body.user.ProfileIllustsBody>>
+     * @since 2022/10/17 11:10
+     */
+    public static PixivRequest<PixivResponse<ProfileNovelsBody>> profileNovels(long userId, @NotNull ProfileNovelsParam param, @NotNull PixivCookieToken pixivCookieToken, @NotNull OkHttpClient client) {
+        return new PixivRequest<>(PixivUrl.createHttpUrl(param, Pixiv.DOMAIN + "/ajax/user/%d/profile/novels", userId), client, pixivCookieToken);
+    }
 }

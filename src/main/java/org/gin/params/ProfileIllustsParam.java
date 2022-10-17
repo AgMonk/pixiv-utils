@@ -3,6 +3,7 @@ package org.gin.params;
 import com.alibaba.fastjson.annotation.JSONField;
 import lombok.Data;
 
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -30,9 +31,13 @@ public class ProfileIllustsParam {
      * 需要查询的作品pid
      */
     @JSONField(name = "ids[]")
-    List<Integer> ids;
+    List<Long> ids;
 
-    public ProfileIllustsParam(List<Integer> ids) {
+    public ProfileIllustsParam(List<Long> ids) {
         this.ids = ids;
+    }
+
+    public ProfileIllustsParam(Long... ids) {
+        this.ids = Arrays.asList(ids);
     }
 }

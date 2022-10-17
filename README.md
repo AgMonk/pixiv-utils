@@ -298,6 +298,16 @@ Pixiv工具类
   - uid：(PATH传递)用户id
   - lang：语言，简中为 `zh`
 
+### 查询用户的小说
+
+- 方法名：profileNovels
+- URL：`https://www.pixiv.net/ajax/user/${uid}/profile/novels`
+- 请求方法：`GET`
+- 传参方式：`QUERY`
+- 参数含义：
+  - uid：(PATH传递)用户id
+  - lang：语言，简中为 `zh`
+
 ## 小说
 
 类名：`ApiNovel`
