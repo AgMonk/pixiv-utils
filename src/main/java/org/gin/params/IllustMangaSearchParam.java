@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
+ * 插画/漫画搜索参数
  * @author : ginstone
  * @version : v1.0.0
  * @since : 2022/10/12 17:17
@@ -13,7 +14,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class SearchParam {
+public class IllustMangaSearchParam {
     /**
      * 页码
      */

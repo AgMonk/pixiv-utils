@@ -1,7 +1,7 @@
 package org.gin.api;
 
 import okhttp3.OkHttpClient;
-import org.gin.params.SearchParam;
+import org.gin.params.IllustMangaSearchParam;
 import org.gin.params.SimpleParam;
 import org.gin.request.*;
 import org.gin.response.PixivResponse;
@@ -41,10 +41,10 @@ public class ApiIllustManga {
      * @return org.gin.request.PixivRequest<org.gin.response.PixivResponse < org.gin.response.body.SearchBody>>
      * @since 2022/10/14 17:28
      */
-    public static PixivRequest<PixivResponse<SearchBody>> search(@NotNull String keywords,
-                                                                 @NotNull SearchParam param,
-                                                                 @NotNull PixivCookieToken pixivCookieToken,
-                                                                 @NotNull OkHttpClient client) {
+    public static PixivRequest<PixivResponse<IllustMangaSearchBody>> search(@NotNull String keywords,
+                                                                            @NotNull IllustMangaSearchParam param,
+                                                                            @NotNull PixivCookieToken pixivCookieToken,
+                                                                            @NotNull OkHttpClient client) {
         return new PixivRequest<>(
                 PixivUrl.createHttpUrl(param, Pixiv.DOMAIN + "/ajax/search/artworks/%s", keywords),
                 client, pixivCookieToken

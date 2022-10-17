@@ -37,6 +37,9 @@ public class NovelInfo {
 
     Integer readingTime;
 
+    Long seriesId;
+    String seriesTitle;
+
     /**
      * 标签
      */

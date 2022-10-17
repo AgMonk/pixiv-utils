@@ -13,7 +13,7 @@ import java.util.List;
  * @since : 2022/10/12 17:39
  **/
 @Data
-public class SearchBody {
+public class IllustMangaSearchBody {
     IllustManga illustManga;
     Popular popular;
     List<String> relatedTags;
@@ -21,7 +21,7 @@ public class SearchBody {
 
 
     @Data
-    static class IllustManga{
+    static class IllustManga {
         Integer total;
         List<ArtworkInfo> data;
     }
