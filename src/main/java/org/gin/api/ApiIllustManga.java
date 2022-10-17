@@ -71,19 +71,6 @@ public class ApiIllustManga {
         );
     }
 
-    public static PixivRequest<PixivResponse<LikeBody>> dislike(long pid,
-                                                                @NotNull SimpleParam param,
-                                                                @NotNull PixivCookieToken pixivCookieToken,
-                                                                @NotNull OkHttpClient client
-    ) {
-        //todo 地址不正确
-        return new PixivRequest<>(
-                PixivUrl.createHttpUrl(param, Pixiv.DOMAIN + "/ajax/illusts/like/del"),
-                PixivRequestBody.createJsonBody("illust_id", pid),
-                client, pixivCookieToken
-        );
-    }
-
     /**
      * 查询动图的其他信息
      * @param pid              作品id
