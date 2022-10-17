@@ -1,4 +1,4 @@
-package org.gin.params;
+package org.gin.params.novel;
 
 import com.alibaba.fastjson.annotation.JSONField;
 import lombok.AllArgsConstructor;
@@ -19,7 +19,10 @@ public class NovelSearchParam {
      * 发布时间（止），以东九区为准，格式：yyyy-MM-dd
      */
     String ecd;
-    Long gs = 0L;
+    /**
+     * 是否以系列分组显示
+     */
+    Integer gs = 0;
     /**
      * 语言
      */

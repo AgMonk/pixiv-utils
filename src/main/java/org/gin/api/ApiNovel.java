@@ -2,8 +2,8 @@ package org.gin.api;
 
 import lombok.NonNull;
 import okhttp3.OkHttpClient;
-import org.gin.params.NovelSearchParam;
 import org.gin.params.SimpleParam;
+import org.gin.params.novel.NovelSearchParam;
 import org.gin.request.Pixiv;
 import org.gin.request.PixivCookieToken;
 import org.gin.request.PixivRequest;

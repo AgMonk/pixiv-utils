@@ -1,7 +1,11 @@
 package org.gin.api;
 
 import okhttp3.OkHttpClient;
-import org.gin.params.*;
+import org.gin.params.SimpleParam;
+import org.gin.params.user.IllustsBookmarksParam;
+import org.gin.params.user.ProfileIllustsParam;
+import org.gin.params.user.ProfileNovelsParam;
+import org.gin.params.user.UserInfoParam;
 import org.gin.request.Pixiv;
 import org.gin.request.PixivCookieToken;
 import org.gin.request.PixivRequest;

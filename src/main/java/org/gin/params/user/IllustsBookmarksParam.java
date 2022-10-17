@@ -1,4 +1,4 @@
-package org.gin.params;
+package org.gin.params.user;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

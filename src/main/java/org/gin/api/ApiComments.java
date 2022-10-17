@@ -1,8 +1,8 @@
 package org.gin.api;
 
 import okhttp3.OkHttpClient;
-import org.gin.params.IllustsCommentRepliesParam;
-import org.gin.params.IllustsCommentRootsParam;
+import org.gin.params.illustmanga.IllustsCommentRepliesParam;
+import org.gin.params.illustmanga.IllustsCommentRootsParam;
 import org.gin.request.Pixiv;
 import org.gin.request.PixivCookieToken;
 import org.gin.request.PixivRequest;

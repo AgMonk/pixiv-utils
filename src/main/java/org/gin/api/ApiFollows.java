@@ -2,9 +2,9 @@ package org.gin.api;
 
 import lombok.NonNull;
 import okhttp3.OkHttpClient;
-import org.gin.params.FollowAddParam;
-import org.gin.params.FollowDelParam;
-import org.gin.params.FollowLatestParam;
+import org.gin.params.follow.FollowAddParam;
+import org.gin.params.follow.FollowDelParam;
+import org.gin.params.follow.FollowLatestParam;
 import org.gin.request.*;
 import org.gin.response.PixivResponse;
 import org.gin.response.body.illustmanga.IllustMangaFollowLatestBody;

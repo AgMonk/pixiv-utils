@@ -40,6 +40,17 @@ public interface Convertor<R> {
     /**
      * 通用转换器
      * @param responseBody ResponseBody
+     * @return org.gin.response.PixivResponse<T>
+     * @throws IOException 异常
+     * @since 2022/10/15 11:01
+     */
+    static PixivResponse<Void> toVoid(ResponseBody responseBody) throws IOException {
+        return common(responseBody, Void.class);
+    }
+
+    /**
+     * 通用转换器
+     * @param responseBody ResponseBody
      * @param clazz        body类型
      * @return org.gin.response.PixivResponse<T>
      * @throws IOException 异常

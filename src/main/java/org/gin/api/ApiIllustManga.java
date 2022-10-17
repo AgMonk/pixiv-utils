@@ -1,8 +1,8 @@
 package org.gin.api;
 
 import okhttp3.OkHttpClient;
-import org.gin.params.IllustMangaSearchParam;
 import org.gin.params.SimpleParam;
+import org.gin.params.illustmanga.IllustMangaSearchParam;
 import org.gin.request.*;
 import org.gin.response.PixivResponse;
 import org.gin.response.body.BookmarkDataBody;

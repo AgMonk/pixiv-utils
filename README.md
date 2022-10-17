@@ -111,7 +111,7 @@ Pixiv工具类
 
 类名：`ApiBookmark`
 
-### 添加收藏
+### 收藏漫画/插画
 
 - 方法名：addIllust
 
@@ -141,7 +141,7 @@ Pixiv工具类
 
 - 响应：成功时将会返回收藏id
 
-### 删除收藏
+### 删除收藏漫画/插画
 
 - 方法名：delIllust
 - URL：`https://www.pixiv.net/ajax/illusts/bookmarks/delete`
@@ -151,7 +151,7 @@ Pixiv工具类
 
   - bookmark_id：收藏id，从作品信息的bookmarkData字段中获取
 
-### 删除收藏(批量)
+### 删除收藏漫画/插画(批量)
 
 - 方法名：delIllust
 
@@ -171,7 +171,48 @@ Pixiv工具类
 
 - 参数含义：
 
-    - bookmarkIds：收藏id，从作品信息的bookmarkData字段中获取
+  - bookmarkIds：收藏id，从作品信息的bookmarkData字段中获取
+
+### 收藏小说
+
+- 方法名：addNovel
+
+- URL：`https://www.pixiv.net/ajax/novels/bookmarks/add`
+
+- 请求方法：`POST`
+
+- 传参方式：`BODY`
+
+- 参数结构：
+
+  ```json
+  {
+      "novel_id": 1111,
+      "restrict": 0,
+      "comment": "",
+      "tags": []
+  }
+  ```
+
+- 参数含义：
+
+  - novel_id：小说id
+  - restrict：是否为公开收藏。0 = 公开，1 = 非公开
+  - comment：备注
+  - tags：标签
+
+- 响应：成功时将会返回收藏id
+
+### 删除收藏小说
+
+- 方法名：delNovel
+- URL：`https://www.pixiv.net/ajax/novels/bookmarks/delete`
+- 请求方法：`POST`
+- 传参方式：`FORM`
+- 参数含义：
+
+  - book_id：收藏id，从作品信息的bookmarkData字段中获取
+  - del：固定为1
 
 ## 关注
 
@@ -329,7 +370,7 @@ Pixiv工具类
   - ecd：发布时间（止），以东九区为准，格式：yyyy-MM-dd
   - tlt：字数范围（最低）
   - tgt：字数范围（最高），官方提供的字数范围选项为：`0-4999`,`5000-19999`,`20000-79999`,`80000-`，指定文字数为会员功能
-  - gs：默认为0，含义不明
+  - gs：是否以系列分组显示
 
 ### 详情
 

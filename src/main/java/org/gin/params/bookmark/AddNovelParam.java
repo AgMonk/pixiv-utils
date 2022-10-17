@@ -1,4 +1,4 @@
-package org.gin.params;
+package org.gin.params.bookmark;
 
 import com.alibaba.fastjson.annotation.JSONField;
 import lombok.AllArgsConstructor;
@@ -15,28 +15,28 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class BookmarksAddParam implements Serializable {
-    @JSONField(name = "illust_id")
-    long pid;
+public class AddNovelParam implements Serializable {
+    /**
+     * 备注
+     */
+    String comment = "";
+    @JSONField(name = "novel_id")
+    long nid;
     /**
      * 是否为非公开收藏
      */
     int restrict = 0;
     /**
-     * 备注
-     */
-    String comment = "";
-    /**
      * 标签
      */
     List<String> tags = new ArrayList<>();
 
-    public BookmarksAddParam(long pid, List<String> tags) {
-        this.pid = pid;
+    public AddNovelParam(long nid, List<String> tags) {
+        this.nid = nid;
         this.tags = tags;
     }
 
-    public BookmarksAddParam(long pid) {
-        this.pid = pid;
+    public AddNovelParam(long nid) {
+        this.nid = nid;
     }
 }

@@ -1,4 +1,4 @@
-package org.gin.params;
+package org.gin.params.illustmanga;
 
 import com.alibaba.fastjson.annotation.JSONField;
 import lombok.Data;
