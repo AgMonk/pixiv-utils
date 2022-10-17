@@ -1,6 +1,7 @@
 package org.gin.api;
 
 import okhttp3.OkHttpClient;
+import org.gin.MapUtils;
 import org.gin.params.CommentParam;
 import org.gin.params.illustmanga.IllustsCommentRepliesParam;
 import org.gin.params.illustmanga.IllustsCommentRootsParam;
@@ -12,6 +13,8 @@ import org.gin.response.PixivResponse;
 import org.gin.response.body.CommentBody;
 import org.gin.response.body.illustmanga.IllustMangaCommentsBody;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.HashMap;
 
 import static org.gin.request.PixivUrl.createHttpUrl;
 
@@ -76,4 +79,29 @@ public class ApiComments {
                 client, pixivCookieToken
         );
     }
+
+    /**
+     * 删除评论
+     * @param pid              作品id
+     * @param commentId        评论id
+     * @param pixivCookieToken cooke和token
+     * @param client           客户端
+     * @return org.gin.request.PixivRequest<org.gin.response.PixivResponse < org.gin.response.body.CommentBody>>
+     * @since 2022/10/17 14:54
+     */
+    public static PixivRequest<PixivResponse<String>> delComment(long pid,
+                                                                 long commentId,
+                                                                 @NotNull PixivCookieToken pixivCookieToken,
+                                                                 @NotNull OkHttpClient client
+    ) {
+        final HashMap<String, Long> body = MapUtils.singleTon("i_id", pid);
+        body.put("del_id", commentId);
+        return new PixivRequest<>(
+                createHttpUrl(Pixiv.DOMAIN + "/rpc_delete_comment.php"),
+                PixivRequestBody.createFormBody(body),
+                client, pixivCookieToken
+        );
+    }
+
+
 }

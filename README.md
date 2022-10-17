@@ -457,4 +457,25 @@ Pixiv工具类
 
 ### 发布评论
 
-`todo`
+- 方法名：comment
+- URL：`https://www.pixiv.net/rpc/post_comment.php`
+- 请求方法：`POST`
+- 传参方式：`FORM`
+- 参数含义：
+  - type：只能选择`comment`(文字评论)或`stamp`(表情贴图)
+  - illust_id：作品id
+  - author_user_id：作者uid
+  - parent_id：如果发楼中楼评论，需要提供父楼id
+  - comment：如果type选择comment，此字段为文字内容
+  - stampId：如果type选择Stamp，此字段为贴图的id
+
+### 删除评论
+
+- 方法名：delComment
+- URL：`https://www.pixiv.net/rpc_delete_comment.php`
+
+- 请求方法：`POST`
+- 传参方式：`FORM`
+- 参数含义：
+  - i_id：作品id
+  - del_id：评论id
