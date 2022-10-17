@@ -36,6 +36,7 @@ public class NovelInfo {
     String profileImageUrl;
 
     Integer readingTime;
+
     /**
      * 标签
      */
@@ -44,25 +45,21 @@ public class NovelInfo {
      * 字数(文本数)
      */
     Integer textCount;
-
     /**
      * 标题
      */
     String title;
-
     /**
      * 更新时间
      */
     ZonedDateTime updateDate;
-
     String url;
-
     Long userId;
-
     String userName;
-
     /**
      * 字数(?)
      */
     Integer wordCount;
+
+
 }

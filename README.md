@@ -295,10 +295,12 @@ Pixiv工具类
 - 请求方法：`GET`
 - 传参方式：`QUERY`
 - 参数含义：
-    - uid：(PATH传递)用户id
-    - lang：语言，简中为 `zh`
+  - uid：(PATH传递)用户id
+  - lang：语言，简中为 `zh`
 
 ## 小说
+
+类名：`ApiNovel`
 
 ### 搜索
 
@@ -306,9 +308,9 @@ Pixiv工具类
 - 请求方法：`GET`
 - 传参方式：`QUERY`
 - 参数含义：
-    - keyword：(PATH传递)关键字，需使用UTF-8编码，编码前的空格(编码后的+号)需要替换为`%20`
-    - order：排序模式，可选值：`date_d`从新到旧(默认),`date`从旧到新
-    - mode：模式，可选值：`all`、`safe`、`r18`
+  - keyword：(PATH传递)关键字，需使用UTF-8编码，编码前的空格(编码后的+号)需要替换为`%20`
+  - order：排序模式，可选值：`date_d`从新到旧(默认),`date`从旧到新
+  - mode：模式，可选值：`all`、`safe`、`r18`
     - s_mode：检索范围，`s_tag`(默认),`s_tag_only`(标签、部分一致),`s_tag_full`(标签，完全一致),`s_tc`(正文)
     - lang：语言，简中为 `zh`
     - p：页码
@@ -320,6 +322,7 @@ Pixiv工具类
 
 ### 详情
 
+- 方法名：detail
 - URL：`https://www.pixiv.net/ajax/novel/${nid}`
 - 请求方法：`GET`
 - 传参方式：`QUERY`
