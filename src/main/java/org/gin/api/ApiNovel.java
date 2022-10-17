@@ -48,7 +48,10 @@ public class ApiNovel {
      * @return org.gin.request.PixivRequest<org.gin.response.PixivResponse < ?>>
      * @since 2022/10/17 10:30
      */
-    public static PixivRequest<PixivResponse<NovelSearchBody>> search(@NotNull String keywords, @NotNull NovelSearchParam param, @NotNull PixivCookieToken pixivCookieToken, @NotNull OkHttpClient client) {
+    public static PixivRequest<PixivResponse<NovelSearchBody>> search(@NotNull String keywords,
+                                                                      @NotNull NovelSearchParam param,
+                                                                      @NotNull PixivCookieToken pixivCookieToken,
+                                                                      @NotNull OkHttpClient client) {
         return new PixivRequest<>(createHttpUrl(param, Pixiv.DOMAIN + "/ajax/search/novels/%s", keywords), client, pixivCookieToken);
     }
 
@@ -61,7 +64,10 @@ public class ApiNovel {
      * @return org.gin.request.PixivRequest<org.gin.response.PixivResponse < org.gin.response.body.novel.NovelSeriesBody>>
      * @since 2022/10/17 10:49
      */
-    public static PixivRequest<PixivResponse<NovelSeriesBody>> series(long seriesId, @NotNull SimpleParam param, @NotNull PixivCookieToken pixivCookieToken, @NotNull OkHttpClient client) {
+    public static PixivRequest<PixivResponse<NovelSeriesBody>> series(long seriesId,
+                                                                      @NotNull SimpleParam param,
+                                                                      @NotNull PixivCookieToken pixivCookieToken,
+                                                                      @NotNull OkHttpClient client) {
         return new PixivRequest<>(createHttpUrl(param, Pixiv.DOMAIN + "/ajax/novel/series/" + seriesId), client, pixivCookieToken);
     }
 

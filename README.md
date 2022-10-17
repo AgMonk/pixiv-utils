@@ -3,20 +3,24 @@ Pixiv工具类
 
 # 引入
 ```xml
+
 <project>
-    <repositories>
-        <repository>
-            <id>org.gin</id>
-            <name>pixiv-utils</name>
-            <url>https://agmonk.github.io/pixiv-utils/maven-repo/</url>
-        </repository>
-    </repositories>
-    
+  <repositories>
+    <repository>
+      <id>org.gin</id>
+      <name>pixiv-utils</name>
+      <url>https://agmonk.github.io/pixiv-utils/maven-repo/</url>
+    </repository>
+  </repositories>
+
+  <dependencies>
     <dependency>
-        <groupId>org.gin</groupId>
-        <artifactId>pixiv-utils</artifactId>
-        <version>1.0.0</version>
+      <groupId>org.gin</groupId>
+      <artifactId>pixiv-utils</artifactId>
+      <version>1.0.0</version>
     </dependency>
+  </dependencies>
+
 </project>
 ```
 

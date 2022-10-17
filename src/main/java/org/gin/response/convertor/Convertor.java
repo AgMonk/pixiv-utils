@@ -18,7 +18,7 @@ import java.io.IOException;
  **/
 public interface Convertor<R> {
     /**
-     * 预设的转换器
+     * 预设的profileAll接口转换器
      * @param responseBody body
      * @return PixivResponse<ProfileRealBody>
      * @throws IOException 异常

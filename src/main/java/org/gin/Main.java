@@ -1,5 +1,4 @@
 package org.gin;/**
- * ${TODO}
  * @since : ${DATE} ${HOUR}:${MINUTE}
  * @author : ginstone
  * @version : v1.0.0

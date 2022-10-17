@@ -118,11 +118,13 @@ public class ApiUser {
      * @return org.gin.request.PixivRequest<org.gin.response.PixivResponse < org.gin.response.body.UserCommissionBody>>
      * @since 2022/10/15 14:01
      */
-    public static PixivRequest<PixivResponse<CommissionRequestSentBody>> commissionRequestSent(long userId, @NotNull SimpleParam param, @NotNull PixivCookieToken pixivCookieToken, @NotNull OkHttpClient client) {
+    public static PixivRequest<PixivResponse<CommissionRequestSentBody>> commissionRequestSent(long userId,
+                                                                                               @NotNull SimpleParam param,
+                                                                                               @NotNull PixivCookieToken pixivCookieToken,
+                                                                                               @NotNull OkHttpClient client) {
         return new PixivRequest<>(createHttpUrl(param, Pixiv.DOMAIN + "/ajax/commission/page/users/%d/request/sent", userId), client, pixivCookieToken);
     }
 
-    //todo 搜索用户
 
     /**
      * 查询用户的小说
@@ -133,7 +135,10 @@ public class ApiUser {
      * @return org.gin.request.PixivRequest<org.gin.response.PixivResponse < org.gin.response.body.user.ProfileIllustsBody>>
      * @since 2022/10/17 11:10
      */
-    public static PixivRequest<PixivResponse<ProfileNovelsBody>> profileNovels(long userId, @NotNull ProfileNovelsParam param, @NotNull PixivCookieToken pixivCookieToken, @NotNull OkHttpClient client) {
+    public static PixivRequest<PixivResponse<ProfileNovelsBody>> profileNovels(long userId,
+                                                                               @NotNull ProfileNovelsParam param,
+                                                                               @NotNull PixivCookieToken pixivCookieToken,
+                                                                               @NotNull OkHttpClient client) {
         return new PixivRequest<>(createHttpUrl(param, Pixiv.DOMAIN + "/ajax/user/%d/profile/novels", userId), client, pixivCookieToken);
     }
 

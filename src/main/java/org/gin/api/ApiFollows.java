@@ -73,18 +73,18 @@ public class ApiFollows {
 
     /**
      * 取消关注
-     * @param param            参数
+     * @param userId           用户id
      * @param pixivCookieToken cooke和token
      * @param client           客户端
      * @return org.gin.request.PixivRequest<java.lang.String>
-     * @since 2022/10/15 15:15
+     * @since 2022/10/17 15:49
      */
-    public static PixivRequest<String> del(@NonNull FollowDelParam param,
+    public static PixivRequest<String> del(long userId,
                                            @NonNull PixivCookieToken pixivCookieToken,
                                            @NonNull OkHttpClient client
     ) {
         return new PixivRequest<>(createHttpUrl(Pixiv.DOMAIN + "/rpc_group_setting.php")
-                , createFormBody(param)
+                , createFormBody(new FollowDelParam(userId))
                 , client, pixivCookieToken);
     }
 
