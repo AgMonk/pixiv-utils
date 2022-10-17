@@ -6,13 +6,19 @@ import org.gin.MapUtils;
 import org.gin.params.SimpleParam;
 import org.gin.params.bookmark.AddIllustMangaParam;
 import org.gin.params.bookmark.AddNovelParam;
-import org.gin.request.*;
+import org.gin.request.Pixiv;
+import org.gin.request.PixivCookieToken;
+import org.gin.request.PixivRequest;
 import org.gin.response.PixivResponse;
 import org.gin.response.body.BookmarkAddBody;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Collection;
 import java.util.HashMap;
+
+import static org.gin.request.PixivRequestBody.createFormBody;
+import static org.gin.request.PixivRequestBody.createJsonBody;
+import static org.gin.request.PixivUrl.createHttpUrl;
 
 /**
  * 收藏相关接口
@@ -34,8 +40,8 @@ public class ApiBookmark {
                                                                          @NonNull OkHttpClient client
     ) {
         return new PixivRequest<>(
-                PixivUrl.createHttpUrl(Pixiv.DOMAIN + "/ajax/illusts/bookmarks/add")
-                , PixivRequestBody.createJsonBody(param)
+                createHttpUrl(Pixiv.DOMAIN + "/ajax/illusts/bookmarks/add")
+                , createJsonBody(param)
                 , client, pixivCookieToken);
     }
 
@@ -54,8 +60,8 @@ public class ApiBookmark {
                                                                 @NonNull OkHttpClient client
     ) {
         return new PixivRequest<>(
-                PixivUrl.createHttpUrl(param, Pixiv.DOMAIN + "/ajax/illusts/bookmarks/delete")
-                , PixivRequestBody.createFormBody("bookmark_id", bookmarkId)
+                createHttpUrl(param, Pixiv.DOMAIN + "/ajax/illusts/bookmarks/delete")
+                , createFormBody("bookmark_id", bookmarkId)
                 , client, pixivCookieToken);
     }
 
@@ -74,8 +80,8 @@ public class ApiBookmark {
                                                                  @NonNull OkHttpClient client
     ) {
         return new PixivRequest<>(
-                PixivUrl.createHttpUrl(param, Pixiv.DOMAIN + "/ajax/illusts/bookmarks/remove")
-                , PixivRequestBody.createJsonBody("bookmarkIds", bookmarkIds)
+                createHttpUrl(param, Pixiv.DOMAIN + "/ajax/illusts/bookmarks/remove")
+                , createJsonBody("bookmarkIds", bookmarkIds)
                 , client, pixivCookieToken);
     }
 
@@ -92,8 +98,8 @@ public class ApiBookmark {
                                                              @NonNull OkHttpClient client
     ) {
         return new PixivRequest<>(
-                PixivUrl.createHttpUrl(Pixiv.DOMAIN + "/ajax/novels/bookmarks/add")
-                , PixivRequestBody.createJsonBody(param)
+                createHttpUrl(Pixiv.DOMAIN + "/ajax/novels/bookmarks/add")
+                , createJsonBody(param)
                 , client, pixivCookieToken);
     }
 
@@ -114,8 +120,8 @@ public class ApiBookmark {
         final HashMap<String, Long> body = MapUtils.singleTon("book_id", bookmarkId);
         body.put("del", 1L);
         return new PixivRequest<>(
-                PixivUrl.createHttpUrl(param, Pixiv.DOMAIN + "/ajax/novels/bookmarks/delete")
-                , PixivRequestBody.createFormBody(body)
+                createHttpUrl(param, Pixiv.DOMAIN + "/ajax/novels/bookmarks/delete")
+                , createFormBody(body)
                 , client, pixivCookieToken);
     }
 
@@ -134,8 +140,8 @@ public class ApiBookmark {
                                                                 @NonNull OkHttpClient client
     ) {
         return new PixivRequest<>(
-                PixivUrl.createHttpUrl(param, Pixiv.DOMAIN + "/ajax/novels/bookmarks/remove")
-                , PixivRequestBody.createJsonBody("bookmarkIds", bookmarkIds)
+                createHttpUrl(param, Pixiv.DOMAIN + "/ajax/novels/bookmarks/remove")
+                , createJsonBody("bookmarkIds", bookmarkIds)
                 , client, pixivCookieToken);
     }
 }

@@ -153,7 +153,7 @@ Pixiv工具类
 
 ### 删除收藏漫画/插画(批量)
 
-- 方法名：delIllust
+- 方法名：delIllusts
 
 - URL：`https://www.pixiv.net/ajax/illusts/bookmarks/remove `
 
@@ -214,6 +214,28 @@ Pixiv工具类
   - book_id：收藏id，从作品信息的bookmarkData字段中获取
   - del：固定为1
 
+### 删除收藏小说(批量)
+
+- 方法名：delNovels
+
+- URL：`https://www.pixiv.net/ajax/novels/bookmarks/remove `
+
+- 请求方法：`POST`
+
+- 传参方式：`BODY`
+
+- 参数结构：
+
+  ```json
+  {
+      "bookmarkIds": []
+  }
+  ```
+
+- 参数含义：
+
+  - bookmarkIds：收藏id，从作品信息的bookmarkData字段中获取
+
 ## 关注
 
 类名：`ApiFollows`
@@ -232,7 +254,7 @@ Pixiv工具类
 ### 查询关注作者的最新小说
 
 - 方法名：latestNovel
-- URL：`https://www.pixiv.net/ajax/follow_latest/illust `
+- URL：`https://www.pixiv.net/ajax/follow_latest/novel `
 - 请求方法：`GET`
 - 传参方式：`QUERY`
 - 参数含义：
@@ -282,7 +304,9 @@ Pixiv工具类
   - full：固定为`1`，传递该参数将获得额外信息
   - lang：语言，简中为 `zh`
 
-### 查询用户的作品概况
+### 作品
+
+#### 查询用户的作品概况
 
 - 方法名：profileAll
 - URL：`https://www.pixiv.net/ajax/user/${uid}/profile/all`
@@ -292,7 +316,7 @@ Pixiv工具类
   - lang：语言，简中为 `zh`
 - 响应：这里会返回所有作品的id，但是没有作品信息，需要使用后续接口来获取
 
-### 查询用户的作品信息
+#### 查询用户的插画/漫画
 
 - 方法名：profileIllusts
 - URL：`https://www.pixiv.net/ajax/user/${uid}/profile/illusts`
@@ -304,7 +328,29 @@ Pixiv工具类
   - work_category： 作品类型，可选值：`illust`(插画)、`manga`(漫画)、`illustManga`(二者混合)。疑似不敏感，但是不能省略
   - ids[]：需要查询的作品id，可以传多个
 
-### 查询用户的收藏作品
+#### 查询用户发出约稿的作品
+
+- 方法名：commissionRequestSent
+- URL：`https://www.pixiv.net/ajax/commission/page/users/${uid}/request/sent`
+- 请求方法：`GET`
+- 传参方式：`QUERY`
+- 参数含义：
+  - uid：(PATH传递)用户id
+  - lang：语言，简中为 `zh`
+
+#### 查询用户的小说
+
+- 方法名：profileNovels
+- URL：`https://www.pixiv.net/ajax/user/${uid}/profile/novels`
+- 请求方法：`GET`
+- 传参方式：`QUERY`
+- 参数含义：
+  - uid：(PATH传递)用户id
+  - lang：语言，简中为 `zh`
+
+### 收藏
+
+#### 查询用户收藏的插画/漫画
 
 - 方法名：illustsBookmarks
 - URL：`https://www.pixiv.net/ajax/user/${uid}/illusts/bookmarks`
@@ -319,7 +365,7 @@ Pixiv工具类
   - rest：`show`公开的，`hide`不公开的(仅自己)
 - 备注：tag参数写`未分類`可以查询到添加收藏时未提供标签(网页端/APP的默认操作)的作品
 
-### 查询用户的收藏作品中使用的标签
+#### 查询用户的收藏的插画/漫画中使用的标签
 
 - 方法名：illustsBookmarkTags
 - URL：`https://www.pixiv.net/ajax/user/${uid}/illusts/bookmark/tags`
@@ -329,20 +375,10 @@ Pixiv工具类
   - uid：(PATH传递)用户id
   - lang：语言，简中为 `zh`
 
-### 查询用户发出约稿的作品
+#### 查询用户的收藏小说中使用的标签
 
-- 方法名：commissionRequestSent
-- URL：`https://www.pixiv.net/ajax/commission/page/users/${uid}/request/sent`
-- 请求方法：`GET`
-- 传参方式：`QUERY`
-- 参数含义：
-  - uid：(PATH传递)用户id
-  - lang：语言，简中为 `zh`
-
-### 查询用户的小说
-
-- 方法名：profileNovels
-- URL：`https://www.pixiv.net/ajax/user/${uid}/profile/novels`
+- 方法名：illustsBookmarkTags
+- URL：`https://www.pixiv.net/ajax/user/${uid}/novels/bookmark/tags`
 - 请求方法：`GET`
 - 传参方式：`QUERY`
 - 参数含义：

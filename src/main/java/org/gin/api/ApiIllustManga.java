@@ -3,7 +3,9 @@ package org.gin.api;
 import okhttp3.OkHttpClient;
 import org.gin.params.SimpleParam;
 import org.gin.params.illustmanga.IllustMangaSearchParam;
-import org.gin.request.*;
+import org.gin.request.Pixiv;
+import org.gin.request.PixivCookieToken;
+import org.gin.request.PixivRequest;
 import org.gin.response.PixivResponse;
 import org.gin.response.body.BookmarkDataBody;
 import org.gin.response.body.LikeBody;
@@ -11,6 +13,9 @@ import org.gin.response.body.illustmanga.IllustMangaBody;
 import org.gin.response.body.illustmanga.IllustMangaSearchBody;
 import org.gin.response.body.illustmanga.UgoiraMetaBody;
 import org.jetbrains.annotations.NotNull;
+
+import static org.gin.request.PixivRequestBody.createJsonBody;
+import static org.gin.request.PixivUrl.createHttpUrl;
 
 /**
  * 插画和漫画接口
@@ -32,7 +37,7 @@ public class ApiIllustManga {
     public static PixivRequest<PixivResponse<IllustMangaBody>> detail(int pid,
                                                                       @NotNull PixivCookieToken pixivCookieToken,
                                                                       @NotNull OkHttpClient client) {
-        return new PixivRequest<>(PixivUrl.createHttpUrl(Pixiv.DOMAIN + "/ajax/illust/%d", pid)
+        return new PixivRequest<>(createHttpUrl(Pixiv.DOMAIN + "/ajax/illust/%d", pid)
                 , client, pixivCookieToken);
     }
 
@@ -50,7 +55,7 @@ public class ApiIllustManga {
                                                                             @NotNull PixivCookieToken pixivCookieToken,
                                                                             @NotNull OkHttpClient client) {
         return new PixivRequest<>(
-                PixivUrl.createHttpUrl(param, Pixiv.DOMAIN + "/ajax/search/artworks/%s", keywords),
+                createHttpUrl(param, Pixiv.DOMAIN + "/ajax/search/artworks/%s", keywords),
                 client, pixivCookieToken
         );
     }
@@ -69,8 +74,8 @@ public class ApiIllustManga {
                                                              @NotNull OkHttpClient client
     ) {
         return new PixivRequest<>(
-                PixivUrl.createHttpUrl(param, Pixiv.DOMAIN + "/ajax/illusts/like"),
-                PixivRequestBody.createJsonBody("illust_id", pid),
+                createHttpUrl(param, Pixiv.DOMAIN + "/ajax/illusts/like"),
+                createJsonBody("illust_id", pid),
                 client, pixivCookieToken
         );
     }
@@ -90,7 +95,7 @@ public class ApiIllustManga {
                                                                          @NotNull OkHttpClient client
     ) {
         return new PixivRequest<>(
-                PixivUrl.createHttpUrl(param, Pixiv.DOMAIN + "/ajax/illust/%d/ugoira_meta", pid),
+                createHttpUrl(param, Pixiv.DOMAIN + "/ajax/illust/%d/ugoira_meta", pid),
                 client, pixivCookieToken
         );
     }
@@ -110,7 +115,7 @@ public class ApiIllustManga {
                                                                              @NotNull OkHttpClient client
     ) {
         return new PixivRequest<>(
-                PixivUrl.createHttpUrl(param, Pixiv.DOMAIN + "/ajax/illust/%d/bookmarkData", pid),
+                createHttpUrl(param, Pixiv.DOMAIN + "/ajax/illust/%d/bookmarkData", pid),
                 client, pixivCookieToken
         );
     }

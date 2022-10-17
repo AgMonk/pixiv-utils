@@ -6,10 +6,11 @@ import org.gin.params.illustmanga.IllustsCommentRootsParam;
 import org.gin.request.Pixiv;
 import org.gin.request.PixivCookieToken;
 import org.gin.request.PixivRequest;
-import org.gin.request.PixivUrl;
 import org.gin.response.PixivResponse;
 import org.gin.response.body.illustmanga.IllustMangaCommentsBody;
 import org.jetbrains.annotations.NotNull;
+
+import static org.gin.request.PixivUrl.createHttpUrl;
 
 /**
  * 评论区接口
@@ -31,7 +32,7 @@ public class ApiComments {
                                                                                     @NotNull OkHttpClient client
     ) {
         return new PixivRequest<>(
-                PixivUrl.createHttpUrl(param, Pixiv.DOMAIN + "/ajax/illusts/comments/roots"),
+                createHttpUrl(param, Pixiv.DOMAIN + "/ajax/illusts/comments/roots"),
                 client, pixivCookieToken
         );
     }
@@ -49,7 +50,7 @@ public class ApiComments {
                                                                                       @NotNull OkHttpClient client
     ) {
         return new PixivRequest<>(
-                PixivUrl.createHttpUrl(param, Pixiv.DOMAIN + "/ajax/illusts/comments/replies"),
+                createHttpUrl(param, Pixiv.DOMAIN + "/ajax/illusts/comments/replies"),
                 client, pixivCookieToken
         );
     }

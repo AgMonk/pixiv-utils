@@ -7,12 +7,13 @@ import org.gin.params.novel.NovelSearchParam;
 import org.gin.request.Pixiv;
 import org.gin.request.PixivCookieToken;
 import org.gin.request.PixivRequest;
-import org.gin.request.PixivUrl;
 import org.gin.response.PixivResponse;
 import org.gin.response.body.novel.NovelBody;
 import org.gin.response.body.novel.NovelSearchBody;
 import org.gin.response.body.novel.NovelSeriesBody;
 import org.jetbrains.annotations.NotNull;
+
+import static org.gin.request.PixivUrl.createHttpUrl;
 
 /**
  * 小说接口
@@ -34,7 +35,7 @@ public class ApiNovel {
                                                                 @NonNull PixivCookieToken pixivCookieToken,
                                                                 @NonNull OkHttpClient client
     ) {
-        return new PixivRequest<>(PixivUrl.createHttpUrl(param, Pixiv.DOMAIN + "/ajax/novel/" + nid)
+        return new PixivRequest<>(createHttpUrl(param, Pixiv.DOMAIN + "/ajax/novel/" + nid)
                 , client, pixivCookieToken);
     }
 
@@ -48,7 +49,7 @@ public class ApiNovel {
      * @since 2022/10/17 10:30
      */
     public static PixivRequest<PixivResponse<NovelSearchBody>> search(@NotNull String keywords, @NotNull NovelSearchParam param, @NotNull PixivCookieToken pixivCookieToken, @NotNull OkHttpClient client) {
-        return new PixivRequest<>(PixivUrl.createHttpUrl(param, Pixiv.DOMAIN + "/ajax/search/novels/%s", keywords), client, pixivCookieToken);
+        return new PixivRequest<>(createHttpUrl(param, Pixiv.DOMAIN + "/ajax/search/novels/%s", keywords), client, pixivCookieToken);
     }
 
     /**
@@ -61,7 +62,7 @@ public class ApiNovel {
      * @since 2022/10/17 10:49
      */
     public static PixivRequest<PixivResponse<NovelSeriesBody>> series(long seriesId, @NotNull SimpleParam param, @NotNull PixivCookieToken pixivCookieToken, @NotNull OkHttpClient client) {
-        return new PixivRequest<>(PixivUrl.createHttpUrl(param, Pixiv.DOMAIN + "/ajax/novel/series/" + seriesId), client, pixivCookieToken);
+        return new PixivRequest<>(createHttpUrl(param, Pixiv.DOMAIN + "/ajax/novel/series/" + seriesId), client, pixivCookieToken);
     }
 
 

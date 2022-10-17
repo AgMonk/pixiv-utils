@@ -5,9 +5,14 @@ import okhttp3.OkHttpClient;
 import org.gin.params.follow.FollowAddParam;
 import org.gin.params.follow.FollowDelParam;
 import org.gin.params.follow.FollowLatestParam;
-import org.gin.request.*;
+import org.gin.request.Pixiv;
+import org.gin.request.PixivCookieToken;
+import org.gin.request.PixivRequest;
 import org.gin.response.PixivResponse;
 import org.gin.response.body.illustmanga.IllustMangaFollowLatestBody;
+
+import static org.gin.request.PixivRequestBody.createFormBody;
+import static org.gin.request.PixivUrl.createHttpUrl;
 
 /**
  * 关注相关接口
@@ -28,7 +33,7 @@ public class ApiFollows {
                                                                                         @NonNull PixivCookieToken pixivCookieToken,
                                                                                         @NonNull OkHttpClient client
     ) {
-        return new PixivRequest<>(PixivUrl.createHttpUrl(followLatestParam, Pixiv.DOMAIN + "/ajax/follow_latest/illust")
+        return new PixivRequest<>(createHttpUrl(followLatestParam, Pixiv.DOMAIN + "/ajax/follow_latest/illust")
                 , client, pixivCookieToken);
     }
 
@@ -44,7 +49,7 @@ public class ApiFollows {
                                                                                        @NonNull PixivCookieToken pixivCookieToken,
                                                                                        @NonNull OkHttpClient client
     ) {
-        return new PixivRequest<>(PixivUrl.createHttpUrl(followLatestParam, Pixiv.DOMAIN + "/ajax/follow_latest/novel")
+        return new PixivRequest<>(createHttpUrl(followLatestParam, Pixiv.DOMAIN + "/ajax/follow_latest/novel")
                 , client, pixivCookieToken);
     }
 
@@ -61,8 +66,8 @@ public class ApiFollows {
                                            @NonNull PixivCookieToken pixivCookieToken,
                                            @NonNull OkHttpClient client
     ) {
-        return new PixivRequest<>(PixivUrl.createHttpUrl(Pixiv.DOMAIN + "/bookmark_add.php")
-                , PixivRequestBody.createFormBody(param)
+        return new PixivRequest<>(createHttpUrl(Pixiv.DOMAIN + "/bookmark_add.php")
+                , createFormBody(param)
                 , client, pixivCookieToken);
     }
 
@@ -78,8 +83,8 @@ public class ApiFollows {
                                            @NonNull PixivCookieToken pixivCookieToken,
                                            @NonNull OkHttpClient client
     ) {
-        return new PixivRequest<>(PixivUrl.createHttpUrl(Pixiv.DOMAIN + "/rpc_group_setting.php")
-                , PixivRequestBody.createFormBody(param)
+        return new PixivRequest<>(createHttpUrl(Pixiv.DOMAIN + "/rpc_group_setting.php")
+                , createFormBody(param)
                 , client, pixivCookieToken);
     }
 
