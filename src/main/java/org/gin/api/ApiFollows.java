@@ -7,7 +7,7 @@ import org.gin.params.FollowDelParam;
 import org.gin.params.FollowLatestParam;
 import org.gin.request.*;
 import org.gin.response.PixivResponse;
-import org.gin.response.body.FollowLatestBody;
+import org.gin.response.body.illustmanga.IllustMangaFollowLatestBody;
 
 /**
  * 关注相关接口
@@ -21,12 +21,12 @@ public class ApiFollows {
      * @param followLatestParam 参数
      * @param pixivCookieToken  cooke和token
      * @param client            客户端
-     * @return org.gin.request.PixivRequest<org.gin.response.PixivResponse < org.gin.response.body.FollowLatestBody>>
+     * @return org.gin.request.PixivRequest<org.gin.response.PixivResponse < org.gin.response.body.illustmanga.FollowLatestBody>>
      * @since 2022/10/14 17:05
      */
-    public static PixivRequest<PixivResponse<FollowLatestBody>> latestIllust(@NonNull FollowLatestParam followLatestParam,
-                                                                             @NonNull PixivCookieToken pixivCookieToken,
-                                                                             @NonNull OkHttpClient client
+    public static PixivRequest<PixivResponse<IllustMangaFollowLatestBody>> latestIllust(@NonNull FollowLatestParam followLatestParam,
+                                                                                        @NonNull PixivCookieToken pixivCookieToken,
+                                                                                        @NonNull OkHttpClient client
     ) {
         return new PixivRequest<>(PixivUrl.createHttpUrl(followLatestParam, Pixiv.DOMAIN + "/ajax/follow_latest/illust")
                 , client, pixivCookieToken);
@@ -37,12 +37,12 @@ public class ApiFollows {
      * @param followLatestParam 参数
      * @param pixivCookieToken  cooke和token
      * @param client            客户端
-     * @return org.gin.request.PixivRequest<org.gin.response.PixivResponse < org.gin.response.body.FollowLatestBody>>
+     * @return org.gin.request.PixivRequest<org.gin.response.PixivResponse < org.gin.response.body.illustmanga.FollowLatestBody>>
      * @since 2022/10/17 9:23
      */
-    public static PixivRequest<PixivResponse<FollowLatestBody>> latestNovel(@NonNull FollowLatestParam followLatestParam,
-                                                                            @NonNull PixivCookieToken pixivCookieToken,
-                                                                            @NonNull OkHttpClient client
+    public static PixivRequest<PixivResponse<IllustMangaFollowLatestBody>> latestNovel(@NonNull FollowLatestParam followLatestParam,
+                                                                                       @NonNull PixivCookieToken pixivCookieToken,
+                                                                                       @NonNull OkHttpClient client
     ) {
         return new PixivRequest<>(PixivUrl.createHttpUrl(followLatestParam, Pixiv.DOMAIN + "/ajax/follow_latest/novel")
                 , client, pixivCookieToken);
@@ -54,7 +54,7 @@ public class ApiFollows {
      * @param param            参数
      * @param pixivCookieToken cooke和token
      * @param client           客户端
-     * @return org.gin.request.PixivRequest<org.gin.response.PixivResponse < org.gin.response.body.FollowLatestBody>>
+     * @return org.gin.request.PixivRequest<org.gin.response.PixivResponse < org.gin.response.body.illustmanga.FollowLatestBody>>
      * @since 2022/10/15 15:05
      */
     public static PixivRequest<String> add(@NonNull FollowAddParam param,

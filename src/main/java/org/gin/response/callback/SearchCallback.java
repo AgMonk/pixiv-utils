@@ -4,7 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.TypeReference;
 import okhttp3.ResponseBody;
 import org.gin.response.PixivResponse;
-import org.gin.response.body.IllustMangaSearchBody;
+import org.gin.response.body.illustmanga.IllustMangaSearchBody;
 
 import java.io.IOException;
 

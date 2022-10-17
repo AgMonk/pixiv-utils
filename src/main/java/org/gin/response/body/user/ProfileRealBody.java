@@ -1,4 +1,4 @@
-package org.gin.response.body;
+package org.gin.response.body.user;
 
 import com.alibaba.fastjson.JSONObject;
 import lombok.Data;

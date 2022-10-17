@@ -1,4 +1,4 @@
-package org.gin.response.body;
+package org.gin.response.body.illustmanga;
 
 import com.alibaba.fastjson.annotation.JSONField;
 import lombok.Data;

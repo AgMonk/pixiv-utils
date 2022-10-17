@@ -5,7 +5,11 @@ import org.gin.params.IllustMangaSearchParam;
 import org.gin.params.SimpleParam;
 import org.gin.request.*;
 import org.gin.response.PixivResponse;
-import org.gin.response.body.*;
+import org.gin.response.body.BookmarkDataBody;
+import org.gin.response.body.LikeBody;
+import org.gin.response.body.illustmanga.IllustMangaBody;
+import org.gin.response.body.illustmanga.IllustMangaSearchBody;
+import org.gin.response.body.illustmanga.UgoiraMetaBody;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -22,12 +26,12 @@ public class ApiIllustManga {
      * @param pid              作品id
      * @param pixivCookieToken cooke和token
      * @param client           客户端
-     * @return org.gin.request.PixivRequest<org.gin.response.PixivResponse < org.gin.response.body.ArtworkBody>>
+     * @return org.gin.request.PixivRequest<org.gin.response.PixivResponse < org.gin.response.body.illustmanga.ArtworkBody>>
      * @since 2022/10/14 17:07
      */
-    public static PixivRequest<PixivResponse<ArtworkBody>> detail(int pid,
-                                                                  @NotNull PixivCookieToken pixivCookieToken,
-                                                                  @NotNull OkHttpClient client) {
+    public static PixivRequest<PixivResponse<IllustMangaBody>> detail(int pid,
+                                                                      @NotNull PixivCookieToken pixivCookieToken,
+                                                                      @NotNull OkHttpClient client) {
         return new PixivRequest<>(PixivUrl.createHttpUrl(Pixiv.DOMAIN + "/ajax/illust/%d", pid)
                 , client, pixivCookieToken);
     }
@@ -77,7 +81,7 @@ public class ApiIllustManga {
      * @param param            参数
      * @param pixivCookieToken cooke和token
      * @param client           客户端
-     * @return org.gin.request.PixivRequest<org.gin.response.PixivResponse < org.gin.response.body.UgoiraMetaBody>>
+     * @return org.gin.request.PixivRequest<org.gin.response.PixivResponse < org.gin.response.body.illustmanga.UgoiraMetaBody>>
      * @since 2022/10/15 16:52
      */
     public static PixivRequest<PixivResponse<UgoiraMetaBody>> ugoiraMeta(long pid,

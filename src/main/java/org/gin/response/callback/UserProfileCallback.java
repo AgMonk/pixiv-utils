@@ -4,8 +4,8 @@ import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.TypeReference;
 import okhttp3.ResponseBody;
 import org.gin.response.PixivResponse;
-import org.gin.response.body.ProfileBody;
-import org.gin.response.body.ProfileRealBody;
+import org.gin.response.body.user.ProfileBody;
+import org.gin.response.body.user.ProfileRealBody;
 
 import java.io.IOException;
 

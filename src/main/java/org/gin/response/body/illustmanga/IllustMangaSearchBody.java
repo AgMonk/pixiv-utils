@@ -1,4 +1,4 @@
-package org.gin.response.body;
+package org.gin.response.body.illustmanga;
 
 import lombok.Data;
 import org.gin.response.fields.ArtworkInfo;

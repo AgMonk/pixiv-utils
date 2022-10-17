@@ -1,4 +1,4 @@
-package org.gin.response.body;
+package org.gin.response.body.user;
 
 import lombok.Data;
 import org.gin.response.fields.CommissionRequest;

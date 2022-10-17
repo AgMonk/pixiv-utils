@@ -1,4 +1,4 @@
-package org.gin.response.body;
+package org.gin.response.body.novel;
 
 import lombok.Data;
 import org.gin.response.fields.BookmarkData;

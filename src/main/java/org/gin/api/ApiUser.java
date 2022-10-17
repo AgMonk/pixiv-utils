@@ -10,7 +10,12 @@ import org.gin.request.PixivCookieToken;
 import org.gin.request.PixivRequest;
 import org.gin.request.PixivUrl;
 import org.gin.response.PixivResponse;
-import org.gin.response.body.*;
+import org.gin.response.body.illustmanga.IllustBookmarkTagsBody;
+import org.gin.response.body.illustmanga.IllustMangaBookmarksBody;
+import org.gin.response.body.user.CommissionRequestSentBody;
+import org.gin.response.body.user.ProfileIllustsBody;
+import org.gin.response.body.user.ProfileRealBody;
+import org.gin.response.body.user.UserInfoBody;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -26,7 +31,7 @@ public class ApiUser {
      * @param param            参数
      * @param pixivCookieToken cooke和token
      * @param client           客户端
-     * @return org.gin.request.PixivRequest<org.gin.response.PixivResponse < org.gin.response.body.UserInfoBody>>
+     * @return org.gin.request.PixivRequest<org.gin.response.PixivResponse < org.gin.response.body.user.UserInfoBody>>
      * @since 2022/10/14 17:47
      */
     public static PixivRequest<PixivResponse<UserInfoBody>> userInfo(long userId,
@@ -43,7 +48,7 @@ public class ApiUser {
      * @param param            参数
      * @param pixivCookieToken cooke和token
      * @param client           客户端
-     * @return org.gin.request.PixivRequest<org.gin.response.PixivResponse < org.gin.response.body.UserInfoBody>>
+     * @return org.gin.request.PixivRequest<org.gin.response.PixivResponse < org.gin.response.body.user.UserInfoBody>>
      * @since 2022/10/14 17:51
      */
     public static PixivRequest<PixivResponse<ProfileRealBody>> profileAll(long userId,
@@ -60,7 +65,7 @@ public class ApiUser {
      * @param param            参数
      * @param pixivCookieToken cooke和token
      * @param client           客户端
-     * @return org.gin.request.PixivRequest<org.gin.response.PixivResponse < org.gin.response.body.ProfileRealBody>>
+     * @return org.gin.request.PixivRequest<org.gin.response.PixivResponse < org.gin.response.body.user.ProfileRealBody>>
      * @since 2022/10/15 11:18
      */
     public static PixivRequest<PixivResponse<ProfileIllustsBody>> profileIllusts(long userId,
@@ -77,13 +82,13 @@ public class ApiUser {
      * @param param            参数
      * @param pixivCookieToken cooke和token
      * @param client           客户端
-     * @return org.gin.request.PixivRequest<org.gin.response.PixivResponse < org.gin.response.body.IllustsBookmarksBody>>
+     * @return org.gin.request.PixivRequest<org.gin.response.PixivResponse < org.gin.response.body.illustmanga.IllustsBookmarksBody>>
      * @since 2022/10/15 12:19
      */
-    public static PixivRequest<PixivResponse<IllustsBookmarksBody>> illustsBookmarks(long userId,
-                                                                                     @NotNull IllustsBookmarksParam param,
-                                                                                     @NotNull PixivCookieToken pixivCookieToken,
-                                                                                     @NotNull OkHttpClient client) {
+    public static PixivRequest<PixivResponse<IllustMangaBookmarksBody>> illustsBookmarks(long userId,
+                                                                                         @NotNull IllustsBookmarksParam param,
+                                                                                         @NotNull PixivCookieToken pixivCookieToken,
+                                                                                         @NotNull OkHttpClient client) {
         return new PixivRequest<>(PixivUrl.createHttpUrl(param, Pixiv.DOMAIN + "/ajax/user/%d/illusts/bookmarks", userId)
                 , client, pixivCookieToken);
     }
@@ -94,7 +99,7 @@ public class ApiUser {
      * @param param            参数
      * @param pixivCookieToken cooke和token
      * @param client           客户端
-     * @return org.gin.request.PixivRequest<org.gin.response.PixivResponse < org.gin.response.body.IllustsBookmarksBody>>
+     * @return org.gin.request.PixivRequest<org.gin.response.PixivResponse < org.gin.response.body.illustmanga.IllustsBookmarksBody>>
      * @since 2022/10/15 12:29
      */
     public static PixivRequest<PixivResponse<IllustBookmarkTagsBody>> illustsBookmarkTags(long userId,

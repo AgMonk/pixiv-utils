@@ -1,4 +1,4 @@
-package org.gin.response.body;
+package org.gin.response.body.illustmanga;
 
 import lombok.Data;
 import org.gin.response.fields.TagTranslation;
@@ -13,7 +13,7 @@ import java.util.List;
  * @since : 2022/10/10 17:01
  **/
 @Data
-public class FollowLatestBody {
+public class IllustMangaFollowLatestBody {
     Page page;
     Thumbnails thumbnails;
     HashMap<String, TagTranslation> tagTranslation;

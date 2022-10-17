@@ -1,4 +1,4 @@
-package org.gin.response.body;
+package org.gin.response.body.illustmanga;
 
 import lombok.Data;
 import org.gin.response.fields.ArtworkUrls;
@@ -15,7 +15,7 @@ import java.time.ZonedDateTime;
  * @since : 2022/10/10 15:27
  **/
 @Data
-public class ArtworkBody {
+public class IllustMangaBody {
     /**
      * 网页标题
      */
