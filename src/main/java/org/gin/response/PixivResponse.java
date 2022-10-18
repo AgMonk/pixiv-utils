@@ -9,7 +9,7 @@ import lombok.Data;
  **/
 @Data
 public class PixivResponse<T> {
-    String message;
-    boolean error;
     T body;
+    boolean error = false;
+    String message = "";
 }

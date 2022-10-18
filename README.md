@@ -33,9 +33,10 @@ Pixiv工具类
   - 构造方法的参数`phpSessionId`通过在WEB端登陆Pixiv之后，在`cookie`中获取，其前缀为`PHPSESSID=`
   - 构造方法的参数`token`在所有`POST`请求中使用，可以在WEB端通过F12在请求头中获取，其字段名为`x-csrf-token`，或者使用本类的`findToken`方法获取。
 - 所有方法都会返回`PixivRequest`对象，该类的`sync`(同步)和`async`(异步)方法用于发送请求
-  - 异步方法在`Callback`参数中处理异常和响应，更推荐使用参数为`BaseCallback`的重载方法
   - 同步方法直接返回响应结果，可以通过传递一个`Convertor`接口将`ResponseBody`类转换为指定对象，`Convertor`
     中自带了部分接口的预设转换方法，或者使用`common`通用方法
+  - 异步方法在`Callback`参数中处理异常和响应，更推荐使用参数为`BaseCallback`的重载方法；`BaseCallback`类的 `convert`方法作用与`Convertor`
+    接口相同，也可以直接调用`Convertor`接口的静态方法
 - 实例见：[Demo.java](https://github.com/AgMonk/pixiv-utils/blob/master/src/main/java/org/gin/Demo.java)
 
 # Pixiv API
