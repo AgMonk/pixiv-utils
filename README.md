@@ -484,3 +484,20 @@ Pixiv工具类
 - 参数含义：
   - i_id：作品id
   - del_id：评论id
+
+## 排行榜
+
+类名：`ApiRanking`
+
+### 绘画榜
+
+- 方法名：illust
+- URL：`https://www.pixiv.net/ranking.php`
+- 请求方法：`GET`
+- 传参方式：`QUERY`
+- 参数含义：
+  - p：页码
+  - mode：模式，可取值：`daily`, `weekly`, `monthly`, `rookie`, `original`, `male`, `female`, `daily_r18`, `weekly_r18`, `male_r18`, `female_r18`
+  - format：固定为`json`
+  - content：正文类型，可取值：`all`,`illust`,`manga`,`ugoira`
+  - date：(非必须)日期，格式：yyyyMMdd

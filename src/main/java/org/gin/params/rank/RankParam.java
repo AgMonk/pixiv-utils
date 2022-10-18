@@ -1,5 +1,6 @@
 package org.gin.params.rank;
 
+import com.alibaba.fastjson.annotation.JSONField;
 import lombok.Getter;
 
 /**
@@ -10,6 +11,7 @@ import lombok.Getter;
  */
 @Getter
 public class RankParam {
+    @JSONField(name = "p")
     final int page;
     final String mode;
     final String format = "json";

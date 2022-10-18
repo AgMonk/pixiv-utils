@@ -37,7 +37,7 @@ public class ApiIllustManga {
      * @return org.gin.request.PixivRequest<org.gin.response.PixivResponse < org.gin.response.body.illustmanga.ArtworkBody>>
      * @since 2022/10/14 17:07
      */
-    public static PixivRequest<PixivResponse<IllustMangaBody>> detail(int pid,
+    public static PixivRequest<PixivResponse<IllustMangaBody>> detail(long pid,
                                                                       @NotNull PixivCookieToken pixivCookieToken,
                                                                       @NotNull OkHttpClient client) {
         return new PixivRequest<>(createHttpUrl(Pixiv.DOMAIN + "/ajax/illust/%d", pid)

@@ -28,7 +28,8 @@ public enum RankMode {
     DAILY_R18,
     WEEKLY_R18,
     MALE_R18,
-    FEMALE_R18;
+    FEMALE_R18,
+    ;
 
     @Override
     public String toString() {
