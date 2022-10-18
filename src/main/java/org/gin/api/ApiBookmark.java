@@ -1,5 +1,6 @@
 package org.gin.api;
 
+import com.alibaba.fastjson.serializer.SerializerFeature;
 import lombok.NonNull;
 import okhttp3.OkHttpClient;
 import org.gin.MapUtils;
@@ -14,6 +15,7 @@ import org.gin.response.body.BookmarkAddBody;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 
 import static org.gin.request.PixivRequestBody.createFormBody;
@@ -60,7 +62,7 @@ public class ApiBookmark {
                                                                 @NonNull OkHttpClient client
     ) {
         return new PixivRequest<>(
-                createHttpUrl(param, Pixiv.DOMAIN + "/ajax/illusts/bookmarks/delete")
+                createHttpUrl(param, Collections.singleton(SerializerFeature.WriteMapNullValue), Pixiv.DOMAIN + "/ajax/illusts/bookmarks/delete")
                 , createFormBody("bookmark_id", bookmarkId)
                 , client, pixivCookieToken);
     }
@@ -80,7 +82,7 @@ public class ApiBookmark {
                                                                  @NonNull OkHttpClient client
     ) {
         return new PixivRequest<>(
-                createHttpUrl(param, Pixiv.DOMAIN + "/ajax/illusts/bookmarks/remove")
+                createHttpUrl(param, Collections.singleton(SerializerFeature.WriteMapNullValue), Pixiv.DOMAIN + "/ajax/illusts/bookmarks/remove")
                 , createJsonBody("bookmarkIds", bookmarkIds)
                 , client, pixivCookieToken);
     }
@@ -120,7 +122,7 @@ public class ApiBookmark {
         final HashMap<String, Long> body = MapUtils.singleTon("book_id", bookmarkId);
         body.put("del", 1L);
         return new PixivRequest<>(
-                createHttpUrl(param, Pixiv.DOMAIN + "/ajax/novels/bookmarks/delete")
+                createHttpUrl(param, Collections.singleton(SerializerFeature.WriteMapNullValue), Pixiv.DOMAIN + "/ajax/novels/bookmarks/delete")
                 , createFormBody(body)
                 , client, pixivCookieToken);
     }
@@ -140,7 +142,7 @@ public class ApiBookmark {
                                                                 @NonNull OkHttpClient client
     ) {
         return new PixivRequest<>(
-                createHttpUrl(param, Pixiv.DOMAIN + "/ajax/novels/bookmarks/remove")
+                createHttpUrl(param, Collections.singleton(SerializerFeature.WriteMapNullValue), Pixiv.DOMAIN + "/ajax/novels/bookmarks/remove")
                 , createJsonBody("bookmarkIds", bookmarkIds)
                 , client, pixivCookieToken);
     }

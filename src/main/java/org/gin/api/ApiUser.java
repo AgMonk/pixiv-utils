@@ -1,5 +1,6 @@
 package org.gin.api;
 
+import com.alibaba.fastjson.serializer.SerializerFeature;
 import okhttp3.OkHttpClient;
 import org.gin.params.SimpleParam;
 import org.gin.params.user.IllustsBookmarksParam;
@@ -14,6 +15,8 @@ import org.gin.response.body.illustmanga.CommonBookmarkTagsBody;
 import org.gin.response.body.illustmanga.IllustMangaBookmarksBody;
 import org.gin.response.body.user.*;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.Collections;
 
 import static org.gin.request.PixivUrl.createHttpUrl;
 
@@ -37,7 +40,7 @@ public class ApiUser {
                                                                      @NotNull UserInfoParam param,
                                                                      @NotNull PixivCookieToken pixivCookieToken,
                                                                      @NotNull OkHttpClient client) {
-        return new PixivRequest<>(createHttpUrl(param, Pixiv.DOMAIN + "/ajax/user/%d", userId)
+        return new PixivRequest<>(createHttpUrl(param, Collections.singleton(SerializerFeature.WriteMapNullValue), Pixiv.DOMAIN + "/ajax/user/%d", userId)
                 , client, pixivCookieToken);
     }
 
@@ -54,7 +57,7 @@ public class ApiUser {
                                                                           @NotNull SimpleParam param,
                                                                           @NotNull PixivCookieToken pixivCookieToken,
                                                                           @NotNull OkHttpClient client) {
-        return new PixivRequest<>(createHttpUrl(param, Pixiv.DOMAIN + "/ajax/user/%d/profile/all", userId)
+        return new PixivRequest<>(createHttpUrl(param, Collections.singleton(SerializerFeature.WriteMapNullValue), Pixiv.DOMAIN + "/ajax/user/%d/profile/all", userId)
                 , client, pixivCookieToken);
     }
 
@@ -71,7 +74,7 @@ public class ApiUser {
                                                                                  @NotNull ProfileIllustsParam param,
                                                                                  @NotNull PixivCookieToken pixivCookieToken,
                                                                                  @NotNull OkHttpClient client) {
-        return new PixivRequest<>(createHttpUrl(param, Pixiv.DOMAIN + "/ajax/user/%d/profile/illusts", userId)
+        return new PixivRequest<>(createHttpUrl(param, Collections.singleton(SerializerFeature.WriteMapNullValue), Pixiv.DOMAIN + "/ajax/user/%d/profile/illusts", userId)
                 , client, pixivCookieToken);
     }
 
@@ -88,7 +91,7 @@ public class ApiUser {
                                                                                          @NotNull IllustsBookmarksParam param,
                                                                                          @NotNull PixivCookieToken pixivCookieToken,
                                                                                          @NotNull OkHttpClient client) {
-        return new PixivRequest<>(createHttpUrl(param, Pixiv.DOMAIN + "/ajax/user/%d/illusts/bookmarks", userId)
+        return new PixivRequest<>(createHttpUrl(param, Collections.singleton(SerializerFeature.WriteMapNullValue), Pixiv.DOMAIN + "/ajax/user/%d/illusts/bookmarks", userId)
                 , client, pixivCookieToken);
     }
 
@@ -105,7 +108,7 @@ public class ApiUser {
                                                                                           @NotNull SimpleParam param,
                                                                                           @NotNull PixivCookieToken pixivCookieToken,
                                                                                           @NotNull OkHttpClient client) {
-        return new PixivRequest<>(createHttpUrl(param, Pixiv.DOMAIN + "/ajax/user/%d/illusts/bookmark/tags", userId)
+        return new PixivRequest<>(createHttpUrl(param, Collections.singleton(SerializerFeature.WriteMapNullValue), Pixiv.DOMAIN + "/ajax/user/%d/illusts/bookmark/tags", userId)
                 , client, pixivCookieToken);
     }
 
@@ -122,7 +125,7 @@ public class ApiUser {
                                                                                                @NotNull SimpleParam param,
                                                                                                @NotNull PixivCookieToken pixivCookieToken,
                                                                                                @NotNull OkHttpClient client) {
-        return new PixivRequest<>(createHttpUrl(param, Pixiv.DOMAIN + "/ajax/commission/page/users/%d/request/sent", userId), client, pixivCookieToken);
+        return new PixivRequest<>(createHttpUrl(param, Collections.singleton(SerializerFeature.WriteMapNullValue), Pixiv.DOMAIN + "/ajax/commission/page/users/%d/request/sent", userId), client, pixivCookieToken);
     }
 
 
@@ -139,7 +142,7 @@ public class ApiUser {
                                                                                @NotNull ProfileNovelsParam param,
                                                                                @NotNull PixivCookieToken pixivCookieToken,
                                                                                @NotNull OkHttpClient client) {
-        return new PixivRequest<>(createHttpUrl(param, Pixiv.DOMAIN + "/ajax/user/%d/profile/novels", userId), client, pixivCookieToken);
+        return new PixivRequest<>(createHttpUrl(param, Collections.singleton(SerializerFeature.WriteMapNullValue), Pixiv.DOMAIN + "/ajax/user/%d/profile/novels", userId), client, pixivCookieToken);
     }
 
     /**
@@ -156,7 +159,7 @@ public class ApiUser {
                                                                                          @NotNull SimpleParam param,
                                                                                          @NotNull PixivCookieToken pixivCookieToken,
                                                                                          @NotNull OkHttpClient client) {
-        return new PixivRequest<>(createHttpUrl(param, Pixiv.DOMAIN + "/ajax/user/%d/novels/bookmark/tags", userId)
+        return new PixivRequest<>(createHttpUrl(param, Collections.singleton(SerializerFeature.WriteMapNullValue), Pixiv.DOMAIN + "/ajax/user/%d/novels/bookmark/tags", userId)
                 , client, pixivCookieToken);
     }
 }

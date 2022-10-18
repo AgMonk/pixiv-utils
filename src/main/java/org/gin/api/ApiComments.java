@@ -1,5 +1,6 @@
 package org.gin.api;
 
+import com.alibaba.fastjson.serializer.SerializerFeature;
 import okhttp3.OkHttpClient;
 import org.gin.MapUtils;
 import org.gin.params.CommentParam;
@@ -14,6 +15,7 @@ import org.gin.response.body.CommentBody;
 import org.gin.response.body.illustmanga.IllustMangaCommentsBody;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Collections;
 import java.util.HashMap;
 
 import static org.gin.request.PixivUrl.createHttpUrl;
@@ -38,7 +40,7 @@ public class ApiComments {
                                                                                     @NotNull OkHttpClient client
     ) {
         return new PixivRequest<>(
-                createHttpUrl(param, Pixiv.DOMAIN + "/ajax/illusts/comments/roots"),
+                createHttpUrl(param, Collections.singleton(SerializerFeature.WriteMapNullValue), Pixiv.DOMAIN + "/ajax/illusts/comments/roots"),
                 client, pixivCookieToken
         );
     }
@@ -56,7 +58,7 @@ public class ApiComments {
                                                                                       @NotNull OkHttpClient client
     ) {
         return new PixivRequest<>(
-                createHttpUrl(param, Pixiv.DOMAIN + "/ajax/illusts/comments/replies"),
+                createHttpUrl(param, Collections.singleton(SerializerFeature.WriteMapNullValue), Pixiv.DOMAIN + "/ajax/illusts/comments/replies"),
                 client, pixivCookieToken
         );
     }

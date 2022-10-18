@@ -1,5 +1,6 @@
 package org.gin.api;
 
+import com.alibaba.fastjson.serializer.SerializerFeature;
 import lombok.NonNull;
 import okhttp3.OkHttpClient;
 import org.gin.params.follow.FollowAddParam;
@@ -10,6 +11,8 @@ import org.gin.request.PixivCookieToken;
 import org.gin.request.PixivRequest;
 import org.gin.response.PixivResponse;
 import org.gin.response.body.illustmanga.IllustMangaFollowLatestBody;
+
+import java.util.Collections;
 
 import static org.gin.request.PixivRequestBody.createFormBody;
 import static org.gin.request.PixivUrl.createHttpUrl;
@@ -33,7 +36,7 @@ public class ApiFollows {
                                                                                         @NonNull PixivCookieToken pixivCookieToken,
                                                                                         @NonNull OkHttpClient client
     ) {
-        return new PixivRequest<>(createHttpUrl(followLatestParam, Pixiv.DOMAIN + "/ajax/follow_latest/illust")
+        return new PixivRequest<>(createHttpUrl(followLatestParam, Collections.singleton(SerializerFeature.WriteMapNullValue), Pixiv.DOMAIN + "/ajax/follow_latest/illust")
                 , client, pixivCookieToken);
     }
 
@@ -49,7 +52,7 @@ public class ApiFollows {
                                                                                        @NonNull PixivCookieToken pixivCookieToken,
                                                                                        @NonNull OkHttpClient client
     ) {
-        return new PixivRequest<>(createHttpUrl(followLatestParam, Pixiv.DOMAIN + "/ajax/follow_latest/novel")
+        return new PixivRequest<>(createHttpUrl(followLatestParam, Collections.singleton(SerializerFeature.WriteMapNullValue), Pixiv.DOMAIN + "/ajax/follow_latest/novel")
                 , client, pixivCookieToken);
     }
 

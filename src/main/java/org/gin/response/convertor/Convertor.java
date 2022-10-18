@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.TypeReference;
 import okhttp3.ResponseBody;
 import org.gin.response.PixivResponse;
+import org.gin.response.RankingResponse;
 import org.gin.response.body.user.ProfileBody;
 import org.gin.response.body.user.ProfileRealBody;
 import org.jetbrains.annotations.NotNull;
@@ -65,6 +66,19 @@ public interface Convertor<R> {
         final PixivResponse<T> res = new PixivResponse<>();
         res.setBody(t);
         return res;
+    }
+
+    /**
+     * 排行榜转换器
+     * @param responseBody ResponseBody
+     * @return org.gin.response.RankingResponse
+     * @throws IOException 异常
+     * @since 2022/10/18 12:05
+     */
+    static RankingResponse ranking(ResponseBody responseBody) throws IOException {
+        String string = responseBody.string();
+        string = string.replace("\"illust_series\":false", "\"illust_series\":{}");
+        return JSONObject.parseObject(string, RankingResponse.class);
     }
 
     /**

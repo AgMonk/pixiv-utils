@@ -1,5 +1,6 @@
 package org.gin.api;
 
+import com.alibaba.fastjson.serializer.SerializerFeature;
 import okhttp3.OkHttpClient;
 import org.gin.params.SimpleParam;
 import org.gin.params.illustmanga.IllustMangaSearchParam;
@@ -13,6 +14,8 @@ import org.gin.response.body.illustmanga.IllustMangaBody;
 import org.gin.response.body.illustmanga.IllustMangaSearchBody;
 import org.gin.response.body.illustmanga.UgoiraMetaBody;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.Collections;
 
 import static org.gin.request.PixivRequestBody.createJsonBody;
 import static org.gin.request.PixivUrl.createHttpUrl;
@@ -55,7 +58,7 @@ public class ApiIllustManga {
                                                                             @NotNull PixivCookieToken pixivCookieToken,
                                                                             @NotNull OkHttpClient client) {
         return new PixivRequest<>(
-                createHttpUrl(param, Pixiv.DOMAIN + "/ajax/search/artworks/%s", keywords),
+                createHttpUrl(param, Collections.singleton(SerializerFeature.WriteMapNullValue), Pixiv.DOMAIN + "/ajax/search/artworks/%s", keywords),
                 client, pixivCookieToken
         );
     }
@@ -74,7 +77,7 @@ public class ApiIllustManga {
                                                              @NotNull OkHttpClient client
     ) {
         return new PixivRequest<>(
-                createHttpUrl(param, Pixiv.DOMAIN + "/ajax/illusts/like"),
+                createHttpUrl(param, Collections.singleton(SerializerFeature.WriteMapNullValue), Pixiv.DOMAIN + "/ajax/illusts/like"),
                 createJsonBody("illust_id", pid),
                 client, pixivCookieToken
         );
@@ -95,7 +98,7 @@ public class ApiIllustManga {
                                                                          @NotNull OkHttpClient client
     ) {
         return new PixivRequest<>(
-                createHttpUrl(param, Pixiv.DOMAIN + "/ajax/illust/%d/ugoira_meta", pid),
+                createHttpUrl(param, Collections.singleton(SerializerFeature.WriteMapNullValue), Pixiv.DOMAIN + "/ajax/illust/%d/ugoira_meta", pid),
                 client, pixivCookieToken
         );
     }
@@ -115,7 +118,7 @@ public class ApiIllustManga {
                                                                              @NotNull OkHttpClient client
     ) {
         return new PixivRequest<>(
-                createHttpUrl(param, Pixiv.DOMAIN + "/ajax/illust/%d/bookmarkData", pid),
+                createHttpUrl(param, Collections.singleton(SerializerFeature.WriteMapNullValue), Pixiv.DOMAIN + "/ajax/illust/%d/bookmarkData", pid),
                 client, pixivCookieToken
         );
     }

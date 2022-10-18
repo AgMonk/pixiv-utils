@@ -1,5 +1,6 @@
 package org.gin.api;
 
+import com.alibaba.fastjson.serializer.SerializerFeature;
 import lombok.NonNull;
 import okhttp3.OkHttpClient;
 import org.gin.params.SimpleParam;
@@ -12,6 +13,8 @@ import org.gin.response.body.novel.NovelBody;
 import org.gin.response.body.novel.NovelSearchBody;
 import org.gin.response.body.novel.NovelSeriesBody;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.Collections;
 
 import static org.gin.request.PixivUrl.createHttpUrl;
 
@@ -35,7 +38,7 @@ public class ApiNovel {
                                                                 @NonNull PixivCookieToken pixivCookieToken,
                                                                 @NonNull OkHttpClient client
     ) {
-        return new PixivRequest<>(createHttpUrl(param, Pixiv.DOMAIN + "/ajax/novel/" + nid)
+        return new PixivRequest<>(createHttpUrl(param, Collections.singleton(SerializerFeature.WriteMapNullValue), Pixiv.DOMAIN + "/ajax/novel/" + nid)
                 , client, pixivCookieToken);
     }
 
@@ -52,7 +55,7 @@ public class ApiNovel {
                                                                       @NotNull NovelSearchParam param,
                                                                       @NotNull PixivCookieToken pixivCookieToken,
                                                                       @NotNull OkHttpClient client) {
-        return new PixivRequest<>(createHttpUrl(param, Pixiv.DOMAIN + "/ajax/search/novels/%s", keywords), client, pixivCookieToken);
+        return new PixivRequest<>(createHttpUrl(param, Collections.singleton(SerializerFeature.WriteMapNullValue), Pixiv.DOMAIN + "/ajax/search/novels/%s", keywords), client, pixivCookieToken);
     }
 
     /**
@@ -68,7 +71,7 @@ public class ApiNovel {
                                                                       @NotNull SimpleParam param,
                                                                       @NotNull PixivCookieToken pixivCookieToken,
                                                                       @NotNull OkHttpClient client) {
-        return new PixivRequest<>(createHttpUrl(param, Pixiv.DOMAIN + "/ajax/novel/series/" + seriesId), client, pixivCookieToken);
+        return new PixivRequest<>(createHttpUrl(param, Collections.singleton(SerializerFeature.WriteMapNullValue), Pixiv.DOMAIN + "/ajax/novel/series/" + seriesId), client, pixivCookieToken);
     }
 
 

@@ -1,8 +1,10 @@
 package org.gin.request;
 
+import com.alibaba.fastjson.serializer.SerializerFeature;
 import okhttp3.HttpUrl;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 
 /**
@@ -19,17 +21,17 @@ public class PixivUrl {
      * @return HttpUrl
      */
     public static HttpUrl createHttpUrl(String urlTemplate, Object... args) {
-        return createHttpUrl(null, urlTemplate, args);
+        return createHttpUrl(null, Collections.singleton(SerializerFeature.WriteMapNullValue), urlTemplate, args);
     }
 
     /**
      * 创建URL
-     * @param urlTemplate url模板
      * @param queryParam  query查询参数 推荐使用HashMap ，传入null的字段会传递空串
+     * @param urlTemplate url模板
      * @param args        url参数
      * @return HttpUrl
      */
-    public static HttpUrl createHttpUrl(Object queryParam, String urlTemplate, Object... args) {
+    public static HttpUrl createHttpUrl(Object queryParam, Collection<SerializerFeature> features, String urlTemplate, Object... args) {
         final String url = String.format(urlTemplate, args);
         final HttpUrl httpUrl = HttpUrl.parse(url);
         //解析url失败 抛出异常
@@ -49,8 +51,13 @@ public class PixivUrl {
                 ((Collection<?>) v).forEach(i -> {
                     builder.addQueryParameter(k, String.valueOf(i));
                 });
+            } else if (v == null) {
+                //如果传入了该值则把null值写成空串
+                if (features != null && features.contains(SerializerFeature.WriteMapNullValue)) {
+                    builder.addQueryParameter(k, "");
+                }
             } else {
-                builder.addQueryParameter(k, v == null ? "" : v.toString());
+                builder.addQueryParameter(k, v.toString());
             }
         });
         return builder.build();
