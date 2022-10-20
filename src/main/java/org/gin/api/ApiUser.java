@@ -3,7 +3,7 @@ package org.gin.api;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import okhttp3.OkHttpClient;
 import org.gin.params.SimpleParam;
-import org.gin.params.user.IllustsBookmarksParam;
+import org.gin.params.user.BookmarksParam;
 import org.gin.params.user.ProfileIllustsParam;
 import org.gin.params.user.ProfileNovelsParam;
 import org.gin.params.user.UserInfoParam;
@@ -13,6 +13,7 @@ import org.gin.request.PixivRequest;
 import org.gin.response.PixivResponse;
 import org.gin.response.body.illustmanga.CommonBookmarkTagsBody;
 import org.gin.response.body.illustmanga.IllustMangaBookmarksBody;
+import org.gin.response.body.novel.NovelBookmarksBody;
 import org.gin.response.body.user.*;
 import org.jetbrains.annotations.NotNull;
 
@@ -88,7 +89,7 @@ public class ApiUser {
      * @since 2022/10/15 12:19
      */
     public static PixivRequest<PixivResponse<IllustMangaBookmarksBody>> illustsBookmarks(long userId,
-                                                                                         @NotNull IllustsBookmarksParam param,
+                                                                                         @NotNull BookmarksParam param,
                                                                                          @NotNull PixivCookieToken pixivCookieToken,
                                                                                          @NotNull OkHttpClient client) {
         return new PixivRequest<>(createHttpUrl(param, Collections.singleton(SerializerFeature.WriteMapNullValue), Pixiv.DOMAIN + "/ajax/user/%d/illusts/bookmarks", userId)
@@ -143,6 +144,23 @@ public class ApiUser {
                                                                                @NotNull PixivCookieToken pixivCookieToken,
                                                                                @NotNull OkHttpClient client) {
         return new PixivRequest<>(createHttpUrl(param, Collections.singleton(SerializerFeature.WriteMapNullValue), Pixiv.DOMAIN + "/ajax/user/%d/profile/novels", userId), client, pixivCookieToken);
+    }
+
+    /**
+     * 查询用户收藏的小说
+     * @param userId           用户id
+     * @param param            参数
+     * @param pixivCookieToken cooke和token
+     * @param client           客户端
+     * @return org.gin.request.PixivRequest<org.gin.response.PixivResponse < org.gin.response.body.novel.NovelBookmarksBody>>
+     * @since 2022/10/20 9:01
+     */
+    public static PixivRequest<PixivResponse<NovelBookmarksBody>> novelsBookmarks(long userId,
+                                                                                  @NotNull BookmarksParam param,
+                                                                                  @NotNull PixivCookieToken pixivCookieToken,
+                                                                                  @NotNull OkHttpClient client) {
+        return new PixivRequest<>(createHttpUrl(param, Collections.singleton(SerializerFeature.WriteMapNullValue), Pixiv.DOMAIN + "/ajax/user/%d/novels/bookmarks", userId)
+                , client, pixivCookieToken);
     }
 
     /**

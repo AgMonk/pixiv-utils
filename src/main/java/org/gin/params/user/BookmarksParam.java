@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class IllustsBookmarksParam {
+public class BookmarksParam {
     /**
      * 语言
      */
@@ -26,17 +26,17 @@ public class IllustsBookmarksParam {
      */
     String rest = "show";
 
-    public IllustsBookmarksParam(int page) {
+    public BookmarksParam(int page) {
         this(page, 100);
     }
 
-    public IllustsBookmarksParam(int page, int size) {
+    public BookmarksParam(int page, int size) {
         this.limit = size;
         this.offset = (page - 1) * size;
     }
 
-    public static IllustsBookmarksParam untagged() {
-        final IllustsBookmarksParam param = new IllustsBookmarksParam(1);
+    public static BookmarksParam untagged() {
+        final BookmarksParam param = new BookmarksParam(1);
         param.setTag("未分類");
         return param;
     }

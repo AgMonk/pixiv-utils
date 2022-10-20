@@ -130,7 +130,7 @@ Pixiv工具类
 
   ```json
   {
-      "illust_id": 1111,
+      "illust_id": 
       "restrict": 0,
       "comment": "",
       "tags": []
@@ -362,12 +362,27 @@ Pixiv工具类
 - 请求方法：`GET`
 - 传参方式：`QUERY`
 - 参数含义：
-  - uid：(PATH传递)用户id
-  - lang：语言，简中为 `zh`
-  - tag：带有的标签
-  - offset： 跳过前面 x 个查询结果
-  - limit：每次查询返回的结果条数上限，最大为100
-  - rest：`show`公开的，`hide`不公开的(仅自己)
+    - uid：(PATH传递)用户id
+    - lang：语言，简中为 `zh`
+    - tag：带有的标签
+    - offset： 跳过前面 x 个查询结果
+    - limit：每次查询返回的结果条数上限，最大为100
+    - rest：`show`公开的，`hide`不公开的(仅自己)
+- 备注：tag参数写`未分類`可以查询到添加收藏时未提供标签(网页端/APP的默认操作)的作品
+
+#### 查询用户收藏的小说
+
+- 方法名：novelsBookmarks
+- URL：`https://www.pixiv.net/ajax/user/${uid}/novels/bookmarks`
+- 请求方法：`GET`
+- 传参方式：`QUERY`
+- 参数含义：
+    - uid：(PATH传递)用户id
+    - lang：语言，简中为 `zh`
+    - tag：带有的标签
+    - offset： 跳过前面 x 个查询结果
+    - limit：每次查询返回的结果条数上限，最大为100
+    - rest：`show`公开的，`hide`不公开的(仅自己)
 - 备注：tag参数写`未分類`可以查询到添加收藏时未提供标签(网页端/APP的默认操作)的作品
 
 #### 查询用户的收藏的插画/漫画中使用的标签
@@ -377,12 +392,12 @@ Pixiv工具类
 - 请求方法：`GET`
 - 传参方式：`QUERY`
 - 参数含义：
-  - uid：(PATH传递)用户id
-  - lang：语言，简中为 `zh`
+    - uid：(PATH传递)用户id
+    - lang：语言，简中为 `zh`
 
 #### 查询用户的收藏小说中使用的标签
 
-- 方法名：illustsBookmarkTags
+- 方法名：novelsBookmarkTags
 - URL：`https://www.pixiv.net/ajax/user/${uid}/novels/bookmark/tags`
 - 请求方法：`GET`
 - 传参方式：`QUERY`
