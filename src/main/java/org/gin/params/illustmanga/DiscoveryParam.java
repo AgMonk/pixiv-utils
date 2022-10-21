@@ -16,4 +16,5 @@ public class DiscoveryParam {
     String lang = "zh";
     Integer limit = 20;
     String mode = "all";
+    Long sampleIllustId;
 }
