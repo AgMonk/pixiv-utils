@@ -109,7 +109,8 @@ public interface BasePixivCallback extends Callback {
             case 2:return response.body();
             case 4:
                 final String string = Objects.requireNonNull(response.body()).string();
-                PixivResponse<Object> res = JSONObject.parseObject(string,new TypeReference<>(){});
+                PixivResponse<Object> res = JSONObject.parseObject(string, new TypeReference<PixivResponse<Object>>() {
+                });
                 throw new PixivClientException(code,call,res.getMessage());
             case 5:
                 throw new PixivServerException(code,call);

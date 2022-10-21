@@ -37,7 +37,7 @@ public interface BaseCallback<R> extends Callback, Convertor<R> {
             case 2:
                 return response.body();
             case 4:
-                PixivResponse<Object> res = JSONObject.parseObject(Objects.requireNonNull(response.body()).string(), new TypeReference<>() {
+                PixivResponse<Object> res = JSONObject.parseObject(Objects.requireNonNull(response.body()).string(), new TypeReference<PixivResponse<Object>>() {
                 });
                 throw new PixivRequestException(code, res.getMessage(), call);
             case 5:

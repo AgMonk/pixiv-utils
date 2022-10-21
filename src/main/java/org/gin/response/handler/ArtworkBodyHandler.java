@@ -21,7 +21,7 @@ public interface ArtworkBodyHandler extends BaseResponseBodyHandler<PixivRespons
      */
     @Override
     default PixivResponse<IllustMangaBody> convert(ResponseBody body) throws IOException {
-        return JSONObject.parseObject(body.string(), new TypeReference<>() {
+        return JSONObject.parseObject(body.string(), new TypeReference<PixivResponse<IllustMangaBody>>() {
         });
     }
 }

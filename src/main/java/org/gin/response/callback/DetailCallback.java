@@ -27,7 +27,7 @@ public interface DetailCallback extends BasePixivCallback {
      */
     @Override
     default void onSuccess(ResponseBody responseBody) throws IOException {
-        PixivResponse<IllustMangaBody> response = JSONObject.parseObject(responseBody.string(), new TypeReference<>() {
+        PixivResponse<IllustMangaBody> response = JSONObject.parseObject(responseBody.string(), new TypeReference<PixivResponse<IllustMangaBody>>() {
         });
         handleBody(response.getBody());
     }

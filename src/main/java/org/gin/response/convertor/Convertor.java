@@ -30,7 +30,7 @@ public interface Convertor<R> {
         string = replaceEmptyArray(string, "manga");
         string = replaceEmptyArray(string, "illusts");
         string = replaceEmptyArray(string, "novels");
-        final PixivResponse<ProfileBody> response = JSONObject.parseObject(string, new TypeReference<>() {
+        final PixivResponse<ProfileBody> response = JSONObject.parseObject(string, new TypeReference<PixivResponse<ProfileBody>>() {
         });
         final ProfileRealBody body = new ProfileRealBody(response.getBody());
         final PixivResponse<ProfileRealBody> res = new PixivResponse<>();
@@ -60,7 +60,7 @@ public interface Convertor<R> {
     static <T> PixivResponse<T> common(ResponseBody responseBody, Class<T> clazz) throws IOException {
         String string = responseBody.string();
         string = replaceEmptyArray(string, "tagTranslation");
-        final PixivResponse<String> response = JSONObject.parseObject(string, new TypeReference<>() {
+        final PixivResponse<String> response = JSONObject.parseObject(string, new TypeReference<PixivResponse<String>>() {
         });
         final T t = JSONObject.parseObject(response.getBody(), clazz);
         final PixivResponse<T> res = new PixivResponse<>();

@@ -27,7 +27,7 @@ public interface UserBookmarkCallback extends BasePixivCallback {
      */
     @Override
     default void onSuccess(ResponseBody responseBody) throws IOException {
-        PixivResponse<IllustMangaBookmarksBody> response = JSONObject.parseObject(responseBody.string(), new TypeReference<>() {
+        PixivResponse<IllustMangaBookmarksBody> response = JSONObject.parseObject(responseBody.string(), new TypeReference<PixivResponse<IllustMangaBookmarksBody>>() {
         });
         handleBody(response.getBody());
     }

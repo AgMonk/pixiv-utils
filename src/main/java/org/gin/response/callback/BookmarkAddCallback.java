@@ -21,7 +21,8 @@ public interface BookmarkAddCallback extends BasePixivCallback   {
      */
     @Override
     default void onSuccess(ResponseBody responseBody) throws IOException {
-        PixivResponse<BookmarkAddBody> response = JSONObject.parseObject(responseBody.string(),new TypeReference<>(){});
+        PixivResponse<BookmarkAddBody> response = JSONObject.parseObject(responseBody.string(), new TypeReference<PixivResponse<BookmarkAddBody>>() {
+        });
         handleBody(response.getBody());
     }
 

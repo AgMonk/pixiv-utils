@@ -28,7 +28,7 @@ public interface UserCommissionCallback extends BasePixivCallback {
      */
     @Override
     default void onSuccess(ResponseBody responseBody) throws IOException {
-        PixivResponse<CommissionRequestSentBody> response = JSONObject.parseObject(responseBody.string(), new TypeReference<>() {
+        PixivResponse<CommissionRequestSentBody> response = JSONObject.parseObject(responseBody.string(), new TypeReference<PixivResponse<CommissionRequestSentBody>>() {
         });
         handleBody(response.getBody());
     }

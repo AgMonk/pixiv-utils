@@ -29,7 +29,7 @@ public interface UserIllustCallback extends BasePixivCallback {
      */
     @Override
     default void onSuccess(ResponseBody responseBody) throws IOException {
-        PixivResponse<ProfileIllustsBody> response = JSONObject.parseObject(responseBody.string(), new TypeReference<>() {
+        PixivResponse<ProfileIllustsBody> response = JSONObject.parseObject(responseBody.string(), new TypeReference<PixivResponse<ProfileIllustsBody>>() {
         });
         handleBody(response.getBody());
     }

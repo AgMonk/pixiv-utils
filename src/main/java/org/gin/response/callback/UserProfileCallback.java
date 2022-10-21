@@ -22,7 +22,8 @@ public interface UserProfileCallback extends BasePixivCallback   {
      */
     @Override
     default void onSuccess(ResponseBody responseBody) throws IOException {
-        PixivResponse<ProfileBody> response = JSONObject.parseObject(responseBody.string(),new TypeReference<>(){});
+        PixivResponse<ProfileBody> response = JSONObject.parseObject(responseBody.string(), new TypeReference<PixivResponse<ProfileBody>>() {
+        });
         handleBody(new ProfileRealBody(response.getBody()));
     }
 

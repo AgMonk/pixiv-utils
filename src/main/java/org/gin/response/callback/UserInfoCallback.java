@@ -21,7 +21,8 @@ public interface UserInfoCallback extends BasePixivCallback   {
      */
     @Override
     default void onSuccess(ResponseBody responseBody) throws IOException {
-        PixivResponse<UserInfoBody> response = JSONObject.parseObject(responseBody.string(),new TypeReference<>(){});
+        PixivResponse<UserInfoBody> response = JSONObject.parseObject(responseBody.string(), new TypeReference<PixivResponse<UserInfoBody>>() {
+        });
         handleBody(response.getBody());
     }
 

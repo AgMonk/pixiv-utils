@@ -27,7 +27,7 @@ public interface FollowLatestCallback extends BasePixivCallback {
      */
     @Override
     default void onSuccess(ResponseBody responseBody) throws IOException {
-        PixivResponse<IllustMangaFollowLatestBody> response = JSONObject.parseObject(responseBody.string(), new TypeReference<>() {
+        PixivResponse<IllustMangaFollowLatestBody> response = JSONObject.parseObject(responseBody.string(), new TypeReference<PixivResponse<IllustMangaFollowLatestBody>>() {
         });
         handleBody(response.getBody());
     }

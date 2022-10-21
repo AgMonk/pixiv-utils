@@ -33,7 +33,7 @@ public class Demo {
                 ApiIllustManga.bookmarkData(101950923L, new SimpleParam(), cookieToken, client);
 
         //异步
-        request.async(new BaseCallback<>() {
+        request.async(new BaseCallback<PixivResponse<BookmarkDataBody>>() {
             @Override
             public PixivResponse<BookmarkDataBody> convert(ResponseBody responseBody) throws IOException {
                 return Convertor.common(responseBody, BookmarkDataBody.class);

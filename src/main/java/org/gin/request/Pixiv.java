@@ -40,7 +40,7 @@ public class Pixiv {
      * @return HashMap
      */
     public static HashMap<String, Object> jsonToMap(Object obj) {
-        return JSONObject.parseObject(JSONObject.toJSONString(obj, SerializerFeature.WriteMapNullValue), new TypeReference<>() {
+        return JSONObject.parseObject(JSONObject.toJSONString(obj, SerializerFeature.WriteMapNullValue), new TypeReference<HashMap<String, Object>>() {
         });
     }
 }

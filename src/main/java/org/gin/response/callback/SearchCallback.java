@@ -27,7 +27,7 @@ public interface SearchCallback extends BasePixivCallback {
      */
     @Override
     default void onSuccess(ResponseBody responseBody) throws IOException {
-        PixivResponse<IllustMangaSearchBody> response = JSONObject.parseObject(responseBody.string(), new TypeReference<>() {
+        PixivResponse<IllustMangaSearchBody> response = JSONObject.parseObject(responseBody.string(), new TypeReference<PixivResponse<IllustMangaSearchBody>>() {
         });
         handleBody(response.getBody());
     }
