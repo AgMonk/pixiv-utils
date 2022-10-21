@@ -13,6 +13,7 @@ public class TagTranslation {
     String en;
     String ko;
     String zh;
+    String romaji;
     @JSONField(alternateNames = "zh_tw")
     String zhTw;
 }

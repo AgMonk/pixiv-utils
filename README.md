@@ -110,7 +110,19 @@ Pixiv工具类
 - 请求方法：`GET`
 - 传参方式：`PATH`
 - 参数含义：
-  - pid：动图作品id
+    - pid：动图作品id
+
+### 发现作品
+
+- 方法名：discovery
+- URL：`https://www.pixiv.net/ajax/discovery/artworks`
+- 请求方法：`GET`
+- 传参方式：`QUERY`
+- 参数含义：
+    - mode：模式，可选值：`all`、`safe`、`r18`
+    - limit
+    - lang
+    - sampleIllustId: （非必填）参考作品id
 
 ## 收藏
 
@@ -350,8 +362,9 @@ Pixiv工具类
 - 请求方法：`GET`
 - 传参方式：`QUERY`
 - 参数含义：
-  - uid：(PATH传递)用户id
-  - lang：语言，简中为 `zh`
+    - uid：(PATH传递)用户id
+    - ids[]：需要查询的作品id，可以传多个
+    - lang：语言，简中为 `zh`
 
 ### 收藏
 
@@ -487,7 +500,7 @@ Pixiv工具类
   - author_user_id：作者uid
   - parent_id：如果发楼中楼评论，需要提供父楼id
   - comment：如果type选择comment，此字段为文字内容
-  - stampId：如果type选择Stamp，此字段为贴图的id
+  - stamp_id：如果type选择Stamp，此字段为贴图的id
 
 ### 删除评论
 

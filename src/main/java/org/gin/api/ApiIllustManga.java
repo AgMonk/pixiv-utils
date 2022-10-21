@@ -3,6 +3,7 @@ package org.gin.api;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import okhttp3.OkHttpClient;
 import org.gin.params.SimpleParam;
+import org.gin.params.illustmanga.DiscoveryParam;
 import org.gin.params.illustmanga.IllustMangaSearchParam;
 import org.gin.request.Pixiv;
 import org.gin.request.PixivCookieToken;
@@ -10,6 +11,7 @@ import org.gin.request.PixivRequest;
 import org.gin.response.PixivResponse;
 import org.gin.response.body.BookmarkDataBody;
 import org.gin.response.body.LikeBody;
+import org.gin.response.body.illustmanga.DiscoveryBody;
 import org.gin.response.body.illustmanga.IllustMangaBody;
 import org.gin.response.body.illustmanga.IllustMangaSearchBody;
 import org.gin.response.body.illustmanga.UgoiraMetaBody;
@@ -123,5 +125,22 @@ public class ApiIllustManga {
         );
     }
 
+    /**
+     * 发现
+     * @param param            参数
+     * @param pixivCookieToken cooke和token
+     * @param client           客户端
+     * @return org.gin.request.PixivRequest<org.gin.response.PixivResponse < org.gin.response.body.illustmanga.DiscoveryBody>>
+     * @since 2022/10/21 9:14
+     */
+    public static PixivRequest<PixivResponse<DiscoveryBody>> discovery(@NotNull DiscoveryParam param,
+                                                                       @NotNull PixivCookieToken pixivCookieToken,
+                                                                       @NotNull OkHttpClient client
+    ) {
+        return new PixivRequest<>(
+                createHttpUrl(param, Collections.singleton(SerializerFeature.WriteMapNullValue), Pixiv.DOMAIN + "/ajax/discovery/artworks"),
+                client, pixivCookieToken
+        );
+    }
 
 }
