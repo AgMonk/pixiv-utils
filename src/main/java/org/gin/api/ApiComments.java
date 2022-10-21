@@ -2,7 +2,6 @@ package org.gin.api;
 
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import okhttp3.OkHttpClient;
-import org.gin.MapUtils;
 import org.gin.params.CommentParam;
 import org.gin.params.illustmanga.IllustsCommentRepliesParam;
 import org.gin.params.illustmanga.IllustsCommentRootsParam;
@@ -96,7 +95,8 @@ public class ApiComments {
                                                                  @NotNull PixivCookieToken pixivCookieToken,
                                                                  @NotNull OkHttpClient client
     ) {
-        final HashMap<String, Long> body = MapUtils.singleTon("i_id", pid);
+        final HashMap<String, Long> body = new HashMap<>(2);
+        body.put("i_id", pid);
         body.put("del_id", commentId);
         return new PixivRequest<>(
                 createHttpUrl(Pixiv.DOMAIN + "/rpc_delete_comment.php"),

@@ -3,7 +3,6 @@ package org.gin.api;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import lombok.NonNull;
 import okhttp3.OkHttpClient;
-import org.gin.MapUtils;
 import org.gin.params.SimpleParam;
 import org.gin.params.bookmark.AddIllustMangaParam;
 import org.gin.params.bookmark.AddNovelParam;
@@ -119,7 +118,8 @@ public class ApiBookmark {
                                                                @NonNull PixivCookieToken pixivCookieToken,
                                                                @NonNull OkHttpClient client
     ) {
-        final HashMap<String, Long> body = MapUtils.singleTon("book_id", bookmarkId);
+        final HashMap<String, Long> body = new HashMap<>(2);
+        body.put("book_id", bookmarkId);
         body.put("del", 1L);
         return new PixivRequest<>(
                 createHttpUrl(param, Collections.singleton(SerializerFeature.WriteMapNullValue), Pixiv.DOMAIN + "/ajax/novels/bookmarks/delete")

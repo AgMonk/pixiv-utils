@@ -3,11 +3,11 @@ package org.gin.interceptor;
 import okhttp3.Interceptor;
 import okhttp3.Request;
 import okhttp3.Response;
-import org.gin.TimeUtils;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 
 /**
  * @author : ginstone
@@ -16,6 +16,7 @@ import java.time.ZonedDateTime;
  **/
 public class LoggingInterceptor implements Interceptor {
     private static final String TAG = "LoggingInterceptor";
+    public static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
     @NotNull
     @Override
@@ -23,7 +24,7 @@ public class LoggingInterceptor implements Interceptor {
         Request request = chain.request();
         long startTime = System.nanoTime();
         System.out.printf("%s [DEBUG]发送请求 %s on %s\n",
-                TimeUtils.format(ZonedDateTime.now()),
+                DATE_TIME_FORMATTER.format(ZonedDateTime.now()),
                 request.url(),
                 chain.connection()
         );
@@ -32,7 +33,7 @@ public class LoggingInterceptor implements Interceptor {
 
         long endTime = System.nanoTime();
         System.out.printf("%s [DEBUG]收到响应 code:%d %s in %.1fms \n",
-                TimeUtils.format(ZonedDateTime.now()),
+                DATE_TIME_FORMATTER.format(ZonedDateTime.now()),
                 response.code(),
                 response.request().url(),
                 (endTime - startTime) / 1e6d);

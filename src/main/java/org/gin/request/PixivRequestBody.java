@@ -5,7 +5,6 @@ import com.alibaba.fastjson.serializer.SerializerFeature;
 import okhttp3.FormBody;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
-import org.gin.MapUtils;
 
 import java.io.Serializable;
 import java.util.Collection;
@@ -28,7 +27,9 @@ public class PixivRequestBody {
      * @since 2022/10/15 14:24
      */
     public static RequestBody createJsonBody(String key, Serializable value) {
-        return createJsonBody(MapUtils.singleTon(key, value));
+        final HashMap<String, Object> map = new HashMap<>(1);
+        map.put(key, value);
+        return createJsonBody(map);
     }
 
     /**
@@ -39,7 +40,9 @@ public class PixivRequestBody {
      * @since 2022/10/15 14:24
      */
     public static RequestBody createJsonBody(String key, Collection<?> value) {
-        return createJsonBody(MapUtils.singleTon(key, value));
+        final HashMap<String, Object> map = new HashMap<>(1);
+        map.put(key, value);
+        return createJsonBody(map);
     }
 
     /**
@@ -58,7 +61,7 @@ public class PixivRequestBody {
      * @return FormBody
      */
     public static FormBody createFormBody(String key, Serializable value) {
-        final HashMap<String, String> map = new HashMap<>();
+        final HashMap<String, String> map = new HashMap<>(1);
         map.put(key, String.valueOf(value));
         return createFormBody(map);
     }

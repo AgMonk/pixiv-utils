@@ -1,8 +1,6 @@
 package org.gin.request;
 
 import okhttp3.*;
-import org.gin.StringUtils;
-import org.gin.exception.PixivException;
 import org.gin.exception.PixivRequestException;
 import org.gin.response.callback.BaseCallback;
 import org.gin.response.convertor.Convertor;
@@ -58,7 +56,7 @@ public class PixivRequest<R> {
                 .header("referer", "https://www.pixiv.net/")
                 .header("cookie", pixivCookieToken.getCookie());
 //        如果传入了token 添加token header
-        if (StringUtils.isNotEmpty(token)) {
+        if (token != null && !"".equals(token)) {
             builder.header("x-csrf-token", token);
         }
         //有 body 表示为post请求
@@ -88,8 +86,8 @@ public class PixivRequest<R> {
     /**
      * 同步请求
      * @return ResponseBody
-     * @throws IOException    异常
-     * @throws PixivException pixiv异常
+     * @throws IOException           异常
+     * @throws PixivRequestException pixiv异常
      */
     public ResponseBody sync() throws IOException, PixivRequestException {
         final Call call = client.newCall(request);
@@ -101,7 +99,7 @@ public class PixivRequest<R> {
      * 同步请求
      * @return R
      * @throws IOException    异常
-     * @throws PixivException pixiv异常
+     * @throws PixivRequestException pixiv异常
      */
     public R sync(Convertor<R> convertor) throws PixivRequestException, IOException {
         return convertor.convert(sync());
