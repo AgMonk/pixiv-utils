@@ -3,10 +3,7 @@ package org.gin.api;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import okhttp3.OkHttpClient;
 import org.gin.params.SimpleParam;
-import org.gin.params.user.BookmarksParam;
-import org.gin.params.user.ProfileIllustsParam;
-import org.gin.params.user.ProfileNovelsParam;
-import org.gin.params.user.UserInfoParam;
+import org.gin.params.user.*;
 import org.gin.request.Pixiv;
 import org.gin.request.PixivCookieToken;
 import org.gin.request.PixivRequest;
@@ -178,6 +175,26 @@ public class ApiUser {
                                                                                          @NotNull PixivCookieToken pixivCookieToken,
                                                                                          @NotNull OkHttpClient client) {
         return new PixivRequest<>(createHttpUrl(param, Collections.singleton(SerializerFeature.WriteMapNullValue), Pixiv.DOMAIN + "/ajax/user/%d/novels/bookmark/tags", userId)
+                , client, pixivCookieToken);
+    }
+
+    /**
+     * 推荐用户
+     * @param userId           用户id
+     * @param param            参数
+     * @param pixivCookieToken cooke和token
+     * @param client           客户端
+     * @return org.gin.request.PixivRequest<org.gin.response.PixivResponse < org.gin.response.body.user.UserRecommendBody>>
+     * @since 2022/10/24 9:13
+     */
+    public static PixivRequest<PixivResponse<UserRecommendBody>> recommend(long userId,
+                                                                           @NotNull UserRecommendParam param,
+                                                                           @NotNull PixivCookieToken pixivCookieToken,
+                                                                           @NotNull OkHttpClient client) {
+        return new PixivRequest<>(createHttpUrl(param,
+                Collections.singleton(SerializerFeature.WriteMapNullValue),
+                Pixiv.DOMAIN + "/ajax/user/%d/recommends",
+                userId)
                 , client, pixivCookieToken);
     }
 }
