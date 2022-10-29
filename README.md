@@ -124,6 +124,15 @@ Pixiv工具类
     - lang
     - sampleIllustId: （非必填）参考作品id
 
+### 喜欢作品
+
+- 方法名：like
+- URL：`https://www.pixiv.net/ajax/illusts/like`
+- 请求方法：`POST`
+- 传参方式：`BODY`
+- 参数含义：
+    - illust_id：作品id
+
 ## 收藏
 
 类名：`ApiBookmark`
@@ -317,9 +326,22 @@ Pixiv工具类
 - 请求方法：`GET`
 - 传参方式：`QUERY`
 - 参数含义：
-  - uid：(PATH传递)用户id
-  - full：固定为`1`，传递该参数将获得额外信息
-  - lang：语言，简中为 `zh`
+    - uid：(PATH传递)用户id
+    - full：固定为`1`，传递该参数将获得额外信息
+    - lang：语言，简中为 `zh`
+
+### 推荐用户
+
+- 方法名：recommend
+- URL：`https://www.pixiv.net/ajax/user/${uid}/recommends`
+- 请求方法：`GET`
+- 传参方式：`QUERY`
+- 参数含义：
+    - uid：(PATH传递)用户id
+    - userNum：推荐的用户数
+    - workNum：每个用户附带的作品数量
+    - isR18：Boolean ， 是否包含R18
+    - lang：语言，简中为 `zh`
 
 ### 作品
 
