@@ -5,19 +5,18 @@ import okhttp3.OkHttpClient;
 import org.gin.params.SimpleParam;
 import org.gin.params.illustmanga.DiscoveryParam;
 import org.gin.params.illustmanga.IllustMangaSearchParam;
+import org.gin.params.illustmanga.RecommendIllustsParam;
 import org.gin.request.Pixiv;
 import org.gin.request.PixivCookieToken;
 import org.gin.request.PixivRequest;
 import org.gin.response.PixivResponse;
 import org.gin.response.body.BookmarkDataBody;
 import org.gin.response.body.LikeBody;
-import org.gin.response.body.illustmanga.DiscoveryBody;
-import org.gin.response.body.illustmanga.IllustMangaBody;
-import org.gin.response.body.illustmanga.IllustMangaSearchBody;
-import org.gin.response.body.illustmanga.UgoiraMetaBody;
+import org.gin.response.body.illustmanga.*;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Collections;
+import java.util.HashMap;
 
 import static org.gin.request.PixivRequestBody.createJsonBody;
 import static org.gin.request.PixivUrl.createHttpUrl;
@@ -142,5 +141,48 @@ public class ApiIllustManga {
                 client, pixivCookieToken
         );
     }
+
+    /**
+     * 查询推荐作品
+     * @param pid              基准作品pid
+     * @param limit            作品数量
+     * @param lang             语言
+     * @param pixivCookieToken cooke和token
+     * @param client           客户端
+     * @return org.gin.request.PixivRequest<org.gin.response.PixivResponse < org.gin.response.body.illustmanga.DiscoveryBody>>
+     * @since 2022/11/1 9:43
+     */
+    public static PixivRequest<PixivResponse<IllustRecommendInitBody>> recommendInit(long pid, int limit, String lang,
+                                                                                     @NotNull PixivCookieToken pixivCookieToken,
+                                                                                     @NotNull OkHttpClient client
+    ) {
+        final HashMap<String, Object> map = new HashMap<>(2);
+        map.put("limit", limit);
+        map.put("lang", lang);
+        return new PixivRequest<>(
+                createHttpUrl(map, Collections.singleton(SerializerFeature.WriteMapNullValue), Pixiv.DOMAIN + "/ajax/illust/%d/recommend/init", pid),
+                client, pixivCookieToken
+        );
+    }
+
+    /**
+     * 查询推荐作品2
+     * @param param            参数
+     * @param pixivCookieToken cooke和token
+     * @param client           客户端
+     * @return org.gin.request.PixivRequest<org.gin.response.PixivResponse < org.gin.response.body.illustmanga.DiscoveryBody>>
+     * @since 2022/11/1 9:48
+     */
+    public static PixivRequest<PixivResponse<IllustRecommendBody>> recommendIllusts(
+            @NotNull RecommendIllustsParam param,
+            @NotNull PixivCookieToken pixivCookieToken,
+            @NotNull OkHttpClient client
+    ) {
+        return new PixivRequest<>(
+                createHttpUrl(param, Collections.singleton(SerializerFeature.WriteMapNullValue), Pixiv.DOMAIN + "/ajax/illust/recommend/illusts"),
+                client, pixivCookieToken
+        );
+    }
+
 
 }

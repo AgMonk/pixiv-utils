@@ -133,6 +133,51 @@ Pixiv工具类
 - 参数含义：
     - illust_id：作品id
 
+### 查询推荐作品
+
+- 方法名：recommendInit
+- URL：`https://www.pixiv.net/ajax/illust/${pid}/recommend/init`
+- 请求方法：`GET`
+- 传参方式：`QUERY`
+- 参数含义：
+    - pid(PATH)：基准作品id
+    - limit：作品数量
+    - lang：语言，简中为 `zh`
+
+### 查询推荐作品2
+
+- 方法名：recommendIllusts
+- URL：`https://www.pixiv.net/ajax/illust/recommend/illusts`
+- 请求方法：`GET`
+- 传参方式：`QUERY`
+- 参数含义：
+    - illust_ids[]：数组，基准作品id
+    - lang：语言，简中为 `zh`
+
+## 作品标签
+
+类名：`ApiTag`
+
+### 为绘画追加标签
+
+- 方法名：illustAdd
+- URL：`https://www.pixiv.net/ajax/tags/illust/${pid}/add`
+- 请求方法：`POST`
+- 传参方式：`BODY`
+- 参数含义：
+    - pid(PATH)：作品id
+    - tag：标签名
+
+### 查询标签信息
+
+- 方法名：tagInfo
+- URL：`https://www.pixiv.net/ajax/tag/info`
+- 请求方法：`GET`
+- 传参方式：`QUERY`
+- 参数含义：
+    - tag：标签名
+    - lang：语言，简中为 `zh`
+
 ## 收藏
 
 类名：`ApiBookmark`
