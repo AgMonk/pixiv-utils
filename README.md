@@ -175,8 +175,21 @@ Pixiv工具类
 - 请求方法：`GET`
 - 传参方式：`QUERY`
 - 参数含义：
-    - tag：标签名
-    - lang：语言，简中为 `zh`
+  - tag：标签名
+  - lang：语言，简中为 `zh`
+
+### 查询标签建议(追加标签时使用)
+
+- 方法名：suggestByWord
+- URL：`https://www.pixiv.net/ajax/tags/suggest_by_word`
+- 请求方法：`GET`
+- 传参方式：`QUERY`
+- 参数含义：
+  - word：关键字
+  - content_types_to_count[]：固定为 `illu`
+  - lang：语言，简中为 `zh`
+
+## 收藏
 
 ## 收藏
 
