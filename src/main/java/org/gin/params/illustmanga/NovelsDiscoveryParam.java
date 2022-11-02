@@ -12,9 +12,9 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class DiscoveryParam {
+public class NovelsDiscoveryParam {
     String lang = "zh";
     Integer limit = 20;
     String mode = "all";
-    Long sampleIllustId;
+    Long sampleNovelId;
 }

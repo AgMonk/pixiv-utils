@@ -186,7 +186,7 @@ Pixiv工具类
 - 传参方式：`QUERY`
 - 参数含义：
   - word：关键字
-  - content_types_to_count[]：固定为 `illu`
+  - content_types_to_count[]：固定为 `illust`
   - lang：语言，简中为 `zh`
 
 ## 收藏
@@ -538,8 +538,20 @@ Pixiv工具类
 - 请求方法：`GET`
 - 传参方式：`QUERY`
 - 参数含义：
-  - seriesId：(PATH传递)小说系列的id
-  - lang：语言，简中为 `zh`
+    - seriesId：(PATH传递)小说系列的id
+    - lang：语言，简中为 `zh`
+
+### 发现小说
+
+- 方法名：discovery
+- URL：`https://www.pixiv.net/ajax/discovery/novels`
+- 请求方法：`GET`
+- 传参方式：`QUERY`
+- 参数含义：
+    - mode：模式，可选值：`all`、`safe`、`r18`
+    - limit
+    - lang
+    - sampleNovelId: （非必填）参考小说id
 
 ## 评论区
 

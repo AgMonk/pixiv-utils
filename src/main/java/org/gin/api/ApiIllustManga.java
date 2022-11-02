@@ -3,8 +3,8 @@ package org.gin.api;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import okhttp3.OkHttpClient;
 import org.gin.params.SimpleParam;
-import org.gin.params.illustmanga.DiscoveryParam;
 import org.gin.params.illustmanga.IllustMangaSearchParam;
+import org.gin.params.illustmanga.IllustsDiscoveryParam;
 import org.gin.params.illustmanga.RecommendIllustsParam;
 import org.gin.request.Pixiv;
 import org.gin.request.PixivCookieToken;
@@ -132,7 +132,7 @@ public class ApiIllustManga {
      * @return org.gin.request.PixivRequest<org.gin.response.PixivResponse < org.gin.response.body.illustmanga.DiscoveryBody>>
      * @since 2022/10/21 9:14
      */
-    public static PixivRequest<PixivResponse<DiscoveryBody>> discovery(@NotNull DiscoveryParam param,
+    public static PixivRequest<PixivResponse<DiscoveryBody>> discovery(@NotNull IllustsDiscoveryParam param,
                                                                        @NotNull PixivCookieToken pixivCookieToken,
                                                                        @NotNull OkHttpClient client
     ) {

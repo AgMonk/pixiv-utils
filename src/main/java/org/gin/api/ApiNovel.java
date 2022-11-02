@@ -4,11 +4,13 @@ import com.alibaba.fastjson.serializer.SerializerFeature;
 import lombok.NonNull;
 import okhttp3.OkHttpClient;
 import org.gin.params.SimpleParam;
+import org.gin.params.illustmanga.NovelsDiscoveryParam;
 import org.gin.params.novel.NovelSearchParam;
 import org.gin.request.Pixiv;
 import org.gin.request.PixivCookieToken;
 import org.gin.request.PixivRequest;
 import org.gin.response.PixivResponse;
+import org.gin.response.body.illustmanga.DiscoveryBody;
 import org.gin.response.body.novel.NovelBody;
 import org.gin.response.body.novel.NovelSearchBody;
 import org.gin.response.body.novel.NovelSeriesBody;
@@ -74,5 +76,21 @@ public class ApiNovel {
         return new PixivRequest<>(createHttpUrl(param, Collections.singleton(SerializerFeature.WriteMapNullValue), Pixiv.DOMAIN + "/ajax/novel/series/" + seriesId), client, pixivCookieToken);
     }
 
-
+    /**
+     * 发现
+     * @param param            参数
+     * @param pixivCookieToken cooke和token
+     * @param client           客户端
+     * @return org.gin.request.PixivRequest<org.gin.response.PixivResponse < org.gin.response.body.illustmanga.DiscoveryBody>>
+     * @since 2022/10/21 9:14
+     */
+    public static PixivRequest<PixivResponse<DiscoveryBody>> discovery(@NotNull NovelsDiscoveryParam param,
+                                                                       @NotNull PixivCookieToken pixivCookieToken,
+                                                                       @NotNull OkHttpClient client
+    ) {
+        return new PixivRequest<>(
+                createHttpUrl(param, null, Pixiv.DOMAIN + "/ajax/discovery/novels"),
+                client, pixivCookieToken
+        );
+    }
 }
