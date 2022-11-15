@@ -131,9 +131,8 @@ Pixiv工具类
 - 请求方法：`GET`
 - 传参方式：`QUERY`
 - 参数含义：
-    - pid(PATH)：基准作品id
-    - limit：作品数量
-    - lang：语言，简中为 `zh`
+  - pid(PATH)：基准作品id
+  - limit：作品数量
 
 ### 查询推荐作品2
 
@@ -419,6 +418,16 @@ Pixiv工具类
   - work_category： 作品类型，可选值：`illust`(插画)、`manga`(漫画)、`illustManga`(二者混合)。疑似不敏感，但是不能省略
   - ids[]：需要查询的作品id，可以传多个
 
+#### 查询用户的小说
+
+- 方法名：profileNovels
+- URL：`https://www.pixiv.net/ajax/user/${uid}/profile/novels`
+- 请求方法：`GET`
+- 传参方式：`QUERY`
+- 参数含义：
+  - uid：(PATH传递)用户id
+  - ids[]：需要查询的作品id，可以传多个
+
 #### 查询用户发出约稿的作品
 
 - 方法名：commissionRequestSent
@@ -428,16 +437,14 @@ Pixiv工具类
 - 参数含义：
   - uid：(PATH传递)用户id
 
-#### 查询用户的小说
+#### 查询用户的小说中使用的标签
 
-- 方法名：profileNovels
-- URL：`https://www.pixiv.net/ajax/user/${uid}/profile/novels`
+- 方法名：novelsTags
+- URL：`https://www.pixiv.net/ajax/user/${uid}/novels/tags`
 - 请求方法：`GET`
 - 传参方式：`QUERY`
 - 参数含义：
-    - uid：(PATH传递)用户id
-    - ids[]：需要查询的作品id，可以传多个
-    - lang：语言，简中为 `zh`
+  - uid：(PATH传递)用户id
 
 ### 收藏
 
@@ -508,6 +515,7 @@ Pixiv工具类
   - tlt：字数范围（最低）
   - tgt：字数范围（最高），官方提供的字数范围选项为：`0-4999`,`5000-19999`,`20000-79999`,`80000-`，指定文字数为会员功能
   - gs：是否以系列分组显示
+  - work_lang：写作语言，部分语言：简中`zh-cn`，繁中`zh-tw`，英语`en`，日语`ja`
 
 ### 详情
 
@@ -525,8 +533,37 @@ Pixiv工具类
 - 请求方法：`GET`
 - 传参方式：`QUERY`
 - 参数含义：
-    - seriesId：(PATH传递)小说系列的id
-    - lang：语言，简中为 `zh`
+  - seriesId：(PATH传递)小说系列的id
+
+### 查询系列的各篇标题
+
+- 方法名：titles
+- URL：`https://www.pixiv.net/ajax/novel/series/${seriesId}/content_titles`
+- 请求方法：`GET`
+- 传参方式：`QUERY`
+- 参数含义：
+  - seriesId：(PATH传递)小说系列的id
+
+### 查询系列中作品的基础信息
+
+- 方法名：content
+- URL：`https://www.pixiv.net/ajax/novel/series_content/${seriesId}`
+- 请求方法：`GET`
+- 传参方式：`QUERY`
+- 参数含义：
+  - seriesId：(PATH传递)小说系列的id
+  - limit：
+  - last_order：offset
+  - order_by：排序，`dsc`或`asc`
+
+### 查询小说的收藏状态
+
+- 方法名：bookmarkData
+- URL：`https://www.pixiv.net/ajax/novel/${nid}/bookmarkData`
+- 请求方法：`GET`
+- 传参方式：`PATH`
+- 参数含义：
+  - nid：小说id
 
 ### 发现小说
 
@@ -535,9 +572,8 @@ Pixiv工具类
 - 请求方法：`GET`
 - 传参方式：`QUERY`
 - 参数含义：
-    - mode：模式，可选值：`all`、`safe`、`r18`
-    - limit
-    - lang
+  - mode：模式，可选值：`all`、`safe`、`r18`
+  - limit
     - sampleNovelId: （非必填）参考小说id
 
 ## 评论区
@@ -554,7 +590,6 @@ Pixiv工具类
   - illust_id：作品pid
   - offset：
   - limit：
-  - lang：语言，简中为 `zh`
 
 ### 查询绘画回复（楼中楼）
 
@@ -565,7 +600,27 @@ Pixiv工具类
 - 参数含义：
   - comment_id：评论id
   - page：
-  - lang：语言，简中为 `zh`
+
+### 查询小说评论（根）
+
+- 方法名：novelsRoots
+- URL：`https://www.pixiv.net/ajax/novels/comments/roots`
+- 请求方法：`GET`
+- 传参方式：`QUERY`
+- 参数含义：
+  - novel_id：小说id
+  - offset：
+  - limit：
+
+### 查询小说回复（楼中楼）
+
+- 方法名：novelsReplies
+- URL：`https://www.pixiv.net/ajax/novels/comments/replies`
+- 请求方法：`GET`
+- 传参方式：`QUERY`
+- 参数含义：
+  - comment_id：评论id
+  - page：
 
 ### 发布评论
 
