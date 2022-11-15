@@ -10,6 +10,7 @@ import org.gin.request.Pixiv;
 import org.gin.request.PixivCookieToken;
 import org.gin.request.PixivRequest;
 import org.gin.response.PixivResponse;
+import org.gin.response.body.BookmarkDataBody;
 import org.gin.response.body.illustmanga.DiscoveryBody;
 import org.gin.response.body.novel.NovelBody;
 import org.gin.response.body.novel.NovelSearchBody;
@@ -58,6 +59,27 @@ public class ApiNovel {
                                                                       @NotNull PixivCookieToken pixivCookieToken,
                                                                       @NotNull OkHttpClient client) {
         return new PixivRequest<>(createHttpUrl(param, Collections.singleton(SerializerFeature.WriteMapNullValue), Pixiv.DOMAIN + "/ajax/search/novels/%s", keywords), client, pixivCookieToken);
+    }
+
+
+    /**
+     * 查询小说的收藏状态
+     * @param nid              小说id
+     * @param param            参数
+     * @param pixivCookieToken cooke和token
+     * @param client           客户端
+     * @return org.gin.request.PixivRequest<org.gin.response.PixivResponse < org.gin.response.body.BookmarkDataBody>>
+     * @since 2022/10/15 17:19
+     */
+    public static PixivRequest<PixivResponse<BookmarkDataBody>> bookmarkData(long nid,
+                                                                             @NotNull SimpleParam param,
+                                                                             @NotNull PixivCookieToken pixivCookieToken,
+                                                                             @NotNull OkHttpClient client
+    ) {
+        return new PixivRequest<>(
+                createHttpUrl(param, Collections.singleton(SerializerFeature.WriteMapNullValue), Pixiv.DOMAIN + "/ajax/novel/%d/bookmarkData", nid),
+                client, pixivCookieToken
+        );
     }
 
     /**
