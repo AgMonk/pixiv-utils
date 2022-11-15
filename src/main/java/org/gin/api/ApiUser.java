@@ -11,10 +11,12 @@ import org.gin.response.PixivResponse;
 import org.gin.response.body.illustmanga.CommonBookmarkTagsBody;
 import org.gin.response.body.illustmanga.IllustMangaBookmarksBody;
 import org.gin.response.body.novel.NovelBookmarksBody;
+import org.gin.response.body.tag.UserTag;
 import org.gin.response.body.user.*;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Collections;
+import java.util.List;
 
 import static org.gin.request.PixivUrl.createHttpUrl;
 
@@ -133,7 +135,23 @@ public class ApiUser {
             return new PixivRequest<>(createHttpUrl(param, Collections.singleton(SerializerFeature.WriteMapNullValue), Pixiv.DOMAIN + "/ajax/commission/page/users/%d/request/sent", userId), client, pixivCookieToken);
         }
 
-//        todo 查询用户的小说中使用的标签
+
+        /**
+         * 查询用户的小说中使用的标签
+         * @param userId           用户id
+         * @param param            参数
+         * @param pixivCookieToken cooke和token
+         * @param client           客户端
+         * @return org.gin.request.PixivRequest<org.gin.response.PixivResponse < org.gin.response.body.UserCommissionBody>>
+         * @since 2022/10/15 14:01
+         */
+        public static PixivRequest<PixivResponse<List<UserTag>>> novelTags(long userId,
+                                                                           @NotNull SimpleParam param,
+                                                                           @NotNull PixivCookieToken pixivCookieToken,
+                                                                           @NotNull OkHttpClient client) {
+            return new PixivRequest<>(createHttpUrl(param, Collections.singleton(SerializerFeature.WriteMapNullValue)
+                    , Pixiv.DOMAIN + "/ajax/user/%d/novels/tags", userId), client, pixivCookieToken);
+        }
     }
 
 
