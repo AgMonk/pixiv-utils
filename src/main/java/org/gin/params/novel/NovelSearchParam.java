@@ -53,6 +53,9 @@ public class NovelSearchParam {
      */
     Long tlt;
 
+    @JSONField(name = "work_lang")
+    String workLang = "zh-cn";
+
     public NovelSearchParam(int page) {
         this.page = page;
     }
