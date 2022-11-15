@@ -27,40 +27,89 @@ import static org.gin.request.PixivUrl.createHttpUrl;
  */
 public class ApiComments {
     /**
-     * 查询作品评论(根)
-     * @param param            参数
-     * @param pixivCookieToken cooke和token
-     * @param client           客户端
-     * @return org.gin.request.PixivRequest<org.gin.response.PixivResponse < org.gin.response.body.LikeBody>>
-     * @since 2022/10/15 16:23
+     * 绘画相关
      */
-    public static PixivRequest<PixivResponse<IllustMangaCommentsBody>> illustsRoots(@NotNull IllustsCommentRootsParam param,
-                                                                                    @NotNull PixivCookieToken pixivCookieToken,
-                                                                                    @NotNull OkHttpClient client
-    ) {
-        return new PixivRequest<>(
-                createHttpUrl(param, Collections.singleton(SerializerFeature.WriteMapNullValue), Pixiv.DOMAIN + "/ajax/illusts/comments/roots"),
-                client, pixivCookieToken
-        );
+    public static class Illust {
+        /**
+         * 查询作品评论(根)
+         * @param param            参数
+         * @param pixivCookieToken cooke和token
+         * @param client           客户端
+         * @return org.gin.request.PixivRequest<org.gin.response.PixivResponse < org.gin.response.body.LikeBody>>
+         * @since 2022/10/15 16:23
+         */
+        public static PixivRequest<PixivResponse<IllustMangaCommentsBody>> roots(@NotNull IllustsCommentRootsParam param,
+                                                                                 @NotNull PixivCookieToken pixivCookieToken,
+                                                                                 @NotNull OkHttpClient client
+        ) {
+            return new PixivRequest<>(
+                    createHttpUrl(param, Collections.singleton(SerializerFeature.WriteMapNullValue), Pixiv.DOMAIN + "/ajax/illusts/comments/roots"),
+                    client, pixivCookieToken
+            );
+        }
+
+        /**
+         * 查询作品评论楼中楼
+         * @param param            参数
+         * @param pixivCookieToken cooke和token
+         * @param client           客户端
+         * @return org.gin.request.PixivRequest<org.gin.response.PixivResponse < org.gin.response.body.illustmanga.IllustCommentsBody>>
+         * @since 2022/10/15 16:46
+         */
+        public static PixivRequest<PixivResponse<IllustMangaCommentsBody>> replies(@NotNull IllustsCommentRepliesParam param,
+                                                                                   @NotNull PixivCookieToken pixivCookieToken,
+                                                                                   @NotNull OkHttpClient client
+        ) {
+            return new PixivRequest<>(
+                    createHttpUrl(param, Collections.singleton(SerializerFeature.WriteMapNullValue), Pixiv.DOMAIN + "/ajax/illusts/comments/replies"),
+                    client, pixivCookieToken
+            );
+        }
     }
 
+//    todo 待测试
+
     /**
-     * 查询作品评论楼中楼
-     * @param param            参数
-     * @param pixivCookieToken cooke和token
-     * @param client           客户端
-     * @return org.gin.request.PixivRequest<org.gin.response.PixivResponse < org.gin.response.body.illustmanga.IllustCommentsBody>>
-     * @since 2022/10/15 16:46
+     * 小说相关
      */
-    public static PixivRequest<PixivResponse<IllustMangaCommentsBody>> illustsReplies(@NotNull IllustsCommentRepliesParam param,
-                                                                                      @NotNull PixivCookieToken pixivCookieToken,
-                                                                                      @NotNull OkHttpClient client
-    ) {
-        return new PixivRequest<>(
-                createHttpUrl(param, Collections.singleton(SerializerFeature.WriteMapNullValue), Pixiv.DOMAIN + "/ajax/illusts/comments/replies"),
-                client, pixivCookieToken
-        );
+    public static class Novel {
+        /**
+         * 查询作品评论(根)
+         * @param param            参数
+         * @param pixivCookieToken cooke和token
+         * @param client           客户端
+         * @return org.gin.request.PixivRequest<org.gin.response.PixivResponse < org.gin.response.body.LikeBody>>
+         * @since 2022/10/15 16:23
+         */
+        public static PixivRequest<PixivResponse<IllustMangaCommentsBody>> roots(@NotNull IllustsCommentRootsParam param,
+                                                                                 @NotNull PixivCookieToken pixivCookieToken,
+                                                                                 @NotNull OkHttpClient client
+        ) {
+            return new PixivRequest<>(
+                    createHttpUrl(param, Collections.singleton(SerializerFeature.WriteMapNullValue), Pixiv.DOMAIN + "/ajax/novels/comments/roots"),
+                    client, pixivCookieToken
+            );
+        }
+
+        /**
+         * 查询作品评论楼中楼
+         * @param param            参数
+         * @param pixivCookieToken cooke和token
+         * @param client           客户端
+         * @return org.gin.request.PixivRequest<org.gin.response.PixivResponse < org.gin.response.body.illustmanga.IllustCommentsBody>>
+         * @since 2022/10/15 16:46
+         */
+        public static PixivRequest<PixivResponse<IllustMangaCommentsBody>> replies(@NotNull IllustsCommentRepliesParam param,
+                                                                                   @NotNull PixivCookieToken pixivCookieToken,
+                                                                                   @NotNull OkHttpClient client
+        ) {
+            return new PixivRequest<>(
+                    createHttpUrl(param, Collections.singleton(SerializerFeature.WriteMapNullValue), Pixiv.DOMAIN + "/ajax/novels/comments/replies"),
+                    client, pixivCookieToken
+            );
+        }
     }
+
 
     /**
      * 发表评论
