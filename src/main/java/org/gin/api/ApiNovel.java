@@ -83,22 +83,6 @@ public class ApiNovel {
     }
 
     /**
-     * 查询小说系列
-     * @param seriesId         小说系列id
-     * @param param            参数
-     * @param pixivCookieToken cooke和token
-     * @param client           客户端
-     * @return org.gin.request.PixivRequest<org.gin.response.PixivResponse < org.gin.response.body.novel.NovelSeriesBody>>
-     * @since 2022/10/17 10:49
-     */
-    public static PixivRequest<PixivResponse<NovelSeriesBody>> series(long seriesId,
-                                                                      @NotNull SimpleParam param,
-                                                                      @NotNull PixivCookieToken pixivCookieToken,
-                                                                      @NotNull OkHttpClient client) {
-        return new PixivRequest<>(createHttpUrl(param, Collections.singleton(SerializerFeature.WriteMapNullValue), Pixiv.DOMAIN + "/ajax/novel/series/" + seriesId), client, pixivCookieToken);
-    }
-
-    /**
      * 发现
      * @param param            参数
      * @param pixivCookieToken cooke和token
@@ -117,6 +101,28 @@ public class ApiNovel {
     }
 
 
-    //todo 查询系列的各篇标题
-    //todo 查询系列中作品的基础信息
+    /**
+     * 小说系列相关
+     */
+    public static class Series {
+        /**
+         * 查询小说系列
+         * @param seriesId         小说系列id
+         * @param param            参数
+         * @param pixivCookieToken cooke和token
+         * @param client           客户端
+         * @return org.gin.request.PixivRequest<org.gin.response.PixivResponse < org.gin.response.body.novel.NovelSeriesBody>>
+         * @since 2022/10/17 10:49
+         */
+        public static PixivRequest<PixivResponse<NovelSeriesBody>> info(long seriesId,
+                                                                        @NotNull SimpleParam param,
+                                                                        @NotNull PixivCookieToken pixivCookieToken,
+                                                                        @NotNull OkHttpClient client) {
+            return new PixivRequest<>(createHttpUrl(param, Collections.singleton(SerializerFeature.WriteMapNullValue), Pixiv.DOMAIN + "/ajax/novel/series/" + seriesId), client, pixivCookieToken);
+        }
+
+
+        //todo 查询系列的各篇标题
+        //todo 查询系列中作品的基础信息
+    }
 }
