@@ -115,4 +115,8 @@ public class ApiNovel {
                 client, pixivCookieToken
         );
     }
+
+
+    //todo 查询系列的各篇标题
+    //todo 查询系列中作品的基础信息
 }
