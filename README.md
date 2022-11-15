@@ -41,6 +41,8 @@ Pixiv工具类
 
 # Pixiv API
 
+所有接口都接收 query 参数 `lang`，指定你所使用的语言，会影响标签翻译，和报错信息等使用的语言。
+
 ## 插画/漫画
 
 类名：`ApiIllustManga`
@@ -89,7 +91,6 @@ Pixiv工具类
   - keyword：(PATH传递)关键字，需使用UTF-8编码，编码前的空格(编码后的+号)需要替换为`%20`
   - order：排序模式，可选值：`date_d`从新到旧(默认),`date`从旧到新
   - mode：模式，可选值：`all`、`safe`、`r18`
-  - lang：语言，简中为 `zh`
   - p：页码
   - scd：发布时间（起），以东九区为准，格式：yyyy-MM-dd
   - ecd：发布时间（止），以东九区为准，格式：yyyy-MM-dd
@@ -121,17 +122,7 @@ Pixiv工具类
 - 参数含义：
     - mode：模式，可选值：`all`、`safe`、`r18`
     - limit
-    - lang
     - sampleIllustId: （非必填）参考作品id
-
-### 喜欢作品
-
-- 方法名：like
-- URL：`https://www.pixiv.net/ajax/illusts/like`
-- 请求方法：`POST`
-- 传参方式：`BODY`
-- 参数含义：
-    - illust_id：作品id
 
 ### 查询推荐作品
 
@@ -151,8 +142,17 @@ Pixiv工具类
 - 请求方法：`GET`
 - 传参方式：`QUERY`
 - 参数含义：
-    - illust_ids[]：数组，基准作品id
-    - lang：语言，简中为 `zh`
+  - illust_ids[]：数组，基准作品id，可以使用前一个接口的返回结果
+
+### 喜欢绘画
+
+- 方法名：likeIllust
+- URL：`https://www.pixiv.net/ajax/illusts/like`
+- 请求方法：`POST`
+- 传参方式：`BODY`
+- 参数含义：
+
+  - illust_id：作品ID、pid
 
 ## 作品标签
 
@@ -176,7 +176,6 @@ Pixiv工具类
 - 传参方式：`QUERY`
 - 参数含义：
   - tag：标签名
-  - lang：语言，简中为 `zh`
 
 ### 查询标签建议(追加标签时使用)
 
@@ -187,15 +186,12 @@ Pixiv工具类
 - 参数含义：
   - word：关键字
   - content_types_to_count[]：固定为 `illust`
-  - lang：语言，简中为 `zh`
-
-## 收藏
 
 ## 收藏
 
 类名：`ApiBookmark`
 
-### 收藏漫画/插画
+### 收藏绘画
 
 - 方法名：addIllust
 
@@ -225,7 +221,7 @@ Pixiv工具类
 
 - 响应：成功时将会返回收藏id
 
-### 删除收藏漫画/插画
+### 删除收藏绘画
 
 - 方法名：delIllust
 - URL：`https://www.pixiv.net/ajax/illusts/bookmarks/delete`
@@ -235,7 +231,7 @@ Pixiv工具类
 
   - bookmark_id：收藏id，从作品信息的bookmarkData字段中获取
 
-### 删除收藏漫画/插画(批量)
+### 删除收藏绘画(批量)
 
 - 方法名：delIllusts
 
@@ -320,11 +316,15 @@ Pixiv工具类
 
   - bookmarkIds：收藏id，从作品信息的bookmarkData字段中获取
 
+
+-
+  -
+
 ## 关注
 
 类名：`ApiFollows`
 
-### 查询关注作者的最新插画/漫画
+### 查询关注作者的最新绘画
 
 - 方法名：latestIllust
 - URL：`https://www.pixiv.net/ajax/follow_latest/illust `
@@ -332,7 +332,6 @@ Pixiv工具类
 - 传参方式：`QUERY`
 - 参数含义：
     - mode：模式，可选值：`all`,`r18`
-    - lang：语言，简中为 `zh`
     - p：页码
 
 ### 查询关注作者的最新小说
@@ -343,7 +342,6 @@ Pixiv工具类
 - 传参方式：`QUERY`
 - 参数含义：
     - mode：模式，可选值：`all`,`r18`
-    - lang：语言，简中为 `zh`
     - p：页码
 
 ### 关注作者
@@ -386,7 +384,6 @@ Pixiv工具类
 - 参数含义：
     - uid：(PATH传递)用户id
     - full：固定为`1`，传递该参数将获得额外信息
-    - lang：语言，简中为 `zh`
 
 ### 推荐用户
 
@@ -399,7 +396,6 @@ Pixiv工具类
     - userNum：推荐的用户数
     - workNum：每个用户附带的作品数量
     - isR18：Boolean ， 是否包含R18
-    - lang：语言，简中为 `zh`
 
 ### 作品
 
@@ -410,17 +406,15 @@ Pixiv工具类
 - 请求方法：`GET`
 - 传参方式：`QUERY`
 - 参数含义：
-  - lang：语言，简中为 `zh`
 - 响应：这里会返回所有作品的id，但是没有作品信息，需要使用后续接口来获取
 
-#### 查询用户的插画/漫画
+#### 查询用户的绘画
 
 - 方法名：profileIllusts
 - URL：`https://www.pixiv.net/ajax/user/${uid}/profile/illusts`
 - 请求方法：`GET`
 - 传参方式：`QUERY`
 - 参数含义：
-  - lang：语言，简中为 `zh`
   - is_first_page：是否为第一页。1 = 是 ，0 = 否。返回结果疑似没有区别
   - work_category： 作品类型，可选值：`illust`(插画)、`manga`(漫画)、`illustManga`(二者混合)。疑似不敏感，但是不能省略
   - ids[]：需要查询的作品id，可以传多个
@@ -433,7 +427,6 @@ Pixiv工具类
 - 传参方式：`QUERY`
 - 参数含义：
   - uid：(PATH传递)用户id
-  - lang：语言，简中为 `zh`
 
 #### 查询用户的小说
 
@@ -448,7 +441,7 @@ Pixiv工具类
 
 ### 收藏
 
-#### 查询用户收藏的插画/漫画
+#### 查询用户收藏的绘画
 
 - 方法名：illustsBookmarks
 - URL：`https://www.pixiv.net/ajax/user/${uid}/illusts/bookmarks`
@@ -456,7 +449,6 @@ Pixiv工具类
 - 传参方式：`QUERY`
 - 参数含义：
     - uid：(PATH传递)用户id
-    - lang：语言，简中为 `zh`
     - tag：带有的标签
     - offset： 跳过前面 x 个查询结果
     - limit：每次查询返回的结果条数上限，最大为100
@@ -471,7 +463,6 @@ Pixiv工具类
 - 传参方式：`QUERY`
 - 参数含义：
     - uid：(PATH传递)用户id
-    - lang：语言，简中为 `zh`
     - tag：带有的标签
     - offset： 跳过前面 x 个查询结果
     - limit：每次查询返回的结果条数上限，最大为100
@@ -486,7 +477,6 @@ Pixiv工具类
 - 传参方式：`QUERY`
 - 参数含义：
     - uid：(PATH传递)用户id
-    - lang：语言，简中为 `zh`
 
 #### 查询用户的收藏小说中使用的标签
 
@@ -496,7 +486,6 @@ Pixiv工具类
 - 传参方式：`QUERY`
 - 参数含义：
   - uid：(PATH传递)用户id
-  - lang：语言，简中为 `zh`
 
 ## 小说
 
@@ -513,7 +502,6 @@ Pixiv工具类
   - order：排序模式，可选值：`date_d`从新到旧(默认),`date`从旧到新
   - mode：模式，可选值：`all`、`safe`、`r18`
   - s_mode：检索范围，`s_tag`(默认),`s_tag_only`(标签、部分一致),`s_tag_full`(标签，完全一致),`s_tc`(正文)
-  - lang：语言，简中为 `zh`
   - p：页码
   - scd：发布时间（起），以东九区为准，格式：yyyy-MM-dd
   - ecd：发布时间（止），以东九区为准，格式：yyyy-MM-dd
@@ -529,7 +517,6 @@ Pixiv工具类
 - 传参方式：`QUERY`
 - 参数含义：
   - nid：(PATH传递)小说的id
-  - lang：语言，简中为 `zh`
 
 ### 查询系列
 
@@ -557,7 +544,7 @@ Pixiv工具类
 
 类名：`ApiComments`
 
-### 查询作品评论（根）
+### 查询绘画评论（根）
 
 - 方法名：illustsRoots
 - URL：`https://www.pixiv.net/ajax/illusts/comments/roots`
@@ -569,7 +556,7 @@ Pixiv工具类
   - limit：
   - lang：语言，简中为 `zh`
 
-### 查询作品回复（楼中楼）
+### 查询绘画回复（楼中楼）
 
 - 方法名：illustsReplies
 - URL：`https://www.pixiv.net/ajax/illusts/comments/replies`
