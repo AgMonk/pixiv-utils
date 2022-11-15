@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
  * @since : 2022/10/15 16:29
  */
 @Data
-public class IllustComment {
+public class CommentReply {
     String comment;
     LocalDateTime commentDate;
     Long commentParentId;

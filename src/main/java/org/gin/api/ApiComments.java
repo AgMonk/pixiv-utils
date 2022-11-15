@@ -3,15 +3,16 @@ package org.gin.api;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import okhttp3.OkHttpClient;
 import org.gin.params.CommentParam;
-import org.gin.params.illustmanga.IllustsCommentRepliesParam;
+import org.gin.params.illustmanga.CommentRepliesParam;
 import org.gin.params.illustmanga.IllustsCommentRootsParam;
+import org.gin.params.illustmanga.NovelCommentRootsParam;
 import org.gin.request.Pixiv;
 import org.gin.request.PixivCookieToken;
 import org.gin.request.PixivRequest;
 import org.gin.request.PixivRequestBody;
 import org.gin.response.PixivResponse;
 import org.gin.response.body.CommentBody;
-import org.gin.response.body.illustmanga.IllustMangaCommentsBody;
+import org.gin.response.body.illustmanga.CommentsBody;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Collections;
@@ -38,9 +39,9 @@ public class ApiComments {
          * @return org.gin.request.PixivRequest<org.gin.response.PixivResponse < org.gin.response.body.LikeBody>>
          * @since 2022/10/15 16:23
          */
-        public static PixivRequest<PixivResponse<IllustMangaCommentsBody>> roots(@NotNull IllustsCommentRootsParam param,
-                                                                                 @NotNull PixivCookieToken pixivCookieToken,
-                                                                                 @NotNull OkHttpClient client
+        public static PixivRequest<PixivResponse<CommentsBody>> roots(@NotNull IllustsCommentRootsParam param,
+                                                                      @NotNull PixivCookieToken pixivCookieToken,
+                                                                      @NotNull OkHttpClient client
         ) {
             return new PixivRequest<>(
                     createHttpUrl(param, Collections.singleton(SerializerFeature.WriteMapNullValue), Pixiv.DOMAIN + "/ajax/illusts/comments/roots"),
@@ -56,9 +57,9 @@ public class ApiComments {
          * @return org.gin.request.PixivRequest<org.gin.response.PixivResponse < org.gin.response.body.illustmanga.IllustCommentsBody>>
          * @since 2022/10/15 16:46
          */
-        public static PixivRequest<PixivResponse<IllustMangaCommentsBody>> replies(@NotNull IllustsCommentRepliesParam param,
-                                                                                   @NotNull PixivCookieToken pixivCookieToken,
-                                                                                   @NotNull OkHttpClient client
+        public static PixivRequest<PixivResponse<CommentsBody>> replies(@NotNull CommentRepliesParam param,
+                                                                        @NotNull PixivCookieToken pixivCookieToken,
+                                                                        @NotNull OkHttpClient client
         ) {
             return new PixivRequest<>(
                     createHttpUrl(param, Collections.singleton(SerializerFeature.WriteMapNullValue), Pixiv.DOMAIN + "/ajax/illusts/comments/replies"),
@@ -66,8 +67,6 @@ public class ApiComments {
             );
         }
     }
-
-//    todo 待测试
 
     /**
      * 小说相关
@@ -81,9 +80,9 @@ public class ApiComments {
          * @return org.gin.request.PixivRequest<org.gin.response.PixivResponse < org.gin.response.body.LikeBody>>
          * @since 2022/10/15 16:23
          */
-        public static PixivRequest<PixivResponse<IllustMangaCommentsBody>> roots(@NotNull IllustsCommentRootsParam param,
-                                                                                 @NotNull PixivCookieToken pixivCookieToken,
-                                                                                 @NotNull OkHttpClient client
+        public static PixivRequest<PixivResponse<CommentsBody>> roots(@NotNull NovelCommentRootsParam param,
+                                                                      @NotNull PixivCookieToken pixivCookieToken,
+                                                                      @NotNull OkHttpClient client
         ) {
             return new PixivRequest<>(
                     createHttpUrl(param, Collections.singleton(SerializerFeature.WriteMapNullValue), Pixiv.DOMAIN + "/ajax/novels/comments/roots"),
@@ -99,9 +98,9 @@ public class ApiComments {
          * @return org.gin.request.PixivRequest<org.gin.response.PixivResponse < org.gin.response.body.illustmanga.IllustCommentsBody>>
          * @since 2022/10/15 16:46
          */
-        public static PixivRequest<PixivResponse<IllustMangaCommentsBody>> replies(@NotNull IllustsCommentRepliesParam param,
-                                                                                   @NotNull PixivCookieToken pixivCookieToken,
-                                                                                   @NotNull OkHttpClient client
+        public static PixivRequest<PixivResponse<CommentsBody>> replies(@NotNull CommentRepliesParam param,
+                                                                        @NotNull PixivCookieToken pixivCookieToken,
+                                                                        @NotNull OkHttpClient client
         ) {
             return new PixivRequest<>(
                     createHttpUrl(param, Collections.singleton(SerializerFeature.WriteMapNullValue), Pixiv.DOMAIN + "/ajax/novels/comments/replies"),

@@ -1,7 +1,7 @@
 package org.gin.response.body.illustmanga;
 
 import lombok.Data;
-import org.gin.response.fields.IllustComment;
+import org.gin.response.fields.CommentReply;
 
 import java.util.List;
 
@@ -12,7 +12,7 @@ import java.util.List;
  * @since : 2022/10/15 16:28
  */
 @Data
-public class IllustMangaCommentsBody {
+public class CommentsBody {
     /**
      * 是否还有更多数据
      */
@@ -20,5 +20,5 @@ public class IllustMangaCommentsBody {
     /**
      * 评论发言
      */
-    List<IllustComment> comments;
+    List<CommentReply> comments;
 }
