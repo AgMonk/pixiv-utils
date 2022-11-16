@@ -16,5 +16,4 @@ public class UserRecommendParam {
     Integer userNum = 20;
     Integer workNum = 3;
     Boolean isR18 = true;
-    String lang = "zh";
 }

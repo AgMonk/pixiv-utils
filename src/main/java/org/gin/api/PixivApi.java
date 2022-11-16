@@ -7,6 +7,7 @@ import okhttp3.OkHttpClient;
 import org.gin.api.groups.IllustApi;
 import org.gin.api.groups.NovelApi;
 import org.gin.api.groups.NovelSeriesApi;
+import org.gin.api.groups.UserApi;
 import org.gin.exception.PixivException;
 import org.gin.interceptor.LoggingInterceptor;
 import org.gin.request.PixivCookieToken;
@@ -33,6 +34,7 @@ public class PixivApi {
     private final IllustApi illustApi;
     private final NovelApi novelApi;
     private final NovelSeriesApi novelSeriesApi;
+    private final UserApi userApi;
 
     private PixivApi(OkHttpClient client, PixivCookieToken cookieToken, String domain, String lang) {
         this.client = client;
@@ -44,6 +46,7 @@ public class PixivApi {
         this.illustApi = new IllustApi(this);
         this.novelApi = new NovelApi(this);
         this.novelSeriesApi = new NovelSeriesApi(this);
+        this.userApi = new UserApi(this);
     }
 
     @Setter
