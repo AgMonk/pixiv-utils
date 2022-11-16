@@ -10,7 +10,7 @@ import org.gin.request.Pixiv;
 import org.gin.request.PixivCookieToken;
 import org.gin.request.PixivRequest;
 import org.gin.response.PixivResponse;
-import org.gin.response.body.illustmanga.IllustMangaFollowLatestBody;
+import org.gin.response.body.illustmanga.IllustMangaFollowLatestRes;
 
 import java.util.Collections;
 
@@ -32,12 +32,15 @@ public class ApiFollows {
      * @return org.gin.request.PixivRequest<org.gin.response.PixivResponse < org.gin.response.body.illustmanga.FollowLatestBody>>
      * @since 2022/10/14 17:05
      */
-    public static PixivRequest<PixivResponse<IllustMangaFollowLatestBody>> latestIllust(@NonNull FollowLatestParam followLatestParam,
-                                                                                        @NonNull PixivCookieToken pixivCookieToken,
-                                                                                        @NonNull OkHttpClient client
+    public static PixivRequest<PixivResponse<IllustMangaFollowLatestRes>> latestIllust(@NonNull FollowLatestParam followLatestParam,
+                                                                                       @NonNull PixivCookieToken pixivCookieToken,
+                                                                                       @NonNull OkHttpClient client
     ) {
-        return new PixivRequest<>(createHttpUrl(followLatestParam, Collections.singleton(SerializerFeature.WriteMapNullValue), Pixiv.DOMAIN + "/ajax/follow_latest/illust")
-                , client, pixivCookieToken);
+        return new PixivRequest<>(createHttpUrl(followLatestParam,
+                Collections.singleton(SerializerFeature.WriteMapNullValue),
+                Pixiv.DOMAIN + "/ajax/follow_latest/illust")
+                , client,
+                pixivCookieToken);
     }
 
     /**
@@ -48,9 +51,9 @@ public class ApiFollows {
      * @return org.gin.request.PixivRequest<org.gin.response.PixivResponse < org.gin.response.body.illustmanga.FollowLatestBody>>
      * @since 2022/10/17 9:23
      */
-    public static PixivRequest<PixivResponse<IllustMangaFollowLatestBody>> latestNovel(@NonNull FollowLatestParam followLatestParam,
-                                                                                       @NonNull PixivCookieToken pixivCookieToken,
-                                                                                       @NonNull OkHttpClient client
+    public static PixivRequest<PixivResponse<IllustMangaFollowLatestRes>> latestNovel(@NonNull FollowLatestParam followLatestParam,
+                                                                                      @NonNull PixivCookieToken pixivCookieToken,
+                                                                                      @NonNull OkHttpClient client
     ) {
         return new PixivRequest<>(createHttpUrl(followLatestParam, Collections.singleton(SerializerFeature.WriteMapNullValue), Pixiv.DOMAIN + "/ajax/follow_latest/novel")
                 , client, pixivCookieToken);

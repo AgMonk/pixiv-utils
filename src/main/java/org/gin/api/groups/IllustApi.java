@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import okhttp3.HttpUrl;
 import okhttp3.ResponseBody;
 import org.gin.api.PixivApi;
+import org.gin.emuns.PixivMode;
 import org.gin.params.illustmanga.IllustMangaSearchParam;
 import org.gin.params.illustmanga.IllustsDiscoveryParam;
 import org.gin.request.PixivRequest;
@@ -72,6 +73,23 @@ public class IllustApi {
         final HttpUrl url = new PixivUrl.Builder()
                 .setUrl(api.getDomain() + "/ajax/discovery/artworks")
                 .setParams(param)
+                .setLang(api.getLang())
+                .build();
+        return new PixivRequest<>(url, api.getClient(), api.getCookieToken());
+    }
+
+    /**
+     * 查询关注作者的最新绘画
+     * @param page 页码
+     * @param mode 模式 可选值: all r18
+     * @return org.gin.request.PixivRequest<org.gin.response.body.illustmanga.IllustMangaFollowLatestRes>
+     * @since 2022/11/16 14:11
+     */
+    public PixivRequest<IllustMangaFollowLatestRes> latest(int page, @NotNull PixivMode mode) {
+        final HttpUrl url = new PixivUrl.Builder()
+                .setUrl(api.getDomain() + "/ajax/follow_latest/illust")
+                .addParam("page", page)
+                .addParam("mode", mode.getName())
                 .setLang(api.getLang())
                 .build();
         return new PixivRequest<>(url, api.getClient(), api.getCookieToken());
@@ -150,6 +168,7 @@ public class IllustApi {
         testRecommendInit(pid, 20);
         testSearch("RO635");
         testUgoiraMeta(ugoiraPid);
+        testLatest(1, PixivMode.ALL);
     }
 
     public void testBookmarkData(long pid) {
@@ -199,6 +218,21 @@ public class IllustApi {
             public void onSuccess(DiscoveryIllustRes res) {
                 final List<DiscoveryIllustRes.DiscoveryIllustBody.RecommendedIllust> list = res.getBody().getRecommendedIllusts();
                 System.out.printf("[发现绘画] pid = %d  %d 个\n", pid, list.size());
+            }
+        });
+    }
+
+    public void testLatest(int page, PixivMode mode) {
+        latest(page, mode).async(new BaseCallback<IllustMangaFollowLatestRes>() {
+            @Override
+            public IllustMangaFollowLatestRes convert(ResponseBody responseBody) throws IOException {
+                return JSONObject.parseObject(responseBody.string(), IllustMangaFollowLatestRes.class);
+            }
+
+            @Override
+            public void onSuccess(IllustMangaFollowLatestRes res) {
+                final List<ArtworkInfo> illusts = res.getBody().getThumbnails().getIllust();
+                System.out.printf("[最新关注] page = %d 模式 = %s %d 个\n", page, mode.getName(), illusts.size());
             }
         });
     }

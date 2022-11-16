@@ -4,7 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.TypeReference;
 import okhttp3.ResponseBody;
 import org.gin.response.PixivResponse;
-import org.gin.response.body.illustmanga.IllustMangaFollowLatestBody;
+import org.gin.response.body.illustmanga.IllustMangaFollowLatestRes;
 
 import java.io.IOException;
 
@@ -18,7 +18,7 @@ public interface FollowLatestCallback extends BasePixivCallback {
      * 处理body数据
      * @param body body数据
      */
-    void handleBody(IllustMangaFollowLatestBody body);
+    void handleBody(IllustMangaFollowLatestRes body);
 
     /**
      * 请求成功时的处理方法
@@ -27,7 +27,7 @@ public interface FollowLatestCallback extends BasePixivCallback {
      */
     @Override
     default void onSuccess(ResponseBody responseBody) throws IOException {
-        PixivResponse<IllustMangaFollowLatestBody> response = JSONObject.parseObject(responseBody.string(), new TypeReference<PixivResponse<IllustMangaFollowLatestBody>>() {
+        PixivResponse<IllustMangaFollowLatestRes> response = JSONObject.parseObject(responseBody.string(), new TypeReference<PixivResponse<IllustMangaFollowLatestRes>>() {
         });
         handleBody(response.getBody());
     }
