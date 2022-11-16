@@ -4,6 +4,9 @@ import com.alibaba.fastjson.annotation.JSONField;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.gin.emuns.PixivMode;
+import org.gin.emuns.PixivOrder;
+import org.gin.emuns.PixivWorkLang;
 
 /**
  * 搜索小说的参数
@@ -18,23 +21,21 @@ public class NovelSearchParam {
     /**
      * 发布时间（止），以东九区为准，格式：yyyy-MM-dd
      */
-    String ecd;
+    @JSONField(name = "ecd")
+    String dateEnd;
     /**
      * 是否以系列分组显示
      */
-    Integer gs = 0;
+    @JSONField(name = "gs")
+    Integer groupBySeries = 0;
     /**
-     * 语言
+     * 模式
      */
-    String lang = "zh";
+    PixivMode mode = PixivMode.ALL;
     /**
-     * 模式 可选值：`all`、`safe`、`r18`
+     * 排序模式
      */
-    String mode = "all";
-    /**
-     * 排序模式: 可选值：`date_d`从新到旧(默认),`date`从旧到新
-     */
-    String order = "date_d";
+    PixivOrder order = PixivOrder.DSC;
     /**
      * 页码
      */
@@ -43,18 +44,21 @@ public class NovelSearchParam {
     /**
      * 发布时间（起），以东九区为准，格式：yyyy-MM-dd
      */
-    String scd;
+    @JSONField(name = "scd")
+    String dateStart;
     /**
      * 字数范围（最高），官方提供的字数范围选项为：`0-4999`,`5000-19999`,`20000-79999`,`80000-`，指定文字数为会员功能
      */
-    Long tgt;
+    @JSONField(name = "tgt")
+    Long wordCountMax;
     /**
      * 字数范围（最低）
      */
-    Long tlt;
+    @JSONField(name = "tlt")
+    Long wordCountMin;
 
     @JSONField(name = "work_lang")
-    String workLang = "zh-cn";
+    PixivWorkLang workLang = PixivWorkLang.ZH_CN;
 
     public NovelSearchParam(int page) {
         this.page = page;

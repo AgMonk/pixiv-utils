@@ -1,6 +1,7 @@
 package org.gin.response.body.novel;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.gin.response.fields.NovelInfo;
 import org.gin.response.fields.TagTranslation;
 
@@ -12,14 +13,16 @@ import java.util.List;
  * @version : v1.0.0
  * @since : 2022/10/12 17:39
  **/
-@Data
+@Getter
+@Setter
 public class NovelSearchBody {
     Novel novel;
     List<String> relatedTags;
     HashMap<String, TagTranslation> tagTranslation;
 
 
-    @Data
+    @Getter
+    @Setter
     static class Novel {
         List<NovelInfo> data;
         Integer total;

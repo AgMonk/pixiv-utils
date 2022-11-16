@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.gin.emuns.PixivMode;
+import org.gin.emuns.PixivOrder;
 
 /**
  * 插画/漫画搜索参数
@@ -22,20 +23,24 @@ public class IllustMangaSearchParam {
     @JSONField(name = "p")
     int page = 1;
     /**
-     * 排序模式: 可选值：`date_d`从新到旧(默认),`date`从旧到新
+     * 排序模式
      */
-    String order = "date_d";
+    PixivOrder order = PixivOrder.DSC;
     /**
      * 模式
      */
     PixivMode mode = PixivMode.ALL;
+
     /**
      * 发布时间（起），以东九区为准，格式：yyyy-MM-dd
      */
-    String scd;
+    @JSONField(name = "scd")
+    String dateStart;
+
     /**
      * 发布时间（止），以东九区为准，格式：yyyy-MM-dd
      */
-    String ecd;
+    @JSONField(name = "ecd")
+    String dateEnd;
 
 }

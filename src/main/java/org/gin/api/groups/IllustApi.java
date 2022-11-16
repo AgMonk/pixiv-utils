@@ -26,7 +26,7 @@ import java.util.List;
 import static org.gin.request.PixivRequestBody.createJsonBody;
 
 /**
- * 插画和漫画接口
+ * 绘画API
  * @author : ginstone
  * @version : v1.0.0
  * @since : 2022/10/14 15:52
