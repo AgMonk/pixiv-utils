@@ -26,16 +26,13 @@ Pixiv工具类
 
 # 使用方法
 
-- API静态方法分组保存在`Api开头` 的类中，各类名在后续说明中标注
-- `Pixiv`类的`DOMAIN`静态变量可以修改，如果你想要连接某个反代的话。
-- 所有方法均需要`OkHttpClient`作为参数，请自行创建，或者可以使用`Pixiv.CLIENT`的默认Client
-- 所有方法均需要`PixivCookieToken`作为参数
+- `PixivCookieToken`相关
   - 构造方法的参数`phpSessionId`通过在WEB端登陆Pixiv之后，在`cookie`中获取，其前缀为`PHPSESSID=`
   - 构造方法的参数`token`在所有`POST`请求中使用，可以在WEB端通过F12在请求头中获取，其字段名为`x-csrf-token`，或者使用本类的`findToken`方法获取。
-- 所有方法都会返回`PixivRequest`对象，该类的`sync`(同步)和`async`(异步)方法用于发送请求
+- 所有API方法都会返回`PixivRequest`对象，该类的`sync`(同步)和`async`(异步)方法用于发送请求
   - 同步方法直接返回响应结果，可以通过传递一个`Convertor`接口将`ResponseBody`类转换为指定对象，`Convertor`
     中自带了部分接口的预设转换方法，或者使用`common`通用方法
-  - 异步方法在`Callback`参数中处理异常和响应，更推荐使用参数为`BaseCallback`的重载方法；`BaseCallback`类的 `convert`方法作用与`Convertor`
+  - 异步方法在`Callback`参数中处理异常和响应，更推荐使用参数为`BaseCallback`的重载方法；`BaseCallback`接口的 `convert`方法作用与`Convertor`
     接口相同，也可以直接调用`Convertor`接口的静态方法
 - 实例见：[Demo.java](https://github.com/AgMonk/pixiv-utils/blob/master/src/main/java/org/gin/Demo.java)
 

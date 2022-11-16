@@ -113,10 +113,10 @@ public class NovelApi {
     public void zTest() {
         long nid = 15809265;
         zTestLatest(1, PixivMode.all);
-//        zTestBookmarkData(nid);
-//        zTestDetail(nid);
-//        zTestDiscovery(nid);
-//        zTestSearch("RO635");
+        zTestBookmarkData(nid);
+        zTestDetail(nid);
+        zTestDiscovery(nid);
+        zTestSearch("RO635");
     }
 
     void zTestLatest(int page, @NotNull PixivMode mode) {
