@@ -156,22 +156,36 @@ public class IllustApi {
         return new PixivRequest<>(url, api.getClient(), api.getCookieToken());
     }
 
-    public void test() {
+    /**
+     * 查询动图的其他信息
+     * @param pid 绘画id
+     * @return org.gin.request.PixivRequest<org.gin.response.PixivResponse < org.gin.response.body.illustmanga.UgoiraMetaBody>>
+     * @since 2022/10/15 16:52
+     */
+    public PixivRequest<UgoiraMetaRes> ugoiraMeta(long pid) {
+        final HttpUrl url = new PixivUrl.Builder()
+                .setUrl(api.getDomain() + "/ajax/illust/%d/ugoira_meta", pid)
+                .setLang(api.getLang())
+                .build();
+        return new PixivRequest<>(url, api.getClient(), api.getCookieToken());
+    }
+
+    public void zTest() {
         long pid = 99147997L;
         long ugoiraPid = 102814610;
 
-        testBookmarkData(pid);
-        testDetail(pid);
-        testDiscovery(pid);
-        testLike(pid);
-        testRecommendIllusts(pid);
-        testRecommendInit(pid, 20);
-        testSearch("RO635");
-        testUgoiraMeta(ugoiraPid);
-        testLatest(1, PixivMode.all);
+        zTestBookmarkData(pid);
+        zTestDetail(pid);
+        zTestDiscovery(pid);
+        zTestLike(pid);
+        zTestRecommendIllusts(pid);
+        zTestRecommendInit(pid, 20);
+        zTestSearch("RO635");
+        zTestUgoiraMeta(ugoiraPid);
+        zTestLatest(1, PixivMode.all);
     }
 
-    private void testBookmarkData(long pid) {
+    private void zTestBookmarkData(long pid) {
         //测试收藏数据
         bookmarkData(pid).async(new BaseCallback<BookmarkDataRes>() {
             @Override
@@ -191,7 +205,7 @@ public class IllustApi {
         });
     }
 
-    private void testDetail(long pid) {
+    private void zTestDetail(long pid) {
         //测试绘画详情
         detail(pid).async(new BaseCallback<IllustMangaRes>() {
             @Override
@@ -207,7 +221,7 @@ public class IllustApi {
         });
     }
 
-    private void testDiscovery(long pid) {
+    private void zTestDiscovery(long pid) {
         discovery(new IllustsDiscoveryParam(pid)).async(new BaseCallback<DiscoveryRes>() {
             @Override
             public DiscoveryRes convert(ResponseBody responseBody) throws IOException {
@@ -222,7 +236,7 @@ public class IllustApi {
         });
     }
 
-    private void testLatest(int page, PixivMode mode) {
+    private void zTestLatest(int page, PixivMode mode) {
         latest(page, mode).async(new BaseCallback<IllustMangaFollowLatestRes>() {
             @Override
             public IllustMangaFollowLatestRes convert(ResponseBody responseBody) throws IOException {
@@ -237,7 +251,7 @@ public class IllustApi {
         });
     }
 
-    private void testLike(long pid) {
+    private void zTestLike(long pid) {
         like(pid).async(new BaseCallback<LikeRes>() {
             @Override
             public LikeRes convert(ResponseBody responseBody) throws IOException {
@@ -251,7 +265,7 @@ public class IllustApi {
         });
     }
 
-    private void testRecommendIllusts(long pid) {
+    private void zTestRecommendIllusts(long pid) {
         recommendIllusts(Collections.singletonList(pid)).async(new BaseCallback<IllustRecommendRes>() {
             @Override
             public IllustRecommendRes convert(ResponseBody responseBody) throws IOException {
@@ -266,7 +280,7 @@ public class IllustApi {
         });
     }
 
-    private void testRecommendInit(long pid, int limit) {
+    private void zTestRecommendInit(long pid, int limit) {
         recommendInit(pid, limit).async(new BaseCallback<IllustRecommendInitRes>() {
             @Override
             public IllustRecommendInitRes convert(ResponseBody responseBody) throws IOException {
@@ -281,7 +295,7 @@ public class IllustApi {
         });
     }
 
-    private void testSearch(String keywords) {
+    private void zTestSearch(String keywords) {
         search(keywords, new IllustMangaSearchParam()).async(new BaseCallback<IllustMangaSearchRes>() {
             @Override
             public IllustMangaSearchRes convert(ResponseBody responseBody) throws IOException {
@@ -296,7 +310,7 @@ public class IllustApi {
         });
     }
 
-    private void testUgoiraMeta(long pid) {
+    private void zTestUgoiraMeta(long pid) {
         ugoiraMeta(pid).async(new BaseCallback<UgoiraMetaRes>() {
             @Override
             public UgoiraMetaRes convert(ResponseBody responseBody) throws IOException {
@@ -310,19 +324,5 @@ public class IllustApi {
             }
         });
 
-    }
-
-    /**
-     * 查询动图的其他信息
-     * @param pid 绘画id
-     * @return org.gin.request.PixivRequest<org.gin.response.PixivResponse < org.gin.response.body.illustmanga.UgoiraMetaBody>>
-     * @since 2022/10/15 16:52
-     */
-    public PixivRequest<UgoiraMetaRes> ugoiraMeta(long pid) {
-        final HttpUrl url = new PixivUrl.Builder()
-                .setUrl(api.getDomain() + "/ajax/illust/%d/ugoira_meta", pid)
-                .setLang(api.getLang())
-                .build();
-        return new PixivRequest<>(url, api.getClient(), api.getCookieToken());
     }
 }

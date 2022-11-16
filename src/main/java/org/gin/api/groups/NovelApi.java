@@ -62,7 +62,7 @@ public class NovelApi {
 
     /**
      * 发现
-     * @param param            参数
+     * @param param 参数
      * @return org.gin.request.PixivRequest<org.gin.response.PixivResponse < org.gin.response.body.illustmanga.DiscoveryBody>>
      * @since 2022/10/21 9:14
      */
@@ -92,15 +92,15 @@ public class NovelApi {
     }
 
 
-    public void test() {
+    public void zTest() {
         long nid = 15809265;
-        testBookmarkData(nid);
-        testDetail(nid);
-        testDiscovery(nid);
-        testSearch("RO635");
+        zTestBookmarkData(nid);
+        zTestDetail(nid);
+        zTestDiscovery(nid);
+        zTestSearch("RO635");
     }
 
-    private void testBookmarkData(long nid) {
+    private void zTestBookmarkData(long nid) {
         bookmarkData(nid).async(new BaseCallback<BookmarkDataRes>() {
             @Override
             public BookmarkDataRes convert(ResponseBody responseBody) throws IOException {
@@ -119,7 +119,7 @@ public class NovelApi {
         });
     }
 
-    private void testDetail(long nid) {
+    private void zTestDetail(long nid) {
         detail(nid).async(new BaseCallback<NovelDetailRes>() {
             @Override
             public NovelDetailRes convert(ResponseBody responseBody) throws IOException {
@@ -134,7 +134,7 @@ public class NovelApi {
         });
     }
 
-    private void testDiscovery(long nid) {
+    private void zTestDiscovery(long nid) {
         discovery(new NovelsDiscoveryParam(nid)).async(new BaseCallback<DiscoveryRes>() {
             @Override
             public DiscoveryRes convert(ResponseBody responseBody) throws IOException {
@@ -149,7 +149,7 @@ public class NovelApi {
         });
     }
 
-    private void testSearch(String keywords) {
+    private void zTestSearch(String keywords) {
         search(keywords, new NovelSearchParam()).async(new BaseCallback<NovelSearchRes>() {
             @Override
             public NovelSearchRes convert(ResponseBody responseBody) throws IOException {
