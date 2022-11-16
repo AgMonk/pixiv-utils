@@ -94,11 +94,10 @@ public class NovelApi {
 
     public void test() {
         long nid = 15809265;
-//        testBookmarkData(nid);
-//        testDetail(nid);
-//        testDiscovery(nid);
-//        testSearch("RO635");
-
+        testBookmarkData(nid);
+        testDetail(nid);
+        testDiscovery(nid);
+        testSearch("RO635");
     }
 
     private void testBookmarkData(long nid) {

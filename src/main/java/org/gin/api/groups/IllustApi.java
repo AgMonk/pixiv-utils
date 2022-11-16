@@ -171,7 +171,7 @@ public class IllustApi {
         testLatest(1, PixivMode.all);
     }
 
-    public void testBookmarkData(long pid) {
+    private void testBookmarkData(long pid) {
         //测试收藏数据
         bookmarkData(pid).async(new BaseCallback<BookmarkDataRes>() {
             @Override
@@ -191,7 +191,7 @@ public class IllustApi {
         });
     }
 
-    public void testDetail(long pid) {
+    private void testDetail(long pid) {
         //测试绘画详情
         detail(pid).async(new BaseCallback<IllustMangaRes>() {
             @Override
@@ -207,7 +207,7 @@ public class IllustApi {
         });
     }
 
-    public void testDiscovery(long pid) {
+    private void testDiscovery(long pid) {
         discovery(new IllustsDiscoveryParam(pid)).async(new BaseCallback<DiscoveryRes>() {
             @Override
             public DiscoveryRes convert(ResponseBody responseBody) throws IOException {
@@ -222,7 +222,7 @@ public class IllustApi {
         });
     }
 
-    public void testLatest(int page, PixivMode mode) {
+    private void testLatest(int page, PixivMode mode) {
         latest(page, mode).async(new BaseCallback<IllustMangaFollowLatestRes>() {
             @Override
             public IllustMangaFollowLatestRes convert(ResponseBody responseBody) throws IOException {
@@ -237,7 +237,7 @@ public class IllustApi {
         });
     }
 
-    public void testLike(long pid) {
+    private void testLike(long pid) {
         like(pid).async(new BaseCallback<LikeRes>() {
             @Override
             public LikeRes convert(ResponseBody responseBody) throws IOException {
@@ -251,7 +251,7 @@ public class IllustApi {
         });
     }
 
-    public void testRecommendIllusts(long pid) {
+    private void testRecommendIllusts(long pid) {
         recommendIllusts(Collections.singletonList(pid)).async(new BaseCallback<IllustRecommendRes>() {
             @Override
             public IllustRecommendRes convert(ResponseBody responseBody) throws IOException {
@@ -266,7 +266,7 @@ public class IllustApi {
         });
     }
 
-    public void testRecommendInit(long pid, int limit) {
+    private void testRecommendInit(long pid, int limit) {
         recommendInit(pid, limit).async(new BaseCallback<IllustRecommendInitRes>() {
             @Override
             public IllustRecommendInitRes convert(ResponseBody responseBody) throws IOException {
@@ -281,7 +281,7 @@ public class IllustApi {
         });
     }
 
-    public void testSearch(String keywords) {
+    private void testSearch(String keywords) {
         search(keywords, new IllustMangaSearchParam()).async(new BaseCallback<IllustMangaSearchRes>() {
             @Override
             public IllustMangaSearchRes convert(ResponseBody responseBody) throws IOException {
@@ -296,7 +296,7 @@ public class IllustApi {
         });
     }
 
-    public void testUgoiraMeta(long pid) {
+    private void testUgoiraMeta(long pid) {
         ugoiraMeta(pid).async(new BaseCallback<UgoiraMetaRes>() {
             @Override
             public UgoiraMetaRes convert(ResponseBody responseBody) throws IOException {
