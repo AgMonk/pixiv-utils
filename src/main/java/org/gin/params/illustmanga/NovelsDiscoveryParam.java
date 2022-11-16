@@ -3,6 +3,7 @@ package org.gin.params.illustmanga;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.gin.emuns.PixivMode;
 
 /**
  * @author : ginstone
@@ -13,8 +14,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class NovelsDiscoveryParam {
-    String lang = "zh";
     Integer limit = 20;
-    String mode = "all";
+    /**
+     * 模式
+     */
+    PixivMode mode = PixivMode.ALL;
     Long sampleNovelId;
 }

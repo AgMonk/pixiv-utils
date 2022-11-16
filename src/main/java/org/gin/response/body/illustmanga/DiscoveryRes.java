@@ -17,9 +17,9 @@ import java.util.List;
  */
 @Getter
 @Setter
-public class DiscoveryIllustRes extends PixivResponse<DiscoveryIllustRes.DiscoveryIllustBody> {
+public class DiscoveryRes extends PixivResponse<DiscoveryRes.DiscoveryBody> {
     @Data
-    public static class DiscoveryIllustBody {
+    public static class DiscoveryBody {
         List<RecommendedIllust> recommendedIllusts;
         HashMap<String, TagTranslation> tagTranslation;
         Thumbnails thumbnails;

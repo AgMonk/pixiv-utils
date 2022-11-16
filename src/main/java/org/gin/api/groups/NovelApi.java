@@ -2,22 +2,16 @@ package org.gin.api.groups;
 
 import lombok.RequiredArgsConstructor;
 import okhttp3.HttpUrl;
-import okhttp3.OkHttpClient;
 import org.gin.api.PixivApi;
 import org.gin.params.illustmanga.NovelsDiscoveryParam;
 import org.gin.params.novel.NovelSearchParam;
-import org.gin.request.Pixiv;
-import org.gin.request.PixivCookieToken;
 import org.gin.request.PixivRequest;
 import org.gin.request.PixivUrl;
-import org.gin.response.PixivResponse;
 import org.gin.response.body.BookmarkDataRes;
-import org.gin.response.body.illustmanga.DiscoveryIllustRes;
+import org.gin.response.body.illustmanga.DiscoveryRes;
 import org.gin.response.body.novel.NovelDetailRes;
 import org.gin.response.body.novel.NovelSearchRes;
 import org.jetbrains.annotations.NotNull;
-
-import static org.gin.request.PixivUrl.createHttpUrl;
 
 /**
  * 小说API
@@ -28,18 +22,6 @@ import static org.gin.request.PixivUrl.createHttpUrl;
 @RequiredArgsConstructor
 public class NovelApi {
     private final PixivApi api;
-
-    /**
-     * 发现
-     * @param param            参数
-     * @param pixivCookieToken cooke和token
-     * @param client           客户端
-     * @return org.gin.request.PixivRequest<org.gin.response.PixivResponse < org.gin.response.body.illustmanga.DiscoveryBody>>
-     * @since 2022/10/21 9:14
-     */
-    public static PixivRequest<PixivResponse<DiscoveryIllustRes>> discovery(@NotNull NovelsDiscoveryParam param, @NotNull PixivCookieToken pixivCookieToken, @NotNull OkHttpClient client) {
-        return new PixivRequest<>(createHttpUrl(param, null, Pixiv.DOMAIN + "/ajax/discovery/novels"), client, pixivCookieToken);
-    }
 
     /**
      * 查询小说的收藏状态
@@ -64,6 +46,22 @@ public class NovelApi {
     public PixivRequest<NovelDetailRes> detail(long nid) {
         final HttpUrl url = new PixivUrl.Builder()
                 .setUrl(api.getDomain() + "/ajax/novel/" + nid)
+                .setLang(api.getLang())
+                .build();
+        return new PixivRequest<>(url, api.getClient(), api.getCookieToken());
+    }
+
+    /**
+     * 发现
+     * @param param            参数
+     * @param pixivCookieToken cooke和token
+     * @return org.gin.request.PixivRequest<org.gin.response.PixivResponse < org.gin.response.body.illustmanga.DiscoveryBody>>
+     * @since 2022/10/21 9:14
+     */
+    public PixivRequest<DiscoveryRes> discovery(@NotNull NovelsDiscoveryParam param) {
+        final HttpUrl url = new PixivUrl.Builder()
+                .setUrl(api.getDomain() + "/ajax/discovery/novels")
+                .setParams(param)
                 .setLang(api.getLang())
                 .build();
         return new PixivRequest<>(url, api.getClient(), api.getCookieToken());

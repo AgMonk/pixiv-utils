@@ -69,7 +69,7 @@ public class IllustApi {
      * @return org.gin.request.PixivRequest<org.gin.response.PixivResponse < org.gin.response.body.illustmanga.DiscoveryBody>>
      * @since 2022/10/21 9:14
      */
-    public PixivRequest<DiscoveryIllustRes> discovery(@NotNull IllustsDiscoveryParam param) {
+    public PixivRequest<DiscoveryRes> discovery(@NotNull IllustsDiscoveryParam param) {
         final HttpUrl url = new PixivUrl.Builder()
                 .setUrl(api.getDomain() + "/ajax/discovery/artworks")
                 .setParams(param)
@@ -208,15 +208,15 @@ public class IllustApi {
     }
 
     public void testDiscovery(long pid) {
-        discovery(new IllustsDiscoveryParam(pid)).async(new BaseCallback<DiscoveryIllustRes>() {
+        discovery(new IllustsDiscoveryParam(pid)).async(new BaseCallback<DiscoveryRes>() {
             @Override
-            public DiscoveryIllustRes convert(ResponseBody responseBody) throws IOException {
-                return JSONObject.parseObject(responseBody.string(), DiscoveryIllustRes.class);
+            public DiscoveryRes convert(ResponseBody responseBody) throws IOException {
+                return JSONObject.parseObject(responseBody.string(), DiscoveryRes.class);
             }
 
             @Override
-            public void onSuccess(DiscoveryIllustRes res) {
-                final List<DiscoveryIllustRes.DiscoveryIllustBody.RecommendedIllust> list = res.getBody().getRecommendedIllusts();
+            public void onSuccess(DiscoveryRes res) {
+                final List<DiscoveryRes.DiscoveryBody.RecommendedIllust> list = res.getBody().getRecommendedIllusts();
                 System.out.printf("[发现绘画] pid = %d  %d 个\n", pid, list.size());
             }
         });

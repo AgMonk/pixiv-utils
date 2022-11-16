@@ -11,7 +11,7 @@ import org.gin.request.PixivCookieToken;
 import org.gin.request.PixivRequest;
 import org.gin.response.PixivResponse;
 import org.gin.response.body.BookmarkDataRes;
-import org.gin.response.body.illustmanga.DiscoveryIllustRes;
+import org.gin.response.body.illustmanga.DiscoveryRes;
 import org.gin.response.body.novel.*;
 import org.jetbrains.annotations.NotNull;
 
@@ -74,7 +74,7 @@ public class ApiNovel {
      * @return org.gin.request.PixivRequest<org.gin.response.PixivResponse < org.gin.response.body.illustmanga.DiscoveryBody>>
      * @since 2022/10/21 9:14
      */
-    public static PixivRequest<PixivResponse<DiscoveryIllustRes>> discovery(@NotNull NovelsDiscoveryParam param, @NotNull PixivCookieToken pixivCookieToken, @NotNull OkHttpClient client) {
+    public static PixivRequest<PixivResponse<DiscoveryRes>> discovery(@NotNull NovelsDiscoveryParam param, @NotNull PixivCookieToken pixivCookieToken, @NotNull OkHttpClient client) {
         return new PixivRequest<>(createHttpUrl(param, null, Pixiv.DOMAIN + "/ajax/discovery/novels"), client, pixivCookieToken);
     }
 
