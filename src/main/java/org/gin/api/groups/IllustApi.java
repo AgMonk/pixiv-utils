@@ -216,7 +216,7 @@ public class IllustApi {
 
             @Override
             public void onSuccess(DiscoveryRes res) {
-                final List<DiscoveryRes.DiscoveryBody.RecommendedIllust> list = res.getBody().getRecommendedIllusts();
+                final List<DiscoveryBody.RecommendedIllust> list = res.getBody().getRecommendedIllusts();
                 System.out.printf("[发现绘画] pid = %d  %d 个\n", pid, list.size());
             }
         });
