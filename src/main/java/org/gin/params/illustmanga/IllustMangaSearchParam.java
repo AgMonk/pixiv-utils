@@ -4,6 +4,7 @@ import com.alibaba.fastjson.annotation.JSONField;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.gin.emuns.PixivMode;
 
 /**
  * 插画/漫画搜索参数
@@ -25,9 +26,9 @@ public class IllustMangaSearchParam {
      */
     String order = "date_d";
     /**
-     * 模式 可选值：`all`、`safe`、`r18`
+     * 模式
      */
-    String mode = "all";
+    PixivMode mode = PixivMode.ALL;
     /**
      * 发布时间（起），以东九区为准，格式：yyyy-MM-dd
      */

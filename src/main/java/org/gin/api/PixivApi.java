@@ -64,9 +64,9 @@ public class PixivApi {
             return new PixivApi(client, cookieToken, domain, lang);
         }
 
-        public Builder setSessionId(String cookie) throws PixivException, IOException {
-            this.cookieToken = new PixivCookieToken(cookie);
-            this.cookieToken.findToken(client);
+        public Builder setSessionId(String sessionId) throws PixivException, IOException {
+            this.cookieToken = new PixivCookieToken(sessionId);
+            this.cookieToken.findToken(client, domain);
             return this;
         }
     }

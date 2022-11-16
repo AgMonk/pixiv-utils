@@ -25,25 +25,6 @@ import static org.gin.request.PixivUrl.createHttpUrl;
  **/
 public class ApiFollows {
     /**
-     * 查询关注作者的最新插画/漫画
-     * @param followLatestParam 参数
-     * @param pixivCookieToken  cooke和token
-     * @param client            客户端
-     * @return org.gin.request.PixivRequest<org.gin.response.PixivResponse < org.gin.response.body.illustmanga.FollowLatestBody>>
-     * @since 2022/10/14 17:05
-     */
-    public static PixivRequest<PixivResponse<IllustMangaFollowLatestRes>> latestIllust(@NonNull FollowLatestParam followLatestParam,
-                                                                                       @NonNull PixivCookieToken pixivCookieToken,
-                                                                                       @NonNull OkHttpClient client
-    ) {
-        return new PixivRequest<>(createHttpUrl(followLatestParam,
-                Collections.singleton(SerializerFeature.WriteMapNullValue),
-                Pixiv.DOMAIN + "/ajax/follow_latest/illust")
-                , client,
-                pixivCookieToken);
-    }
-
-    /**
      * 查询关注作者的最新小说
      * @param followLatestParam 参数
      * @param pixivCookieToken  cooke和token

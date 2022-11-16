@@ -37,8 +37,8 @@ public class PixivCookieToken {
         this(phpSessionId, null);
     }
 
-    public String findToken(OkHttpClient client) throws PixivException, IOException {
-        final Request request = new Request.Builder().url(Pixiv.DOMAIN + URL)
+    public String findToken(OkHttpClient client, String domain) throws PixivException, IOException {
+        final Request request = new Request.Builder().url(domain + URL)
                 .header("referer", "https://www.pixiv.net/")
                 .header("cookie", cookie)
                 .build();
