@@ -5,12 +5,14 @@ import lombok.RequiredArgsConstructor;
 import okhttp3.HttpUrl;
 import okhttp3.ResponseBody;
 import org.gin.api.PixivApi;
+import org.gin.emuns.PixivMode;
 import org.gin.params.illustmanga.NovelsDiscoveryParam;
 import org.gin.params.novel.NovelSearchParam;
 import org.gin.request.PixivRequest;
 import org.gin.request.PixivUrl;
 import org.gin.response.body.BookmarkDataRes;
 import org.gin.response.body.illustmanga.DiscoveryRes;
+import org.gin.response.body.illustmanga.IllustMangaFollowLatestRes;
 import org.gin.response.body.novel.NovelDetailRes;
 import org.gin.response.body.novel.NovelSearchRes;
 import org.gin.response.callback.BaseCallback;
@@ -91,13 +93,45 @@ public class NovelApi {
         return new PixivRequest<>(url, api.getClient(), api.getCookieToken());
     }
 
+    /**
+     * 查询关注作者的最新小说
+     * @param page 页码
+     * @param mode 模式
+     * @return org.gin.request.PixivRequest<org.gin.response.body.illustmanga.IllustMangaFollowLatestRes>
+     * @since 2022/11/16 16:39
+     */
+    public PixivRequest<IllustMangaFollowLatestRes> latest(int page, @NotNull PixivMode mode) {
+        final HttpUrl url = new PixivUrl.Builder()
+                .setUrl(api.getDomain() + "/ajax/follow_latest/novel")
+                .addParam("page", page)
+                .addParam("mode", mode.name())
+                .setLang(api.getLang())
+                .build();
+        return new PixivRequest<>(url, api.getClient(), api.getCookieToken());
+    }
 
     public void zTest() {
         long nid = 15809265;
-        zTestBookmarkData(nid);
-        zTestDetail(nid);
-        zTestDiscovery(nid);
-        zTestSearch("RO635");
+        zTestLatest(1, PixivMode.all);
+//        zTestBookmarkData(nid);
+//        zTestDetail(nid);
+//        zTestDiscovery(nid);
+//        zTestSearch("RO635");
+    }
+
+    void zTestLatest(int page, @NotNull PixivMode mode) {
+        latest(page, mode).async(new BaseCallback<IllustMangaFollowLatestRes>() {
+            @Override
+            public IllustMangaFollowLatestRes convert(ResponseBody responseBody) throws IOException {
+                return JSONObject.parseObject(responseBody.string(), IllustMangaFollowLatestRes.class);
+            }
+
+            @Override
+            public void onSuccess(IllustMangaFollowLatestRes res) {
+                final List<NovelInfo> data = res.getBody().getThumbnails().getNovel();
+                System.out.printf("[最新小说] page: %d 结果 %d 个 \n", page, data.size());
+            }
+        });
     }
 
     private void zTestBookmarkData(long nid) {

@@ -1,18 +1,12 @@
 package org.gin.api;
 
-import com.alibaba.fastjson.serializer.SerializerFeature;
 import lombok.NonNull;
 import okhttp3.OkHttpClient;
 import org.gin.params.follow.FollowAddParam;
 import org.gin.params.follow.FollowDelParam;
-import org.gin.params.follow.FollowLatestParam;
 import org.gin.request.Pixiv;
 import org.gin.request.PixivCookieToken;
 import org.gin.request.PixivRequest;
-import org.gin.response.PixivResponse;
-import org.gin.response.body.illustmanga.IllustMangaFollowLatestRes;
-
-import java.util.Collections;
 
 import static org.gin.request.PixivRequestBody.createFormBody;
 import static org.gin.request.PixivUrl.createHttpUrl;
@@ -24,22 +18,6 @@ import static org.gin.request.PixivUrl.createHttpUrl;
  * @since : 2022/10/14 16:59
  **/
 public class ApiFollows {
-    /**
-     * 查询关注作者的最新小说
-     * @param followLatestParam 参数
-     * @param pixivCookieToken  cooke和token
-     * @param client            客户端
-     * @return org.gin.request.PixivRequest<org.gin.response.PixivResponse < org.gin.response.body.illustmanga.FollowLatestBody>>
-     * @since 2022/10/17 9:23
-     */
-    public static PixivRequest<PixivResponse<IllustMangaFollowLatestRes>> latestNovel(@NonNull FollowLatestParam followLatestParam,
-                                                                                      @NonNull PixivCookieToken pixivCookieToken,
-                                                                                      @NonNull OkHttpClient client
-    ) {
-        return new PixivRequest<>(createHttpUrl(followLatestParam, Collections.singleton(SerializerFeature.WriteMapNullValue), Pixiv.DOMAIN + "/ajax/follow_latest/novel")
-                , client, pixivCookieToken);
-    }
-
 
     /**
      * 关注用户

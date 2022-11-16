@@ -3,10 +3,8 @@ package org.gin.response.body.illustmanga;
 import lombok.Getter;
 import lombok.Setter;
 import org.gin.response.PixivResponse;
-import org.gin.response.fields.TagTranslation;
 import org.gin.response.fields.Thumbnails;
 
-import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -23,7 +21,7 @@ public class IllustMangaFollowLatestRes extends PixivResponse<IllustMangaFollowL
     public static class IllustMangaFollowLatestBody {
         Page page;
         Thumbnails thumbnails;
-        HashMap<String, TagTranslation> tagTranslation;
+        Object tagTranslation;
 
         @Getter
         @Setter

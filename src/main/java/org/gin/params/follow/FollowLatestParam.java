@@ -3,6 +3,7 @@ package org.gin.params.follow;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.gin.emuns.PixivMode;
 
 /**
  * 查询关注作者最新作品参数
@@ -15,14 +16,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class FollowLatestParam {
     int page = 1;
-    /**
-     * 可选值: all r18
-     */
-    String mode = "all";
-    /**
-     * 语言
-     */
-    String lang = "zh";
+    PixivMode mode = PixivMode.all;
 
     public FollowLatestParam(int page) {
         this.page = page;
