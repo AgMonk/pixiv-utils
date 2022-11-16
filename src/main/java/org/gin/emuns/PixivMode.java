@@ -9,24 +9,8 @@ public enum PixivMode {
     /**
      * 搜索模式
      */
-
-    ALL("all"),
-    SAFE("safe"),
-    R18("r18"),
-
+    all,
+    safe,
+    r18,
     ;
-    final String name;
-
-    @Override
-    public String toString() {
-        return getName();
-    }
-
-    PixivMode(String name) {
-        this.name = name;
-    }
-
-    public String getName() {
-        return name;
-    }
 }

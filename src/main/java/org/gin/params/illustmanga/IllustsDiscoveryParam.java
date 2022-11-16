@@ -15,7 +15,7 @@ import org.gin.emuns.PixivMode;
 @AllArgsConstructor
 public class IllustsDiscoveryParam {
     Integer limit = 20;
-    PixivMode mode = PixivMode.ALL;
+    PixivMode mode = PixivMode.all;
     Long sampleIllustId;
 
     public IllustsDiscoveryParam(Long sampleIllustId) {

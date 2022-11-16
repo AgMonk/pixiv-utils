@@ -4,9 +4,7 @@ import com.alibaba.fastjson.annotation.JSONField;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.gin.emuns.PixivMode;
-import org.gin.emuns.PixivOrder;
-import org.gin.emuns.PixivWorkLang;
+import org.gin.emuns.*;
 
 /**
  * 搜索小说的参数
@@ -31,10 +29,11 @@ public class NovelSearchParam {
     /**
      * 模式
      */
-    PixivMode mode = PixivMode.ALL;
+    PixivMode mode = PixivMode.all;
     /**
      * 排序模式
      */
+    @JSONField(serializeUsing = PixivOrderSerializer.class)
     PixivOrder order = PixivOrder.DSC;
     /**
      * 页码
@@ -57,7 +56,7 @@ public class NovelSearchParam {
     @JSONField(name = "tlt")
     Long wordCountMin;
 
-    @JSONField(name = "work_lang")
+    @JSONField(name = "work_lang", serializeUsing = PixivWorkLangSerializer.class)
     PixivWorkLang workLang = PixivWorkLang.ZH_CN;
 
     public NovelSearchParam(int page) {

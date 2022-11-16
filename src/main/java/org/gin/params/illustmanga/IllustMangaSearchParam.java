@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.gin.emuns.PixivMode;
 import org.gin.emuns.PixivOrder;
+import org.gin.emuns.PixivOrderSerializer;
 
 /**
  * 插画/漫画搜索参数
@@ -25,11 +26,12 @@ public class IllustMangaSearchParam {
     /**
      * 排序模式
      */
+    @JSONField(serializeUsing = PixivOrderSerializer.class)
     PixivOrder order = PixivOrder.DSC;
     /**
      * 模式
      */
-    PixivMode mode = PixivMode.ALL;
+    PixivMode mode = PixivMode.all;
 
     /**
      * 发布时间（起），以东九区为准，格式：yyyy-MM-dd

@@ -18,6 +18,10 @@ public class NovelsDiscoveryParam {
     /**
      * 模式
      */
-    PixivMode mode = PixivMode.ALL;
+    PixivMode mode = PixivMode.all;
     Long sampleNovelId;
+
+    public NovelsDiscoveryParam(Long sampleNovelId) {
+        this.sampleNovelId = sampleNovelId;
+    }
 }

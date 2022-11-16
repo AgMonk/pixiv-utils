@@ -89,7 +89,7 @@ public class IllustApi {
         final HttpUrl url = new PixivUrl.Builder()
                 .setUrl(api.getDomain() + "/ajax/follow_latest/illust")
                 .addParam("page", page)
-                .addParam("mode", mode.getName())
+                .addParam("mode", mode.name())
                 .setLang(api.getLang())
                 .build();
         return new PixivRequest<>(url, api.getClient(), api.getCookieToken());
@@ -168,7 +168,7 @@ public class IllustApi {
         testRecommendInit(pid, 20);
         testSearch("RO635");
         testUgoiraMeta(ugoiraPid);
-        testLatest(1, PixivMode.ALL);
+        testLatest(1, PixivMode.all);
     }
 
     public void testBookmarkData(long pid) {
@@ -232,7 +232,7 @@ public class IllustApi {
             @Override
             public void onSuccess(IllustMangaFollowLatestRes res) {
                 final List<ArtworkInfo> illusts = res.getBody().getThumbnails().getIllust();
-                System.out.printf("[最新关注] page = %d 模式 = %s %d 个\n", page, mode.getName(), illusts.size());
+                System.out.printf("[最新关注] page = %d 模式 = %s %d 个\n", page, mode.name(), illusts.size());
             }
         });
     }
