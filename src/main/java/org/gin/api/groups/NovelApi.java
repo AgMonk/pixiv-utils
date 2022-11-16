@@ -1,7 +1,9 @@
 package org.gin.api.groups;
 
+import com.alibaba.fastjson.JSONObject;
 import lombok.RequiredArgsConstructor;
 import okhttp3.HttpUrl;
+import okhttp3.ResponseBody;
 import org.gin.api.PixivApi;
 import org.gin.params.illustmanga.NovelsDiscoveryParam;
 import org.gin.params.novel.NovelSearchParam;
@@ -11,7 +13,14 @@ import org.gin.response.body.BookmarkDataRes;
 import org.gin.response.body.illustmanga.DiscoveryRes;
 import org.gin.response.body.novel.NovelDetailRes;
 import org.gin.response.body.novel.NovelSearchRes;
+import org.gin.response.callback.BaseCallback;
+import org.gin.response.fields.BookmarkData;
+import org.gin.response.fields.NovelInfo;
 import org.jetbrains.annotations.NotNull;
+
+import java.io.IOException;
+import java.time.ZonedDateTime;
+import java.util.List;
 
 /**
  * 小说API
@@ -54,7 +63,6 @@ public class NovelApi {
     /**
      * 发现
      * @param param            参数
-     * @param pixivCookieToken cooke和token
      * @return org.gin.request.PixivRequest<org.gin.response.PixivResponse < org.gin.response.body.illustmanga.DiscoveryBody>>
      * @since 2022/10/21 9:14
      */
@@ -83,4 +91,78 @@ public class NovelApi {
         return new PixivRequest<>(url, api.getClient(), api.getCookieToken());
     }
 
+
+    public void test() {
+        long nid = 15809265;
+//        testBookmarkData(nid);
+//        testDetail(nid);
+//        testDiscovery(nid);
+//        testSearch("RO635");
+
+    }
+
+    private void testBookmarkData(long nid) {
+        bookmarkData(nid).async(new BaseCallback<BookmarkDataRes>() {
+            @Override
+            public BookmarkDataRes convert(ResponseBody responseBody) throws IOException {
+                return JSONObject.parseObject(responseBody.string(), BookmarkDataRes.class);
+            }
+
+            @Override
+            public void onSuccess(BookmarkDataRes res) {
+                final BookmarkData bookmarkData = res.getBody().getBookmarkData();
+                if (bookmarkData != null) {
+                    System.out.printf("[收藏数据] nid = %d 收藏id = %d\n", nid, bookmarkData.getId());
+                } else {
+                    System.out.println("未收藏 nid = " + nid);
+                }
+            }
+        });
+    }
+
+    private void testDetail(long nid) {
+        detail(nid).async(new BaseCallback<NovelDetailRes>() {
+            @Override
+            public NovelDetailRes convert(ResponseBody responseBody) throws IOException {
+                return JSONObject.parseObject(responseBody.string(), NovelDetailRes.class);
+            }
+
+            @Override
+            public void onSuccess(NovelDetailRes res) {
+                final ZonedDateTime createDate = res.getBody().getCreateDate();
+                System.out.printf("[小说详情] nid: %d 创建于 %s \n", nid, createDate);
+            }
+        });
+    }
+
+    private void testDiscovery(long nid) {
+        discovery(new NovelsDiscoveryParam(nid)).async(new BaseCallback<DiscoveryRes>() {
+            @Override
+            public DiscoveryRes convert(ResponseBody responseBody) throws IOException {
+                return JSONObject.parseObject(responseBody.string(), DiscoveryRes.class);
+            }
+
+            @Override
+            public void onSuccess(DiscoveryRes res) {
+                final List<NovelInfo> data = res.getBody().getThumbnails().getNovel();
+                System.out.printf("[发现小说] nid: %d 结果 %d 个 \n", nid, data.size());
+            }
+        });
+    }
+
+    private void testSearch(String keywords) {
+        search(keywords, new NovelSearchParam()).async(new BaseCallback<NovelSearchRes>() {
+            @Override
+            public NovelSearchRes convert(ResponseBody responseBody) throws IOException {
+                return JSONObject.parseObject(responseBody.string(), NovelSearchRes.class);
+
+            }
+
+            @Override
+            public void onSuccess(NovelSearchRes res) {
+                final List<NovelInfo> data = res.getBody().getNovel().getData();
+                System.out.printf("[搜索小说] 关键字: %s 结果 %d 个 \n", keywords, data.size());
+            }
+        });
+    }
 }

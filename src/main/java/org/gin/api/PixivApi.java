@@ -5,6 +5,7 @@ import lombok.Setter;
 import lombok.experimental.Accessors;
 import okhttp3.OkHttpClient;
 import org.gin.api.groups.IllustApi;
+import org.gin.api.groups.NovelApi;
 import org.gin.exception.PixivException;
 import org.gin.interceptor.LoggingInterceptor;
 import org.gin.request.PixivCookieToken;
@@ -29,6 +30,7 @@ public class PixivApi {
 //  以下为  API 分组
 
     private final IllustApi illustApi;
+    private final NovelApi novelApi;
 
     private PixivApi(OkHttpClient client, PixivCookieToken cookieToken, String domain, String lang) {
         this.client = client;
@@ -38,6 +40,7 @@ public class PixivApi {
 
 //        todo new
         this.illustApi = new IllustApi(this);
+        this.novelApi = new NovelApi(this);
     }
 
     @Setter

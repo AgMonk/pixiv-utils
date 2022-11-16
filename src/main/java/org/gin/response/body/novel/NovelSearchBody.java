@@ -23,7 +23,7 @@ public class NovelSearchBody {
 
     @Getter
     @Setter
-    static class Novel {
+    public static class Novel {
         List<NovelInfo> data;
         Integer total;
     }

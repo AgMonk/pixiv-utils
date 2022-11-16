@@ -574,7 +574,7 @@ Pixiv工具类
 - 参数含义：
   - mode：模式，可选值：`all`、`safe`、`r18`
   - limit
-    - sampleNovelId: （非必填）参考小说id
+  - sampleNovelId: （非必填）参考小说id
 
 ## 评论区
 
