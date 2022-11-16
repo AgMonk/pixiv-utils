@@ -18,7 +18,7 @@ public class UserRecommendBody {
     List<UserInfoBody> users;
 
     @Data
-    static class RecommendUser {
+    public static class RecommendUser {
         Long userId;
         List<Long> illustIds;
         List<Long> novelIds;
