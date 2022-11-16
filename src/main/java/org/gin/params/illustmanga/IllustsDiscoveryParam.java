@@ -13,8 +13,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class IllustsDiscoveryParam {
-    String lang = "zh";
     Integer limit = 20;
     String mode = "all";
     Long sampleIllustId;
+
+    public IllustsDiscoveryParam(Long sampleIllustId) {
+        this.sampleIllustId = sampleIllustId;
+    }
 }

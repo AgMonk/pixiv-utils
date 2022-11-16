@@ -10,8 +10,8 @@ import org.gin.request.Pixiv;
 import org.gin.request.PixivCookieToken;
 import org.gin.request.PixivRequest;
 import org.gin.response.PixivResponse;
-import org.gin.response.body.BookmarkDataBody;
-import org.gin.response.body.LikeBody;
+import org.gin.response.body.BookmarkDataRes;
+import org.gin.response.body.LikeRes;
 import org.gin.response.body.illustmanga.*;
 import org.jetbrains.annotations.NotNull;
 
@@ -38,9 +38,9 @@ public class ApiIllustManga {
      * @return org.gin.request.PixivRequest<org.gin.response.PixivResponse < org.gin.response.body.illustmanga.ArtworkBody>>
      * @since 2022/10/14 17:07
      */
-    public static PixivRequest<PixivResponse<IllustMangaBody>> detail(long pid,
-                                                                      @NotNull PixivCookieToken pixivCookieToken,
-                                                                      @NotNull OkHttpClient client) {
+    public static PixivRequest<PixivResponse<IllustMangaRes>> detail(long pid,
+                                                                     @NotNull PixivCookieToken pixivCookieToken,
+                                                                     @NotNull OkHttpClient client) {
         return new PixivRequest<>(createHttpUrl(Pixiv.DOMAIN + "/ajax/illust/%d", pid)
                 , client, pixivCookieToken);
     }
@@ -54,10 +54,10 @@ public class ApiIllustManga {
      * @return org.gin.request.PixivRequest<org.gin.response.PixivResponse < org.gin.response.body.SearchBody>>
      * @since 2022/10/14 17:28
      */
-    public static PixivRequest<PixivResponse<IllustMangaSearchBody>> search(@NotNull String keywords,
-                                                                            @NotNull IllustMangaSearchParam param,
-                                                                            @NotNull PixivCookieToken pixivCookieToken,
-                                                                            @NotNull OkHttpClient client) {
+    public static PixivRequest<PixivResponse<IllustMangaSearchRes>> search(@NotNull String keywords,
+                                                                           @NotNull IllustMangaSearchParam param,
+                                                                           @NotNull PixivCookieToken pixivCookieToken,
+                                                                           @NotNull OkHttpClient client) {
         return new PixivRequest<>(
                 createHttpUrl(param, Collections.singleton(SerializerFeature.WriteMapNullValue), Pixiv.DOMAIN + "/ajax/search/artworks/%s", keywords),
                 client, pixivCookieToken
@@ -72,10 +72,10 @@ public class ApiIllustManga {
      * @return org.gin.request.PixivRequest<org.gin.response.PixivResponse < java.lang.String>>
      * @since 2022/10/15 16:06
      */
-    public static PixivRequest<PixivResponse<LikeBody>> like(long pid,
-                                                             @NotNull SimpleParam param,
-                                                             @NotNull PixivCookieToken pixivCookieToken,
-                                                             @NotNull OkHttpClient client
+    public static PixivRequest<PixivResponse<LikeRes>> like(long pid,
+                                                            @NotNull SimpleParam param,
+                                                            @NotNull PixivCookieToken pixivCookieToken,
+                                                            @NotNull OkHttpClient client
     ) {
         return new PixivRequest<>(
                 createHttpUrl(param, Collections.singleton(SerializerFeature.WriteMapNullValue), Pixiv.DOMAIN + "/ajax/illusts/like"),
@@ -93,10 +93,10 @@ public class ApiIllustManga {
      * @return org.gin.request.PixivRequest<org.gin.response.PixivResponse < org.gin.response.body.illustmanga.UgoiraMetaBody>>
      * @since 2022/10/15 16:52
      */
-    public static PixivRequest<PixivResponse<UgoiraMetaBody>> ugoiraMeta(long pid,
-                                                                         @NotNull SimpleParam param,
-                                                                         @NotNull PixivCookieToken pixivCookieToken,
-                                                                         @NotNull OkHttpClient client
+    public static PixivRequest<PixivResponse<UgoiraMetaRes>> ugoiraMeta(long pid,
+                                                                        @NotNull SimpleParam param,
+                                                                        @NotNull PixivCookieToken pixivCookieToken,
+                                                                        @NotNull OkHttpClient client
     ) {
         return new PixivRequest<>(
                 createHttpUrl(param, Collections.singleton(SerializerFeature.WriteMapNullValue), Pixiv.DOMAIN + "/ajax/illust/%d/ugoira_meta", pid),
@@ -113,10 +113,10 @@ public class ApiIllustManga {
      * @return org.gin.request.PixivRequest<org.gin.response.PixivResponse < org.gin.response.body.BookmarkDataBody>>
      * @since 2022/10/15 17:19
      */
-    public static PixivRequest<PixivResponse<BookmarkDataBody>> bookmarkData(long pid,
-                                                                             @NotNull SimpleParam param,
-                                                                             @NotNull PixivCookieToken pixivCookieToken,
-                                                                             @NotNull OkHttpClient client
+    public static PixivRequest<PixivResponse<BookmarkDataRes>> bookmarkData(long pid,
+                                                                            @NotNull SimpleParam param,
+                                                                            @NotNull PixivCookieToken pixivCookieToken,
+                                                                            @NotNull OkHttpClient client
     ) {
         return new PixivRequest<>(
                 createHttpUrl(param, Collections.singleton(SerializerFeature.WriteMapNullValue), Pixiv.DOMAIN + "/ajax/illust/%d/bookmarkData", pid),
@@ -132,9 +132,9 @@ public class ApiIllustManga {
      * @return org.gin.request.PixivRequest<org.gin.response.PixivResponse < org.gin.response.body.illustmanga.DiscoveryBody>>
      * @since 2022/10/21 9:14
      */
-    public static PixivRequest<PixivResponse<DiscoveryBody>> discovery(@NotNull IllustsDiscoveryParam param,
-                                                                       @NotNull PixivCookieToken pixivCookieToken,
-                                                                       @NotNull OkHttpClient client
+    public static PixivRequest<PixivResponse<DiscoveryIllustRes>> discovery(@NotNull IllustsDiscoveryParam param,
+                                                                            @NotNull PixivCookieToken pixivCookieToken,
+                                                                            @NotNull OkHttpClient client
     ) {
         return new PixivRequest<>(
                 createHttpUrl(param, Collections.singleton(SerializerFeature.WriteMapNullValue), Pixiv.DOMAIN + "/ajax/discovery/artworks"),
@@ -152,9 +152,9 @@ public class ApiIllustManga {
      * @return org.gin.request.PixivRequest<org.gin.response.PixivResponse < org.gin.response.body.illustmanga.DiscoveryBody>>
      * @since 2022/11/1 9:43
      */
-    public static PixivRequest<PixivResponse<IllustRecommendInitBody>> recommendInit(long pid, int limit, String lang,
-                                                                                     @NotNull PixivCookieToken pixivCookieToken,
-                                                                                     @NotNull OkHttpClient client
+    public static PixivRequest<PixivResponse<IllustRecommendInitRes>> recommendInit(long pid, int limit, String lang,
+                                                                                    @NotNull PixivCookieToken pixivCookieToken,
+                                                                                    @NotNull OkHttpClient client
     ) {
         final HashMap<String, Object> map = new HashMap<>(2);
         map.put("limit", limit);
@@ -173,7 +173,7 @@ public class ApiIllustManga {
      * @return org.gin.request.PixivRequest<org.gin.response.PixivResponse < org.gin.response.body.illustmanga.DiscoveryBody>>
      * @since 2022/11/1 9:48
      */
-    public static PixivRequest<PixivResponse<IllustRecommendBody>> recommendIllusts(
+    public static PixivRequest<PixivResponse<IllustRecommendRes>> recommendIllusts(
             @NotNull RecommendIllustsParam param,
             @NotNull PixivCookieToken pixivCookieToken,
             @NotNull OkHttpClient client

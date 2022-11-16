@@ -83,6 +83,7 @@ public class PixivRequest<R> {
         async((Callback) baseCallback);
     }
 
+
     /**
      * 同步请求
      * @return ResponseBody

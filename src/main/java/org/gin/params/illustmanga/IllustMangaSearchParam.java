@@ -29,10 +29,6 @@ public class IllustMangaSearchParam {
      */
     String mode = "all";
     /**
-     * 语言
-     */
-    String lang = "zh";
-    /**
      * 发布时间（起），以东九区为准，格式：yyyy-MM-dd
      */
     String scd;

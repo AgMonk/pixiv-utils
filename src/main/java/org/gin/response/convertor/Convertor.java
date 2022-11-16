@@ -69,6 +69,18 @@ public interface Convertor<R> {
     }
 
     /**
+     * 通用转换器
+     * @param responseBody ResponseBody
+     * @param clazz        body类型
+     * @return org.gin.response.PixivResponse<T>
+     * @throws IOException 异常
+     * @since 2022/10/15 11:01
+     */
+    static <T> T common2(ResponseBody responseBody, Class<T> clazz) throws IOException {
+        return JSONObject.parseObject(responseBody.string(), clazz);
+    }
+
+    /**
      * 排行榜转换器
      * @param responseBody ResponseBody
      * @return org.gin.response.RankingResponse

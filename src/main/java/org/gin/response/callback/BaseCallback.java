@@ -51,7 +51,9 @@ public interface BaseCallback<R> extends Callback, Convertor<R> {
      * 触发Pixiv异常时的处理方法
      * @param e 异常
      */
-    void onPixivException(PixivException e);
+    default void onPixivException(PixivException e) {
+        //默认忽略错误
+    }
 
     /**
      * 请求成功时的处理方法
