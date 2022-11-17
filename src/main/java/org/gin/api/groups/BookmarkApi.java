@@ -1,19 +1,24 @@
 package org.gin.api.groups;
 
+import com.alibaba.fastjson.JSONObject;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import okhttp3.HttpUrl;
 import org.gin.api.PixivApi;
+import org.gin.exception.PixivRequestException;
 import org.gin.params.bookmark.AddIllustMangaParam;
 import org.gin.params.bookmark.AddNovelParam;
 import org.gin.request.PixivRequest;
 import org.gin.request.PixivUrl;
 import org.gin.response.BookmarkAddRes;
 import org.gin.response.SimplePixivResponse;
+import org.gin.response.convertor.Convertor;
 
+import java.io.IOException;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 
 import static org.gin.request.PixivRequestBody.createFormBody;
@@ -111,5 +116,29 @@ public class BookmarkApi {
                 .setUrl(api.getDomain() + "/ajax/novels/bookmarks/remove")
                 .build();
         return new PixivRequest<>(url, api.getClient(), createJsonBody("bookmarkIds", bookmarkIds));
+    }
+
+    public void zTest() throws PixivRequestException, IOException {
+        final long pid = 99147997;
+        final long nid = 17718240;
+        zTestIllust(pid);
+        zTestNovel(nid);
+    }
+
+    private void zTestIllust(long pid) throws PixivRequestException, IOException {
+        delIllust(16335500807L).sync(Convertor::common);
+        final BookmarkAddRes bookmarkAddRes = addIllust(new AddIllustMangaParam(pid))
+                .sync(body -> JSONObject.parseObject(body.string(), BookmarkAddRes.class));
+        final Long lastBookmarkId = bookmarkAddRes.getBody().getLastBookmarkId();
+        delIllusts(Collections.singleton(lastBookmarkId)).sync(Convertor::common);
+        addIllust(new AddIllustMangaParam(pid))
+                .sync(body -> JSONObject.parseObject(body.string(), BookmarkAddRes.class));
+    }
+
+    private void zTestNovel(long nid) throws PixivRequestException, IOException {
+        delNovel(2072478242L).sync(Convertor::common);
+        final SimplePixivResponse response = addNovel(new AddNovelParam(nid)).sync(Convertor::common);
+        delNovels(Collections.singleton(Long.parseLong(response.getBody()))).sync(Convertor::common);
+        addNovel(new AddNovelParam(nid)).sync(Convertor::common);
     }
 }

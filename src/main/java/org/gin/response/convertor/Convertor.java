@@ -5,6 +5,7 @@ import com.alibaba.fastjson.TypeReference;
 import okhttp3.ResponseBody;
 import org.gin.response.PixivResponse;
 import org.gin.response.RankingResponse;
+import org.gin.response.SimplePixivResponse;
 import org.gin.response.body.user.ProfileBody;
 import org.gin.response.body.user.ProfileRealBody;
 import org.jetbrains.annotations.NotNull;
@@ -78,6 +79,10 @@ public interface Convertor<R> {
      */
     static <T> T common2(ResponseBody responseBody, Class<T> clazz) throws IOException {
         return JSONObject.parseObject(responseBody.string(), clazz);
+    }
+
+    static SimplePixivResponse common(ResponseBody responseBody) throws IOException {
+        return JSONObject.parseObject(responseBody.string(), SimplePixivResponse.class);
     }
 
     /**
