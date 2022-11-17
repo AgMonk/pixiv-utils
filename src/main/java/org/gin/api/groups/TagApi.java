@@ -1,8 +1,12 @@
-package org.gin.api;
+package org.gin.api.groups;
 
 import com.alibaba.fastjson.serializer.SerializerFeature;
+import lombok.Getter;
 import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 import okhttp3.OkHttpClient;
+import org.gin.api.PixivApi;
 import org.gin.request.Pixiv;
 import org.gin.request.PixivCookieToken;
 import org.gin.request.PixivRequest;
@@ -24,7 +28,14 @@ import static org.gin.request.PixivUrl.createHttpUrl;
  * @version : v1.0.0
  * @since : 2022/11/1 09:51
  */
-public class ApiTag {
+@Getter
+@Setter
+@RequiredArgsConstructor
+public class TagApi {
+    private final PixivApi api;
+
+    //todo
+
     /**
      * 为绘画追加标签
      * @param pid              作品id

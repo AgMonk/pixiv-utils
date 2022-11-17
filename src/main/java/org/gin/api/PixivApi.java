@@ -38,6 +38,9 @@ public class PixivApi {
     private final CommentIllustApi commentIllustApi;
     private final CommentNovelApi commentNovelApi;
     private final RankingApi rankingApi;
+    private final UserWorksApi userWorksApi;
+    private final UserBookmarkApi userBookmarkApi;
+    private final TagApi tagApi;
 
     private PixivApi(OkHttpClient client, PixivCookieToken cookieToken, String domain) {
         this.client = client;
@@ -53,6 +56,9 @@ public class PixivApi {
         this.commentIllustApi = new CommentIllustApi(this);
         this.commentNovelApi = new CommentNovelApi(this);
         this.rankingApi = new RankingApi(this);
+        this.userWorksApi = new UserWorksApi(this);
+        this.userBookmarkApi = new UserBookmarkApi(this);
+        this.tagApi = new TagApi(this);
     }
 
     @Setter
