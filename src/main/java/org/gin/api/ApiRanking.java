@@ -32,7 +32,7 @@ public class ApiRanking {
                                                        @NotNull PixivCookieToken pixivCookieToken,
                                                        @NotNull OkHttpClient client) {
         return new PixivRequest<>(createHttpUrl(param, null,
-                Pixiv.DOMAIN + "/ranking.php"), client, pixivCookieToken);
+                Pixiv.DOMAIN + "/ranking.php"), client);
     }
 
 

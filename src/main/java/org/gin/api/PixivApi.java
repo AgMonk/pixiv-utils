@@ -6,6 +6,7 @@ import lombok.experimental.Accessors;
 import okhttp3.OkHttpClient;
 import org.gin.api.groups.*;
 import org.gin.exception.PixivException;
+import org.gin.interceptor.HeaderInterceptor;
 import org.gin.interceptor.LangInterceptor;
 import org.gin.interceptor.LoggingInterceptor;
 import org.gin.request.PixivCookieToken;
@@ -67,13 +68,16 @@ public class PixivApi {
                         .readTimeout(30, TimeUnit.SECONDS)
                         .callTimeout(30, TimeUnit.SECONDS)
                         .connectTimeout(30, TimeUnit.SECONDS)
-                        .addInterceptor(new LangInterceptor(lang))
-                        .addInterceptor(new LoggingInterceptor())
                         .build();
-            } else {
-                //添加语言拦截器
-                client = client.newBuilder().addInterceptor(new LangInterceptor(lang)).build();
             }
+            client = client.newBuilder()
+                    //添加语言拦截器
+                    .addInterceptor(new LangInterceptor(lang))
+                    //添加Header拦截器
+                    .addInterceptor(new HeaderInterceptor(cookieToken))
+                    //日志输出拦截器
+                    .addInterceptor(new LoggingInterceptor())
+                    .build();
 
             return new PixivApi(client, cookieToken, domain, lang);
         }

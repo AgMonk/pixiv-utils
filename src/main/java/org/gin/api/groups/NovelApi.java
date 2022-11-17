@@ -45,7 +45,7 @@ public class NovelApi {
                 .setUrl(api.getDomain() + "/ajax/novel/%d/bookmarkData", nid)
 
                 .build();
-        return new PixivRequest<>(url, api.getClient(), api.getCookieToken());
+        return new PixivRequest<>(url, api.getClient());
     }
 
     /**
@@ -59,7 +59,7 @@ public class NovelApi {
                 .setUrl(api.getDomain() + "/ajax/novel/" + nid)
 
                 .build();
-        return new PixivRequest<>(url, api.getClient(), api.getCookieToken());
+        return new PixivRequest<>(url, api.getClient());
     }
 
     /**
@@ -74,7 +74,7 @@ public class NovelApi {
                 .setParams(param)
 
                 .build();
-        return new PixivRequest<>(url, api.getClient(), api.getCookieToken());
+        return new PixivRequest<>(url, api.getClient());
     }
 
     /**
@@ -91,7 +91,7 @@ public class NovelApi {
                 .addParam("mode", mode.name())
 
                 .build();
-        return new PixivRequest<>(url, api.getClient(), api.getCookieToken());
+        return new PixivRequest<>(url, api.getClient());
     }
 
     /**
@@ -107,7 +107,7 @@ public class NovelApi {
                 .setParams(param)
 
                 .build();
-        return new PixivRequest<>(url, api.getClient(), api.getCookieToken());
+        return new PixivRequest<>(url, api.getClient());
     }
 
     public void zTest() {

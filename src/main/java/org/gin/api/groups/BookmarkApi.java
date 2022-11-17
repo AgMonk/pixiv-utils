@@ -39,7 +39,7 @@ public class BookmarkApi {
         final HttpUrl url = new PixivUrl.Builder()
                 .setUrl(api.getDomain() + "/ajax/illusts/bookmarks/add")
                 .build();
-        return new PixivRequest<>(url, createJsonBody(param), api.getClient(), api.getCookieToken());
+        return new PixivRequest<>(url, api.getClient(), createJsonBody(param));
     }
 
     /**
@@ -52,7 +52,7 @@ public class BookmarkApi {
         final HttpUrl url = new PixivUrl.Builder()
                 .setUrl(api.getDomain() + "/ajax/illusts/bookmarks/delete")
                 .build();
-        return new PixivRequest<>(url, createFormBody("bookmark_id", bookmarkId), api.getClient(), api.getCookieToken());
+        return new PixivRequest<>(url, api.getClient(), createFormBody("bookmark_id", bookmarkId));
     }
 
     /**
@@ -65,6 +65,6 @@ public class BookmarkApi {
         final HttpUrl url = new PixivUrl.Builder()
                 .setUrl(api.getDomain() + "/ajax/illusts/bookmarks/remove")
                 .build();
-        return new PixivRequest<>(url, createJsonBody("bookmarkIds", bookmarkIds), api.getClient(), api.getCookieToken());
+        return new PixivRequest<>(url, api.getClient(), createJsonBody("bookmarkIds", bookmarkIds));
     }
-}   
+}

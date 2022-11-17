@@ -19,47 +19,35 @@ public class PixivRequest<R> {
 
     /**
      * POST请求
-     * @param httpUrl          url
-     * @param client           客户端
-     * @param pixivCookieToken cooke和token
-     * @param body             请求body参数
+     * @param httpUrl url
+     * @param client  客户端
+     * @param body    请求body参数
      * @since 2022/10/15 12:11
      */
-    public PixivRequest(HttpUrl httpUrl, RequestBody body, OkHttpClient client, PixivCookieToken pixivCookieToken) {
+    public PixivRequest(HttpUrl httpUrl, OkHttpClient client, RequestBody body) {
         this.client = client;
-        this.request = createRequest(pixivCookieToken, httpUrl, body);
+        this.request = createRequest(httpUrl, body);
     }
 
     /**
      * GET请求
-     * @param httpUrl          url
-     * @param client           客户端
-     * @param pixivCookieToken cooke和token
+     * @param httpUrl url
+     * @param client  客户端
      * @since 2022/10/15 12:11
      */
-    public PixivRequest(HttpUrl httpUrl, OkHttpClient client, PixivCookieToken pixivCookieToken) {
-        this.client = client;
-        this.request = createRequest(pixivCookieToken, httpUrl, null);
+    public PixivRequest(HttpUrl httpUrl, OkHttpClient client) {
+        this(httpUrl, client, null);
     }
 
     /**
      * 创建请求对象
-     * @param pixivCookieToken cooke和token
-     * @param httpUrl          HttpUrl
-     * @param body             body
+     * @param httpUrl HttpUrl
+     * @param body    body
      * @return okhttp3.Request
      * @since 2022/10/15 17:00
      */
-    private static Request createRequest(PixivCookieToken pixivCookieToken, HttpUrl httpUrl, RequestBody body) {
-        String token = pixivCookieToken.getToken();
-        final Request.Builder builder = new Request.Builder().url(httpUrl)
-                .header("referer", "https://www.pixiv.net/")
-                .header("cookie", pixivCookieToken.getCookie());
-//        如果传入了token 添加token header
-        if (token != null && !"".equals(token)) {
-            builder.header("x-csrf-token", token);
-        }
-        //有 body 表示为post请求
+    private static Request createRequest(HttpUrl httpUrl, RequestBody body) {
+        final Request.Builder builder = new Request.Builder().url(httpUrl);
         if (body != null) {
             return builder.post(body).build();
         }
@@ -99,7 +87,7 @@ public class PixivRequest<R> {
     /**
      * 同步请求
      * @return R
-     * @throws IOException    异常
+     * @throws IOException           异常
      * @throws PixivRequestException pixiv异常
      */
     public R sync(Convertor<R> convertor) throws PixivRequestException, IOException {

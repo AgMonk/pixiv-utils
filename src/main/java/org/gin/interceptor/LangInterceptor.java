@@ -25,10 +25,12 @@ public class LangInterceptor implements Interceptor {
     @NotNull
     @Override
     public Response intercept(Chain chain) throws IOException {
-        final HttpUrl httpUrl = chain.request().url().newBuilder()
+        final Request original = chain.request();
+
+        final HttpUrl httpUrl = original.url().newBuilder()
                 .addQueryParameter("lang", lang)
                 .build();
-        final Request request = chain.request().newBuilder()
+        final Request request = original.newBuilder()
                 .url(httpUrl)
                 .build();
         return chain.proceed(request);

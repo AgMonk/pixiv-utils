@@ -42,7 +42,7 @@ public class UserApi {
         final HttpUrl url = new PixivUrl.Builder()
                 .setUrl(api.getDomain() + "/bookmark_add.php")
                 .build();
-        return new PixivRequest<>(url, createFormBody(param), api.getClient(), api.getCookieToken());
+        return new PixivRequest<>(url, api.getClient(), createFormBody(param));
     }
 
     /**
@@ -57,7 +57,7 @@ public class UserApi {
                 .setUrl(api.getDomain() + "/ajax/user/%d/recommends", userId)
                 .setParams(param)
                 .build();
-        return new PixivRequest<>(url, api.getClient(), api.getCookieToken());
+        return new PixivRequest<>(url, api.getClient());
     }
 
     /**
@@ -70,7 +70,7 @@ public class UserApi {
         final HttpUrl url = new PixivUrl.Builder()
                 .setUrl(api.getDomain() + "/rpc_group_setting.php")
                 .build();
-        return new PixivRequest<>(url, createFormBody(new FollowDelParam(userId)), api.getClient(), api.getCookieToken());
+        return new PixivRequest<>(url, api.getClient(), createFormBody(new FollowDelParam(userId)));
     }
 
     /**
@@ -86,7 +86,7 @@ public class UserApi {
                 .setUrl(api.getDomain() + "/ajax/user/" + userId)
                 .addParam("full", fullData ? 1 : 0)
                 .build();
-        return new PixivRequest<>(url, api.getClient(), api.getCookieToken());
+        return new PixivRequest<>(url, api.getClient());
     }
 
 

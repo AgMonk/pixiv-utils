@@ -15,7 +15,7 @@ import java.time.format.DateTimeFormatter;
  * @since : 2022/10/10 14:34
  **/
 public class LoggingInterceptor implements Interceptor {
-    private static final String TAG = "LoggingInterceptor";
+    private static final String TAG = "DEBUG";
     public static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
     @NotNull
@@ -23,7 +23,8 @@ public class LoggingInterceptor implements Interceptor {
     public Response intercept(Chain chain) throws IOException {
         Request request = chain.request();
         long startTime = System.nanoTime();
-        System.out.printf("%s [DEBUG]发送请求 %s on %s\n",
+        System.out.printf("%s [%s]发送请求 %s on %s\n",
+                TAG,
                 DATE_TIME_FORMATTER.format(ZonedDateTime.now()),
                 request.url(),
                 chain.connection()
@@ -32,7 +33,8 @@ public class LoggingInterceptor implements Interceptor {
         Response response = chain.proceed(request);
 
         long endTime = System.nanoTime();
-        System.out.printf("%s [DEBUG]收到响应 code:%d %s in %.1fms \n",
+        System.out.printf("%s [%s]收到响应 code:%d %s in %.1fms \n",
+                TAG,
                 DATE_TIME_FORMATTER.format(ZonedDateTime.now()),
                 response.code(),
                 response.request().url(),

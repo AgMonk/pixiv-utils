@@ -41,8 +41,8 @@ public class ApiTag {
 
         return new PixivRequest<>(
                 createHttpUrl(Pixiv.DOMAIN + "/ajax/tags/illust/%d/add", pid)
-                , createJsonBody("tag", tag)
-                , client, pixivCookieToken);
+                , client, createJsonBody("tag", tag)
+        );
     }
 
     /**
@@ -63,7 +63,7 @@ public class ApiTag {
         map.put("lang", lang);
         return new PixivRequest<>(
                 createHttpUrl(map, Collections.singleton(SerializerFeature.WriteMapNullValue), Pixiv.DOMAIN + "/ajax/tag/info"),
-                client, pixivCookieToken
+                client
         );
     }
 
@@ -86,7 +86,7 @@ public class ApiTag {
         map.put("lang", lang);
         return new PixivRequest<>(
                 createHttpUrl(map, Collections.singleton(SerializerFeature.WriteMapNullValue), Pixiv.DOMAIN + "/ajax/tags/suggest_by_word"),
-                client, pixivCookieToken
+                client
         );
     }
 

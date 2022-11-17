@@ -43,8 +43,8 @@ public class ApiBookmark {
     ) {
         return new PixivRequest<>(
                 createHttpUrl(Pixiv.DOMAIN + "/ajax/novels/bookmarks/add")
-                , createJsonBody(param)
-                , client, pixivCookieToken);
+                , client, createJsonBody(param)
+        );
     }
 
     /**
@@ -66,8 +66,8 @@ public class ApiBookmark {
         body.put("del", 1L);
         return new PixivRequest<>(
                 createHttpUrl(param, Collections.singleton(SerializerFeature.WriteMapNullValue), Pixiv.DOMAIN + "/ajax/novels/bookmarks/delete")
-                , createFormBody(body)
-                , client, pixivCookieToken);
+                , client, createFormBody(body)
+        );
     }
 
     /**
@@ -86,7 +86,7 @@ public class ApiBookmark {
     ) {
         return new PixivRequest<>(
                 createHttpUrl(param, Collections.singleton(SerializerFeature.WriteMapNullValue), Pixiv.DOMAIN + "/ajax/novels/bookmarks/remove")
-                , createJsonBody("bookmarkIds", bookmarkIds)
-                , client, pixivCookieToken);
+                , client, createJsonBody("bookmarkIds", bookmarkIds)
+        );
     }
 }

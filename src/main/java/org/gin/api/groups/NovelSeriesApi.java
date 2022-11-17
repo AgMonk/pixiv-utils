@@ -37,7 +37,7 @@ public class NovelSeriesApi {
                 .setParams(param)
 
                 .build();
-        return new PixivRequest<>(url, api.getClient(), api.getCookieToken());
+        return new PixivRequest<>(url, api.getClient());
     }
 
     /**
@@ -51,7 +51,7 @@ public class NovelSeriesApi {
                 .setUrl(api.getDomain() + "/ajax/novel/series/" + seriesId)
 
                 .build();
-        return new PixivRequest<>(url, api.getClient(), api.getCookieToken());
+        return new PixivRequest<>(url, api.getClient());
     }
 
     /**
@@ -65,7 +65,7 @@ public class NovelSeriesApi {
                 .setUrl(api.getDomain() + "/ajax/novel/series/%d/content_titles", seriesId)
 
                 .build();
-        return new PixivRequest<>(url, api.getClient(), api.getCookieToken());
+        return new PixivRequest<>(url, api.getClient());
 
     }
 

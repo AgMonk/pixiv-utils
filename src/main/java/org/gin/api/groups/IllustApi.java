@@ -45,7 +45,7 @@ public class IllustApi {
         final HttpUrl url = new PixivUrl.Builder()
                 .setUrl(api.getDomain() + "/ajax/illust/%d/bookmarkData", pid)
                 .build();
-        return new PixivRequest<>(url, api.getClient(), api.getCookieToken());
+        return new PixivRequest<>(url, api.getClient());
     }
 
     /**
@@ -58,7 +58,7 @@ public class IllustApi {
         final HttpUrl url = new PixivUrl.Builder()
                 .setUrl(api.getDomain() + "/ajax/illust/" + pid)
                 .build();
-        return new PixivRequest<>(url, api.getClient(), api.getCookieToken());
+        return new PixivRequest<>(url, api.getClient());
     }
 
     /**
@@ -72,7 +72,7 @@ public class IllustApi {
                 .setUrl(api.getDomain() + "/ajax/discovery/artworks")
                 .setParams(param)
                 .build();
-        return new PixivRequest<>(url, api.getClient(), api.getCookieToken());
+        return new PixivRequest<>(url, api.getClient());
     }
 
     /**
@@ -88,7 +88,7 @@ public class IllustApi {
                 .addParam("page", page)
                 .addParam("mode", mode.name())
                 .build();
-        return new PixivRequest<>(url, api.getClient(), api.getCookieToken());
+        return new PixivRequest<>(url, api.getClient());
     }
 
     /**
@@ -102,7 +102,7 @@ public class IllustApi {
                 .setUrl(api.getDomain() + "/ajax/illusts/like")
 
                 .build();
-        return new PixivRequest<>(url, createJsonBody("illust_id", pid), api.getClient(), api.getCookieToken());
+        return new PixivRequest<>(url, api.getClient(), createJsonBody("illust_id", pid));
     }
 
     /**
@@ -117,7 +117,7 @@ public class IllustApi {
                 .addParam("illust_ids[]", ids)
 
                 .build();
-        return new PixivRequest<>(url, api.getClient(), api.getCookieToken());
+        return new PixivRequest<>(url, api.getClient());
     }
 
     /**
@@ -133,7 +133,7 @@ public class IllustApi {
                 .addParam("limit", limit)
 
                 .build();
-        return new PixivRequest<>(url, api.getClient(), api.getCookieToken());
+        return new PixivRequest<>(url, api.getClient());
     }
 
     /**
@@ -149,7 +149,7 @@ public class IllustApi {
                 .setParams(param)
 
                 .build();
-        return new PixivRequest<>(url, api.getClient(), api.getCookieToken());
+        return new PixivRequest<>(url, api.getClient());
     }
 
     /**
@@ -163,7 +163,7 @@ public class IllustApi {
                 .setUrl(api.getDomain() + "/ajax/illust/%d/ugoira_meta", pid)
 
                 .build();
-        return new PixivRequest<>(url, api.getClient(), api.getCookieToken());
+        return new PixivRequest<>(url, api.getClient());
     }
 
     public void zTest() {
