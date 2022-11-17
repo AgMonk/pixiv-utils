@@ -5,19 +5,15 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import okhttp3.HttpUrl;
-import okhttp3.OkHttpClient;
 import org.gin.api.PixivApi;
-import org.gin.request.Pixiv;
-import org.gin.request.PixivCookieToken;
 import org.gin.request.PixivRequest;
 import org.gin.request.PixivUrl;
 import org.gin.response.PixivResponse;
 import org.gin.response.body.tag.SuggestByWordRes;
 import org.gin.response.body.tag.TagInfo;
-import org.gin.response.fields.PixivTagInfo;
+import org.gin.response.fields.PixivTagInfoRes;
 
 import static org.gin.request.PixivRequestBody.createJsonBody;
-import static org.gin.request.PixivUrl.createHttpUrl;
 
 /**
  * 标签接口
@@ -31,26 +27,18 @@ import static org.gin.request.PixivUrl.createHttpUrl;
 public class TagApi {
     private final PixivApi api;
 
-    //todo
-
     /**
      * 为绘画追加标签
-     * @param pid              作品id
-     * @param tag              标签
-     * @param pixivCookieToken cooke和token
-     * @param client           客户端
-     * @return org.gin.request.PixivRequest<org.gin.response.PixivResponse < org.gin.response.body.BookmarkAddBody>>
-     * @since 2022/11/1 9:53
+     * @param pid 绘画id
+     * @param tag 标签
+     * @return org.gin.request.PixivRequest<PixivTagInfoRes>
+     * @since 2022/11/17 17:14
      */
-    public static PixivRequest<PixivResponse<PixivTagInfo>> illustAdd(long pid, String tag,
-                                                                      @NonNull PixivCookieToken pixivCookieToken,
-                                                                      @NonNull OkHttpClient client
-    ) {
-
-        return new PixivRequest<>(
-                createHttpUrl(Pixiv.DOMAIN + "/ajax/tags/illust/%d/add", pid)
-                , client, createJsonBody("tag", tag)
-        );
+    public PixivRequest<PixivTagInfoRes> illustAdd(long pid, String tag) {
+        final HttpUrl url = new PixivUrl.Builder()
+                .setUrl(api.getDomain() + "/ajax/tags/illust/%d/add", pid)
+                .build();
+        return new PixivRequest<>(url, api.getClient(), createJsonBody("tag", tag));
     }
 
     /**
