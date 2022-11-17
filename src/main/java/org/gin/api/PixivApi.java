@@ -10,6 +10,7 @@ import org.gin.interceptor.HeaderInterceptor;
 import org.gin.interceptor.LangInterceptor;
 import org.gin.interceptor.LoggingInterceptor;
 import org.gin.request.PixivCookieToken;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
@@ -25,7 +26,6 @@ public class PixivApi {
     private final OkHttpClient client;
     private final PixivCookieToken cookieToken;
     private final String domain;
-    private final String lang;
 
 
 //  以下为  API 分组
@@ -36,11 +36,10 @@ public class PixivApi {
     private final UserApi userApi;
     private final BookmarkApi bookmarkApi;
 
-    private PixivApi(OkHttpClient client, PixivCookieToken cookieToken, String domain, String lang) {
+    private PixivApi(OkHttpClient client, PixivCookieToken cookieToken, String domain) {
         this.client = client;
         this.cookieToken = cookieToken;
         this.domain = domain;
-        this.lang = lang;
 
 //        todo new
         this.illustApi = new IllustApi(this);
@@ -58,17 +57,22 @@ public class PixivApi {
         String domain = "https://www.pixiv.net";
         String lang = "zh";
 
+        @NotNull
+        private static OkHttpClient defaultClient() {
+            return new OkHttpClient.Builder()
+                    .readTimeout(30, TimeUnit.SECONDS)
+                    .callTimeout(30, TimeUnit.SECONDS)
+                    .connectTimeout(30, TimeUnit.SECONDS)
+                    .build();
+        }
+
         public PixivApi build() {
             if (cookieToken == null) {
                 throw new RuntimeException("必须提供Cookie");
             }
 
             if (client == null) {
-                client = new OkHttpClient.Builder()
-                        .readTimeout(30, TimeUnit.SECONDS)
-                        .callTimeout(30, TimeUnit.SECONDS)
-                        .connectTimeout(30, TimeUnit.SECONDS)
-                        .build();
+                client = defaultClient();
             }
             client = client.newBuilder()
                     //添加语言拦截器
@@ -79,12 +83,12 @@ public class PixivApi {
                     .addInterceptor(new LoggingInterceptor())
                     .build();
 
-            return new PixivApi(client, cookieToken, domain, lang);
+            return new PixivApi(client, cookieToken, domain);
         }
 
         public Builder setSessionId(String sessionId) throws PixivException, IOException {
             this.cookieToken = new PixivCookieToken(sessionId);
-            this.cookieToken.findToken(client, domain);
+            this.cookieToken.findToken(defaultClient(), domain);
             return this;
         }
     }

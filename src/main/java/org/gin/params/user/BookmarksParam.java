@@ -17,7 +17,7 @@ public class BookmarksParam {
     /**
      * 语言
      */
-    String lang = "zh";
+
     String tag;
     int offset = 0;
     int limit = 100;
