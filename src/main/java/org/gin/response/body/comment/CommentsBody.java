@@ -1,4 +1,4 @@
-package org.gin.response.body.illustmanga;
+package org.gin.response.body.comment;
 
 import lombok.Data;
 import org.gin.response.fields.CommentReply;

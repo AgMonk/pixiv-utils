@@ -8,15 +8,20 @@ import org.gin.api.PixivApi;
 import org.gin.emuns.PixivStamp;
 import org.gin.exception.PixivRequestException;
 import org.gin.params.comment.PostCommentParam;
+import org.gin.params.illustmanga.CommentRepliesParam;
+import org.gin.params.illustmanga.IllustsCommentRootsParam;
 import org.gin.request.PixivRequest;
 import org.gin.request.PixivUrl;
 import org.gin.response.SimplePixivResponse;
+import org.gin.response.body.comment.CommentsRes;
 import org.gin.response.body.comment.PostCommentRes;
 import org.gin.response.convertor.Convertor;
+import org.gin.response.fields.CommentReply;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.stream.Collectors;
 
 import static org.gin.request.PixivRequestBody.createFormBody;
 
@@ -64,11 +69,41 @@ public class CommentIllustApi {
         return new PixivRequest<>(url, api.getClient(), createFormBody(param));
     }
 
+    /**
+     * 查询作品评论楼中楼
+     * @param param 参数
+     * @return org.gin.request.PixivRequest<org.gin.response.body.comment.CommentsRes>
+     * @since 2022/11/17 16:03
+     */
+    public PixivRequest<CommentsRes> replies(@NotNull CommentRepliesParam param) {
+        final HttpUrl url = new PixivUrl.Builder()
+                .setUrl(api.getDomain() + "/ajax/illusts/comments/replies")
+                .setParams(param)
+                .build();
+        return new PixivRequest<>(url, api.getClient());
+    }
+
+    /**
+     * 查询作品评论(根)
+     * @param param 参数
+     * @return org.gin.request.PixivRequest<org.gin.response.body.comment.CommentsRes>
+     * @since 2022/11/17 16:02
+     */
+    public PixivRequest<CommentsRes> roots(@NotNull IllustsCommentRootsParam param) {
+
+        final HttpUrl url = new PixivUrl.Builder()
+                .setUrl(api.getDomain() + "/ajax/illusts/comments/roots")
+                .setParams(param)
+                .build();
+        return new PixivRequest<>(url, api.getClient());
+    }
+
     public void zTest() throws PixivRequestException, IOException {
         long pid = 99147997;
         long uid = 20670838;
 
         zTestPostDelete(pid, uid);
+        zTestRootReply(pid);
     }
 
     private void zTestPostDelete(long pid, long uid) throws PixivRequestException, IOException {
@@ -77,6 +112,17 @@ public class CommentIllustApi {
         final Long commentId = res.getBody().getCommentId();
         System.out.println("commentId = " + commentId);
         del(pid, commentId).sync(Convertor::common);
+    }
+
+    private void zTestRootReply(long pid) throws PixivRequestException, IOException {
+        final CommentsRes roots = roots(new IllustsCommentRootsParam(pid, 1, 20)).sync(body -> Convertor.common2(body, CommentsRes.class));
+        final CommentReply reply = roots.getBody().getComments().stream().filter(CommentReply::getHasReplies).collect(Collectors.toList()).get(0);
+        if (reply != null) {
+            System.out.println(reply.getId());
+            final CommentsRes replies = replies(new CommentRepliesParam(reply.getId(), 1)).sync(body -> Convertor.common2(body, CommentsRes.class));
+            final CommentReply commentReply = replies.getBody().getComments().get(0);
+            System.out.println(commentReply.getId());
+        }
     }
 
 }

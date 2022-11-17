@@ -16,10 +16,5 @@ public class CommentRepliesParam {
     @JSONField(name = "comment_id")
     Long commentId;
     int page;
-    String lang = "zh";
 
-    public CommentRepliesParam(Long commentId, int page) {
-        this.commentId = commentId;
-        this.page = page;
-    }
 }

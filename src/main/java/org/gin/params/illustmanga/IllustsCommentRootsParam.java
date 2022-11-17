@@ -15,7 +15,6 @@ public class IllustsCommentRootsParam {
     Long pid;
     int offset;
     int limit;
-    String lang = "zh";
 
     public IllustsCommentRootsParam(Long pid, int page) {
         this(pid, page, 50);
