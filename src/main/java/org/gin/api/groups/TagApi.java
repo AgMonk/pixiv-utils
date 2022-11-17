@@ -1,6 +1,5 @@
 package org.gin.api.groups;
 
-import com.alibaba.fastjson.serializer.SerializerFeature;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -16,10 +15,6 @@ import org.gin.response.PixivResponse;
 import org.gin.response.body.tag.SuggestByWordRes;
 import org.gin.response.body.tag.TagInfo;
 import org.gin.response.fields.PixivTagInfo;
-import org.jetbrains.annotations.NotNull;
-
-import java.util.Collections;
-import java.util.HashMap;
 
 import static org.gin.request.PixivRequestBody.createJsonBody;
 import static org.gin.request.PixivUrl.createHttpUrl;
@@ -59,28 +54,6 @@ public class TagApi {
     }
 
     /**
-     * 查询标签信息
-     * @param tag              标签
-     * @param lang             语言
-     * @param pixivCookieToken cooke和token
-     * @param client           客户端
-     * @return org.gin.request.PixivRequest<org.gin.response.PixivResponse < ?>>
-     * @since 2022/11/1 9:55
-     */
-    public static PixivRequest<PixivResponse<TagInfo>> tagInfo(@NonNull String tag, @NonNull String lang,
-                                                               @NotNull PixivCookieToken pixivCookieToken,
-                                                               @NotNull OkHttpClient client
-    ) {
-        final HashMap<String, Object> map = new HashMap<>(2);
-        map.put("tag", tag);
-        map.put("lang", lang);
-        return new PixivRequest<>(
-                createHttpUrl(map, Collections.singleton(SerializerFeature.WriteMapNullValue), Pixiv.DOMAIN + "/ajax/tag/info"),
-                client
-        );
-    }
-
-    /**
      * 查询标签建议(追加标签时使用)
      * @param keyword 关键字
      * @return org.gin.request.PixivRequest<org.gin.response.body.tag.SuggestByWordRes>
@@ -91,6 +64,20 @@ public class TagApi {
                 .setUrl(api.getDomain() + "/ajax/tags/suggest_by_word")
                 .addParam("content_types_to_count[]", "illust")
                 .addParam("word", keyword)
+                .build();
+        return new PixivRequest<>(url, api.getClient());
+    }
+
+    /**
+     * 查询标签信息
+     * @param tag 标签
+     * @return org.gin.request.PixivRequest<org.gin.response.PixivResponse < ?>>
+     * @since 2022/11/1 9:55
+     */
+    public PixivRequest<PixivResponse<TagInfo>> tagInfo(@NonNull String tag) {
+        final HttpUrl url = new PixivUrl.Builder()
+                .setUrl(api.getDomain() + "/ajax/tag/info")
+                .addParam("tag", tag)
                 .build();
         return new PixivRequest<>(url, api.getClient());
     }
