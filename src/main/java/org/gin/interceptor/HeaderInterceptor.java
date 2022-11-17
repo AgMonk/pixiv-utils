@@ -18,6 +18,7 @@ import java.io.IOException;
 @RequiredArgsConstructor
 public class HeaderInterceptor implements Interceptor {
 
+    public static final String POST = "post";
     private final PixivCookieToken cookieToken;
 
     @NotNull
@@ -29,8 +30,8 @@ public class HeaderInterceptor implements Interceptor {
         final Request.Builder builder = original.newBuilder()
                 .header("referer", "https://www.pixiv.net/")
                 .header("cookie", cookieToken.getCookie());
-        if (original.body() != null) {
-//            body 不为null 说明为 POST 请求 ，写入 token
+        if (POST.equalsIgnoreCase(original.method())) {
+            //POST 请求 ，写入 token
             builder.header("x-csrf-token", cookieToken.getToken());
         }
 

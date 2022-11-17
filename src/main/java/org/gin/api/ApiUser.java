@@ -10,7 +10,7 @@ import org.gin.request.Pixiv;
 import org.gin.request.PixivCookieToken;
 import org.gin.request.PixivRequest;
 import org.gin.response.PixivResponse;
-import org.gin.response.body.illustmanga.CommonBookmarkTagsBody;
+import org.gin.response.body.comment.CommonBookmarkTagsBody;
 import org.gin.response.body.illustmanga.IllustMangaBookmarksBody;
 import org.gin.response.body.novel.NovelBookmarksBody;
 import org.gin.response.body.tag.UserTag;
@@ -186,7 +186,7 @@ public class ApiUser {
          * @param param            参数
          * @param pixivCookieToken cooke和token
          * @param client           客户端
-         * @return org.gin.request.PixivRequest<org.gin.response.PixivResponse < org.gin.response.body.illustmanga.CommonBookmarkTagsBody>>
+         * @return org.gin.request.PixivRequest<org.gin.response.PixivResponse < org.gin.response.body.comment.CommonBookmarkTagsBody>>
          * @since 2022/10/17 13:34
          */
 

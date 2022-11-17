@@ -22,10 +22,12 @@ public class LoggingInterceptor implements Interceptor {
     @Override
     public Response intercept(Chain chain) throws IOException {
         Request request = chain.request();
+
         long startTime = System.nanoTime();
-        System.out.printf("%s [%s]发送请求 %s on %s\n",
+        System.out.printf("[%s] [%s] 发送请求 [%s] %s on %s\n",
                 TAG,
                 DATE_TIME_FORMATTER.format(ZonedDateTime.now()),
+                request.method(),
                 request.url(),
                 chain.connection()
         );
@@ -33,9 +35,10 @@ public class LoggingInterceptor implements Interceptor {
         Response response = chain.proceed(request);
 
         long endTime = System.nanoTime();
-        System.out.printf("%s [%s]收到响应 code:%d %s in %.1fms \n",
+        System.out.printf("[%s] [%s] 收到响应 [%s] code:%d %s in %.1fms \n",
                 TAG,
                 DATE_TIME_FORMATTER.format(ZonedDateTime.now()),
+                request.method(),
                 response.code(),
                 response.request().url(),
                 (endTime - startTime) / 1e6d);
