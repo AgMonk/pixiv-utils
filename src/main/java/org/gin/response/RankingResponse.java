@@ -28,7 +28,7 @@ public class RankingResponse {
     Integer rankTotal;
 
     @Data
-    static class RankingData {
+    public static class RankingData {
         String attr;
         @JSONField(alternateNames = "bookmark_id")
         Long bookmarkId;

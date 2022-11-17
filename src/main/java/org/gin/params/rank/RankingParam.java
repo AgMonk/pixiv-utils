@@ -2,6 +2,8 @@ package org.gin.params.rank;
 
 import com.alibaba.fastjson.annotation.JSONField;
 import lombok.Getter;
+import org.gin.emuns.PixivRankingMode;
+import org.gin.emuns.RankingContent;
 
 /**
  * 排行参数
@@ -10,28 +12,21 @@ import lombok.Getter;
  * @since : 2022/10/18 09:40
  */
 @Getter
-public class RankParam {
+public class RankingParam {
     @JSONField(name = "p")
     final int page;
-    final String mode;
+    final PixivRankingMode mode;
     final String format = "json";
-    final String content;
+    final RankingContent content;
     /**
      * 日期，格式：yyyyMMdd
      */
     final String date;
-    String lang = "zh";
 
-    public RankParam(int page, RankMode mode, RankContent content, String date) {
+    public RankingParam(int page, PixivRankingMode mode, RankingContent content, String date) {
         this.page = page;
-        this.mode = mode.toString();
-        this.content = content.toString();
+        this.mode = mode;
+        this.content = content;
         this.date = date;
     }
-
-    public void setLang(String lang) {
-        this.lang = lang;
-    }
-
-
 }
