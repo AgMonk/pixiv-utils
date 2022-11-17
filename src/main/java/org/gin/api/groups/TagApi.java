@@ -6,11 +6,19 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import okhttp3.HttpUrl;
 import org.gin.api.PixivApi;
+import org.gin.exception.PixivRequestException;
 import org.gin.request.PixivRequest;
 import org.gin.request.PixivUrl;
+import org.gin.response.body.tag.SuggestByWordBody;
 import org.gin.response.body.tag.SuggestByWordRes;
 import org.gin.response.body.tag.TagInfoRes;
+import org.gin.response.convertor.Convertor;
 import org.gin.response.fields.PixivTagInfoRes;
+import org.gin.utils.JsonUtils;
+
+import java.io.IOException;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.gin.request.PixivRequestBody.createJsonBody;
 
@@ -69,8 +77,30 @@ public class TagApi {
         return new PixivRequest<>(url, api.getClient());
     }
 
-    public void zTest() {
+    public void zTest() throws PixivRequestException, IOException {
+        zTestSuggest();
+        zTestTagInfo();
+        zTestIllustAdd();
+    }
 
+    private void zTestIllustAdd() throws PixivRequestException, IOException {
+        long pid = 102177911;
+        String tag = "RO635(ドールズフロントライン)";
+
+        final PixivTagInfoRes res = illustAdd(pid, tag).sync(body -> Convertor.common2(body, PixivTagInfoRes.class));
+        JsonUtils.printJson(res);
+    }
+
+    private void zTestSuggest() throws PixivRequestException, IOException {
+        final SuggestByWordRes res = suggestByWord("RO635").sync(body -> Convertor.common2(body, SuggestByWordRes.class));
+        final List<SuggestByWordBody.Candidate> candidates = res.getBody().getCandidates();
+        final String join = candidates.stream().map(SuggestByWordBody.Candidate::getTagName).collect(Collectors.joining(","));
+        System.out.println("join = " + join);
+    }
+
+    private void zTestTagInfo() throws PixivRequestException, IOException {
+        final TagInfoRes res = tagInfo("RO635(ドールズフロントライン)").sync(body -> Convertor.common2(body, TagInfoRes.class));
+        JsonUtils.printJson(res);
     }
 
 
