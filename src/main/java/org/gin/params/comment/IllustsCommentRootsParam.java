@@ -1,10 +1,10 @@
-package org.gin.params.illustmanga;
+package org.gin.params.comment;
 
 import com.alibaba.fastjson.annotation.JSONField;
 import lombok.Data;
 
 /**
- * 查询作品评论(根)参数
+ * 查询绘画评论(根)参数
  * @author : ginstone
  * @version : v1.0.0
  * @since : 2022/10/15 16:22

@@ -7,7 +7,7 @@ import okhttp3.HttpUrl;
 import org.gin.api.PixivApi;
 import org.gin.emuns.PixivStamp;
 import org.gin.exception.PixivRequestException;
-import org.gin.params.comment.IllustsCommentRootsParam;
+import org.gin.params.comment.NovelsCommentRootsParam;
 import org.gin.params.comment.PostCommentParam;
 import org.gin.params.illustmanga.CommentRepliesParam;
 import org.gin.request.PixivRequest;
@@ -26,7 +26,7 @@ import java.util.stream.Collectors;
 import static org.gin.request.PixivRequestBody.createFormBody;
 
 /**
- * 绘画评论API
+ * 小说评论API
  * @author : ginstone
  * @version : v1.0.0
  * @since : 2022/11/17 13:23
@@ -34,7 +34,7 @@ import static org.gin.request.PixivRequestBody.createFormBody;
 @Getter
 @Setter
 @RequiredArgsConstructor
-public class CommentIllustApi {
+public class CommentNovelApi {
     private final PixivApi api;
 
     /**
@@ -50,7 +50,7 @@ public class CommentIllustApi {
         body.put("del_id", commentId);
 
         final HttpUrl url = new PixivUrl.Builder()
-                .setUrl(api.getDomain() + "/rpc_delete_comment.php")
+                .setUrl(api.getDomain() + "/novel/rpc_delete_comment.php")
                 .build();
         return new PixivRequest<>(url, api.getClient(), createFormBody(body));
 
@@ -62,9 +62,9 @@ public class CommentIllustApi {
      * @return org.gin.request.PixivRequest<PostCommentRes>
      * @since 2022/11/17 13:46
      */
-    public PixivRequest<PostCommentRes> post(@NotNull PostCommentParam.Illust param) {
+    public PixivRequest<PostCommentRes> post(@NotNull PostCommentParam.Novel param) {
         final HttpUrl url = new PixivUrl.Builder()
-                .setUrl(api.getDomain() + "/rpc/post_comment.php")
+                .setUrl(api.getDomain() + "/novel/rpc/post_comment.php")
                 .build();
         return new PixivRequest<>(url, api.getClient(), createFormBody(param));
     }
@@ -77,7 +77,7 @@ public class CommentIllustApi {
      */
     public PixivRequest<CommentsRes> replies(@NotNull CommentRepliesParam param) {
         final HttpUrl url = new PixivUrl.Builder()
-                .setUrl(api.getDomain() + "/ajax/illusts/comments/replies")
+                .setUrl(api.getDomain() + "/ajax/novels/comments/replies")
                 .setParams(param)
                 .build();
         return new PixivRequest<>(url, api.getClient());
@@ -89,33 +89,33 @@ public class CommentIllustApi {
      * @return org.gin.request.PixivRequest<org.gin.response.body.comment.CommentsRes>
      * @since 2022/11/17 16:02
      */
-    public PixivRequest<CommentsRes> roots(@NotNull IllustsCommentRootsParam param) {
+    public PixivRequest<CommentsRes> roots(@NotNull NovelsCommentRootsParam param) {
 
         final HttpUrl url = new PixivUrl.Builder()
-                .setUrl(api.getDomain() + "/ajax/illusts/comments/roots")
+                .setUrl(api.getDomain() + "/ajax/novels/comments/roots")
                 .setParams(param)
                 .build();
         return new PixivRequest<>(url, api.getClient());
     }
 
     public void zTest() throws PixivRequestException, IOException {
-        long pid = 99147997;
-        long uid = 20670838;
+        long nid = 17718240;
+        long uid = 15358167;
 
-        zTestPostDelete(pid, uid);
-        zTestRootReply(pid);
+        zTestPostDelete(nid, uid);
+        zTestRootReply(nid);
     }
 
-    private void zTestPostDelete(long pid, long uid) throws PixivRequestException, IOException {
-        final PostCommentParam.Illust param = new PostCommentParam.Illust(pid, uid, null, PixivStamp.Stamp_304);
+    private void zTestPostDelete(long nid, long uid) throws PixivRequestException, IOException {
+        final PostCommentParam.Novel param = new PostCommentParam.Novel(nid, uid, null, PixivStamp.Stamp_304);
         final PostCommentRes res = post(param).sync(body -> Convertor.common2(body, PostCommentRes.class));
         final Long commentId = res.getBody().getCommentId();
         System.out.println("commentId = " + commentId);
-        del(pid, commentId).sync(Convertor::common);
+        del(nid, commentId).sync(Convertor::common);
     }
 
-    private void zTestRootReply(long pid) throws PixivRequestException, IOException {
-        final CommentsRes roots = roots(new IllustsCommentRootsParam(pid, 1, 20)).sync(body -> Convertor.common2(body, CommentsRes.class));
+    private void zTestRootReply(long nid) throws PixivRequestException, IOException {
+        final CommentsRes roots = roots(new NovelsCommentRootsParam(nid, 1, 20)).sync(body -> Convertor.common2(body, CommentsRes.class));
         final CommentReply reply = roots.getBody().getComments().stream().filter(CommentReply::getHasReplies).collect(Collectors.toList()).get(0);
         if (reply != null) {
             System.out.println(reply.getId());
