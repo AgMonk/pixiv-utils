@@ -9,6 +9,7 @@ import org.gin.api.groups.NovelApi;
 import org.gin.api.groups.NovelSeriesApi;
 import org.gin.api.groups.UserApi;
 import org.gin.exception.PixivException;
+import org.gin.interceptor.LangInterceptor;
 import org.gin.interceptor.LoggingInterceptor;
 import org.gin.request.PixivCookieToken;
 
@@ -67,9 +68,14 @@ public class PixivApi {
                         .readTimeout(30, TimeUnit.SECONDS)
                         .callTimeout(30, TimeUnit.SECONDS)
                         .connectTimeout(30, TimeUnit.SECONDS)
+                        .addInterceptor(new LangInterceptor(lang))
                         .addInterceptor(new LoggingInterceptor())
                         .build();
+            } else {
+                //添加语言拦截器
+                client = client.newBuilder().addInterceptor(new LangInterceptor(lang)).build();
             }
+
             return new PixivApi(client, cookieToken, domain, lang);
         }
 

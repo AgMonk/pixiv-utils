@@ -43,7 +43,7 @@ public class NovelApi {
     public PixivRequest<BookmarkDataRes> bookmarkData(long nid) {
         final HttpUrl url = new PixivUrl.Builder()
                 .setUrl(api.getDomain() + "/ajax/novel/%d/bookmarkData", nid)
-                .setLang(api.getLang())
+
                 .build();
         return new PixivRequest<>(url, api.getClient(), api.getCookieToken());
     }
@@ -57,7 +57,7 @@ public class NovelApi {
     public PixivRequest<NovelDetailRes> detail(long nid) {
         final HttpUrl url = new PixivUrl.Builder()
                 .setUrl(api.getDomain() + "/ajax/novel/" + nid)
-                .setLang(api.getLang())
+
                 .build();
         return new PixivRequest<>(url, api.getClient(), api.getCookieToken());
     }
@@ -72,23 +72,7 @@ public class NovelApi {
         final HttpUrl url = new PixivUrl.Builder()
                 .setUrl(api.getDomain() + "/ajax/discovery/novels")
                 .setParams(param)
-                .setLang(api.getLang())
-                .build();
-        return new PixivRequest<>(url, api.getClient(), api.getCookieToken());
-    }
 
-    /**
-     * 搜索
-     * @param keywords 关键字
-     * @param param    参数
-     * @return org.gin.request.PixivRequest<org.gin.response.PixivResponse < org.gin.response.body.novel.NovelSearchBody>>
-     * @since 2022/11/16 15:00
-     */
-    public PixivRequest<NovelSearchRes> search(@NotNull String keywords, @NotNull NovelSearchParam param) {
-        final HttpUrl url = new PixivUrl.Builder()
-                .setUrl(api.getDomain() + "/ajax/search/novels/" + keywords)
-                .setParams(param)
-                .setLang(api.getLang())
                 .build();
         return new PixivRequest<>(url, api.getClient(), api.getCookieToken());
     }
@@ -105,7 +89,23 @@ public class NovelApi {
                 .setUrl(api.getDomain() + "/ajax/follow_latest/novel")
                 .addParam("page", page)
                 .addParam("mode", mode.name())
-                .setLang(api.getLang())
+
+                .build();
+        return new PixivRequest<>(url, api.getClient(), api.getCookieToken());
+    }
+
+    /**
+     * 搜索
+     * @param keywords 关键字
+     * @param param    参数
+     * @return org.gin.request.PixivRequest<org.gin.response.PixivResponse < org.gin.response.body.novel.NovelSearchBody>>
+     * @since 2022/11/16 15:00
+     */
+    public PixivRequest<NovelSearchRes> search(@NotNull String keywords, @NotNull NovelSearchParam param) {
+        final HttpUrl url = new PixivUrl.Builder()
+                .setUrl(api.getDomain() + "/ajax/search/novels/" + keywords)
+                .setParams(param)
+
                 .build();
         return new PixivRequest<>(url, api.getClient(), api.getCookieToken());
     }

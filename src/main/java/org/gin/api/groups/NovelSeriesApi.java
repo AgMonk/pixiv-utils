@@ -35,7 +35,7 @@ public class NovelSeriesApi {
         final HttpUrl url = new PixivUrl.Builder()
                 .setUrl(api.getDomain() + "/ajax/novel/series_content/" + seriesId)
                 .setParams(param)
-                .setLang(api.getLang())
+
                 .build();
         return new PixivRequest<>(url, api.getClient(), api.getCookieToken());
     }
@@ -49,7 +49,7 @@ public class NovelSeriesApi {
     public PixivRequest<NovelSeriesRes> info(long seriesId) {
         final HttpUrl url = new PixivUrl.Builder()
                 .setUrl(api.getDomain() + "/ajax/novel/series/" + seriesId)
-                .setLang(api.getLang())
+
                 .build();
         return new PixivRequest<>(url, api.getClient(), api.getCookieToken());
     }
@@ -63,7 +63,7 @@ public class NovelSeriesApi {
     public PixivRequest<NovelContentTitleRes> titles(long seriesId) {
         final HttpUrl url = new PixivUrl.Builder()
                 .setUrl(api.getDomain() + "/ajax/novel/series/%d/content_titles", seriesId)
-                .setLang(api.getLang())
+
                 .build();
         return new PixivRequest<>(url, api.getClient(), api.getCookieToken());
 

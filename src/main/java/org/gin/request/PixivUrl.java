@@ -65,7 +65,6 @@ public class PixivUrl {
         HttpUrl httpUrl;
         HashMap<String, Object> params = new HashMap<>();
         List<SerializerFeature> features = new ArrayList<>();
-        String lang = "zh";
 
         /**
          * 添加Feature
@@ -93,7 +92,6 @@ public class PixivUrl {
                 throw new RuntimeException("必须提供URL");
             }
             final HttpUrl.Builder builder = this.httpUrl.newBuilder();
-            builder.addQueryParameter("lang", this.lang);
             this.params.forEach((k, v) -> {
                 if (v instanceof Collection<?>) {
                     //如果value 是集合，添加多个同名参数
@@ -111,11 +109,6 @@ public class PixivUrl {
                 }
             });
             return builder.build();
-        }
-
-        public Builder setLang(String lang) {
-            this.lang = lang;
-            return this;
         }
 
         /**

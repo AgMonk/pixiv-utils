@@ -41,7 +41,6 @@ public class UserApi {
     public PixivRequest<String> follow(@NonNull FollowAddParam param) {
         final HttpUrl url = new PixivUrl.Builder()
                 .setUrl(api.getDomain() + "/bookmark_add.php")
-                .setLang(api.getLang())
                 .build();
         return new PixivRequest<>(url, createFormBody(param), api.getClient(), api.getCookieToken());
     }
@@ -57,7 +56,6 @@ public class UserApi {
         final HttpUrl url = new PixivUrl.Builder()
                 .setUrl(api.getDomain() + "/ajax/user/%d/recommends", userId)
                 .setParams(param)
-                .setLang(api.getLang())
                 .build();
         return new PixivRequest<>(url, api.getClient(), api.getCookieToken());
     }
@@ -71,7 +69,6 @@ public class UserApi {
     public PixivRequest<String> unfollow(long userId) {
         final HttpUrl url = new PixivUrl.Builder()
                 .setUrl(api.getDomain() + "/rpc_group_setting.php")
-                .setLang(api.getLang())
                 .build();
         return new PixivRequest<>(url, createFormBody(new FollowDelParam(userId)), api.getClient(), api.getCookieToken());
     }
@@ -88,7 +85,6 @@ public class UserApi {
         final HttpUrl url = new PixivUrl.Builder()
                 .setUrl(api.getDomain() + "/ajax/user/" + userId)
                 .addParam("full", fullData ? 1 : 0)
-                .setLang(api.getLang())
                 .build();
         return new PixivRequest<>(url, api.getClient(), api.getCookieToken());
     }
@@ -98,8 +94,8 @@ public class UserApi {
         long userId = 20670838L;
 
         zTestUserInfo(userId);
-        zTestFollow(userId);
-        zTestRecommend(userId);
+//        zTestFollow(userId);
+//        zTestRecommend(userId);
     }
 
     private void zTestFollow(long userId) {
