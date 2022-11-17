@@ -5,13 +5,15 @@ import lombok.Getter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import org.gin.api.PixivApi;
 import org.gin.request.Pixiv;
 import org.gin.request.PixivCookieToken;
 import org.gin.request.PixivRequest;
+import org.gin.request.PixivUrl;
 import org.gin.response.PixivResponse;
-import org.gin.response.body.tag.SuggestByWordBody;
+import org.gin.response.body.tag.SuggestByWordRes;
 import org.gin.response.body.tag.TagInfo;
 import org.gin.response.fields.PixivTagInfo;
 import org.jetbrains.annotations.NotNull;
@@ -80,25 +82,17 @@ public class TagApi {
 
     /**
      * 查询标签建议(追加标签时使用)
-     * @param word             关键字
-     * @param lang             语言
-     * @param pixivCookieToken cooke和token
-     * @param client           客户端
-     * @return org.gin.request.PixivRequest<org.gin.response.PixivResponse < ?>>
-     * @since 2022/11/1 10:15
+     * @param keyword 关键字
+     * @return org.gin.request.PixivRequest<org.gin.response.body.tag.SuggestByWordRes>
+     * @since 2022/11/17 16:59
      */
-    public static PixivRequest<PixivResponse<SuggestByWordBody>> suggestByWord(@NonNull String word, @NonNull String lang,
-                                                                               @NotNull PixivCookieToken pixivCookieToken,
-                                                                               @NotNull OkHttpClient client
-    ) {
-        final HashMap<String, Object> map = new HashMap<>(2);
-        map.put("word", word);
-        map.put("content_types_to_count[]", "illust");
-        map.put("lang", lang);
-        return new PixivRequest<>(
-                createHttpUrl(map, Collections.singleton(SerializerFeature.WriteMapNullValue), Pixiv.DOMAIN + "/ajax/tags/suggest_by_word"),
-                client
-        );
+    public PixivRequest<SuggestByWordRes> suggestByWord(@NonNull String keyword) {
+        final HttpUrl url = new PixivUrl.Builder()
+                .setUrl(api.getDomain() + "/ajax/tags/suggest_by_word")
+                .addParam("content_types_to_count[]", "illust")
+                .addParam("word", keyword)
+                .build();
+        return new PixivRequest<>(url, api.getClient());
     }
 
 

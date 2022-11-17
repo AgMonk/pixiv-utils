@@ -15,7 +15,7 @@ public class SuggestByWordBody {
     List<Candidate> candidates;
 
     @Data
-    static class Candidate {
+    public static class Candidate {
         @JSONField(alternateNames = "illust_count")
         Long illustCount;
         @JSONField(alternateNames = "tag_name")
