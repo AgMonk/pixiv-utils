@@ -4,9 +4,11 @@ import com.alibaba.fastjson.JSONObject;
 import okhttp3.ResponseBody;
 import org.gin.api.PixivApi;
 import org.gin.api.groups.IllustApi;
+import org.gin.exception.PixivRequestException;
 import org.gin.request.PixivCookieToken;
 import org.gin.response.body.illustmanga.IllustMangaRes;
 import org.gin.response.callback.BaseCallback;
+import org.gin.response.convertor.Convertor;
 
 import java.io.IOException;
 
@@ -16,7 +18,7 @@ import java.io.IOException;
  * @since : 2022/10/15 17:22
  */
 public class Demo {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws PixivRequestException, IOException {
         final String sessionId = "aaaaaaaaaaaaaaa";
         final String token = "bbbbbbbbb";
         final PixivCookieToken cookieToken = new PixivCookieToken(sessionId, token);
@@ -39,7 +41,10 @@ public class Demo {
 
 
         final IllustApi illustApi = pixivApi.getIllustApi();
-        illustApi.detail(99147997L).async(new BaseCallback<IllustMangaRes>() {
+        final long pid = 99147997L;
+
+        //异步
+        illustApi.detail(pid).async(new BaseCallback<IllustMangaRes>() {
             @Override
             public void onSuccess(IllustMangaRes res) {
                 final IllustMangaRes.IllustMangaBody body = res.getBody();
@@ -50,6 +55,10 @@ public class Demo {
                 return JSONObject.parseObject(responseBody.string(), IllustMangaRes.class);
             }
         });
+
+        //同步
+        final IllustMangaRes res = illustApi.detail(pid).sync(body -> Convertor.common2(body, IllustMangaRes.class));
+        final IllustMangaRes.IllustMangaBody body = res.getBody();
 
     }
 }
