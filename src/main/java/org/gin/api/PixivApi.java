@@ -4,10 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 import okhttp3.OkHttpClient;
-import org.gin.api.groups.IllustApi;
-import org.gin.api.groups.NovelApi;
-import org.gin.api.groups.NovelSeriesApi;
-import org.gin.api.groups.UserApi;
+import org.gin.api.groups.*;
 import org.gin.exception.PixivException;
 import org.gin.interceptor.LangInterceptor;
 import org.gin.interceptor.LoggingInterceptor;
@@ -36,6 +33,7 @@ public class PixivApi {
     private final NovelApi novelApi;
     private final NovelSeriesApi novelSeriesApi;
     private final UserApi userApi;
+    private final BookmarkApi bookmarkApi;
 
     private PixivApi(OkHttpClient client, PixivCookieToken cookieToken, String domain, String lang) {
         this.client = client;
@@ -48,6 +46,7 @@ public class PixivApi {
         this.novelApi = new NovelApi(this);
         this.novelSeriesApi = new NovelSeriesApi(this);
         this.userApi = new UserApi(this);
+        this.bookmarkApi = new BookmarkApi(this);
     }
 
     @Setter

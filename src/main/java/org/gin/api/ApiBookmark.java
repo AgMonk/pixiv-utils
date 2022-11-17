@@ -4,13 +4,11 @@ import com.alibaba.fastjson.serializer.SerializerFeature;
 import lombok.NonNull;
 import okhttp3.OkHttpClient;
 import org.gin.params.SimpleParam;
-import org.gin.params.bookmark.AddIllustMangaParam;
 import org.gin.params.bookmark.AddNovelParam;
 import org.gin.request.Pixiv;
 import org.gin.request.PixivCookieToken;
 import org.gin.request.PixivRequest;
 import org.gin.response.PixivResponse;
-import org.gin.response.body.BookmarkAddBody;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Collection;
@@ -28,63 +26,8 @@ import static org.gin.request.PixivUrl.createHttpUrl;
  * @since : 2022/10/15 14:04
  */
 public class ApiBookmark {
-    /**
-     * 添加收藏
-     * @param param            参数
-     * @param pixivCookieToken cooke和token
-     * @param client           客户端
-     * @return org.gin.request.PixivRequest<org.gin.response.PixivResponse < org.gin.response.body.BookmarkAddBody>>
-     * @since 2022/10/15 14:15
-     */
-    public static PixivRequest<PixivResponse<BookmarkAddBody>> addIllust(@NonNull AddIllustMangaParam param,
-                                                                         @NonNull PixivCookieToken pixivCookieToken,
-                                                                         @NonNull OkHttpClient client
-    ) {
-        return new PixivRequest<>(
-                createHttpUrl(Pixiv.DOMAIN + "/ajax/illusts/bookmarks/add")
-                , createJsonBody(param)
-                , client, pixivCookieToken);
-    }
 
-    /**
-     * 删除收藏
-     * @param param            参数
-     * @param bookmarkId       收藏id
-     * @param pixivCookieToken cooke和token
-     * @param client           客户端
-     * @return org.gin.request.PixivRequest<org.gin.response.PixivResponse < java.lang.String>>
-     * @since 2022/10/15 14:33
-     */
-    public static PixivRequest<PixivResponse<String>> delIllust(long bookmarkId,
-                                                                @NotNull SimpleParam param,
-                                                                @NonNull PixivCookieToken pixivCookieToken,
-                                                                @NonNull OkHttpClient client
-    ) {
-        return new PixivRequest<>(
-                createHttpUrl(param, Collections.singleton(SerializerFeature.WriteMapNullValue), Pixiv.DOMAIN + "/ajax/illusts/bookmarks/delete")
-                , createFormBody("bookmark_id", bookmarkId)
-                , client, pixivCookieToken);
-    }
 
-    /**
-     * 删除收藏(批量)
-     * @param param            参数
-     * @param bookmarkIds      收藏id
-     * @param pixivCookieToken cooke和token
-     * @param client           客户端
-     * @return org.gin.request.PixivRequest<org.gin.response.PixivResponse < java.lang.String>>
-     * @since 2022/10/15 14:33
-     */
-    public static PixivRequest<PixivResponse<String>> delIllusts(Collection<Long> bookmarkIds,
-                                                                 @NotNull SimpleParam param,
-                                                                 @NonNull PixivCookieToken pixivCookieToken,
-                                                                 @NonNull OkHttpClient client
-    ) {
-        return new PixivRequest<>(
-                createHttpUrl(param, Collections.singleton(SerializerFeature.WriteMapNullValue), Pixiv.DOMAIN + "/ajax/illusts/bookmarks/remove")
-                , createJsonBody("bookmarkIds", bookmarkIds)
-                , client, pixivCookieToken);
-    }
 
     /**
      * 收藏小说

@@ -94,8 +94,8 @@ public class UserApi {
         long userId = 20670838L;
 
         zTestUserInfo(userId);
-//        zTestFollow(userId);
-//        zTestRecommend(userId);
+        zTestFollow(userId);
+        zTestRecommend(userId);
     }
 
     private void zTestFollow(long userId) {
