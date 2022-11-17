@@ -8,9 +8,8 @@ import okhttp3.HttpUrl;
 import org.gin.api.PixivApi;
 import org.gin.request.PixivRequest;
 import org.gin.request.PixivUrl;
-import org.gin.response.PixivResponse;
 import org.gin.response.body.tag.SuggestByWordRes;
-import org.gin.response.body.tag.TagInfo;
+import org.gin.response.body.tag.TagInfoRes;
 import org.gin.response.fields.PixivTagInfoRes;
 
 import static org.gin.request.PixivRequestBody.createJsonBody;
@@ -62,12 +61,16 @@ public class TagApi {
      * @return org.gin.request.PixivRequest<org.gin.response.PixivResponse < ?>>
      * @since 2022/11/1 9:55
      */
-    public PixivRequest<PixivResponse<TagInfo>> tagInfo(@NonNull String tag) {
+    public PixivRequest<TagInfoRes> tagInfo(@NonNull String tag) {
         final HttpUrl url = new PixivUrl.Builder()
                 .setUrl(api.getDomain() + "/ajax/tag/info")
                 .addParam("tag", tag)
                 .build();
         return new PixivRequest<>(url, api.getClient());
+    }
+
+    public void zTest() {
+
     }
 
 
