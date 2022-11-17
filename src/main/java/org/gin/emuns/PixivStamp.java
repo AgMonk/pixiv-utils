@@ -6,7 +6,7 @@ package org.gin.emuns;
  * @version : v1.0.0
  * @since : 2022/10/17 14:13
  */
-public enum Stamp {
+public enum PixivStamp {
     /**
      * 表情贴图
      * 图片地址为： https://s.pximg.net/common/images/stamp/generated-stamps/${id}_s.jpg
@@ -56,7 +56,7 @@ public enum Stamp {
     ;
     final int id;
 
-    Stamp(int id) {
+    PixivStamp(int id) {
         this.id = id;
     }
 

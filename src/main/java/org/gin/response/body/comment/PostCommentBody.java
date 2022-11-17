@@ -1,4 +1,4 @@
-package org.gin.response.body;
+package org.gin.response.body.comment;
 
 import com.alibaba.fastjson.annotation.JSONField;
 import lombok.Data;
@@ -10,7 +10,7 @@ import lombok.Data;
  * @since : 2022/10/17 14:40
  */
 @Data
-public class CommentBody {
+public class PostCommentBody {
     String comment;
     @JSONField(alternateNames = "comment_id")
     Long commentId;
