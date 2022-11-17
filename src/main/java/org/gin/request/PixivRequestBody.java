@@ -74,7 +74,11 @@ public class PixivRequestBody {
     public static FormBody createFormBody(Object obj) {
         final HashMap<String, Object> map = Pixiv.jsonToMap(obj);
         final FormBody.Builder builder = new FormBody.Builder();
-        map.forEach((k, v) -> builder.add(k, v == null ? "" : String.valueOf(v)));
+        map.forEach((k, v) -> {
+            if (v != null) {
+                builder.add(k, String.valueOf(v));
+            }
+        });
         return builder.build();
     }
 }

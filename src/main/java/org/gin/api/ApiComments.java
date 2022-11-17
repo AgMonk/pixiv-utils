@@ -2,7 +2,7 @@ package org.gin.api;
 
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import okhttp3.OkHttpClient;
-import org.gin.params.CommentParam;
+import org.gin.params.comment.CommentParam;
 import org.gin.params.illustmanga.CommentRepliesParam;
 import org.gin.params.illustmanga.IllustsCommentRootsParam;
 import org.gin.params.illustmanga.NovelCommentRootsParam;
@@ -11,7 +11,7 @@ import org.gin.request.PixivCookieToken;
 import org.gin.request.PixivRequest;
 import org.gin.request.PixivRequestBody;
 import org.gin.response.PixivResponse;
-import org.gin.response.body.CommentBody;
+import org.gin.response.body.comment.PostCommentRes;
 import org.gin.response.body.illustmanga.CommentsBody;
 import org.jetbrains.annotations.NotNull;
 
@@ -29,15 +29,13 @@ import static org.gin.request.PixivUrl.createHttpUrl;
 public class ApiComments {
     /**
      * 发表评论
-     * @param param            参数
-     * @param pixivCookieToken cooke和token
-     * @param client           客户端
+     * @param param  参数
+     * @param client 客户端
      * @return org.gin.request.PixivRequest<org.gin.response.PixivResponse < org.gin.response.body.illustmanga.IllustMangaCommentsBody>>
      * @since 2022/10/17 14:37
      */
-    public static PixivRequest<PixivResponse<CommentBody>> comment(@NotNull CommentParam param,
-                                                                   @NotNull PixivCookieToken pixivCookieToken,
-                                                                   @NotNull OkHttpClient client
+    public static PixivRequest<PostCommentRes> comment(@NotNull CommentParam param,
+                                                       @NotNull OkHttpClient client
     ) {
         return new PixivRequest<>(
                 createHttpUrl(Pixiv.DOMAIN + "/rpc/post_comment.php"),

@@ -2,7 +2,7 @@ package org.gin.params;
 
 import com.alibaba.fastjson.annotation.JSONField;
 import lombok.Getter;
-import org.gin.emuns.Stamp;
+import org.gin.emuns.PixivStamp;
 
 /**
  * 评论参数
@@ -52,7 +52,7 @@ public class CommentParam {
      * @param parentId     父楼id
      * @since 2022/10/17 14:35
      */
-    public CommentParam(Stamp stamp, Long pid, Long authorUserId, Long parentId) {
+    public CommentParam(PixivStamp stamp, Long pid, Long authorUserId, Long parentId) {
         this.type = "stamp";
         this.pid = pid;
         this.authorUserId = authorUserId;
