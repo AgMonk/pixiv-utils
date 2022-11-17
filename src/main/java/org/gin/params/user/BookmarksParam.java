@@ -1,8 +1,9 @@
 package org.gin.params.user;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
+import org.gin.emuns.PixivRest;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * 查询用户的收藏作品参数
@@ -10,34 +11,34 @@ import lombok.NoArgsConstructor;
  * @version : v1.0.0
  * @since : 2022/10/15 12:14
  */
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
+@Getter
+@Setter
 public class BookmarksParam {
-    /**
-     * 语言
-     */
-
+    final int offset;
+    final int limit;
+    final PixivRest rest;
     String tag;
-    int offset = 0;
-    int limit = 100;
-    /**
-     * `show`公开的，`hide`不公开的(仅自己)
-     */
-    String rest = "show";
 
     public BookmarksParam(int page) {
-        this(page, 100);
+        this(page, 60);
     }
 
     public BookmarksParam(int page, int size) {
-        this.limit = size;
-        this.offset = (page - 1) * size;
+        this(page, size, PixivRest.show);
     }
 
-    public static BookmarksParam untagged() {
-        final BookmarksParam param = new BookmarksParam(1);
-        param.setTag("未分類");
-        return param;
+    public BookmarksParam(int page, int size, @NotNull PixivRest rest) {
+        this(page, size, rest, null);
+    }
+
+    public BookmarksParam(int page, int size, @NotNull PixivRest rest, String tag) {
+        this.limit = size;
+        this.offset = (page - 1) * size;
+        this.rest = rest;
+        this.tag = tag;
+    }
+
+    public void untagged() {
+        this.tag = "未分類";
     }
 }
