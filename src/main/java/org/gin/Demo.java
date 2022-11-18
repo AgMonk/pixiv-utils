@@ -1,13 +1,14 @@
 package org.gin;
 
-import com.alibaba.fastjson.JSONObject;
-import okhttp3.ResponseBody;
+import okhttp3.Call;
 import org.gin.api.PixivApi;
 import org.gin.api.groups.IllustApi;
+import org.gin.exception.PixivException;
 import org.gin.exception.PixivRequestException;
 import org.gin.request.PixivCookieToken;
 import org.gin.response.body.illustmanga.IllustMangaRes;
-import org.gin.response.callback.BaseCallback;
+import org.gin.response.callback.PixivCallback;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 
@@ -17,7 +18,7 @@ import java.io.IOException;
  * @since : 2022/10/15 17:22
  */
 public class Demo {
-    public static void main(String[] args) throws PixivRequestException, IOException {
+    public static void main(String[] args) {
         final String sessionId = "aaaaaaaaaaaaaaa";
         final String token = "bbbbbbbbb";
         final PixivCookieToken cookieToken = new PixivCookieToken(sessionId, token);
@@ -43,21 +44,42 @@ public class Demo {
         final long pid = 99147997L;
 
         //异步
-        illustApi.detail(pid).async(new BaseCallback<IllustMangaRes>() {
+        illustApi.detail(pid).async(new PixivCallback<IllustMangaRes>() {
+            /**
+             * 请求失败的处理方法
+             * @param call call
+             * @param e    异常
+             */
             @Override
-            public void onSuccess(IllustMangaRes res) {
-                final IllustMangaRes.IllustMangaBody body = res.getBody();
+            public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                PixivCallback.super.onFailure(call, e);
+            }
+
+            /**
+             * 触发Pixiv异常时的处理方法
+             * @param e 异常
+             */
+            @Override
+            public void onPixivException(PixivException e) {
+                PixivCallback.super.onPixivException(e);
             }
 
             @Override
-            public IllustMangaRes convert(ResponseBody responseBody) throws IOException {
-                return JSONObject.parseObject(responseBody.string(), IllustMangaRes.class);
+            public void onSuccess(IllustMangaRes res) throws PixivException, IOException {
+                final IllustMangaRes.IllustMangaBody body = res.getBody();
+
             }
         });
 
         //同步
-        final IllustMangaRes res = illustApi.detail(pid).sync();
-        final IllustMangaRes.IllustMangaBody body = res.getBody();
+        try {
+            final IllustMangaRes res = illustApi.detail(pid).sync();
+            final IllustMangaRes.IllustMangaBody body = res.getBody();
+        } catch (PixivRequestException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
     }
 }

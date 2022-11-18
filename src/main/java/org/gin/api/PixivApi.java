@@ -47,7 +47,7 @@ public class PixivApi {
         this.cookieToken = cookieToken;
         this.domain = domain;
 
-//        todo new
+
         this.illustApi = new IllustApi(this);
         this.novelApi = new NovelApi(this);
         this.novelSeriesApi = new NovelSeriesApi(this);
