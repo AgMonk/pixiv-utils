@@ -4,6 +4,8 @@ import com.alibaba.fastjson.annotation.JSONField;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.gin.emuns.PixivRestrict;
+import org.gin.emuns.PixivRestrictSerializer;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -21,7 +23,8 @@ public class AddIllustMangaParam implements Serializable {
     /**
      * 是否为非公开收藏
      */
-    int restrict = 0;
+    @JSONField(serializeUsing = PixivRestrictSerializer.class)
+    PixivRestrict restrict = PixivRestrict.TRUE;
     /**
      * 备注
      */

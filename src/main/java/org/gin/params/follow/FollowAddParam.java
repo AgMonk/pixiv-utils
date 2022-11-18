@@ -2,6 +2,8 @@ package org.gin.params.follow;
 
 import com.alibaba.fastjson.annotation.JSONField;
 import lombok.Data;
+import org.gin.emuns.PixivRestrict;
+import org.gin.emuns.PixivRestrictSerializer;
 
 /**
  * 添加关注的参数
@@ -17,9 +19,10 @@ public class FollowAddParam {
     @JSONField(name = "user_id")
     long userId;
     String tag;
-    int restrict = 0;
+    @JSONField(serializeUsing = PixivRestrictSerializer.class)
+    PixivRestrict restrict = PixivRestrict.TRUE;
 
-    public FollowAddParam(long userId, String tag, int restrict) {
+    public FollowAddParam(long userId, String tag, PixivRestrict restrict) {
         this.userId = userId;
         this.tag = tag;
         this.restrict = restrict;
