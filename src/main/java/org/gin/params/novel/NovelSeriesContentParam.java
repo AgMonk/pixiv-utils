@@ -14,7 +14,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 public class NovelSeriesContentParam {
-    int limit = 10;
+    int limit;
     /**
      * 排序，可选值：asc dsc
      */
