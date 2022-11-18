@@ -1,29 +1,19 @@
 package org.gin.api.groups;
 
-import com.alibaba.fastjson.JSONObject;
-import com.alibaba.fastjson.TypeReference;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import okhttp3.HttpUrl;
-import okhttp3.ResponseBody;
 import org.gin.api.PixivApi;
 import org.gin.emuns.PixivRest;
 import org.gin.params.user.BookmarksParam;
 import org.gin.request.PixivRequest;
 import org.gin.request.PixivUrl;
-import org.gin.response.PixivResponse;
-import org.gin.response.body.comment.CommonBookmarkTagsBody;
 import org.gin.response.body.comment.CommonBookmarkTagsRes;
-import org.gin.response.body.illustmanga.IllustMangaBookmarksBody;
 import org.gin.response.body.illustmanga.IllustMangaBookmarksRes;
-import org.gin.response.body.novel.NovelBookmarksBody;
 import org.gin.response.body.novel.NovelBookmarksRes;
-import org.gin.response.callback.BaseCallback;
 import org.gin.response.convertor.Convertor;
 import org.jetbrains.annotations.NotNull;
-
-import java.io.IOException;
 
 /**
  * 用户收藏API
@@ -96,7 +86,6 @@ public class UserBookmarkApi {
     }
 
     public void zTest() {
-        long authorId = 17113161;
         long uid = 57680761;
         final BookmarksParam param = new BookmarksParam(1, 10, PixivRest.show).untagged();
 
@@ -106,61 +95,25 @@ public class UserBookmarkApi {
     }
 
     private void zTestIllust(long uid, BookmarksParam param) {
-        illusts(uid, param).async(new BaseCallback<PixivResponse<IllustMangaBookmarksBody>>() {
-            @Override
-            public PixivResponse<IllustMangaBookmarksBody> convert(ResponseBody responseBody) throws IOException {
-                return JSONObject.parseObject(responseBody.string(), new TypeReference<PixivResponse<IllustMangaBookmarksBody>>() {
-                });
-            }
-
-            @Override
-            public void onSuccess(PixivResponse<IllustMangaBookmarksBody> res) {
-                final long total = res.getBody().getTotal();
-                System.out.printf("[用户绘画] uid: %d 作品数: %d \n", uid, total);
-            }
+        illusts(uid, param).async(res -> {
+            final long total = res.getBody().getTotal();
+            System.out.printf("[用户收藏绘画] uid: %d 作品数: %d \n", uid, total);
         });
-        illustTags(uid).async(new BaseCallback<PixivResponse<CommonBookmarkTagsBody>>() {
-            @Override
-            public PixivResponse<CommonBookmarkTagsBody> convert(ResponseBody responseBody) throws IOException {
-                return JSONObject.parseObject(responseBody.string(), new TypeReference<PixivResponse<CommonBookmarkTagsBody>>() {
-                });
-            }
-
-            @Override
-            public void onSuccess(PixivResponse<CommonBookmarkTagsBody> res) {
-                final int size = res.getBody().getPublicTag().size();
-                System.out.printf("[用户绘画标签] uid: %d 标签数 %s \n", uid, size);
-            }
+        illustTags(uid).async(res -> {
+            final int size = res.getBody().getPublicTag().size();
+            System.out.printf("[用户收藏绘画标签] uid: %d 标签数 %s \n", uid, size);
         });
     }
 
     private void zTestNovel(long uid, BookmarksParam param) {
-        novels(uid, param).async(new BaseCallback<PixivResponse<NovelBookmarksBody>>() {
-            @Override
-            public PixivResponse<NovelBookmarksBody> convert(ResponseBody responseBody) throws IOException {
-                return JSONObject.parseObject(responseBody.string(), new TypeReference<PixivResponse<NovelBookmarksBody>>() {
-                });
-            }
-
-            @Override
-            public void onSuccess(PixivResponse<NovelBookmarksBody> res) {
-                final Long total = res.getBody().getTotal();
-                System.out.printf("[用户小说] uid: %d 作品数: %d \n", uid, total);
-            }
+        novels(uid, param).async(res -> {
+            final Long total = res.getBody().getTotal();
+            System.out.printf("[用户收藏小说] uid: %d 作品数: %d \n", uid, total);
         });
 
-        novelTags(uid).async(new BaseCallback<PixivResponse<CommonBookmarkTagsBody>>() {
-            @Override
-            public PixivResponse<CommonBookmarkTagsBody> convert(ResponseBody responseBody) throws IOException {
-                return JSONObject.parseObject(responseBody.string(), new TypeReference<PixivResponse<CommonBookmarkTagsBody>>() {
-                });
-            }
-
-            @Override
-            public void onSuccess(PixivResponse<CommonBookmarkTagsBody> res) {
-                final int size = res.getBody().getPublicTag().size();
-                System.out.printf("[用户小说标签] uid: %d 标签数 %s \n", uid, size);
-            }
+        novelTags(uid).async(res -> {
+            final int size = res.getBody().getPublicTag().size();
+            System.out.printf("[用户收藏小说标签] uid: %d 标签数 %s \n", uid, size);
         });
     }
 }   
