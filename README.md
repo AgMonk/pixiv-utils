@@ -48,67 +48,17 @@ Pixiv工具类
 
 4. 所有API方法都会返回`PixivRequest`对象，该类的如下4个方法均可以发送请求
   1. `async(PixivCallback<R> pixivCallback)`：(推荐)异步请求，可以直接在接口中拿到返回对象
-  2. ` R sync()`：(推荐)同步请求，可以直接从返回中拿到对象，需要自行处理抛出的异常
-  3. `async(Callback callback)`： 异步请求，OKHttp的原生方法，需要自行解析Body，仅作备用；
-  4. `syncBody()`：同步请求，OKHttp的原生方法，需要自行解析Body和处理抛出的异常，仅作备用；
+2. ` R sync()`：(推荐)同步请求，可以直接从返回中拿到对象，需要自行处理抛出的异常
+3. `async(Callback callback)`： 异步请求，OKHttp的原生方法，需要自行解析Body，仅作备用；
+4. `syncBody()`：同步请求，OKHttp的原生方法，需要自行解析Body和处理抛出的异常，仅作备用；
 
 # Pixiv API
 
 所有接口都接收 query 参数 `lang`，指定你所使用的语言，会影响标签翻译，和报错信息等使用的语言。
 
-## 插画/漫画
+## 绘画作品API - illustApi
 
-类名：`ApiIllustManga`
-
-### 查询详情
-
-- 方法名：detail
-- URL：`https://www.pixiv.net/ajax/illust/${pid}`
-- 请求方法：`GET`
-- 参数含义：
-  - pid：作品ID、pid
-- 响应结构(部分)：
-  - alt： 网页标题
-  - bookmarkCount： 收藏数
-  - bookmarkData： 收藏数据
-  - commentCount： 评论数
-  - createDate： 创建时间
-  - description： 作品描述
-  - height： 高
-  - id： pid
-  - illustComment： 作品描述
-  - illustId： pid
-  - illustTitle： 作品标题
-  - illustType： 作品类型 插画=0 漫画=1 动图=2
-  - likeCount： 喜欢数量
-  - pageCount： 作品含有的图片数量
-  - request： 约稿信息(如果是约稿作品)
-  - tags： 标签
-  - title： 标题
-  - uploadDate： 上传时间
-  - urls： 图片url
-  - userAccount： 用户账号
-  - userId： 用户id
-  - userName： 用户昵称
-  - viewCount： 浏览次数
-  - width： 宽
-- 提示：对于动图，原图地址需要把`img-original`替换为`img-zip-ugoira`，把结尾的`_ugoira0.jpg`替换为`_ugoira1920x1080.zip`，即只能下载压缩包，需要把里面的图片自行合成为GIF。
-
-### 搜索
-
-- 方法名：search
-- URL：`https://www.pixiv.net/ajax/search/artworks/${keyword}`
-- 请求方法：`GET`
-- 传参方式：`QUERY`
-- 参数含义：
-  - keyword：(PATH传递)关键字，需使用UTF-8编码，编码前的空格(编码后的+号)需要替换为`%20`
-  - order：排序模式，可选值：`date_d`从新到旧(默认),`date`从旧到新
-  - mode：模式，可选值：`all`、`safe`、`r18`
-  - p：页码
-  - scd：发布时间（起），以东九区为准，格式：yyyy-MM-dd
-  - ecd：发布时间（止），以东九区为准，格式：yyyy-MM-dd
-
-### 查询作品的收藏状态
+### 查询收藏状态
 
 - 方法名：bookmarkData
 - URL：`https://www.pixiv.net/ajax/illust/${pid}/bookmarkData`
@@ -117,25 +67,45 @@ Pixiv工具类
 - 参数含义：
   - pid：作品id
 
-### 查询动图的其他信息
+### 查询详情
 
-- 方法名：ugoiraMeta
-- URL：`https://www.pixiv.net/ajax/illust/${pid}/ugoira_meta`
+- 方法名：detail
+- URL：`https://www.pixiv.net/ajax/illust/${pid}`
 - 请求方法：`GET`
-- 传参方式：`PATH`
 - 参数含义：
-    - pid：动图作品id
+  - pid：作品ID、pid
+- 提示：对于动图，原图地址需要把`img-original`替换为`img-zip-ugoira`，把结尾的`_ugoira0.jpg`替换为`_ugoira1920x1080.zip`，即只能下载压缩包，需要把里面的图片自行合成为GIF。
 
-### 发现作品
+### 发现
 
 - 方法名：discovery
 - URL：`https://www.pixiv.net/ajax/discovery/artworks`
 - 请求方法：`GET`
 - 传参方式：`QUERY`
 - 参数含义：
-    - mode：模式，可选值：`all`、`safe`、`r18`
-    - limit
-    - sampleIllustId: （非必填）参考作品id
+  - mode：模式，可选值：`all`、`safe`、`r18`
+  - limit：一次返回的作品数量
+  - sampleIllustId: （非必填）参考作品id
+
+### 查询关注作者的最新绘画
+
+- 方法名：latest
+- URL：`https://www.pixiv.net/ajax/follow_latest/illust `
+- 请求方法：`GET`
+- 传参方式：`QUERY`
+- 参数含义：
+  - mode：模式，可选值：`all`,`r18`
+  - p：页码
+
+### 喜欢绘画
+
+- 方法名：like
+- URL：`https://www.pixiv.net/ajax/illusts/like`
+- 请求方法：`POST`
+- 传参方式：`BODY`
+- 参数含义：
+
+  - illust_id：作品ID、pid
 
 ### 查询推荐作品
 
@@ -156,15 +126,171 @@ Pixiv工具类
 - 参数含义：
   - illust_ids[]：数组，基准作品id，可以使用前一个接口的返回结果
 
-### 喜欢绘画
+### 搜索
 
-- 方法名：likeIllust
-- URL：`https://www.pixiv.net/ajax/illusts/like`
+- 方法名：search
+- URL：`https://www.pixiv.net/ajax/search/artworks/${keyword}`
+- 请求方法：`GET`
+- 传参方式：`QUERY`
+- 参数含义：
+  - keyword：(PATH传递)关键字，需使用UTF-8编码，编码前的空格(编码后的+号)需要替换为`%20`
+  - order：排序模式，可选值：`date_d`从新到旧(默认),`date`从旧到新
+  - mode：模式，可选值：`all`、`safe`、`r18`
+  - p：页码
+  - scd：发布时间（起），以东九区为准，格式：yyyy-MM-dd
+  - ecd：发布时间（止），以东九区为准，格式：yyyy-MM-dd
+
+### 查询动图的其他信息
+
+- 方法名：ugoiraMeta
+- URL：`https://www.pixiv.net/ajax/illust/${pid}/ugoira_meta`
+- 请求方法：`GET`
+- 传参方式：`PATH`
+- 参数含义：
+  - pid：动图作品id
+
+## 小说API - novelApi
+
+### 查询收藏状态
+
+- 方法名：bookmarkData
+- URL：`https://www.pixiv.net/ajax/novel/${nid}/bookmarkData`
+- 请求方法：`GET`
+- 传参方式：`PATH`
+- 参数含义：
+  - nid：小说id
+
+### 详情
+
+- 方法名：detail
+- URL：`https://www.pixiv.net/ajax/novel/${nid}`
+- 请求方法：`GET`
+- 传参方式：`QUERY`
+- 参数含义：
+  - nid：(PATH传递)小说的id
+
+### 发现
+
+- 方法名：discovery
+- URL：`https://www.pixiv.net/ajax/discovery/novels`
+- 请求方法：`GET`
+- 传参方式：`QUERY`
+- 参数含义：
+  - mode：模式，可选值：`all`、`safe`、`r18`
+  - limit
+  - sampleNovelId: （非必填）参考小说id
+
+### 查询关注作者的最新小说
+
+- 方法名：latestNovel
+- URL：`https://www.pixiv.net/ajax/follow_latest/novel `
+- 请求方法：`GET`
+- 传参方式：`QUERY`
+- 参数含义：
+  - mode：模式，可选值：`all`,`r18`
+  - p：页码
+
+### 搜索
+
+- 方法名：search
+- URL：`https://www.pixiv.net/ajax/search/novels/${keywords}`
+- 请求方法：`GET`
+- 传参方式：`QUERY`
+- 参数含义：
+  - keywords：(PATH传递)关键字，需使用UTF-8编码，编码前的空格(编码后的+号)需要替换为`%20`
+  - order：排序模式，可选值：`date_d`从新到旧(默认),`date`从旧到新
+  - mode：模式，可选值：`all`、`safe`、`r18`
+  - s_mode：检索范围，`s_tag`(默认),`s_tag_only`(标签、部分一致),`s_tag_full`(标签，完全一致),`s_tc`(正文)
+  - p：页码
+  - scd：发布时间（起），以东九区为准，格式：yyyy-MM-dd
+  - ecd：发布时间（止），以东九区为准，格式：yyyy-MM-dd
+  - tlt：字数范围（最低）
+  - tgt：字数范围（最高），官方提供的字数范围选项为：`0-4999`,`5000-19999`,`20000-79999`,`80000-`，指定文字数为会员功能
+  - gs：是否以系列分组显示
+  - work_lang：写作语言，部分语言：简中`zh-cn`，繁中`zh-tw`，英语`en`，日语`ja`
+
+## 小说系列API - novelSeriesApi
+
+### 查询系列
+
+- 方法名：info
+- URL：`https://www.pixiv.net/ajax/novel/series/${seriesId}`
+- 请求方法：`GET`
+- 传参方式：`QUERY`
+- 参数含义：
+  - seriesId：(PATH传递)小说系列的id
+
+### 查询系列的各篇标题
+
+- 方法名：titles
+- URL：`https://www.pixiv.net/ajax/novel/series/${seriesId}/content_titles`
+- 请求方法：`GET`
+- 传参方式：`QUERY`
+- 参数含义：
+  - seriesId：(PATH传递)小说系列的id
+
+### 查询系列中作品的基础信息
+
+- 方法名：contents
+- URL：`https://www.pixiv.net/ajax/novel/series_content/${seriesId}`
+- 请求方法：`GET`
+- 传参方式：`QUERY`
+- 参数含义：
+  - seriesId：(PATH传递)小说系列的id
+  - limit：
+  - last_order：offset
+  - order_by：排序，`dsc`或`asc`
+
+## 用户API - userApi
+
+### 关注
+
+- 方法名：follow
+- URL：`https://www.pixiv.net/bookmark_add.php`
 - 请求方法：`POST`
-- 传参方式：`BODY`
+- 传参方式：`FORM`
 - 参数含义：
 
-  - illust_id：作品ID、pid
+  - mode：固定为`add`
+  - type：固定为`user`
+  - user_id：需要关注的用户id
+  - tag：标签，可以留空
+  - restrict：是否公开。0 = 公开，1 = 非公开
+  - format：固定为`json`
+
+### 取关
+
+- 方法名：unfollow
+- URL：`https://www.pixiv.net/rpc_group_setting.php`
+- 请求方法：`POST`
+- 传参方式：`FORM`
+- 参数含义：
+
+  - mode：固定为`del`
+  - type：固定为`bookuser`
+  - id：需要取关的用户id
+
+### 推荐用户
+
+- 方法名：recommend
+- URL：`https://www.pixiv.net/ajax/user/${uid}/recommends`
+- 请求方法：`GET`
+- 传参方式：`QUERY`
+- 参数含义：
+  - uid：(PATH传递)用户id
+  - userNum：推荐的用户数
+  - workNum：每个用户附带的作品数量
+  - isR18：Boolean ， 是否包含R18
+
+### 查询用户信息
+
+- 方法名：userInfo
+- URL：`https://www.pixiv.net/ajax/user/${uid}`
+- 请求方法：`GET`
+- 传参方式：`QUERY`
+- 参数含义：
+  - uid：(PATH传递)用户id
+  - full：固定为`1`，传递该参数将获得额外信息
 
 ## 作品标签
 
@@ -328,86 +454,15 @@ Pixiv工具类
 
   - bookmarkIds：收藏id，从作品信息的bookmarkData字段中获取
 
-
--
-  -
-
-## 关注
-
-类名：`ApiFollows`
-
-### 查询关注作者的最新绘画
-
-- 方法名：latestIllust
-- URL：`https://www.pixiv.net/ajax/follow_latest/illust `
-- 请求方法：`GET`
-- 传参方式：`QUERY`
-- 参数含义：
-    - mode：模式，可选值：`all`,`r18`
-    - p：页码
-
-### 查询关注作者的最新小说
-
-- 方法名：latestNovel
-- URL：`https://www.pixiv.net/ajax/follow_latest/novel `
-- 请求方法：`GET`
-- 传参方式：`QUERY`
-- 参数含义：
-    - mode：模式，可选值：`all`,`r18`
-    - p：页码
-
-### 关注作者
-
-- 方法名：add
-- URL：`https://www.pixiv.net/bookmark_add.php`
-- 请求方法：`POST`
-- 传参方式：`FORM`
-- 参数含义：
-
-  - mode：固定为`add`
-  - type：固定为`user`
-  - user_id：需要关注的用户id
-  - tag：标签，可以留空
-  - restrict：是否公开。0 = 公开，1 = 非公开
-  - format：固定为`json`
-
-### 取关作者
-
-- 方法名：del
-- URL：`https://www.pixiv.net/rpc_group_setting.php`
-- 请求方法：`POST`
-- 传参方式：`FORM`
-- 参数含义：
-
-  - mode：固定为`del`
-  - type：固定为`bookuser`
-  - id：需要取关的用户id
-
 ## 用户
 
 类名：`ApiUser`
 
-### 查询用户信息
+-
+  -
 
-- 方法名：userInfo
-- URL：`https://www.pixiv.net/ajax/user/${uid}`
-- 请求方法：`GET`
-- 传参方式：`QUERY`
-- 参数含义：
-    - uid：(PATH传递)用户id
-    - full：固定为`1`，传递该参数将获得额外信息
-
-### 推荐用户
-
-- 方法名：recommend
-- URL：`https://www.pixiv.net/ajax/user/${uid}/recommends`
-- 请求方法：`GET`
-- 传参方式：`QUERY`
-- 参数含义：
-    - uid：(PATH传递)用户id
-    - userNum：推荐的用户数
-    - workNum：每个用户附带的作品数量
-    - isR18：Boolean ， 是否包含R18
+-
+  -
 
 ### 作品
 
@@ -507,87 +562,8 @@ Pixiv工具类
 - 参数含义：
   - uid：(PATH传递)用户id
 
-## 小说
-
-类名：`ApiNovel`
-
-### 搜索
-
-- 方法名：search
-- URL：`https://www.pixiv.net/ajax/search/novels/${keywords}`
-- 请求方法：`GET`
-- 传参方式：`QUERY`
-- 参数含义：
-  - keywords：(PATH传递)关键字，需使用UTF-8编码，编码前的空格(编码后的+号)需要替换为`%20`
-  - order：排序模式，可选值：`date_d`从新到旧(默认),`date`从旧到新
-  - mode：模式，可选值：`all`、`safe`、`r18`
-  - s_mode：检索范围，`s_tag`(默认),`s_tag_only`(标签、部分一致),`s_tag_full`(标签，完全一致),`s_tc`(正文)
-  - p：页码
-  - scd：发布时间（起），以东九区为准，格式：yyyy-MM-dd
-  - ecd：发布时间（止），以东九区为准，格式：yyyy-MM-dd
-  - tlt：字数范围（最低）
-  - tgt：字数范围（最高），官方提供的字数范围选项为：`0-4999`,`5000-19999`,`20000-79999`,`80000-`，指定文字数为会员功能
-  - gs：是否以系列分组显示
-  - work_lang：写作语言，部分语言：简中`zh-cn`，繁中`zh-tw`，英语`en`，日语`ja`
-
-### 详情
-
-- 方法名：detail
-- URL：`https://www.pixiv.net/ajax/novel/${nid}`
-- 请求方法：`GET`
-- 传参方式：`QUERY`
-- 参数含义：
-  - nid：(PATH传递)小说的id
-
-### 查询系列
-
-- 方法名：series
-- URL：`https://www.pixiv.net/ajax/novel/series/${seriesId}`
-- 请求方法：`GET`
-- 传参方式：`QUERY`
-- 参数含义：
-  - seriesId：(PATH传递)小说系列的id
-
-### 查询系列的各篇标题
-
-- 方法名：titles
-- URL：`https://www.pixiv.net/ajax/novel/series/${seriesId}/content_titles`
-- 请求方法：`GET`
-- 传参方式：`QUERY`
-- 参数含义：
-  - seriesId：(PATH传递)小说系列的id
-
-### 查询系列中作品的基础信息
-
-- 方法名：content
-- URL：`https://www.pixiv.net/ajax/novel/series_content/${seriesId}`
-- 请求方法：`GET`
-- 传参方式：`QUERY`
-- 参数含义：
-  - seriesId：(PATH传递)小说系列的id
-  - limit：
-  - last_order：offset
-  - order_by：排序，`dsc`或`asc`
-
-### 查询小说的收藏状态
-
-- 方法名：bookmarkData
-- URL：`https://www.pixiv.net/ajax/novel/${nid}/bookmarkData`
-- 请求方法：`GET`
-- 传参方式：`PATH`
-- 参数含义：
-  - nid：小说id
-
-### 发现小说
-
-- 方法名：discovery
-- URL：`https://www.pixiv.net/ajax/discovery/novels`
-- 请求方法：`GET`
-- 传参方式：`QUERY`
-- 参数含义：
-  - mode：模式，可选值：`all`、`safe`、`r18`
-  - limit
-  - sampleNovelId: （非必填）参考小说id
+-
+  -
 
 ## 评论区
 
