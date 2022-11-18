@@ -1,7 +1,5 @@
 package org.gin.response.callback;
 
-import com.alibaba.fastjson.JSONObject;
-import com.alibaba.fastjson.TypeReference;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
@@ -40,8 +38,7 @@ public interface BaseCallback<R> extends Callback, Convertor<R> {
                 if (body == null) {
                     throw new PixivRequestException(code, "", call);
                 }
-                PixivResponse<Void> res = JSONObject.parseObject(body.string(), new TypeReference<PixivResponse<Void>>() {
-                });
+                PixivResponse<Void> res = Convertor.toVoid(body);
                 throw new PixivRequestException(code, res.getMessage(), call);
             case 5:
                 throw new PixivRequestException(code, "服务器异常", call);
