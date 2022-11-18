@@ -15,8 +15,10 @@ public interface PixivCallback<R> {
     /**
      * 请求成功时的处理方法
      * @param res 返回对象
+     * @throws PixivException 异常
+     * @throws IOException    异常
      */
-    void onSuccess(R res);
+    void onSuccess(R res) throws PixivException, IOException;
 
     /**
      * 请求失败的处理方法

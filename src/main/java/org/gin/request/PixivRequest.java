@@ -1,6 +1,7 @@
 package org.gin.request;
 
 import okhttp3.*;
+import org.gin.exception.PixivException;
 import org.gin.exception.PixivRequestException;
 import org.gin.response.callback.BaseCallback;
 import org.gin.response.callback.PixivCallback;
@@ -86,10 +87,11 @@ public class PixivRequest<R> {
                     final ResponseBody responseBody = BaseCallback.handle(call, response);
                     final R res = convertor.convert(responseBody);
                     pixivCallback.onSuccess(res);
-                } catch (PixivRequestException e) {
-                    pixivCallback.onPixivException(e);
                 } catch (IOException e) {
                     pixivCallback.onFailure(call, e);
+                } catch (PixivException e) {
+                    pixivCallback.onPixivException(e);
+                    throw new RuntimeException(e);
                 }
             }
         });

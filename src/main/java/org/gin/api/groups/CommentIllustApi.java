@@ -106,23 +106,27 @@ public class CommentIllustApi {
         zTestRootReply(pid);
     }
 
-    private void zTestPostDelete(long pid, long uid) throws PixivRequestException, IOException {
+    private void zTestPostDelete(long pid, long uid) {
         final PostCommentParam.Illust param = new PostCommentParam.Illust(pid, uid, null, PixivStamp.Stamp_304);
-        final PostCommentRes res = post(param).sync();
-        final Long commentId = res.getBody().getCommentId();
-        System.out.println("commentId = " + commentId);
-        del(pid, commentId).sync();
+        post(param).async(res -> {
+            final Long commentId = res.getBody().getCommentId();
+            System.out.println("commentId = " + commentId);
+            del(pid, commentId).sync();
+        });
+
     }
 
-    private void zTestRootReply(long pid) throws PixivRequestException, IOException {
-        final CommentsRes roots = roots(new IllustsCommentRootsParam(pid, 1, 20)).sync();
-        final CommentReply reply = roots.getBody().getComments().stream().filter(CommentReply::getHasReplies).collect(Collectors.toList()).get(0);
-        if (reply != null) {
-            System.out.println(reply.getId());
-            final CommentsRes replies = replies(new CommentRepliesParam(reply.getId(), 1)).sync();
-            final CommentReply commentReply = replies.getBody().getComments().get(0);
-            System.out.println(commentReply.getId());
-        }
+    private void zTestRootReply(long pid) {
+        final IllustsCommentRootsParam param = new IllustsCommentRootsParam(pid, 1, 20);
+        roots(param).async(roots -> {
+            final CommentReply reply = roots.getBody().getComments().stream().filter(CommentReply::getHasReplies).collect(Collectors.toList()).get(0);
+            if (reply != null) {
+                System.out.println(reply.getId());
+                final CommentsRes replies = replies(new CommentRepliesParam(reply.getId(), 1)).sync();
+                final CommentReply commentReply = replies.getBody().getComments().get(0);
+                System.out.println(commentReply.getId());
+            }
+        });
     }
 
 }
