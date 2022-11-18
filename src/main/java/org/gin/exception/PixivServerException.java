@@ -17,8 +17,8 @@ public class PixivServerException extends IOException {
     int code;
     Call call;
 
-    public PixivServerException(int code, Call call) {
-        super(String.format("服务器错误 code:%d", code));
+    public PixivServerException(int code, String message, Call call) {
+        super(String.format("服务器错误 code:%d %s", code, message));
         this.code = code;
         this.call = call;
     }

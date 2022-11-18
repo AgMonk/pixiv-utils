@@ -1,5 +1,7 @@
 package org.gin.exception;
 
+import lombok.Getter;
+import lombok.Setter;
 import okhttp3.Call;
 
 /**
@@ -8,6 +10,8 @@ import okhttp3.Call;
  * @version : v1.0.0
  * @since : 2022/10/15 11:28
  */
+@Getter
+@Setter
 public class PixivRequestException extends PixivException {
     Call call;
 

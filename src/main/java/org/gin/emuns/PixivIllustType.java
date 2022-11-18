@@ -20,12 +20,4 @@ public enum PixivIllustType {
     final int id;
     final String name;
 
-    public static PixivIllustType getById(int id){
-        for (PixivIllustType illustType : values()) {
-            if (illustType.id ==id) {
-                return illustType;
-            }
-        }
-        return null;
-    }
 }

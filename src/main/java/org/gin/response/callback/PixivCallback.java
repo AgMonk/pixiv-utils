@@ -12,6 +12,7 @@ import java.io.IOException;
  * @since : 2022/11/18 11:14
  */
 public interface PixivCallback<R> {
+
     /**
      * 请求成功时的处理方法
      * @param res 返回对象

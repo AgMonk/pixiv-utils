@@ -1,9 +1,11 @@
 package org.gin.request;
 
 import okhttp3.*;
+import org.gin.exception.PixivClientException;
 import org.gin.exception.PixivException;
 import org.gin.exception.PixivRequestException;
-import org.gin.response.callback.BaseCallback;
+import org.gin.exception.PixivServerException;
+import org.gin.response.PixivResponse;
 import org.gin.response.callback.PixivCallback;
 import org.gin.response.convertor.Convertor;
 import org.jetbrains.annotations.NotNull;
@@ -63,6 +65,35 @@ public class PixivRequest<R> {
     }
 
     /**
+     * 处理响应
+     * @param call     call
+     * @param response 响应
+     * @return body
+     * @throws PixivRequestException 异常
+     * @throws IOException           异常
+     */
+    public static ResponseBody handle(@NotNull Call call, @NotNull Response response) throws PixivRequestException, IOException {
+        final int code = response.code();
+        final int co = code / 100;
+        final ResponseBody body = response.body();
+        switch (co) {
+            case 3:
+            case 2:
+                return body;
+            case 4:
+                if (body == null) {
+                    throw new PixivClientException(code, "", call);
+                }
+                PixivResponse<Void> res = Convertor.toVoid(body);
+                throw new PixivClientException(code, res.getMessage(), call);
+            case 5:
+                throw new PixivServerException(code, "服务器异常", call);
+            default:
+                throw new PixivRequestException(code, "非预期的code", call);
+        }
+    }
+
+    /**
      * 异步请求
      * @param callback 响应处理
      */
@@ -84,7 +115,7 @@ public class PixivRequest<R> {
             @Override
             public void onResponse(@NotNull Call call, @NotNull Response response) {
                 try {
-                    final ResponseBody responseBody = BaseCallback.handle(call, response);
+                    final ResponseBody responseBody = handle(call, response);
                     final R res = convertor.convert(responseBody);
                     pixivCallback.onSuccess(res);
                 } catch (IOException e) {
@@ -116,6 +147,6 @@ public class PixivRequest<R> {
     public ResponseBody syncBody() throws IOException, PixivRequestException {
         final Call call = client.newCall(request);
         final Response response = call.execute();
-        return BaseCallback.handle(call, response);
+        return handle(call, response);
     }
 }
