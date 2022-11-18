@@ -48,10 +48,11 @@ Pixiv工具类
 
 4. 所有API方法都会返回`PixivRequest`对象，该类的如下4个方法均可以发送请求
 
-  1. `async(PixivCallback<R> pixivCallback)`：(推荐)异步请求，可以直接在接口中拿到返回对象
-  2. ` R sync()`：(推荐)同步请求，可以直接从返回中拿到对象，需要自行处理抛出的异常
-  3. `async(Callback callback)`： 异步请求，OKHttp的原生方法，需要自行解析Body，仅作备用；
-  4. `syncBody()`：同步请求，OKHttp的原生方法，需要自行解析Body和处理抛出的异常，仅作备用；
+   1. `async(PixivCallback<R> pixivCallback)`：(推荐)异步请求，可以直接在接口中拿到返回对象
+   2. ` R sync()`：(推荐)同步请求，可以直接从返回中拿到对象，需要自行处理抛出的异常
+   3. `async(Callback callback)`： 异步请求，OKHttp的原生方法，需要自行解析Body，仅作备用；
+   4. `syncBody()`：同步请求，OKHttp的原生方法，需要自行解析Body和处理抛出的异常，仅作备用；
+
 
 # Pixiv API
 
