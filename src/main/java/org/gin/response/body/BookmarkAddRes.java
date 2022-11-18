@@ -1,9 +1,9 @@
-package org.gin.response;
+package org.gin.response.body;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
-import org.gin.response.body.BookmarkAddBody;
+import org.gin.response.PixivResponse;
 
 /**
  * @author : ginstone

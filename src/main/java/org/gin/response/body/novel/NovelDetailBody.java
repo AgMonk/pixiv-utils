@@ -14,7 +14,7 @@ import java.util.List;
  * @since : 2022/10/17 09:42
  */
 @Data
-public class NovelBody {
+public class NovelDetailBody {
     Integer bookmarkCount;
     /**
      * 收藏数据

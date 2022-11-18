@@ -11,8 +11,8 @@ import org.gin.params.bookmark.AddIllustMangaParam;
 import org.gin.params.bookmark.AddNovelParam;
 import org.gin.request.PixivRequest;
 import org.gin.request.PixivUrlBuilder;
-import org.gin.response.BookmarkAddRes;
 import org.gin.response.SimplePixivResponse;
+import org.gin.response.body.BookmarkAddRes;
 import org.gin.response.convertor.Convertor;
 
 import java.io.IOException;
@@ -39,7 +39,7 @@ public class BookmarkApi {
     /**
      * 收藏绘画
      * @param param 参数
-     * @return org.gin.request.PixivRequest<org.gin.response.BookmarkAddRes>
+     * @return org.gin.request.PixivRequest<org.gin.response.body.BookmarkAddRes>
      * @since 2022/11/17 10:07
      */
     public PixivRequest<BookmarkAddRes> addIllust(@NonNull AddIllustMangaParam param) {

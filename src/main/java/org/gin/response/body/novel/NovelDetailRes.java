@@ -11,6 +11,6 @@ import org.gin.response.PixivResponse;
  */
 @Getter
 @Setter
-public class NovelDetailRes extends PixivResponse<NovelBody> {
+public class NovelDetailRes extends PixivResponse<NovelDetailBody> {
 
 }
