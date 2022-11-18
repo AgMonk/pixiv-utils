@@ -14,6 +14,7 @@ import org.gin.response.body.BookmarkDataRes;
 import org.gin.response.body.LikeRes;
 import org.gin.response.body.illustmanga.*;
 import org.gin.response.callback.BaseCallback;
+import org.gin.response.convertor.Convertor;
 import org.gin.response.fields.ArtworkInfo;
 import org.gin.response.fields.BookmarkData;
 import org.jetbrains.annotations.NotNull;
@@ -45,7 +46,7 @@ public class IllustApi {
         final HttpUrl url = new PixivUrl.Builder()
                 .setUrl(api.getDomain() + "/ajax/illust/%d/bookmarkData", pid)
                 .build();
-        return new PixivRequest<>(url, api.getClient());
+        return new PixivRequest<>(url, api.getClient(), body -> Convertor.common(body, BookmarkDataRes.class));
     }
 
     /**
@@ -58,7 +59,7 @@ public class IllustApi {
         final HttpUrl url = new PixivUrl.Builder()
                 .setUrl(api.getDomain() + "/ajax/illust/" + pid)
                 .build();
-        return new PixivRequest<>(url, api.getClient());
+        return new PixivRequest<>(url, api.getClient(), body -> Convertor.common(body, IllustMangaRes.class));
     }
 
     /**
@@ -72,7 +73,7 @@ public class IllustApi {
                 .setUrl(api.getDomain() + "/ajax/discovery/artworks")
                 .setParams(param)
                 .build();
-        return new PixivRequest<>(url, api.getClient());
+        return new PixivRequest<>(url, api.getClient(), body -> Convertor.common(body, DiscoveryRes.class));
     }
 
     /**
@@ -88,7 +89,7 @@ public class IllustApi {
                 .addParam("page", page)
                 .addParam("mode", mode.name())
                 .build();
-        return new PixivRequest<>(url, api.getClient());
+        return new PixivRequest<>(url, api.getClient(), body -> Convertor.common(body, IllustMangaFollowLatestRes.class));
     }
 
     /**
@@ -102,7 +103,7 @@ public class IllustApi {
                 .setUrl(api.getDomain() + "/ajax/illusts/like")
 
                 .build();
-        return new PixivRequest<>(url, api.getClient(), createJsonBody("illust_id", pid));
+        return new PixivRequest<>(url, api.getClient(), body -> Convertor.common(body, LikeRes.class), createJsonBody("illust_id", pid));
     }
 
     /**
@@ -117,7 +118,7 @@ public class IllustApi {
                 .addParam("illust_ids[]", ids)
 
                 .build();
-        return new PixivRequest<>(url, api.getClient());
+        return new PixivRequest<>(url, api.getClient(), body -> Convertor.common(body, IllustRecommendRes.class));
     }
 
     /**
@@ -133,7 +134,7 @@ public class IllustApi {
                 .addParam("limit", limit)
 
                 .build();
-        return new PixivRequest<>(url, api.getClient());
+        return new PixivRequest<>(url, api.getClient(), body -> Convertor.common(body, IllustRecommendInitRes.class));
     }
 
     /**
@@ -149,7 +150,7 @@ public class IllustApi {
                 .setParams(param)
 
                 .build();
-        return new PixivRequest<>(url, api.getClient());
+        return new PixivRequest<>(url, api.getClient(), body -> Convertor.common(body, IllustMangaSearchRes.class));
     }
 
     /**
@@ -163,7 +164,7 @@ public class IllustApi {
                 .setUrl(api.getDomain() + "/ajax/illust/%d/ugoira_meta", pid)
 
                 .build();
-        return new PixivRequest<>(url, api.getClient());
+        return new PixivRequest<>(url, api.getClient(), body -> Convertor.common(body, UgoiraMetaRes.class));
     }
 
     public void zTest() {

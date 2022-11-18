@@ -15,6 +15,7 @@ import org.gin.response.body.user.UserInfoRes;
 import org.gin.response.body.user.UserRecommendBody;
 import org.gin.response.body.user.UserRecommendRes;
 import org.gin.response.callback.BaseCallback;
+import org.gin.response.convertor.Convertor;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
@@ -42,7 +43,7 @@ public class UserApi {
         final HttpUrl url = new PixivUrl.Builder()
                 .setUrl(api.getDomain() + "/bookmark_add.php")
                 .build();
-        return new PixivRequest<>(url, api.getClient(), createFormBody(param));
+        return new PixivRequest<>(url, api.getClient(), body -> Convertor.common(body, String.class), createFormBody(param));
     }
 
     /**
@@ -57,7 +58,7 @@ public class UserApi {
                 .setUrl(api.getDomain() + "/ajax/user/%d/recommends", userId)
                 .setParams(param)
                 .build();
-        return new PixivRequest<>(url, api.getClient());
+        return new PixivRequest<>(url, api.getClient(), body -> Convertor.common(body, UserRecommendRes.class));
     }
 
     /**
@@ -70,7 +71,7 @@ public class UserApi {
         final HttpUrl url = new PixivUrl.Builder()
                 .setUrl(api.getDomain() + "/rpc_group_setting.php")
                 .build();
-        return new PixivRequest<>(url, api.getClient(), createFormBody(new FollowDelParam(userId)));
+        return new PixivRequest<>(url, api.getClient(), body -> Convertor.common(body, String.class), createFormBody(new FollowDelParam(userId)));
     }
 
     /**
@@ -86,7 +87,7 @@ public class UserApi {
                 .setUrl(api.getDomain() + "/ajax/user/" + userId)
                 .addParam("full", fullData ? 1 : 0)
                 .build();
-        return new PixivRequest<>(url, api.getClient());
+        return new PixivRequest<>(url, api.getClient(), body -> Convertor.common(body, UserInfoRes.class));
     }
 
 

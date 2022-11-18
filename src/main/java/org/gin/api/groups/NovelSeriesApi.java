@@ -10,6 +10,7 @@ import org.gin.request.PixivRequest;
 import org.gin.request.PixivUrl;
 import org.gin.response.body.novel.*;
 import org.gin.response.callback.BaseCallback;
+import org.gin.response.convertor.Convertor;
 import org.gin.response.fields.NovelSeriesContent;
 
 import java.io.IOException;
@@ -37,7 +38,7 @@ public class NovelSeriesApi {
                 .setParams(param)
 
                 .build();
-        return new PixivRequest<>(url, api.getClient());
+        return new PixivRequest<>(url, api.getClient(), body -> Convertor.common(body, NovelSeriesContentRes.class));
     }
 
     /**
@@ -51,7 +52,7 @@ public class NovelSeriesApi {
                 .setUrl(api.getDomain() + "/ajax/novel/series/" + seriesId)
 
                 .build();
-        return new PixivRequest<>(url, api.getClient());
+        return new PixivRequest<>(url, api.getClient(), body -> Convertor.common(body, NovelSeriesRes.class));
     }
 
     /**
@@ -65,7 +66,7 @@ public class NovelSeriesApi {
                 .setUrl(api.getDomain() + "/ajax/novel/series/%d/content_titles", seriesId)
 
                 .build();
-        return new PixivRequest<>(url, api.getClient());
+        return new PixivRequest<>(url, api.getClient(), body -> Convertor.common(body, NovelContentTitleRes.class));
 
     }
 

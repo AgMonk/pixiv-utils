@@ -8,7 +8,6 @@ import org.gin.exception.PixivRequestException;
 import org.gin.request.PixivCookieToken;
 import org.gin.response.body.illustmanga.IllustMangaRes;
 import org.gin.response.callback.BaseCallback;
-import org.gin.response.convertor.Convertor;
 
 import java.io.IOException;
 
@@ -57,7 +56,7 @@ public class Demo {
         });
 
         //同步
-        final IllustMangaRes res = illustApi.detail(pid).sync(body -> Convertor.common2(body, IllustMangaRes.class));
+        final IllustMangaRes res = illustApi.detail(pid).sync();
         final IllustMangaRes.IllustMangaBody body = res.getBody();
 
     }

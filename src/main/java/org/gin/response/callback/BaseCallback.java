@@ -13,7 +13,6 @@ import org.gin.response.convertor.Convertor;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
-import java.util.Objects;
 
 /**
  * @author : ginstone
@@ -32,18 +31,22 @@ public interface BaseCallback<R> extends Callback, Convertor<R> {
     static ResponseBody handle(@NotNull Call call, @NotNull Response response) throws PixivRequestException, IOException {
         final int code = response.code();
         final int co = code / 100;
+        final ResponseBody body = response.body();
         switch (co) {
             case 3:
             case 2:
-                return response.body();
+                return body;
             case 4:
-                PixivResponse<Object> res = JSONObject.parseObject(Objects.requireNonNull(response.body()).string(), new TypeReference<PixivResponse<Object>>() {
+                if (body == null) {
+                    throw new PixivRequestException(code, "", call);
+                }
+                PixivResponse<Void> res = JSONObject.parseObject(body.string(), new TypeReference<PixivResponse<Void>>() {
                 });
                 throw new PixivRequestException(code, res.getMessage(), call);
             case 5:
-                throw new PixivRequestException(code, "服务器异常",call);
+                throw new PixivRequestException(code, "服务器异常", call);
             default:
-                throw new PixivRequestException(code, "非预期的code",call);
+                throw new PixivRequestException(code, "非预期的code", call);
         }
     }
 

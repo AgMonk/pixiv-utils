@@ -13,10 +13,8 @@ import org.gin.request.PixivRequest;
 import org.gin.request.PixivUrl;
 import org.gin.response.PixivResponse;
 import org.gin.response.body.tag.UserTag;
-import org.gin.response.body.user.CommissionRequestSentBody;
-import org.gin.response.body.user.ProfileIllustsBody;
-import org.gin.response.body.user.ProfileNovelsBody;
-import org.gin.response.body.user.ProfileRealBody;
+import org.gin.response.body.tag.UserTagRes;
+import org.gin.response.body.user.*;
 import org.gin.response.callback.BaseCallback;
 import org.gin.response.convertor.Convertor;
 import org.jetbrains.annotations.NotNull;
@@ -49,7 +47,18 @@ public class UserWorksApi {
         final HttpUrl url = new PixivUrl.Builder()
                 .setUrl(api.getDomain() + "/ajax/user/%d/profile/all", userId)
                 .build();
-        return new PixivRequest<>(url, api.getClient());
+        return new PixivRequest<>(url, api.getClient(), responseBody -> {
+            String string = responseBody.string();
+            string = Convertor.replaceEmptyArray(string, "manga");
+            string = Convertor.replaceEmptyArray(string, "illusts");
+            string = Convertor.replaceEmptyArray(string, "novels");
+            final PixivResponse<ProfileBody> response = JSONObject.parseObject(string, new TypeReference<PixivResponse<ProfileBody>>() {
+            });
+            final ProfileRealBody body = new ProfileRealBody(response.getBody());
+            final PixivResponse<ProfileRealBody> res = new PixivResponse<>();
+            res.setBody(body);
+            return res;
+        });
     }
 
     /**
@@ -58,11 +67,11 @@ public class UserWorksApi {
      * @return org.gin.request.PixivRequest<org.gin.response.PixivResponse < org.gin.response.body.UserCommissionBody>>
      * @since 2022/10/15 14:01
      */
-    public PixivRequest<PixivResponse<CommissionRequestSentBody>> commissionRequestSent(long userId) {
+    public PixivRequest<CommissionRequestSentRes> commissionRequestSent(long userId) {
         final HttpUrl url = new PixivUrl.Builder()
                 .setUrl(api.getDomain() + "/ajax/commission/page/users/%d/request/sent", userId)
                 .build();
-        return new PixivRequest<>(url, api.getClient());
+        return new PixivRequest<>(url, api.getClient(), body -> Convertor.common(body, CommissionRequestSentRes.class));
     }
 
     /**
@@ -71,11 +80,11 @@ public class UserWorksApi {
      * @return org.gin.request.PixivRequest<org.gin.response.PixivResponse < org.gin.response.body.UserCommissionBody>>
      * @since 2022/10/15 14:01
      */
-    public PixivRequest<PixivResponse<List<UserTag>>> illustTags(long userId) {
+    public PixivRequest<UserTagRes> illustTags(long userId) {
         final HttpUrl url = new PixivUrl.Builder()
                 .setUrl(api.getDomain() + "/ajax/user/%d/illusts/tags", userId)
                 .build();
-        return new PixivRequest<>(url, api.getClient());
+        return new PixivRequest<>(url, api.getClient(), body -> Convertor.common(body, UserTagRes.class));
     }
 
     /**
@@ -85,27 +94,27 @@ public class UserWorksApi {
      * @return org.gin.request.PixivRequest<org.gin.response.PixivResponse < org.gin.response.body.user.ProfileRealBody>>
      * @since 2022/10/15 11:18
      */
-    public PixivRequest<PixivResponse<ProfileIllustsBody>> illusts(long userId, @NotNull List<Long> ids) {
+    public PixivRequest<ProfileIllustsRes> illusts(long userId, @NotNull List<Long> ids) {
         final HttpUrl url = new PixivUrl.Builder()
                 .setUrl(api.getDomain() + "/ajax/user/%d/profile/illusts", userId)
                 .addParam("is_first_page", 1)
                 .addParam("work_category", "illustManga")
                 .addParam("ids[]", ids)
                 .build();
-        return new PixivRequest<>(url, api.getClient());
+        return new PixivRequest<>(url, api.getClient(), body -> Convertor.common(body, ProfileIllustsRes.class));
     }
 
     /**
      * 查询用户的小说中使用的标签
-     * @param userId           用户id
+     * @param userId 用户id
      * @return org.gin.request.PixivRequest<org.gin.response.PixivResponse < org.gin.response.body.UserCommissionBody>>
      * @since 2022/10/15 14:01
      */
-    public PixivRequest<PixivResponse<List<UserTag>>> novelTags(long userId) {
+    public PixivRequest<UserTagRes> novelTags(long userId) {
         final HttpUrl url = new PixivUrl.Builder()
                 .setUrl(api.getDomain() + "/ajax/user/%d/novels/tags", userId)
                 .build();
-        return new PixivRequest<>(url, api.getClient());
+        return new PixivRequest<>(url, api.getClient(), body -> Convertor.common(body, UserTagRes.class));
     }
 
     /**
@@ -115,12 +124,12 @@ public class UserWorksApi {
      * @return org.gin.request.PixivRequest<org.gin.response.PixivResponse < org.gin.response.body.user.ProfileIllustsBody>>
      * @since 2022/10/17 11:10
      */
-    public PixivRequest<PixivResponse<ProfileNovelsBody>> novels(long userId, @NotNull List<Long> ids) {
+    public PixivRequest<ProfileNovelsRes> novels(long userId, @NotNull List<Long> ids) {
         final HttpUrl url = new PixivUrl.Builder()
                 .setUrl(api.getDomain() + "/ajax/user/%d/profile/novels", userId)
                 .addParam("ids[]", ids)
                 .build();
-        return new PixivRequest<>(url, api.getClient());
+        return new PixivRequest<>(url, api.getClient(), body -> Convertor.common(body, ProfileNovelsRes.class));
     }
 
     public void zTest() throws PixivRequestException, IOException {
@@ -131,7 +140,7 @@ public class UserWorksApi {
     }
 
     private void zTestProfile(long authorId) throws PixivRequestException, IOException {
-        final ProfileRealBody profileRealBody = all(authorId).sync(Convertor::profileAll).getBody();
+        final ProfileRealBody profileRealBody = all(authorId).sync().getBody();
         final List<Long> illusts = profileRealBody.getIllusts();
         final List<Long> novels = profileRealBody.getNovels();
         System.out.printf("[用户绘画] %s 个\n", illusts.size());

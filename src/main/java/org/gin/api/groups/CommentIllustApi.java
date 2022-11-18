@@ -52,7 +52,7 @@ public class CommentIllustApi {
         final HttpUrl url = new PixivUrl.Builder()
                 .setUrl(api.getDomain() + "/rpc_delete_comment.php")
                 .build();
-        return new PixivRequest<>(url, api.getClient(), createFormBody(body));
+        return new PixivRequest<>(url, api.getClient(), Convertor::simple, createFormBody(body));
 
     }
 
@@ -66,7 +66,7 @@ public class CommentIllustApi {
         final HttpUrl url = new PixivUrl.Builder()
                 .setUrl(api.getDomain() + "/rpc/post_comment.php")
                 .build();
-        return new PixivRequest<>(url, api.getClient(), createFormBody(param));
+        return new PixivRequest<>(url, api.getClient(), body -> Convertor.common(body, PostCommentRes.class), createFormBody(param));
     }
 
     /**
@@ -80,7 +80,7 @@ public class CommentIllustApi {
                 .setUrl(api.getDomain() + "/ajax/illusts/comments/replies")
                 .setParams(param)
                 .build();
-        return new PixivRequest<>(url, api.getClient());
+        return new PixivRequest<>(url, api.getClient(), body -> Convertor.common(body, CommentsRes.class));
     }
 
     /**
@@ -95,7 +95,7 @@ public class CommentIllustApi {
                 .setUrl(api.getDomain() + "/ajax/illusts/comments/roots")
                 .setParams(param)
                 .build();
-        return new PixivRequest<>(url, api.getClient());
+        return new PixivRequest<>(url, api.getClient(), body -> Convertor.common(body, CommentsRes.class));
     }
 
     public void zTest() throws PixivRequestException, IOException {
@@ -108,18 +108,18 @@ public class CommentIllustApi {
 
     private void zTestPostDelete(long pid, long uid) throws PixivRequestException, IOException {
         final PostCommentParam.Illust param = new PostCommentParam.Illust(pid, uid, null, PixivStamp.Stamp_304);
-        final PostCommentRes res = post(param).sync(body -> Convertor.common2(body, PostCommentRes.class));
+        final PostCommentRes res = post(param).sync();
         final Long commentId = res.getBody().getCommentId();
         System.out.println("commentId = " + commentId);
-        del(pid, commentId).sync(Convertor::common);
+        del(pid, commentId).sync();
     }
 
     private void zTestRootReply(long pid) throws PixivRequestException, IOException {
-        final CommentsRes roots = roots(new IllustsCommentRootsParam(pid, 1, 20)).sync(body -> Convertor.common2(body, CommentsRes.class));
+        final CommentsRes roots = roots(new IllustsCommentRootsParam(pid, 1, 20)).sync();
         final CommentReply reply = roots.getBody().getComments().stream().filter(CommentReply::getHasReplies).collect(Collectors.toList()).get(0);
         if (reply != null) {
             System.out.println(reply.getId());
-            final CommentsRes replies = replies(new CommentRepliesParam(reply.getId(), 1)).sync(body -> Convertor.common2(body, CommentsRes.class));
+            final CommentsRes replies = replies(new CommentRepliesParam(reply.getId(), 1)).sync();
             final CommentReply commentReply = replies.getBody().getComments().get(0);
             System.out.println(commentReply.getId());
         }

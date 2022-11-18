@@ -1,6 +1,5 @@
 package org.gin.api.groups;
 
-import com.alibaba.fastjson.JSONObject;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -46,7 +45,7 @@ public class BookmarkApi {
         final HttpUrl url = new PixivUrl.Builder()
                 .setUrl(api.getDomain() + "/ajax/illusts/bookmarks/add")
                 .build();
-        return new PixivRequest<>(url, api.getClient(), createJsonBody(param));
+        return new PixivRequest<>(url, api.getClient(), body -> Convertor.common(body, BookmarkAddRes.class), createJsonBody(param));
     }
 
     /**
@@ -59,7 +58,7 @@ public class BookmarkApi {
         final HttpUrl url = new PixivUrl.Builder()
                 .setUrl(api.getDomain() + "/ajax/novels/bookmarks/add")
                 .build();
-        return new PixivRequest<>(url, api.getClient(), createJsonBody(param));
+        return new PixivRequest<>(url, api.getClient(), Convertor::simple, createJsonBody(param));
     }
 
     /**
@@ -72,7 +71,7 @@ public class BookmarkApi {
         final HttpUrl url = new PixivUrl.Builder()
                 .setUrl(api.getDomain() + "/ajax/illusts/bookmarks/delete")
                 .build();
-        return new PixivRequest<>(url, api.getClient(), createFormBody("bookmark_id", bookmarkId));
+        return new PixivRequest<>(url, api.getClient(), Convertor::simple, createFormBody("bookmark_id", bookmarkId));
     }
 
     /**
@@ -85,7 +84,7 @@ public class BookmarkApi {
         final HttpUrl url = new PixivUrl.Builder()
                 .setUrl(api.getDomain() + "/ajax/illusts/bookmarks/remove")
                 .build();
-        return new PixivRequest<>(url, api.getClient(), createJsonBody("bookmarkIds", bookmarkIds));
+        return new PixivRequest<>(url, api.getClient(), Convertor::simple, createJsonBody("bookmarkIds", bookmarkIds));
     }
 
     /**
@@ -95,14 +94,14 @@ public class BookmarkApi {
      * @since 2022/11/17 11:14
      */
     public PixivRequest<SimplePixivResponse> delNovel(long bookmarkId) {
-        final HashMap<String, Long> body = new HashMap<>(2);
-        body.put("book_id", bookmarkId);
-        body.put("del", 1L);
+        final HashMap<String, Long> param = new HashMap<>(2);
+        param.put("book_id", bookmarkId);
+        param.put("del", 1L);
 
         final HttpUrl url = new PixivUrl.Builder()
                 .setUrl(api.getDomain() + "/ajax/novels/bookmarks/delete")
                 .build();
-        return new PixivRequest<>(url, api.getClient(), createFormBody(body));
+        return new PixivRequest<>(url, api.getClient(), Convertor::simple, createFormBody(param));
     }
 
     /**
@@ -115,30 +114,34 @@ public class BookmarkApi {
         final HttpUrl url = new PixivUrl.Builder()
                 .setUrl(api.getDomain() + "/ajax/novels/bookmarks/remove")
                 .build();
-        return new PixivRequest<>(url, api.getClient(), createJsonBody("bookmarkIds", bookmarkIds));
+        return new PixivRequest<>(url, api.getClient(), Convertor::simple, createJsonBody("bookmarkIds", bookmarkIds));
     }
 
     public void zTest() throws PixivRequestException, IOException {
         final long pid = 99147997;
         final long nid = 17718240;
+
         zTestIllust(pid);
         zTestNovel(nid);
     }
 
     private void zTestIllust(long pid) throws PixivRequestException, IOException {
-        delIllust(16335500807L).sync(Convertor::common);
+        final Long bookmarkId = api.getIllustApi().detail(pid).sync().getBody().getBookmarkData().getId();
+
+        delIllust(bookmarkId).sync();
         final BookmarkAddRes bookmarkAddRes = addIllust(new AddIllustMangaParam(pid))
-                .sync(body -> JSONObject.parseObject(body.string(), BookmarkAddRes.class));
+                .sync();
         final Long lastBookmarkId = bookmarkAddRes.getBody().getLastBookmarkId();
-        delIllusts(Collections.singleton(lastBookmarkId)).sync(Convertor::common);
+        delIllusts(Collections.singleton(lastBookmarkId)).sync();
         addIllust(new AddIllustMangaParam(pid))
-                .sync(body -> JSONObject.parseObject(body.string(), BookmarkAddRes.class));
+                .sync();
     }
 
     private void zTestNovel(long nid) throws PixivRequestException, IOException {
-        delNovel(2072478242L).sync(Convertor::common);
-        final SimplePixivResponse response = addNovel(new AddNovelParam(nid)).sync(Convertor::common);
-        delNovels(Collections.singleton(Long.parseLong(response.getBody()))).sync(Convertor::common);
-        addNovel(new AddNovelParam(nid)).sync(Convertor::common);
+        final Long bookmarkId = api.getNovelApi().detail(nid).sync().getBody().getBookmarkData().getId();
+        delNovel(bookmarkId).sync();
+        final SimplePixivResponse response = addNovel(new AddNovelParam(nid)).sync();
+        delNovels(Collections.singleton(Long.parseLong(response.getBody()))).sync();
+        addNovel(new AddNovelParam(nid)).sync();
     }
 }

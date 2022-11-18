@@ -14,9 +14,13 @@ import org.gin.request.PixivRequest;
 import org.gin.request.PixivUrl;
 import org.gin.response.PixivResponse;
 import org.gin.response.body.comment.CommonBookmarkTagsBody;
+import org.gin.response.body.comment.CommonBookmarkTagsRes;
 import org.gin.response.body.illustmanga.IllustMangaBookmarksBody;
+import org.gin.response.body.illustmanga.IllustMangaBookmarksRes;
 import org.gin.response.body.novel.NovelBookmarksBody;
+import org.gin.response.body.novel.NovelBookmarksRes;
 import org.gin.response.callback.BaseCallback;
+import org.gin.response.convertor.Convertor;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
@@ -34,19 +38,17 @@ public class UserBookmarkApi {
     private final PixivApi api;
 
 
-    //todo
-
     /**
      * 查询用户收藏的绘画中使用的标签
      * @param userId 用户id
      * @return org.gin.request.PixivRequest<org.gin.response.PixivResponse < org.gin.response.body.illustmanga.IllustsBookmarksBody>>
      * @since 2022/10/15 12:29
      */
-    public PixivRequest<PixivResponse<CommonBookmarkTagsBody>> illustTags(long userId) {
+    public PixivRequest<CommonBookmarkTagsRes> illustTags(long userId) {
         final HttpUrl url = new PixivUrl.Builder()
                 .setUrl(api.getDomain() + "/ajax/user/%d/illusts/bookmark/tags", userId)
                 .build();
-        return new PixivRequest<>(url, api.getClient());
+        return new PixivRequest<>(url, api.getClient(), body -> Convertor.common(body, CommonBookmarkTagsRes.class));
     }
 
     /**
@@ -56,12 +58,12 @@ public class UserBookmarkApi {
      * @return org.gin.request.PixivRequest<org.gin.response.PixivResponse < org.gin.response.body.illustmanga.IllustsBookmarksBody>>
      * @since 2022/10/15 12:19
      */
-    public PixivRequest<PixivResponse<IllustMangaBookmarksBody>> illusts(long userId, @NotNull BookmarksParam param) {
+    public PixivRequest<IllustMangaBookmarksRes> illusts(long userId, @NotNull BookmarksParam param) {
         final HttpUrl url = new PixivUrl.Builder()
                 .setUrl(api.getDomain() + "/ajax/user/%d/illusts/bookmarks", userId)
                 .setParams(param)
                 .build();
-        return new PixivRequest<>(url, api.getClient());
+        return new PixivRequest<>(url, api.getClient(), body -> Convertor.common(body, IllustMangaBookmarksRes.class));
     }
 
     /**
@@ -71,11 +73,11 @@ public class UserBookmarkApi {
      * @since 2022/10/17 13:34
      */
 
-    public PixivRequest<PixivResponse<CommonBookmarkTagsBody>> novelTags(long userId) {
+    public PixivRequest<CommonBookmarkTagsRes> novelTags(long userId) {
         final HttpUrl url = new PixivUrl.Builder()
                 .setUrl(api.getDomain() + "/ajax/user/%d/novels/bookmark/tags", userId)
                 .build();
-        return new PixivRequest<>(url, api.getClient());
+        return new PixivRequest<>(url, api.getClient(), body -> Convertor.common(body, CommonBookmarkTagsRes.class));
     }
 
     /**
@@ -85,12 +87,12 @@ public class UserBookmarkApi {
      * @return org.gin.request.PixivRequest<org.gin.response.PixivResponse < org.gin.response.body.novel.NovelBookmarksBody>>
      * @since 2022/10/20 9:01
      */
-    public PixivRequest<PixivResponse<NovelBookmarksBody>> novels(long userId, @NotNull BookmarksParam param) {
+    public PixivRequest<NovelBookmarksRes> novels(long userId, @NotNull BookmarksParam param) {
         final HttpUrl url = new PixivUrl.Builder()
                 .setUrl(api.getDomain() + "/ajax/user/%d/novels/bookmarks", userId)
                 .setParams(param)
                 .build();
-        return new PixivRequest<>(url, api.getClient());
+        return new PixivRequest<>(url, api.getClient(), body -> Convertor.common(body, NovelBookmarksRes.class));
     }
 
     public void zTest() {

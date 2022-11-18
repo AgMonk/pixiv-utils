@@ -45,7 +45,7 @@ public class TagApi {
         final HttpUrl url = new PixivUrl.Builder()
                 .setUrl(api.getDomain() + "/ajax/tags/illust/%d/add", pid)
                 .build();
-        return new PixivRequest<>(url, api.getClient(), createJsonBody("tag", tag));
+        return new PixivRequest<>(url, api.getClient(), body -> Convertor.common(body, PixivTagInfoRes.class), createJsonBody("tag", tag));
     }
 
     /**
@@ -60,7 +60,7 @@ public class TagApi {
                 .addParam("content_types_to_count[]", "illust")
                 .addParam("word", keyword)
                 .build();
-        return new PixivRequest<>(url, api.getClient());
+        return new PixivRequest<>(url, api.getClient(), body -> Convertor.common(body, SuggestByWordRes.class));
     }
 
     /**
@@ -74,7 +74,7 @@ public class TagApi {
                 .setUrl(api.getDomain() + "/ajax/tag/info")
                 .addParam("tag", tag)
                 .build();
-        return new PixivRequest<>(url, api.getClient());
+        return new PixivRequest<>(url, api.getClient(), body -> Convertor.common(body, TagInfoRes.class));
     }
 
     public void zTest() throws PixivRequestException, IOException {
@@ -87,19 +87,19 @@ public class TagApi {
         long pid = 102177911;
         String tag = "RO635(ドールズフロントライン)";
 
-        final PixivTagInfoRes res = illustAdd(pid, tag).sync(body -> Convertor.common2(body, PixivTagInfoRes.class));
+        final PixivTagInfoRes res = illustAdd(pid, tag).sync();
         JsonUtils.printJson(res);
     }
 
     private void zTestSuggest() throws PixivRequestException, IOException {
-        final SuggestByWordRes res = suggestByWord("RO635").sync(body -> Convertor.common2(body, SuggestByWordRes.class));
+        final SuggestByWordRes res = suggestByWord("RO635").sync();
         final List<SuggestByWordBody.Candidate> candidates = res.getBody().getCandidates();
         final String join = candidates.stream().map(SuggestByWordBody.Candidate::getTagName).collect(Collectors.joining(","));
         System.out.println("join = " + join);
     }
 
     private void zTestTagInfo() throws PixivRequestException, IOException {
-        final TagInfoRes res = tagInfo("RO635(ドールズフロントライン)").sync(body -> Convertor.common2(body, TagInfoRes.class));
+        final TagInfoRes res = tagInfo("RO635(ドールズフロントライン)").sync();
         JsonUtils.printJson(res);
     }
 

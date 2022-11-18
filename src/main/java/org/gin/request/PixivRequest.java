@@ -3,7 +3,9 @@ package org.gin.request;
 import okhttp3.*;
 import org.gin.exception.PixivRequestException;
 import org.gin.response.callback.BaseCallback;
+import org.gin.response.callback.PixivCallback;
 import org.gin.response.convertor.Convertor;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 
@@ -17,6 +19,9 @@ public class PixivRequest<R> {
     final Request request;
     final OkHttpClient client;
 
+    final Convertor<R> convertor;
+
+
     /**
      * POST请求
      * @param httpUrl url
@@ -24,8 +29,9 @@ public class PixivRequest<R> {
      * @param body    请求body参数
      * @since 2022/10/15 12:11
      */
-    public PixivRequest(HttpUrl httpUrl, OkHttpClient client, RequestBody body) {
+    public PixivRequest(HttpUrl httpUrl, OkHttpClient client, Convertor<R> convertor, RequestBody body) {
         this.client = client;
+        this.convertor = convertor;
         this.request = createRequest(httpUrl, body);
     }
 
@@ -35,8 +41,8 @@ public class PixivRequest<R> {
      * @param client  客户端
      * @since 2022/10/15 12:11
      */
-    public PixivRequest(HttpUrl httpUrl, OkHttpClient client) {
-        this(httpUrl, client, null);
+    public PixivRequest(HttpUrl httpUrl, OkHttpClient client, Convertor<R> convertor) {
+        this(httpUrl, client, convertor, null);
     }
 
     /**
@@ -67,21 +73,26 @@ public class PixivRequest<R> {
      * 异步请求
      * @param baseCallback 响应处理
      */
-    public void async(BaseCallback<R> baseCallback) {
-        async((Callback) baseCallback);
-    }
+    public void async(PixivCallback<R> pixivCallback) {
+        async(new Callback() {
+            @Override
+            public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                pixivCallback.onFailure(call, e);
+            }
 
-
-    /**
-     * 同步请求
-     * @return ResponseBody
-     * @throws IOException           异常
-     * @throws PixivRequestException pixiv异常
-     */
-    public ResponseBody sync() throws IOException, PixivRequestException {
-        final Call call = client.newCall(request);
-        final Response response = call.execute();
-        return BaseCallback.handle(call, response);
+            @Override
+            public void onResponse(@NotNull Call call, @NotNull Response response) {
+                try {
+                    final ResponseBody responseBody = BaseCallback.handle(call, response);
+                    final R res = convertor.convert(responseBody);
+                    pixivCallback.onSuccess(res);
+                } catch (PixivRequestException e) {
+                    pixivCallback.onPixivException(e);
+                } catch (IOException e) {
+                    pixivCallback.onFailure(call, e);
+                }
+            }
+        });
     }
 
     /**
@@ -90,8 +101,19 @@ public class PixivRequest<R> {
      * @throws IOException           异常
      * @throws PixivRequestException pixiv异常
      */
-    public R sync(Convertor<R> convertor) throws PixivRequestException, IOException {
-        return convertor.convert(sync());
+    public R sync() throws PixivRequestException, IOException {
+        return convertor.convert(syncBody());
     }
 
+    /**
+     * 同步请求
+     * @return ResponseBody
+     * @throws IOException           异常
+     * @throws PixivRequestException pixiv异常
+     */
+    public ResponseBody syncBody() throws IOException, PixivRequestException {
+        final Call call = client.newCall(request);
+        final Response response = call.execute();
+        return BaseCallback.handle(call, response);
+    }
 }

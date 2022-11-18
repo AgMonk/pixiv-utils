@@ -16,6 +16,7 @@ import org.gin.response.body.illustmanga.IllustMangaFollowLatestRes;
 import org.gin.response.body.novel.NovelDetailRes;
 import org.gin.response.body.novel.NovelSearchRes;
 import org.gin.response.callback.BaseCallback;
+import org.gin.response.convertor.Convertor;
 import org.gin.response.fields.BookmarkData;
 import org.gin.response.fields.NovelInfo;
 import org.jetbrains.annotations.NotNull;
@@ -45,7 +46,7 @@ public class NovelApi {
                 .setUrl(api.getDomain() + "/ajax/novel/%d/bookmarkData", nid)
 
                 .build();
-        return new PixivRequest<>(url, api.getClient());
+        return new PixivRequest<>(url, api.getClient(), body -> Convertor.common(body, BookmarkDataRes.class));
     }
 
     /**
@@ -59,7 +60,7 @@ public class NovelApi {
                 .setUrl(api.getDomain() + "/ajax/novel/" + nid)
 
                 .build();
-        return new PixivRequest<>(url, api.getClient());
+        return new PixivRequest<>(url, api.getClient(), body -> Convertor.common(body, NovelDetailRes.class));
     }
 
     /**
@@ -74,7 +75,7 @@ public class NovelApi {
                 .setParams(param)
 
                 .build();
-        return new PixivRequest<>(url, api.getClient());
+        return new PixivRequest<>(url, api.getClient(), body -> Convertor.common(body, DiscoveryRes.class));
     }
 
     /**
@@ -91,7 +92,7 @@ public class NovelApi {
                 .addParam("mode", mode.name())
 
                 .build();
-        return new PixivRequest<>(url, api.getClient());
+        return new PixivRequest<>(url, api.getClient(), body -> Convertor.common(body, IllustMangaFollowLatestRes.class));
     }
 
     /**
@@ -107,7 +108,7 @@ public class NovelApi {
                 .setParams(param)
 
                 .build();
-        return new PixivRequest<>(url, api.getClient());
+        return new PixivRequest<>(url, api.getClient(), body -> Convertor.common(body, NovelSearchRes.class));
     }
 
     public void zTest() {

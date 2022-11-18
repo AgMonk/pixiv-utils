@@ -41,12 +41,12 @@ public class RankingApi {
                 .setUrl(api.getDomain() + "/ranking.php")
                 .setParams(param)
                 .build();
-        return new PixivRequest<>(url, api.getClient());
+        return new PixivRequest<>(url, api.getClient(), body -> Convertor.common(body, RankingResponse.class));
 
     }
 
     public void zTest() throws PixivRequestException, IOException {
-        final RankingResponse res = illust(new RankingParam(1, PixivRankingMode.daily, RankingContent.illust, null)).sync(Convertor::ranking);
+        final RankingResponse res = illust(new RankingParam(1, PixivRankingMode.daily, RankingContent.illust, null)).sync();
         final List<RankingResponse.RankingData> contents = res.getContents();
         final RankingResponse.RankingData data = contents.get(0);
         System.out.println("data.getTitle() = " + data.getTitle());
