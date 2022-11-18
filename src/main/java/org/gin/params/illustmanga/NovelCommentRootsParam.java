@@ -15,7 +15,6 @@ public class NovelCommentRootsParam {
     Long nid;
     int offset;
     int limit;
-    String lang = "zh";
 
     public NovelCommentRootsParam(Long nid, int page) {
         this(nid, page, 50);

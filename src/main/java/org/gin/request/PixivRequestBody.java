@@ -5,6 +5,7 @@ import com.alibaba.fastjson.serializer.SerializerFeature;
 import okhttp3.FormBody;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
+import org.gin.utils.JsonUtils;
 
 import java.io.Serializable;
 import java.util.Collection;
@@ -72,7 +73,7 @@ public class PixivRequestBody {
      * @return FormBody
      */
     public static FormBody createFormBody(Object obj) {
-        final HashMap<String, Object> map = Pixiv.jsonToMap(obj);
+        final HashMap<String, Object> map = JsonUtils.jsonToMap(obj);
         final FormBody.Builder builder = new FormBody.Builder();
         map.forEach((k, v) -> {
             if (v != null) {

@@ -49,12 +49,12 @@ public class NovelSearchParam {
      * 字数范围（最高），官方提供的字数范围选项为：`0-4999`,`5000-19999`,`20000-79999`,`80000-`，指定文字数为会员功能
      */
     @JSONField(name = "tgt")
-    Long wordCountMax;
+    Integer wordCountMax;
     /**
      * 字数范围（最低）
      */
     @JSONField(name = "tlt")
-    Long wordCountMin;
+    Integer wordCountMin;
 
     @JSONField(name = "work_lang", serializeUsing = PixivWorkLangSerializer.class)
     PixivWorkLang workLang = PixivWorkLang.ZH_CN;
