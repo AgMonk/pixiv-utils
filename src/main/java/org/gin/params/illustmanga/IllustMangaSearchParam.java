@@ -2,11 +2,12 @@ package org.gin.params.illustmanga;
 
 import com.alibaba.fastjson.annotation.JSONField;
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.gin.emuns.PixivMode;
-import org.gin.emuns.PixivOrder;
-import org.gin.emuns.PixivOrderSerializer;
+import lombok.Setter;
+import org.gin.emuns.PixivIllustSearchMode;
+import org.gin.emuns.PixivIllustSearchModeSerializer;
+import org.gin.params.BaseSearchParam;
 
 /**
  * 插画/漫画搜索参数
@@ -14,35 +15,16 @@ import org.gin.emuns.PixivOrderSerializer;
  * @version : v1.0.0
  * @since : 2022/10/12 17:17
  **/
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class IllustMangaSearchParam {
-    /**
-     * 页码
-     */
-    @JSONField(name = "p")
-    int page = 1;
-    /**
-     * 排序模式
-     */
-    @JSONField(serializeUsing = PixivOrderSerializer.class)
-    PixivOrder order = PixivOrder.DSC;
-    /**
-     * 模式
-     */
-    PixivMode mode = PixivMode.all;
+public class IllustMangaSearchParam extends BaseSearchParam {
 
-    /**
-     * 发布时间（起），以东九区为准，格式：yyyy-MM-dd
-     */
-    @JSONField(name = "scd")
-    String dateStart;
+    @JSONField(name = "s_mode", serializeUsing = PixivIllustSearchModeSerializer.class)
+    PixivIllustSearchMode searchMode = PixivIllustSearchMode.DEFAULT;
 
-    /**
-     * 发布时间（止），以东九区为准，格式：yyyy-MM-dd
-     */
-    @JSONField(name = "ecd")
-    String dateEnd;
-
+    public IllustMangaSearchParam(int page) {
+        super(page);
+    }
 }
