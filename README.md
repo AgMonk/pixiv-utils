@@ -501,7 +501,7 @@ Pixiv工具类
 - 传参方式：`FORM`
 - 参数含义：
   - type：只能选择`comment`(文字评论)或`stamp`(表情贴图)
-  - illust_id：作品id
+  - novel_id：作品id
   - author_user_id：作者uid
   - parent_id：如果发楼中楼评论，需要提供父楼id
   - comment：如果type选择comment，此字段为文字内容
@@ -582,7 +582,7 @@ Pixiv工具类
 
 ### 查询用户的小说
 
-- 方法名：profileNovels
+- 方法名：novels
 - URL：`https://www.pixiv.net/ajax/user/${uid}/profile/novels`
 - 请求方法：`GET`
 - 传参方式：`QUERY`
@@ -592,7 +592,7 @@ Pixiv工具类
 
 ### 查询用户小说中使用的标签
 
-- 方法名：novelsTags
+- 方法名：novelTags
 - URL：`https://www.pixiv.net/ajax/user/${uid}/novels/tags`
 - 请求方法：`GET`
 - 传参方式：`QUERY`
