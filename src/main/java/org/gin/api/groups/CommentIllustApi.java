@@ -11,7 +11,7 @@ import org.gin.params.comment.IllustsCommentRootsParam;
 import org.gin.params.comment.PostCommentParam;
 import org.gin.params.illustmanga.CommentRepliesParam;
 import org.gin.request.PixivRequest;
-import org.gin.request.PixivUrl;
+import org.gin.request.PixivUrlBuilder;
 import org.gin.response.SimplePixivResponse;
 import org.gin.response.body.comment.CommentsRes;
 import org.gin.response.body.comment.PostCommentRes;
@@ -49,7 +49,7 @@ public class CommentIllustApi {
         body.put("i_id", id);
         body.put("del_id", commentId);
 
-        final HttpUrl url = new PixivUrl.Builder()
+        final HttpUrl url = new PixivUrlBuilder()
                 .setUrl(api.getDomain() + "/rpc_delete_comment.php")
                 .build();
         return new PixivRequest<>(url, api.getClient(), Convertor::simple, createFormBody(body));
@@ -63,7 +63,7 @@ public class CommentIllustApi {
      * @since 2022/11/17 13:46
      */
     public PixivRequest<PostCommentRes> post(@NotNull PostCommentParam.Illust param) {
-        final HttpUrl url = new PixivUrl.Builder()
+        final HttpUrl url = new PixivUrlBuilder()
                 .setUrl(api.getDomain() + "/rpc/post_comment.php")
                 .build();
         return new PixivRequest<>(url, api.getClient(), body -> Convertor.common(body, PostCommentRes.class), createFormBody(param));
@@ -76,7 +76,7 @@ public class CommentIllustApi {
      * @since 2022/11/17 16:03
      */
     public PixivRequest<CommentsRes> replies(@NotNull CommentRepliesParam param) {
-        final HttpUrl url = new PixivUrl.Builder()
+        final HttpUrl url = new PixivUrlBuilder()
                 .setUrl(api.getDomain() + "/ajax/illusts/comments/replies")
                 .setParams(param)
                 .build();
@@ -91,7 +91,7 @@ public class CommentIllustApi {
      */
     public PixivRequest<CommentsRes> roots(@NotNull IllustsCommentRootsParam param) {
 
-        final HttpUrl url = new PixivUrl.Builder()
+        final HttpUrl url = new PixivUrlBuilder()
                 .setUrl(api.getDomain() + "/ajax/illusts/comments/roots")
                 .setParams(param)
                 .build();

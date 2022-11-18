@@ -8,7 +8,7 @@ import org.gin.params.follow.FollowAddParam;
 import org.gin.params.follow.FollowDelParam;
 import org.gin.params.user.UserRecommendParam;
 import org.gin.request.PixivRequest;
-import org.gin.request.PixivUrl;
+import org.gin.request.PixivUrlBuilder;
 import org.gin.response.body.user.UserInfoRes;
 import org.gin.response.body.user.UserRecommendBody;
 import org.gin.response.body.user.UserRecommendRes;
@@ -36,7 +36,7 @@ public class UserApi {
      * @since 2022/11/16 17:28
      */
     public PixivRequest<String> follow(@NonNull FollowAddParam param) {
-        final HttpUrl url = new PixivUrl.Builder()
+        final HttpUrl url = new PixivUrlBuilder()
                 .setUrl(api.getDomain() + "/bookmark_add.php")
                 .build();
         return new PixivRequest<>(url, api.getClient(), body -> Convertor.common(body, String.class), createFormBody(param));
@@ -50,7 +50,7 @@ public class UserApi {
      * @since 2022/11/16 17:27
      */
     public PixivRequest<UserRecommendRes> recommend(long userId, @NotNull UserRecommendParam param) {
-        final HttpUrl url = new PixivUrl.Builder()
+        final HttpUrl url = new PixivUrlBuilder()
                 .setUrl(api.getDomain() + "/ajax/user/%d/recommends", userId)
                 .setParams(param)
                 .build();
@@ -64,7 +64,7 @@ public class UserApi {
      * @since 2022/10/17 15:49
      */
     public PixivRequest<String> unfollow(long userId) {
-        final HttpUrl url = new PixivUrl.Builder()
+        final HttpUrl url = new PixivUrlBuilder()
                 .setUrl(api.getDomain() + "/rpc_group_setting.php")
                 .build();
         return new PixivRequest<>(url, api.getClient(), body -> Convertor.common(body, String.class), createFormBody(new FollowDelParam(userId)));
@@ -79,7 +79,7 @@ public class UserApi {
      */
     public PixivRequest<UserInfoRes> userInfo(long userId, boolean fullData) {
 
-        final HttpUrl url = new PixivUrl.Builder()
+        final HttpUrl url = new PixivUrlBuilder()
                 .setUrl(api.getDomain() + "/ajax/user/" + userId)
                 .addParam("full", fullData ? 1 : 0)
                 .build();

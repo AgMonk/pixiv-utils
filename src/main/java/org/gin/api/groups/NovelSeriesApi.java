@@ -5,7 +5,7 @@ import okhttp3.HttpUrl;
 import org.gin.api.PixivApi;
 import org.gin.params.novel.NovelSeriesContentParam;
 import org.gin.request.PixivRequest;
-import org.gin.request.PixivUrl;
+import org.gin.request.PixivUrlBuilder;
 import org.gin.response.body.novel.*;
 import org.gin.response.convertor.Convertor;
 import org.gin.response.fields.NovelSeriesContent;
@@ -29,7 +29,7 @@ public class NovelSeriesApi {
      * @since 2022/11/16 16:07
      */
     public PixivRequest<NovelSeriesContentRes> contents(long seriesId, NovelSeriesContentParam param) {
-        final HttpUrl url = new PixivUrl.Builder()
+        final HttpUrl url = new PixivUrlBuilder()
                 .setUrl(api.getDomain() + "/ajax/novel/series_content/" + seriesId)
                 .setParams(param)
 
@@ -44,7 +44,7 @@ public class NovelSeriesApi {
      * @since 2022/11/16 16:07
      */
     public PixivRequest<NovelSeriesRes> info(long seriesId) {
-        final HttpUrl url = new PixivUrl.Builder()
+        final HttpUrl url = new PixivUrlBuilder()
                 .setUrl(api.getDomain() + "/ajax/novel/series/" + seriesId)
 
                 .build();
@@ -58,7 +58,7 @@ public class NovelSeriesApi {
      * @since 2022/11/16 16:07
      */
     public PixivRequest<NovelContentTitleRes> titles(long seriesId) {
-        final HttpUrl url = new PixivUrl.Builder()
+        final HttpUrl url = new PixivUrlBuilder()
                 .setUrl(api.getDomain() + "/ajax/novel/series/%d/content_titles", seriesId)
 
                 .build();

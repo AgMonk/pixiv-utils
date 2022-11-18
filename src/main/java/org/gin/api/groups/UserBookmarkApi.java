@@ -8,7 +8,7 @@ import org.gin.api.PixivApi;
 import org.gin.emuns.PixivRest;
 import org.gin.params.user.BookmarksParam;
 import org.gin.request.PixivRequest;
-import org.gin.request.PixivUrl;
+import org.gin.request.PixivUrlBuilder;
 import org.gin.response.body.comment.CommonBookmarkTagsRes;
 import org.gin.response.body.illustmanga.IllustMangaBookmarksRes;
 import org.gin.response.body.novel.NovelBookmarksRes;
@@ -35,7 +35,7 @@ public class UserBookmarkApi {
      * @since 2022/10/15 12:29
      */
     public PixivRequest<CommonBookmarkTagsRes> illustTags(long userId) {
-        final HttpUrl url = new PixivUrl.Builder()
+        final HttpUrl url = new PixivUrlBuilder()
                 .setUrl(api.getDomain() + "/ajax/user/%d/illusts/bookmark/tags", userId)
                 .build();
         return new PixivRequest<>(url, api.getClient(), body -> Convertor.common(body, CommonBookmarkTagsRes.class));
@@ -49,7 +49,7 @@ public class UserBookmarkApi {
      * @since 2022/10/15 12:19
      */
     public PixivRequest<IllustMangaBookmarksRes> illusts(long userId, @NotNull BookmarksParam param) {
-        final HttpUrl url = new PixivUrl.Builder()
+        final HttpUrl url = new PixivUrlBuilder()
                 .setUrl(api.getDomain() + "/ajax/user/%d/illusts/bookmarks", userId)
                 .setParams(param)
                 .build();
@@ -64,7 +64,7 @@ public class UserBookmarkApi {
      */
 
     public PixivRequest<CommonBookmarkTagsRes> novelTags(long userId) {
-        final HttpUrl url = new PixivUrl.Builder()
+        final HttpUrl url = new PixivUrlBuilder()
                 .setUrl(api.getDomain() + "/ajax/user/%d/novels/bookmark/tags", userId)
                 .build();
         return new PixivRequest<>(url, api.getClient(), body -> Convertor.common(body, CommonBookmarkTagsRes.class));
@@ -78,7 +78,7 @@ public class UserBookmarkApi {
      * @since 2022/10/20 9:01
      */
     public PixivRequest<NovelBookmarksRes> novels(long userId, @NotNull BookmarksParam param) {
-        final HttpUrl url = new PixivUrl.Builder()
+        final HttpUrl url = new PixivUrlBuilder()
                 .setUrl(api.getDomain() + "/ajax/user/%d/novels/bookmarks", userId)
                 .setParams(param)
                 .build();

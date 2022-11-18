@@ -8,7 +8,7 @@ import okhttp3.HttpUrl;
 import org.gin.api.PixivApi;
 import org.gin.exception.PixivRequestException;
 import org.gin.request.PixivRequest;
-import org.gin.request.PixivUrl;
+import org.gin.request.PixivUrlBuilder;
 import org.gin.response.body.tag.SuggestByWordBody;
 import org.gin.response.body.tag.SuggestByWordRes;
 import org.gin.response.body.tag.TagInfoRes;
@@ -42,7 +42,7 @@ public class TagApi {
      * @since 2022/11/17 17:14
      */
     public PixivRequest<PixivTagInfoRes> illustAdd(long pid, String tag) {
-        final HttpUrl url = new PixivUrl.Builder()
+        final HttpUrl url = new PixivUrlBuilder()
                 .setUrl(api.getDomain() + "/ajax/tags/illust/%d/add", pid)
                 .build();
         return new PixivRequest<>(url, api.getClient(), body -> Convertor.common(body, PixivTagInfoRes.class), createJsonBody("tag", tag));
@@ -55,7 +55,7 @@ public class TagApi {
      * @since 2022/11/17 16:59
      */
     public PixivRequest<SuggestByWordRes> suggestByWord(@NonNull String keyword) {
-        final HttpUrl url = new PixivUrl.Builder()
+        final HttpUrl url = new PixivUrlBuilder()
                 .setUrl(api.getDomain() + "/ajax/tags/suggest_by_word")
                 .addParam("content_types_to_count[]", "illust")
                 .addParam("word", keyword)
@@ -70,7 +70,7 @@ public class TagApi {
      * @since 2022/11/1 9:55
      */
     public PixivRequest<TagInfoRes> tagInfo(@NonNull String tag) {
-        final HttpUrl url = new PixivUrl.Builder()
+        final HttpUrl url = new PixivUrlBuilder()
                 .setUrl(api.getDomain() + "/ajax/tag/info")
                 .addParam("tag", tag)
                 .build();

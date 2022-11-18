@@ -11,7 +11,7 @@ import org.gin.emuns.RankingContent;
 import org.gin.exception.PixivRequestException;
 import org.gin.params.rank.RankingParam;
 import org.gin.request.PixivRequest;
-import org.gin.request.PixivUrl;
+import org.gin.request.PixivUrlBuilder;
 import org.gin.response.RankingResponse;
 import org.jetbrains.annotations.NotNull;
 
@@ -37,7 +37,7 @@ public class RankingApi {
      * @since 2022/11/17 16:30
      */
     public PixivRequest<RankingResponse> illust(@NotNull RankingParam param) {
-        final HttpUrl url = new PixivUrl.Builder()
+        final HttpUrl url = new PixivUrlBuilder()
                 .setUrl(api.getDomain() + "/ranking.php")
                 .setParams(param)
                 .build();

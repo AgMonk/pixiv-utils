@@ -7,7 +7,7 @@ import org.gin.emuns.PixivMode;
 import org.gin.params.illustmanga.IllustMangaSearchParam;
 import org.gin.params.illustmanga.IllustsDiscoveryParam;
 import org.gin.request.PixivRequest;
-import org.gin.request.PixivUrl;
+import org.gin.request.PixivUrlBuilder;
 import org.gin.response.body.BookmarkDataRes;
 import org.gin.response.body.LikeRes;
 import org.gin.response.body.illustmanga.*;
@@ -40,7 +40,7 @@ public class IllustApi {
      * @since 2022/10/15 17:19
      */
     public PixivRequest<BookmarkDataRes> bookmarkData(long pid) {
-        final HttpUrl url = new PixivUrl.Builder()
+        final HttpUrl url = new PixivUrlBuilder()
                 .setUrl(api.getDomain() + "/ajax/illust/%d/bookmarkData", pid)
                 .build();
         return new PixivRequest<>(url, api.getClient(), body -> Convertor.common(body, BookmarkDataRes.class));
@@ -53,7 +53,7 @@ public class IllustApi {
      * @since 2022/10/14 17:07
      */
     public PixivRequest<IllustMangaRes> detail(long pid) {
-        final HttpUrl url = new PixivUrl.Builder()
+        final HttpUrl url = new PixivUrlBuilder()
                 .setUrl(api.getDomain() + "/ajax/illust/" + pid)
                 .build();
         return new PixivRequest<>(url, api.getClient(), body -> Convertor.common(body, IllustMangaRes.class));
@@ -66,7 +66,7 @@ public class IllustApi {
      * @since 2022/10/21 9:14
      */
     public PixivRequest<DiscoveryRes> discovery(@NotNull IllustsDiscoveryParam param) {
-        final HttpUrl url = new PixivUrl.Builder()
+        final HttpUrl url = new PixivUrlBuilder()
                 .setUrl(api.getDomain() + "/ajax/discovery/artworks")
                 .setParams(param)
                 .build();
@@ -81,7 +81,7 @@ public class IllustApi {
      * @since 2022/11/16 14:11
      */
     public PixivRequest<IllustMangaFollowLatestRes> latest(int page, @NotNull PixivMode mode) {
-        final HttpUrl url = new PixivUrl.Builder()
+        final HttpUrl url = new PixivUrlBuilder()
                 .setUrl(api.getDomain() + "/ajax/follow_latest/illust")
                 .addParam("page", page)
                 .addParam("mode", mode.name())
@@ -96,7 +96,7 @@ public class IllustApi {
      * @since 2022/10/15 16:06
      */
     public PixivRequest<LikeRes> like(long pid) {
-        final HttpUrl url = new PixivUrl.Builder()
+        final HttpUrl url = new PixivUrlBuilder()
                 .setUrl(api.getDomain() + "/ajax/illusts/like")
 
                 .build();
@@ -110,7 +110,7 @@ public class IllustApi {
      * @since 2022/11/1 9:48
      */
     public PixivRequest<IllustRecommendRes> recommendIllusts(@NotNull List<Long> ids) {
-        final HttpUrl url = new PixivUrl.Builder()
+        final HttpUrl url = new PixivUrlBuilder()
                 .setUrl(api.getDomain() + "/ajax/illust/recommend/illusts")
                 .addParam("illust_ids[]", ids)
 
@@ -126,7 +126,7 @@ public class IllustApi {
      * @since 2022/11/1 9:43
      */
     public PixivRequest<IllustRecommendInitRes> recommendInit(long pid, int limit) {
-        final HttpUrl url = new PixivUrl.Builder()
+        final HttpUrl url = new PixivUrlBuilder()
                 .setUrl(api.getDomain() + "/ajax/illust/%d/recommend/init", pid)
                 .addParam("limit", limit)
 
@@ -142,7 +142,7 @@ public class IllustApi {
      * @since 2022/10/14 17:28
      */
     public PixivRequest<IllustMangaSearchRes> search(@NotNull String keywords, @NotNull IllustMangaSearchParam param) {
-        final HttpUrl url = new PixivUrl.Builder()
+        final HttpUrl url = new PixivUrlBuilder()
                 .setUrl(api.getDomain() + "/ajax/search/artworks/" + keywords)
                 .setParams(param)
 
@@ -157,7 +157,7 @@ public class IllustApi {
      * @since 2022/10/15 16:52
      */
     public PixivRequest<UgoiraMetaRes> ugoiraMeta(long pid) {
-        final HttpUrl url = new PixivUrl.Builder()
+        final HttpUrl url = new PixivUrlBuilder()
                 .setUrl(api.getDomain() + "/ajax/illust/%d/ugoira_meta", pid)
 
                 .build();

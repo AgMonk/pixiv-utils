@@ -10,7 +10,7 @@ import org.gin.exception.PixivRequestException;
 import org.gin.params.bookmark.AddIllustMangaParam;
 import org.gin.params.bookmark.AddNovelParam;
 import org.gin.request.PixivRequest;
-import org.gin.request.PixivUrl;
+import org.gin.request.PixivUrlBuilder;
 import org.gin.response.BookmarkAddRes;
 import org.gin.response.SimplePixivResponse;
 import org.gin.response.convertor.Convertor;
@@ -29,6 +29,7 @@ import static org.gin.request.PixivRequestBody.createJsonBody;
  * @version : v1.0.0
  * @since : 2022/11/17 10:01
  */
+@SuppressWarnings("SameParameterValue")
 @Getter
 @Setter
 @RequiredArgsConstructor
@@ -42,7 +43,7 @@ public class BookmarkApi {
      * @since 2022/11/17 10:07
      */
     public PixivRequest<BookmarkAddRes> addIllust(@NonNull AddIllustMangaParam param) {
-        final HttpUrl url = new PixivUrl.Builder()
+        final HttpUrl url = new PixivUrlBuilder()
                 .setUrl(api.getDomain() + "/ajax/illusts/bookmarks/add")
                 .build();
         return new PixivRequest<>(url, api.getClient(), body -> Convertor.common(body, BookmarkAddRes.class), createJsonBody(param));
@@ -55,7 +56,7 @@ public class BookmarkApi {
      * @since 2022/11/17 11:14
      */
     public PixivRequest<SimplePixivResponse> addNovel(@NonNull AddNovelParam param) {
-        final HttpUrl url = new PixivUrl.Builder()
+        final HttpUrl url = new PixivUrlBuilder()
                 .setUrl(api.getDomain() + "/ajax/novels/bookmarks/add")
                 .build();
         return new PixivRequest<>(url, api.getClient(), Convertor::simple, createJsonBody(param));
@@ -68,7 +69,7 @@ public class BookmarkApi {
      * @since 2022/11/17 10:12
      */
     public PixivRequest<SimplePixivResponse> delIllust(long bookmarkId) {
-        final HttpUrl url = new PixivUrl.Builder()
+        final HttpUrl url = new PixivUrlBuilder()
                 .setUrl(api.getDomain() + "/ajax/illusts/bookmarks/delete")
                 .build();
         return new PixivRequest<>(url, api.getClient(), Convertor::simple, createFormBody("bookmark_id", bookmarkId));
@@ -81,7 +82,7 @@ public class BookmarkApi {
      * @since 2022/11/17 10:12
      */
     public PixivRequest<SimplePixivResponse> delIllusts(@NonNull Collection<Long> bookmarkIds) {
-        final HttpUrl url = new PixivUrl.Builder()
+        final HttpUrl url = new PixivUrlBuilder()
                 .setUrl(api.getDomain() + "/ajax/illusts/bookmarks/remove")
                 .build();
         return new PixivRequest<>(url, api.getClient(), Convertor::simple, createJsonBody("bookmarkIds", bookmarkIds));
@@ -98,7 +99,7 @@ public class BookmarkApi {
         param.put("book_id", bookmarkId);
         param.put("del", 1L);
 
-        final HttpUrl url = new PixivUrl.Builder()
+        final HttpUrl url = new PixivUrlBuilder()
                 .setUrl(api.getDomain() + "/ajax/novels/bookmarks/delete")
                 .build();
         return new PixivRequest<>(url, api.getClient(), Convertor::simple, createFormBody(param));
@@ -111,7 +112,7 @@ public class BookmarkApi {
      * @since 2022/11/17 11:14
      */
     public PixivRequest<SimplePixivResponse> delNovels(Collection<Long> bookmarkIds) {
-        final HttpUrl url = new PixivUrl.Builder()
+        final HttpUrl url = new PixivUrlBuilder()
                 .setUrl(api.getDomain() + "/ajax/novels/bookmarks/remove")
                 .build();
         return new PixivRequest<>(url, api.getClient(), Convertor::simple, createJsonBody("bookmarkIds", bookmarkIds));

@@ -7,7 +7,7 @@ import org.gin.emuns.PixivMode;
 import org.gin.params.illustmanga.NovelsDiscoveryParam;
 import org.gin.params.novel.NovelSearchParam;
 import org.gin.request.PixivRequest;
-import org.gin.request.PixivUrl;
+import org.gin.request.PixivUrlBuilder;
 import org.gin.response.body.BookmarkDataRes;
 import org.gin.response.body.illustmanga.DiscoveryRes;
 import org.gin.response.body.illustmanga.IllustMangaFollowLatestRes;
@@ -39,7 +39,7 @@ public class NovelApi {
      * @since 2022/11/16 14:59
      */
     public PixivRequest<BookmarkDataRes> bookmarkData(long nid) {
-        final HttpUrl url = new PixivUrl.Builder()
+        final HttpUrl url = new PixivUrlBuilder()
                 .setUrl(api.getDomain() + "/ajax/novel/%d/bookmarkData", nid)
 
                 .build();
@@ -53,7 +53,7 @@ public class NovelApi {
      * @since 2022/11/16 15:00
      */
     public PixivRequest<NovelDetailRes> detail(long nid) {
-        final HttpUrl url = new PixivUrl.Builder()
+        final HttpUrl url = new PixivUrlBuilder()
                 .setUrl(api.getDomain() + "/ajax/novel/" + nid)
 
                 .build();
@@ -67,7 +67,7 @@ public class NovelApi {
      * @since 2022/10/21 9:14
      */
     public PixivRequest<DiscoveryRes> discovery(@NotNull NovelsDiscoveryParam param) {
-        final HttpUrl url = new PixivUrl.Builder()
+        final HttpUrl url = new PixivUrlBuilder()
                 .setUrl(api.getDomain() + "/ajax/discovery/novels")
                 .setParams(param)
 
@@ -83,7 +83,7 @@ public class NovelApi {
      * @since 2022/11/16 16:39
      */
     public PixivRequest<IllustMangaFollowLatestRes> latest(int page, @NotNull PixivMode mode) {
-        final HttpUrl url = new PixivUrl.Builder()
+        final HttpUrl url = new PixivUrlBuilder()
                 .setUrl(api.getDomain() + "/ajax/follow_latest/novel")
                 .addParam("page", page)
                 .addParam("mode", mode.name())
@@ -100,7 +100,7 @@ public class NovelApi {
      * @since 2022/11/16 15:00
      */
     public PixivRequest<NovelSearchRes> search(@NotNull String keywords, @NotNull NovelSearchParam param) {
-        final HttpUrl url = new PixivUrl.Builder()
+        final HttpUrl url = new PixivUrlBuilder()
                 .setUrl(api.getDomain() + "/ajax/search/novels/" + keywords)
                 .setParams(param)
 
