@@ -134,6 +134,13 @@ public class UserWorksApi {
 
         zTestTag(authorId);
         zTestProfile(authorId);
+
+        final long uid = 67898338L;
+        commissionRequestSent(uid).async(res -> {
+            final List<ArtworkInfo> illust = res.getBody().getThumbnails().getIllust();
+            final String ids = illust.stream().map(ArtworkInfo::getId).map(Object::toString).collect(Collectors.joining(","));
+            System.out.printf("[用户约稿] uid: %d pid: %s", uid, ids);
+        });
     }
 
     private void zTestProfile(long authorId) throws PixivRequestException, IOException {
