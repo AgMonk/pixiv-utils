@@ -33,7 +33,7 @@ Pixiv工具类
 3. `PixivApi`对象的`xxxApi`字段为各用途的API分组
 
    | 字段名           | 用途            |      |
-      | ---------------- | --------------- | ---- |
+   | ---------------- | --------------- | ---- |
    | illustApi        | 绘画作品API     |      |
    | novelApi         | 小说API         |      |
    | novelSeriesApi   | 小说系列API     |      |
@@ -292,42 +292,7 @@ Pixiv工具类
   - uid：(PATH传递)用户id
   - full：固定为`1`，传递该参数将获得额外信息
 
-## 作品标签
-
-类名：`ApiTag`
-
-### 为绘画追加标签
-
-- 方法名：illustAdd
-- URL：`https://www.pixiv.net/ajax/tags/illust/${pid}/add`
-- 请求方法：`POST`
-- 传参方式：`BODY`
-- 参数含义：
-    - pid(PATH)：作品id
-    - tag：标签名
-
-### 查询标签信息
-
-- 方法名：tagInfo
-- URL：`https://www.pixiv.net/ajax/tag/info`
-- 请求方法：`GET`
-- 传参方式：`QUERY`
-- 参数含义：
-  - tag：标签名
-
-### 查询标签建议(追加标签时使用)
-
-- 方法名：suggestByWord
-- URL：`https://www.pixiv.net/ajax/tags/suggest_by_word`
-- 请求方法：`GET`
-- 传参方式：`QUERY`
-- 参数含义：
-  - word：关键字
-  - content_types_to_count[]：固定为 `illust`
-
-## 收藏
-
-类名：`ApiBookmark`
+## 收藏相关API - bookmarkApi
 
 ### 收藏绘画
 
@@ -454,124 +419,11 @@ Pixiv工具类
 
   - bookmarkIds：收藏id，从作品信息的bookmarkData字段中获取
 
-## 用户
-
-类名：`ApiUser`
-
--
-  -
-
--
-  -
-
-### 作品
-
-#### 查询用户的作品概况
-
-- 方法名：profileAll
-- URL：`https://www.pixiv.net/ajax/user/${uid}/profile/all`
-- 请求方法：`GET`
-- 传参方式：`QUERY`
-- 参数含义：
-- 响应：这里会返回所有作品的id，但是没有作品信息，需要使用后续接口来获取
-
-#### 查询用户的绘画
-
-- 方法名：profileIllusts
-- URL：`https://www.pixiv.net/ajax/user/${uid}/profile/illusts`
-- 请求方法：`GET`
-- 传参方式：`QUERY`
-- 参数含义：
-  - is_first_page：是否为第一页。1 = 是 ，0 = 否。返回结果疑似没有区别
-  - work_category： 作品类型，可选值：`illust`(插画)、`manga`(漫画)、`illustManga`(二者混合)。疑似不敏感，但是不能省略
-  - ids[]：需要查询的作品id，可以传多个
-
-#### 查询用户的小说
-
-- 方法名：profileNovels
-- URL：`https://www.pixiv.net/ajax/user/${uid}/profile/novels`
-- 请求方法：`GET`
-- 传参方式：`QUERY`
-- 参数含义：
-  - uid：(PATH传递)用户id
-  - ids[]：需要查询的作品id，可以传多个
-
-#### 查询用户发出约稿的作品
-
-- 方法名：commissionRequestSent
-- URL：`https://www.pixiv.net/ajax/commission/page/users/${uid}/request/sent`
-- 请求方法：`GET`
-- 传参方式：`QUERY`
-- 参数含义：
-  - uid：(PATH传递)用户id
-
-#### 查询用户的小说中使用的标签
-
-- 方法名：novelsTags
-- URL：`https://www.pixiv.net/ajax/user/${uid}/novels/tags`
-- 请求方法：`GET`
-- 传参方式：`QUERY`
-- 参数含义：
-  - uid：(PATH传递)用户id
-
-### 收藏
-
-#### 查询用户收藏的绘画
-
-- 方法名：illustsBookmarks
-- URL：`https://www.pixiv.net/ajax/user/${uid}/illusts/bookmarks`
-- 请求方法：`GET`
-- 传参方式：`QUERY`
-- 参数含义：
-    - uid：(PATH传递)用户id
-    - tag：带有的标签
-    - offset： 跳过前面 x 个查询结果
-    - limit：每次查询返回的结果条数上限，最大为100
-    - rest：`show`公开的，`hide`不公开的(仅自己)
-- 备注：tag参数写`未分類`可以查询到添加收藏时未提供标签(网页端/APP的默认操作)的作品
-
-#### 查询用户收藏的小说
-
-- 方法名：novelsBookmarks
-- URL：`https://www.pixiv.net/ajax/user/${uid}/novels/bookmarks`
-- 请求方法：`GET`
-- 传参方式：`QUERY`
-- 参数含义：
-    - uid：(PATH传递)用户id
-    - tag：带有的标签
-    - offset： 跳过前面 x 个查询结果
-    - limit：每次查询返回的结果条数上限，最大为100
-    - rest：`show`公开的，`hide`不公开的(仅自己)
-- 备注：tag参数写`未分類`可以查询到添加收藏时未提供标签(网页端/APP的默认操作)的作品
-
-#### 查询用户的收藏的插画/漫画中使用的标签
-
-- 方法名：illustsBookmarkTags
-- URL：`https://www.pixiv.net/ajax/user/${uid}/illusts/bookmark/tags`
-- 请求方法：`GET`
-- 传参方式：`QUERY`
-- 参数含义：
-    - uid：(PATH传递)用户id
-
-#### 查询用户的收藏小说中使用的标签
-
-- 方法名：novelsBookmarkTags
-- URL：`https://www.pixiv.net/ajax/user/${uid}/novels/bookmark/tags`
-- 请求方法：`GET`
-- 传参方式：`QUERY`
-- 参数含义：
-  - uid：(PATH传递)用户id
-
--
-  -
-
-## 评论区
-
-类名：`ApiComments`
+## 绘画作品评论API - commentIllustApi
 
 ### 查询绘画评论（根）
 
-- 方法名：illustsRoots
+- 方法名：roots
 - URL：`https://www.pixiv.net/ajax/illusts/comments/roots`
 - 请求方法：`GET`
 - 传参方式：`QUERY`
@@ -582,13 +434,40 @@ Pixiv工具类
 
 ### 查询绘画回复（楼中楼）
 
-- 方法名：illustsReplies
+- 方法名：replies
 - URL：`https://www.pixiv.net/ajax/illusts/comments/replies`
 - 请求方法：`GET`
 - 传参方式：`QUERY`
 - 参数含义：
   - comment_id：评论id
   - page：
+
+### 发布评论
+
+- 方法名：post
+- URL：`https://www.pixiv.net/rpc/post_comment.php`
+- 请求方法：`POST`
+- 传参方式：`FORM`
+- 参数含义：
+  - type：只能选择`comment`(文字评论)或`stamp`(表情贴图)
+  - illust_id：作品id
+  - author_user_id：作者uid
+  - parent_id：如果发楼中楼评论，需要提供父楼id
+  - comment：如果type选择comment，此字段为文字内容
+  - stamp_id：如果type选择Stamp，此字段为贴图的id
+
+### 删除评论
+
+- 方法名：del
+- URL：`https://www.pixiv.net/rpc_delete_comment.php`
+
+- 请求方法：`POST`
+- 传参方式：`FORM`
+- 参数含义：
+  - i_id：作品id
+  - del_id：评论id
+
+## 小说评论API - commentNovelApi
 
 ### 查询小说评论（根）
 
@@ -613,8 +492,8 @@ Pixiv工具类
 
 ### 发布评论
 
-- 方法名：comment
-- URL：`https://www.pixiv.net/rpc/post_comment.php`
+- 方法名：post
+- URL：`https://www.pixiv.net/novel/rpc/post_comment.php`
 - 请求方法：`POST`
 - 传参方式：`FORM`
 - 参数含义：
@@ -627,8 +506,8 @@ Pixiv工具类
 
 ### 删除评论
 
-- 方法名：delComment
-- URL：`https://www.pixiv.net/rpc_delete_comment.php`
+- 方法名：del
+- URL：`https://www.pixiv.net/novel/rpc_delete_comment.php`
 
 - 请求方法：`POST`
 - 传参方式：`FORM`
@@ -636,7 +515,145 @@ Pixiv工具类
   - i_id：作品id
   - del_id：评论id
 
-## 排行榜
+## 标签API - tagApi
+
+### 为绘画追加标签
+
+- 方法名：illustAdd
+- URL：`https://www.pixiv.net/ajax/tags/illust/${pid}/add`
+- 请求方法：`POST`
+- 传参方式：`BODY`
+- 参数含义：
+  - pid(PATH)：作品id
+  - tag：标签名
+
+### 查询标签信息
+
+- 方法名：tagInfo
+- URL：`https://www.pixiv.net/ajax/tag/info`
+- 请求方法：`GET`
+- 传参方式：`QUERY`
+- 参数含义：
+  - tag：标签名
+
+### 查询标签建议(追加标签时使用)
+
+- 方法名：suggestByWord
+- URL：`https://www.pixiv.net/ajax/tags/suggest_by_word`
+- 请求方法：`GET`
+- 传参方式：`QUERY`
+- 参数含义：
+  - word：关键字
+  - content_types_to_count[]：固定为 `illust`
+
+## 用户作品API - userWorksApi
+
+### 查询用户的作品概况
+
+- 方法名：all
+- URL：`https://www.pixiv.net/ajax/user/${uid}/profile/all`
+- 请求方法：`GET`
+- 传参方式：`QUERY`
+- 参数含义：
+- 响应：这里会返回所有作品的id，但是没有作品信息，需要使用后续接口来获取
+
+### 查询用户的绘画
+
+- 方法名：illusts
+- URL：`https://www.pixiv.net/ajax/user/${uid}/profile/illusts`
+- 请求方法：`GET`
+- 传参方式：`QUERY`
+- 参数含义：
+  - is_first_page：是否为第一页。1 = 是 ，0 = 否。返回结果疑似没有区别
+  - work_category： 作品类型，可选值：`illust`(插画)、`manga`(漫画)、`illustManga`(二者混合)。疑似不敏感，但是不能省略
+  - ids[]：需要查询的作品id，可以传多个
+
+### 查询用户绘画中使用的标签
+
+- 方法名：illustTags
+- URL：`https://www.pixiv.net/ajax/user/${uid}/illusts/tags`
+- 请求方法：`GET`
+- 传参方式：`QUERY`
+- 参数含义：
+  - uid：(PATH传递)用户id
+
+### 查询用户的小说
+
+- 方法名：profileNovels
+- URL：`https://www.pixiv.net/ajax/user/${uid}/profile/novels`
+- 请求方法：`GET`
+- 传参方式：`QUERY`
+- 参数含义：
+  - uid：(PATH传递)用户id
+  - ids[]：需要查询的作品id，可以传多个
+
+### 查询用户小说中使用的标签
+
+- 方法名：novelsTags
+- URL：`https://www.pixiv.net/ajax/user/${uid}/novels/tags`
+- 请求方法：`GET`
+- 传参方式：`QUERY`
+- 参数含义：
+  - uid：(PATH传递)用户id
+
+### 查询用户发出约稿的作品
+
+- 方法名：commissionRequestSent
+- URL：`https://www.pixiv.net/ajax/commission/page/users/${uid}/request/sent`
+- 请求方法：`GET`
+- 传参方式：`QUERY`
+- 参数含义：
+  - uid：(PATH传递)用户id
+
+## 用户收藏API - userBookmarkApi
+
+### 查询用户收藏的绘画
+
+- 方法名：illusts
+- URL：`https://www.pixiv.net/ajax/user/${uid}/illusts/bookmarks`
+- 请求方法：`GET`
+- 传参方式：`QUERY`
+- 参数含义：
+    - uid：(PATH传递)用户id
+    - tag：带有的标签
+    - offset： 跳过前面 x 个查询结果
+    - limit：每次查询返回的结果条数上限，最大为100
+    - rest：`show`公开的，`hide`不公开的(仅自己)
+- 备注：tag参数写`未分類`可以查询到添加收藏时未提供标签(网页端/APP的默认操作)的作品
+
+### 查询用户收藏的小说
+
+- 方法名：novels
+- URL：`https://www.pixiv.net/ajax/user/${uid}/novels/bookmarks`
+- 请求方法：`GET`
+- 传参方式：`QUERY`
+- 参数含义：
+    - uid：(PATH传递)用户id
+    - tag：带有的标签
+    - offset： 跳过前面 x 个查询结果
+    - limit：每次查询返回的结果条数上限，最大为100
+    - rest：`show`公开的，`hide`不公开的(仅自己)
+- 备注：tag参数写`未分類`可以查询到添加收藏时未提供标签(网页端/APP的默认操作)的作品
+
+### 查询用户的收藏的绘画中使用的标签
+
+- 方法名：illustTags
+- URL：`https://www.pixiv.net/ajax/user/${uid}/illusts/bookmark/tags`
+- 请求方法：`GET`
+- 传参方式：`QUERY`
+- 参数含义：
+    - uid：(PATH传递)用户id
+
+### 查询用户的收藏小说中使用的标签
+
+- 方法名：novelTags
+- URL：`https://www.pixiv.net/ajax/user/${uid}/novels/bookmark/tags`
+- 请求方法：`GET`
+- 传参方式：`QUERY`
+- 参数含义：
+  - uid：(PATH传递)用户id
+
+## 排行榜API - rankingApi
 
 类名：`ApiRanking`
 
