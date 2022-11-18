@@ -6,16 +6,13 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import okhttp3.HttpUrl;
-import okhttp3.ResponseBody;
 import org.gin.api.PixivApi;
 import org.gin.exception.PixivRequestException;
 import org.gin.request.PixivRequest;
 import org.gin.request.PixivUrl;
 import org.gin.response.PixivResponse;
-import org.gin.response.body.tag.UserTag;
 import org.gin.response.body.tag.UserTagRes;
 import org.gin.response.body.user.*;
-import org.gin.response.callback.BaseCallback;
 import org.gin.response.convertor.Convertor;
 import org.jetbrains.annotations.NotNull;
 
@@ -35,7 +32,6 @@ import java.util.stream.Collectors;
 public class UserWorksApi {
     private final PixivApi api;
 
-    //todo
 
     /**
      * 查询用户作品概况
@@ -146,61 +142,20 @@ public class UserWorksApi {
         System.out.printf("[用户绘画] %s 个\n", illusts.size());
         System.out.printf("[用户小说] %s 个\n", novels.size());
 
-        illusts(authorId, illusts.subList(0, Math.min(3, illusts.size()))).async(new BaseCallback<PixivResponse<ProfileIllustsBody>>() {
-            @Override
-            public PixivResponse<ProfileIllustsBody> convert(ResponseBody responseBody) throws IOException {
-                return JSONObject.parseObject(responseBody.string(), new TypeReference<PixivResponse<ProfileIllustsBody>>() {
-                });
-            }
+        illusts(authorId, illusts.subList(0, Math.min(3, illusts.size())))
+                .async(res -> System.out.printf("[用户绘画] ID: %s \n"
+                        , res.getBody().getWorks().keySet().stream().map(Object::toString).collect(Collectors.joining(","))));
 
-            @Override
-            public void onSuccess(PixivResponse<ProfileIllustsBody> res) {
-                System.out.printf("[用户绘画] ID: %s \n", res.getBody().getWorks().keySet().stream().map(Object::toString).collect(Collectors.joining(",")));
-            }
-        });
-
-        novels(authorId, novels.subList(0, Math.min(3, illusts.size()))).async(new BaseCallback<PixivResponse<ProfileNovelsBody>>() {
-            @Override
-            public PixivResponse<ProfileNovelsBody> convert(ResponseBody responseBody) throws IOException {
-                return JSONObject.parseObject(responseBody.string(), new TypeReference<PixivResponse<ProfileNovelsBody>>() {
-                });
-            }
-
-            @Override
-            public void onSuccess(PixivResponse<ProfileNovelsBody> res) {
-                System.out.printf("[用户小说] ID: %s \n", res.getBody().getWorks().keySet().stream().map(Object::toString).collect(Collectors.joining(",")));
-            }
-        });
+        novels(authorId, novels.subList(0, Math.min(3, illusts.size())))
+                .async(res -> System.out.printf("[用户小说] ID: %s \n"
+                        , res.getBody().getWorks().keySet().stream().map(Object::toString).collect(Collectors.joining(","))));
 
 
     }
 
     private void zTestTag(long authorId) {
-        illustTags(authorId).async(new BaseCallback<PixivResponse<List<UserTag>>>() {
-            @Override
-            public PixivResponse<List<UserTag>> convert(ResponseBody responseBody) throws IOException {
-                return JSONObject.parseObject(responseBody.string(), new TypeReference<PixivResponse<List<UserTag>>>() {
-                });
-            }
-
-            @Override
-            public void onSuccess(PixivResponse<List<UserTag>> res) {
-                System.out.printf("[用户绘画标签] %s 个\n", res.getBody().size());
-            }
-        });
-
-        novelTags(authorId).async(new BaseCallback<PixivResponse<List<UserTag>>>() {
-            @Override
-            public PixivResponse<List<UserTag>> convert(ResponseBody responseBody) throws IOException {
-                return JSONObject.parseObject(responseBody.string(), new TypeReference<PixivResponse<List<UserTag>>>() {
-                });
-            }
-
-            @Override
-            public void onSuccess(PixivResponse<List<UserTag>> res) {
-                System.out.printf("[用户小说标签] %s 个\n", res.getBody().size());
-            }
-        });
+        illustTags(authorId).async(res -> System.out.printf("[用户绘画标签] %s 个\n", res.getBody().size()));
+        novelTags(authorId).async(res -> System.out.printf("[用户小说标签] %s 个\n", res.getBody().size()));
     }
 
 }   
