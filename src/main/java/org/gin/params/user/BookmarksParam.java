@@ -38,7 +38,8 @@ public class BookmarksParam {
         this.tag = tag;
     }
 
-    public void untagged() {
+    public BookmarksParam untagged() {
         this.tag = "未分類";
+        return this;
     }
 }
