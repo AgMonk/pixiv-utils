@@ -72,7 +72,7 @@ public class PixivRequest<R> {
 
     /**
      * 异步请求
-     * @param baseCallback 响应处理
+     * @param pixivCallback 响应处理
      */
     public void async(PixivCallback<R> pixivCallback) {
         async(new Callback() {
