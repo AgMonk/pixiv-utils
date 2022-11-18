@@ -34,7 +34,8 @@ public class Demo {
                 .setCookieToken(cookieToken)
                 .build();
 
-        //第一次启动 ，未获取到token的用法
+
+        //第一次启动 ，未获取到token的用法，建议在执行完成后自行保存token
 //        final PixivApi pixivApi = new PixivApi.Builder()
 //                .setSessionId(sessionId)
 //                .build();
@@ -65,7 +66,7 @@ public class Demo {
             }
 
             @Override
-            public void onSuccess(IllustMangaRes res) throws PixivException, IOException {
+            public void onSuccess(IllustMangaRes res) {
                 final IllustMangaRes.IllustMangaBody body = res.getBody();
 
             }

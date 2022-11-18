@@ -7,7 +7,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import okhttp3.HttpUrl;
 import org.gin.api.PixivApi;
-import org.gin.exception.PixivRequestException;
 import org.gin.request.PixivRequest;
 import org.gin.request.PixivUrlBuilder;
 import org.gin.response.PixivResponse;
@@ -129,7 +128,7 @@ public class UserWorksApi {
         return new PixivRequest<>(url, api.getClient(), body -> Convertor.common(body, ProfileNovelsRes.class));
     }
 
-    public void zTest() throws PixivRequestException, IOException {
+    public void zTest() throws IOException {
         long authorId = 15358167;
 
         zTestTag(authorId);
@@ -143,7 +142,7 @@ public class UserWorksApi {
         });
     }
 
-    private void zTestProfile(long authorId) throws PixivRequestException, IOException {
+    private void zTestProfile(long authorId) throws IOException {
         final ProfileRealBody profileRealBody = all(authorId).sync().getBody();
         final List<Long> illusts = profileRealBody.getIllusts();
         final List<Long> novels = profileRealBody.getNovels();

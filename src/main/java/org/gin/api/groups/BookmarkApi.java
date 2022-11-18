@@ -6,7 +6,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import okhttp3.HttpUrl;
 import org.gin.api.PixivApi;
-import org.gin.exception.PixivRequestException;
 import org.gin.params.bookmark.AddIllustMangaParam;
 import org.gin.params.bookmark.AddNovelParam;
 import org.gin.request.PixivRequest;
@@ -118,7 +117,7 @@ public class BookmarkApi {
         return new PixivRequest<>(url, api.getClient(), Convertor::simple, createJsonBody("bookmarkIds", bookmarkIds));
     }
 
-    public void zTest() throws PixivRequestException, IOException {
+    public void zTest() throws IOException {
         final long pid = 99147997;
         final long nid = 17718240;
 
@@ -126,7 +125,7 @@ public class BookmarkApi {
         zTestNovel(nid);
     }
 
-    private void zTestIllust(long pid) throws PixivRequestException, IOException {
+    private void zTestIllust(long pid) throws IOException {
         final Long bookmarkId = api.getIllustApi().detail(pid).sync().getBody().getBookmarkData().getId();
 
         delIllust(bookmarkId).sync();
@@ -138,7 +137,7 @@ public class BookmarkApi {
                 .sync();
     }
 
-    private void zTestNovel(long nid) throws PixivRequestException, IOException {
+    private void zTestNovel(long nid) throws IOException {
         final Long bookmarkId = api.getNovelApi().detail(nid).sync().getBody().getBookmarkData().getId();
         delNovel(bookmarkId).sync();
         final SimplePixivResponse response = addNovel(new AddNovelParam(nid)).sync();

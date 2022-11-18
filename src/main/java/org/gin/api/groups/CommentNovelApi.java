@@ -6,7 +6,6 @@ import lombok.Setter;
 import okhttp3.HttpUrl;
 import org.gin.api.PixivApi;
 import org.gin.emuns.PixivStamp;
-import org.gin.exception.PixivRequestException;
 import org.gin.params.comment.NovelsCommentRootsParam;
 import org.gin.params.comment.PostCommentParam;
 import org.gin.params.illustmanga.CommentRepliesParam;
@@ -98,7 +97,7 @@ public class CommentNovelApi {
         return new PixivRequest<>(url, api.getClient(), body -> Convertor.common(body, CommentsRes.class));
     }
 
-    public void zTest() throws PixivRequestException, IOException {
+    public void zTest() throws IOException {
         long nid = 17718240;
         long uid = 15358167;
 

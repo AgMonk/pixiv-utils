@@ -72,7 +72,7 @@ public class PixivRequest<R> {
      * @throws PixivRequestException 异常
      * @throws IOException           异常
      */
-    public static ResponseBody handle(@NotNull Call call, @NotNull Response response) throws PixivRequestException, IOException {
+    private static ResponseBody handle(@NotNull Call call, @NotNull Response response) throws IOException {
         final int code = response.code();
         final int co = code / 100;
         final ResponseBody body = response.body();
@@ -89,7 +89,7 @@ public class PixivRequest<R> {
             case 5:
                 throw new PixivServerException(code, "服务器异常", call);
             default:
-                throw new PixivRequestException(code, "非预期的code", call);
+                throw new PixivClientException(code, "非预期的code", call);
         }
     }
 
@@ -118,11 +118,11 @@ public class PixivRequest<R> {
                     final ResponseBody responseBody = handle(call, response);
                     final R res = convertor.convert(responseBody);
                     pixivCallback.onSuccess(res);
-                } catch (IOException e) {
-                    pixivCallback.onFailure(call, e);
                 } catch (PixivException e) {
                     pixivCallback.onPixivException(e);
                     throw new RuntimeException(e);
+                } catch (IOException e) {
+                    pixivCallback.onFailure(call, e);
                 }
             }
         });
@@ -134,17 +134,16 @@ public class PixivRequest<R> {
      * @throws IOException           异常
      * @throws PixivRequestException pixiv异常
      */
-    public R sync() throws PixivRequestException, IOException {
+    public R sync() throws IOException {
         return convertor.convert(syncBody());
     }
 
     /**
      * 同步请求
      * @return ResponseBody
-     * @throws IOException           异常
-     * @throws PixivRequestException pixiv异常
+     * @throws IOException 异常
      */
-    public ResponseBody syncBody() throws IOException, PixivRequestException {
+    public ResponseBody syncBody() throws IOException {
         final Call call = client.newCall(request);
         final Response response = call.execute();
         return handle(call, response);

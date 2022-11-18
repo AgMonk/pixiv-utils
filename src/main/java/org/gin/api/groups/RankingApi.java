@@ -8,7 +8,6 @@ import okhttp3.HttpUrl;
 import org.gin.api.PixivApi;
 import org.gin.emuns.PixivRankingMode;
 import org.gin.emuns.RankingContent;
-import org.gin.exception.PixivRequestException;
 import org.gin.params.rank.RankingParam;
 import org.gin.request.PixivRequest;
 import org.gin.request.PixivUrlBuilder;
@@ -49,7 +48,7 @@ public class RankingApi {
 
     }
 
-    public void zTest() throws PixivRequestException, IOException {
+    public void zTest() throws IOException {
         final RankingResponse res = illust(new RankingParam(1, PixivRankingMode.daily, RankingContent.illust, null)).sync();
         final List<RankingResponse.RankingData> contents = res.getContents();
         final RankingResponse.RankingData data = contents.get(0);

@@ -26,15 +26,31 @@ Pixiv工具类
 
 # 使用方法
 
-- `PixivCookieToken`相关
-  - 构造方法的参数`phpSessionId`通过在WEB端登陆Pixiv之后，在`cookie`中获取，其前缀为`PHPSESSID=`
-  - 构造方法的参数`token`在所有`POST`请求中使用，可以在WEB端通过F12在请求头中获取，其字段名为`x-csrf-token`，或者使用本类的`findToken`方法获取。
-- 所有API方法都会返回`PixivRequest`对象，该类的`sync`(同步)和`async`(异步)方法用于发送请求
-  - 同步方法直接返回响应结果，可以通过传递一个`Convertor`接口将`ResponseBody`类转换为指定对象，`Convertor`
-    中自带了部分接口的预设转换方法，或者使用`common`通用方法
-  - 异步方法在`Callback`参数中处理异常和响应，更推荐使用参数为`BaseCallback`的重载方法；`BaseCallback`接口的 `convert`方法作用与`Convertor`
-    接口相同，也可以直接调用`Convertor`接口的静态方法
-- 实例见：[Demo.java](https://github.com/AgMonk/pixiv-utils/blob/master/src/main/java/org/gin/Demo.java)
+1. 创建`PixivApi`对象，方法见[Demo.java](https://github.com/AgMonk/pixiv-utils/blob/master/src/main/java/org/gin/Demo.java)
+
+2. 参数`sessionId`通过在WEB端登陆Pixiv之后，在`cookie`中获取，其前缀为`PHPSESSID=`
+
+3. `PixivApi`对象的`xxxApi`字段为各用途的API分组
+
+   | 字段名           | 用途            |      |
+      | ---------------- | --------------- | ---- |
+   | illustApi        | 绘画作品API     |      |
+   | novelApi         | 小说API         |      |
+   | novelSeriesApi   | 小说系列API     |      |
+   | userApi          | 用户API         |      |
+   | bookmarkApi      | 收藏相关API     |      |
+   | commentIllustApi | 绘画作品评论API |      |
+   | commentNovelApi  | 小说评论API     |      |
+   | rankingApi       | 排行榜API       |      |
+   | userWorksApi     | 用户作品API     |      |
+   | userBookmarkApi  | 用户收藏API     |      |
+   | tagApi           | 标签API         |      |
+
+4. 所有API方法都会返回`PixivRequest`对象，该类的如下4个方法均可以发送请求
+  1. `async(PixivCallback<R> pixivCallback)`：(推荐)异步请求，可以直接在接口中拿到返回对象
+  2. ` R sync()`：(推荐)同步请求，可以直接从返回中拿到对象，需要自行处理抛出的异常
+  3. `async(Callback callback)`： 异步请求，OKHttp的原生方法，需要自行解析Body，仅作备用；
+  4. `syncBody()`：同步请求，OKHttp的原生方法，需要自行解析Body和处理抛出的异常，仅作备用；
 
 # Pixiv API
 

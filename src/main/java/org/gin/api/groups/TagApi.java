@@ -6,7 +6,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import okhttp3.HttpUrl;
 import org.gin.api.PixivApi;
-import org.gin.exception.PixivRequestException;
 import org.gin.request.PixivRequest;
 import org.gin.request.PixivUrlBuilder;
 import org.gin.response.body.tag.SuggestByWordBody;
@@ -77,13 +76,13 @@ public class TagApi {
         return new PixivRequest<>(url, api.getClient(), body -> Convertor.common(body, TagInfoRes.class));
     }
 
-    public void zTest() throws PixivRequestException, IOException {
+    public void zTest() throws IOException {
         zTestSuggest();
         zTestTagInfo();
         zTestIllustAdd();
     }
 
-    private void zTestIllustAdd() throws PixivRequestException, IOException {
+    private void zTestIllustAdd() throws IOException {
         long pid = 102177911;
         String tag = "RO635(ドールズフロントライン)";
 
@@ -91,14 +90,14 @@ public class TagApi {
         JsonUtils.printJson(res);
     }
 
-    private void zTestSuggest() throws PixivRequestException, IOException {
+    private void zTestSuggest() throws IOException {
         final SuggestByWordRes res = suggestByWord("RO635").sync();
         final List<SuggestByWordBody.Candidate> candidates = res.getBody().getCandidates();
         final String join = candidates.stream().map(SuggestByWordBody.Candidate::getTagName).collect(Collectors.joining(","));
         System.out.println("join = " + join);
     }
 
-    private void zTestTagInfo() throws PixivRequestException, IOException {
+    private void zTestTagInfo() throws IOException {
         final TagInfoRes res = tagInfo("RO635(ドールズフロントライン)").sync();
         JsonUtils.printJson(res);
     }
