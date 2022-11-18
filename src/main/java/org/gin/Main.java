@@ -1,8 +1,10 @@
-package org.gin;/**
- * @since : ${DATE} ${HOUR}:${MINUTE}
- * @author : ginstone
- * @version : v1.0.0
- **/public class Main {
+package org.gin;
+
+/**
+ * @author bx002
+ * @since 2022/11/18 15:45
+ */
+public class Main {
     public static void main(String[] args) {
     }
 }
