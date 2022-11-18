@@ -1,10 +1,8 @@
 package org.gin.api.groups;
 
-import com.alibaba.fastjson.JSONObject;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import okhttp3.HttpUrl;
-import okhttp3.ResponseBody;
 import org.gin.api.PixivApi;
 import org.gin.params.follow.FollowAddParam;
 import org.gin.params.follow.FollowDelParam;
@@ -14,11 +12,9 @@ import org.gin.request.PixivUrl;
 import org.gin.response.body.user.UserInfoRes;
 import org.gin.response.body.user.UserRecommendBody;
 import org.gin.response.body.user.UserRecommendRes;
-import org.gin.response.callback.BaseCallback;
 import org.gin.response.convertor.Convertor;
 import org.jetbrains.annotations.NotNull;
 
-import java.io.IOException;
 import java.util.List;
 
 import static org.gin.request.PixivRequestBody.createFormBody;
@@ -100,59 +96,25 @@ public class UserApi {
     }
 
     private void zTestFollow(long userId) {
-        unfollow(userId).async(new BaseCallback<String>() {
-            @Override
-            public String convert(ResponseBody responseBody) throws IOException {
-                return responseBody.string();
-            }
-
-            @Override
-            public void onSuccess(String res) {
-                System.out.println("已取消关注 uid :" + userId);
-                follow(new FollowAddParam(userId)).async(new BaseCallback<String>() {
-                    @Override
-                    public String convert(ResponseBody responseBody) throws IOException {
-                        return responseBody.string();
-                    }
-
-                    @Override
-                    public void onSuccess(String res) {
-                        System.out.println("已关注 uid :" + userId);
-                    }
-                });
-            }
+        unfollow(userId).async(res -> {
+            System.out.println("已取消关注 uid :" + userId);
+            follow(new FollowAddParam(userId)).async(res1 -> System.out.println("已关注 uid :" + userId));
         });
     }
 
     private void zTestRecommend(long userId) {
-        recommend(userId, new UserRecommendParam()).async(new BaseCallback<UserRecommendRes>() {
-            @Override
-            public UserRecommendRes convert(ResponseBody responseBody) throws IOException {
-                return JSONObject.parseObject(responseBody.string(), UserRecommendRes.class);
-            }
+        recommend(userId, new UserRecommendParam()).async(res -> {
+            final List<UserRecommendBody.RecommendUser> recommendUsers = res.getBody().getRecommendUsers();
+            final UserRecommendBody.RecommendUser recommendUser = recommendUsers.get(0);
+            System.out.printf("[推荐用户] uid: %d , 作品 %s \n", recommendUser.getUserId(), recommendUser.getIllustIds());
 
-            @Override
-            public void onSuccess(UserRecommendRes res) {
-                final List<UserRecommendBody.RecommendUser> recommendUsers = res.getBody().getRecommendUsers();
-                final UserRecommendBody.RecommendUser recommendUser = recommendUsers.get(0);
-                System.out.printf("[推荐用户] uid: %d , 作品 %s \n", recommendUser.getUserId(), recommendUser.getIllustIds());
-
-            }
         });
     }
 
     private void zTestUserInfo(long userId) {
-        userInfo(userId, true).async(new BaseCallback<UserInfoRes>() {
-            @Override
-            public UserInfoRes convert(ResponseBody responseBody) throws IOException {
-                return JSONObject.parseObject(responseBody.string(), UserInfoRes.class);
-            }
-
-            @Override
-            public void onSuccess(UserInfoRes res) {
-                final String name = res.getBody().getName();
-                System.out.printf("[用户信息] 用户 :%s 昵称：%s \n", userId, name);
-            }
+        userInfo(userId, true).async(res -> {
+            final String name = res.getBody().getName();
+            System.out.printf("[用户信息] 用户 :%s 昵称：%s \n", userId, name);
         });
     }
 }
