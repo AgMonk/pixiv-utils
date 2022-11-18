@@ -1,9 +1,7 @@
 package org.gin.api.groups;
 
-import com.alibaba.fastjson.JSONObject;
 import lombok.RequiredArgsConstructor;
 import okhttp3.HttpUrl;
-import okhttp3.ResponseBody;
 import org.gin.api.PixivApi;
 import org.gin.emuns.PixivMode;
 import org.gin.params.illustmanga.IllustMangaSearchParam;
@@ -13,13 +11,11 @@ import org.gin.request.PixivUrl;
 import org.gin.response.body.BookmarkDataRes;
 import org.gin.response.body.LikeRes;
 import org.gin.response.body.illustmanga.*;
-import org.gin.response.callback.BaseCallback;
 import org.gin.response.convertor.Convertor;
 import org.gin.response.fields.ArtworkInfo;
 import org.gin.response.fields.BookmarkData;
 import org.jetbrains.annotations.NotNull;
 
-import java.io.IOException;
 import java.time.ZonedDateTime;
 import java.util.Collections;
 import java.util.List;
@@ -32,6 +28,7 @@ import static org.gin.request.PixivRequestBody.createJsonBody;
  * @version : v1.0.0
  * @since : 2022/10/14 15:52
  **/
+@SuppressWarnings("SameParameterValue")
 @RequiredArgsConstructor
 public class IllustApi {
     private final PixivApi api;
@@ -184,141 +181,67 @@ public class IllustApi {
 
     private void zTestBookmarkData(long pid) {
         //测试收藏数据
-        bookmarkData(pid).async(new BaseCallback<BookmarkDataRes>() {
-            @Override
-            public BookmarkDataRes convert(ResponseBody responseBody) throws IOException {
-                return JSONObject.parseObject(responseBody.string(), BookmarkDataRes.class);
-            }
-
-            @Override
-            public void onSuccess(BookmarkDataRes res) {
-                final BookmarkData bookmarkData = res.getBody().getBookmarkData();
-                if (bookmarkData != null) {
-                    System.out.printf("[收藏数据] pid = %d 收藏id = %d\n", pid, bookmarkData.getId());
-                } else {
-                    System.out.println("未收藏 pid = " + pid);
-                }
+        bookmarkData(pid).async(res -> {
+            final BookmarkData bookmarkData = res.getBody().getBookmarkData();
+            if (bookmarkData != null) {
+                System.out.printf("[收藏数据] pid = %d 收藏id = %d\n", pid, bookmarkData.getId());
+            } else {
+                System.out.println("未收藏 pid = " + pid);
             }
         });
     }
 
     private void zTestDetail(long pid) {
         //测试绘画详情
-        detail(pid).async(new BaseCallback<IllustMangaRes>() {
-            @Override
-            public IllustMangaRes convert(ResponseBody responseBody) throws IOException {
-                return JSONObject.parseObject(responseBody.string(), IllustMangaRes.class);
-            }
-
-            @Override
-            public void onSuccess(IllustMangaRes res) {
-                final ZonedDateTime createDate = res.getBody().getCreateDate();
-                System.out.printf("[绘画详情] pid = %d 创建于 %s\n", pid, createDate);
-            }
+        detail(pid).async(res -> {
+            final ZonedDateTime createDate = res.getBody().getCreateDate();
+            System.out.printf("[绘画详情] pid = %d 创建于 %s\n", pid, createDate);
         });
     }
 
     private void zTestDiscovery(long pid) {
-        discovery(new IllustsDiscoveryParam(pid)).async(new BaseCallback<DiscoveryRes>() {
-            @Override
-            public DiscoveryRes convert(ResponseBody responseBody) throws IOException {
-                return JSONObject.parseObject(responseBody.string(), DiscoveryRes.class);
-            }
-
-            @Override
-            public void onSuccess(DiscoveryRes res) {
-                final List<DiscoveryBody.RecommendedIllust> list = res.getBody().getRecommendedIllusts();
-                System.out.printf("[发现绘画] pid = %d  %d 个\n", pid, list.size());
-            }
+        discovery(new IllustsDiscoveryParam(pid)).async(res -> {
+            final List<DiscoveryBody.RecommendedIllust> list = res.getBody().getRecommendedIllusts();
+            System.out.printf("[发现绘画] pid = %d  %d 个\n", pid, list.size());
         });
     }
 
     private void zTestLatest(int page, PixivMode mode) {
-        latest(page, mode).async(new BaseCallback<IllustMangaFollowLatestRes>() {
-            @Override
-            public IllustMangaFollowLatestRes convert(ResponseBody responseBody) throws IOException {
-                return JSONObject.parseObject(responseBody.string(), IllustMangaFollowLatestRes.class);
-            }
-
-            @Override
-            public void onSuccess(IllustMangaFollowLatestRes res) {
-                final List<ArtworkInfo> illusts = res.getBody().getThumbnails().getIllust();
-                System.out.printf("[最新关注] page = %d 模式 = %s %d 个\n", page, mode.name(), illusts.size());
-            }
+        latest(page, mode).async(res -> {
+            final List<ArtworkInfo> illusts = res.getBody().getThumbnails().getIllust();
+            System.out.printf("[最新关注] page = %d 模式 = %s %d 个\n", page, mode.name(), illusts.size());
         });
     }
 
     private void zTestLike(long pid) {
-        like(pid).async(new BaseCallback<LikeRes>() {
-            @Override
-            public LikeRes convert(ResponseBody responseBody) throws IOException {
-                return JSONObject.parseObject(responseBody.string(), LikeRes.class);
-            }
-
-            @Override
-            public void onSuccess(LikeRes res) {
-                System.out.printf("[喜欢绘画] pid = %d  %s\n", pid, res.getBody().getIsLiked());
-            }
-        });
+        like(pid).async(res -> System.out.printf("[喜欢绘画] pid = %d  %s\n", pid, res.getBody().getIsLiked()));
     }
 
     private void zTestRecommendIllusts(long pid) {
-        recommendIllusts(Collections.singletonList(pid)).async(new BaseCallback<IllustRecommendRes>() {
-            @Override
-            public IllustRecommendRes convert(ResponseBody responseBody) throws IOException {
-                return JSONObject.parseObject(responseBody.string(), IllustRecommendRes.class);
-            }
-
-            @Override
-            public void onSuccess(IllustRecommendRes res) {
-                final List<ArtworkInfo> illusts = res.getBody().getIllusts();
-                System.out.printf("[查询推荐绘画2] pid = %d  %s 个\n", pid, illusts.size());
-            }
+        recommendIllusts(Collections.singletonList(pid)).async(res -> {
+            final List<ArtworkInfo> illusts = res.getBody().getIllusts();
+            System.out.printf("[查询推荐绘画2] pid = %d  %s 个\n", pid, illusts.size());
         });
     }
 
     private void zTestRecommendInit(long pid, int limit) {
-        recommendInit(pid, limit).async(new BaseCallback<IllustRecommendInitRes>() {
-            @Override
-            public IllustRecommendInitRes convert(ResponseBody responseBody) throws IOException {
-                return JSONObject.parseObject(responseBody.string(), IllustRecommendInitRes.class);
-            }
-
-            @Override
-            public void onSuccess(IllustRecommendInitRes res) {
-                final List<ArtworkInfo> illusts = res.getBody().getIllusts();
-                System.out.printf("[查询推荐绘画] pid = %d  %s 个\n", pid, illusts.size());
-            }
+        recommendInit(pid, limit).async(res -> {
+            final List<ArtworkInfo> illusts = res.getBody().getIllusts();
+            System.out.printf("[查询推荐绘画] pid = %d  %s 个\n", pid, illusts.size());
         });
     }
 
     private void zTestSearch(String keywords) {
-        search(keywords, new IllustMangaSearchParam()).async(new BaseCallback<IllustMangaSearchRes>() {
-            @Override
-            public IllustMangaSearchRes convert(ResponseBody responseBody) throws IOException {
-                return JSONObject.parseObject(responseBody.string(), IllustMangaSearchRes.class);
-            }
-
-            @Override
-            public void onSuccess(IllustMangaSearchRes res) {
-                final List<ArtworkInfo> illusts = res.getBody().getIllustManga().getData();
-                System.out.printf("[搜索绘画] 关键字 = %s  %s 个\n", keywords, illusts.size());
-            }
+        search(keywords, new IllustMangaSearchParam()).async(res -> {
+            final List<ArtworkInfo> illusts = res.getBody().getIllustManga().getData();
+            System.out.printf("[搜索绘画] 关键字 = %s  %s 个\n", keywords, illusts.size());
         });
     }
 
     private void zTestUgoiraMeta(long pid) {
-        ugoiraMeta(pid).async(new BaseCallback<UgoiraMetaRes>() {
-            @Override
-            public UgoiraMetaRes convert(ResponseBody responseBody) throws IOException {
-                return JSONObject.parseObject(responseBody.string(), UgoiraMetaRes.class);
-            }
-
-            @Override
-            public void onSuccess(UgoiraMetaRes res) {
-                final String originalSrc = res.getBody().getOriginalSrc();
-                System.out.println("[查询动图] originalSrc = " + originalSrc);
-            }
+        ugoiraMeta(pid).async(res -> {
+            final String originalSrc = res.getBody().getOriginalSrc();
+            System.out.println("[查询动图] originalSrc = " + originalSrc);
         });
 
     }
