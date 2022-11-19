@@ -7,13 +7,17 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import okhttp3.HttpUrl;
 import org.gin.api.PixivApi;
+import org.gin.params.user.WorksWithTagParam;
 import org.gin.request.PixivRequest;
 import org.gin.request.PixivUrlBuilder;
 import org.gin.response.PixivResponse;
+import org.gin.response.body.illustmanga.IllustMangaBookmarksRes;
+import org.gin.response.body.novel.NovelBookmarksRes;
 import org.gin.response.body.tag.UserTagRes;
 import org.gin.response.body.user.*;
 import org.gin.response.convertor.Convertor;
 import org.gin.response.fields.ArtworkInfo;
+import org.gin.utils.JsonUtils;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
@@ -101,6 +105,36 @@ public class UserWorksApi {
     }
 
     /**
+     * 查询带有指定标签的用户插画
+     * @param userId 用户id
+     * @param param  参数
+     * @return org.gin.request.PixivRequest<org.gin.response.body.user.ProfileIllustsRes>
+     * @since 2022/11/19 9:54
+     */
+    public PixivRequest<IllustMangaBookmarksRes> illustsWithTag(long userId, @NotNull WorksWithTagParam param) {
+        final HttpUrl url = new PixivUrlBuilder()
+                .setUrl(api.getDomain() + "/ajax/user/%d/illusts/tag", userId)
+                .setParams(param)
+                .build();
+        return new PixivRequest<>(url, api.getClient(), body -> Convertor.common(body, IllustMangaBookmarksRes.class));
+    }
+
+    /**
+     * 查询带有指定标签的用户漫画
+     * @param userId 用户id
+     * @param param  参数
+     * @return org.gin.request.PixivRequest<org.gin.response.body.user.ProfileIllustsRes>
+     * @since 2022/11/19 9:54
+     */
+    public PixivRequest<IllustMangaBookmarksRes> mangasWithTag(long userId, @NotNull WorksWithTagParam param) {
+        final HttpUrl url = new PixivUrlBuilder()
+                .setUrl(api.getDomain() + "/ajax/user/%d/manga/tag", userId)
+                .setParams(param)
+                .build();
+        return new PixivRequest<>(url, api.getClient(), body -> Convertor.common(body, IllustMangaBookmarksRes.class));
+    }
+
+    /**
      * 查询用户的小说中使用的标签
      * @param userId 用户id
      * @return org.gin.request.PixivRequest<org.gin.response.PixivResponse < org.gin.response.body.UserCommissionBody>>
@@ -115,8 +149,8 @@ public class UserWorksApi {
 
     /**
      * 查询用户的小说
-     * @param userId           用户id
-     * @param ids  查询的作品id
+     * @param userId 用户id
+     * @param ids    查询的作品id
      * @return org.gin.request.PixivRequest<org.gin.response.PixivResponse < org.gin.response.body.user.ProfileIllustsBody>>
      * @since 2022/10/17 11:10
      */
@@ -128,12 +162,31 @@ public class UserWorksApi {
         return new PixivRequest<>(url, api.getClient(), body -> Convertor.common(body, ProfileNovelsRes.class));
     }
 
+    /**
+     * 查询带有指定标签的用户小说
+     * @param userId 用户id
+     * @param param  参数
+     * @return org.gin.request.PixivRequest<org.gin.response.body.user.ProfileIllustsRes>
+     * @since 2022/11/19 9:54
+     */
+    public PixivRequest<NovelBookmarksRes> novelsWithTag(long userId, @NotNull WorksWithTagParam param) {
+        final HttpUrl url = new PixivUrlBuilder()
+                .setUrl(api.getDomain() + "/ajax/user/%d/novels/tag", userId)
+                .setParams(param)
+                .build();
+        return new PixivRequest<>(url, api.getClient(), body -> Convertor.common(body, NovelBookmarksRes.class));
+    }
+
     public void zTest() throws IOException {
         long authorId = 15358167;
 
         zTestTag(authorId);
         zTestProfile(authorId);
+        zTestCommission();
+        zTestWithTag(authorId);
+    }
 
+    private void zTestCommission() {
         final long uid = 67898338L;
         commissionRequestSent(uid).async(res -> {
             final List<ArtworkInfo> illust = res.getBody().getThumbnails().getIllust();
@@ -163,6 +216,14 @@ public class UserWorksApi {
     private void zTestTag(long authorId) {
         illustTags(authorId).async(res -> System.out.printf("[用户绘画标签] %s 个\n", res.getBody().size()));
         novelTags(authorId).async(res -> System.out.printf("[用户小说标签] %s 个\n", res.getBody().size()));
+    }
+
+    private void zTestWithTag(long authorId) {
+
+        final WorksWithTagParam param = new WorksWithTagParam("ドールズフロントライン", 1, 10);
+        illustsWithTag(authorId, param).async(res -> JsonUtils.printJson(res.getBody().getWorks()));
+        mangasWithTag(authorId, param).async(res -> JsonUtils.printJson(res.getBody().getWorks()));
+        novelsWithTag(authorId, param).async(res -> JsonUtils.printJson(res.getBody().getWorks()));
     }
 
 }   

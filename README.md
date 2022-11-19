@@ -578,7 +578,31 @@ Pixiv工具类
 - 请求方法：`GET`
 - 传参方式：`QUERY`
 - 参数含义：
-  - uid：(PATH传递)用户id
+    - uid：(PATH传递)用户id
+
+### 查询带有指定标签的用户插画
+
+- 方法名：illustsWithTag
+- URL：`https://www.pixiv.net/ajax/user/${uid}/illusts/tag`
+- 请求方法：`GET`
+- 传参方式：`QUERY`
+- 参数含义：
+    - uid：(PATH传递)用户id
+    - tag：标签
+    - offset：
+    - limit：
+
+### 查询带有指定标签的用户漫画
+
+- 方法名：mangasWithTag
+- URL：`https://www.pixiv.net/ajax/user/${uid}/manga/tag`
+- 请求方法：`GET`
+- 传参方式：`QUERY`
+- 参数含义：
+    - uid：(PATH传递)用户id
+    - tag：标签
+    - offset：
+    - limit：
 
 ### 查询用户的小说
 
@@ -587,8 +611,8 @@ Pixiv工具类
 - 请求方法：`GET`
 - 传参方式：`QUERY`
 - 参数含义：
-  - uid：(PATH传递)用户id
-  - ids[]：需要查询的作品id，可以传多个
+    - uid：(PATH传递)用户id
+    - ids[]：需要查询的作品id，可以传多个
 
 ### 查询用户小说中使用的标签
 
@@ -597,7 +621,19 @@ Pixiv工具类
 - 请求方法：`GET`
 - 传参方式：`QUERY`
 - 参数含义：
-  - uid：(PATH传递)用户id
+    - uid：(PATH传递)用户id
+
+### 查询带有指定标签的用户小说
+
+- 方法名：novelsWithTag
+- URL：`https://www.pixiv.net/ajax/user/${uid}/novels/tag`
+- 请求方法：`GET`
+- 传参方式：`QUERY`
+- 参数含义：
+    - uid：(PATH传递)用户id
+    - tag：标签
+    - offset：
+    - limit：
 
 ### 查询用户发出约稿的作品
 
@@ -606,7 +642,7 @@ Pixiv工具类
 - 请求方法：`GET`
 - 传参方式：`QUERY`
 - 参数含义：
-  - uid：(PATH传递)用户id
+    - uid：(PATH传递)用户id
 
 ## 用户收藏API - userBookmarkApi
 
