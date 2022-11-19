@@ -120,6 +120,19 @@ public class UserWorksApi {
     }
 
     /**
+     * 查询用户的漫画中使用的标签
+     * @param userId 用户id
+     * @return org.gin.request.PixivRequest<org.gin.response.PixivResponse < org.gin.response.body.UserCommissionBody>>
+     * @since 2022/10/15 14:01
+     */
+    public PixivRequest<UserTagRes> mangaTags(long userId) {
+        final HttpUrl url = new PixivUrlBuilder()
+                .setUrl(api.getDomain() + "/ajax/user/%d/manga/tags", userId)
+                .build();
+        return new PixivRequest<>(url, api.getClient(), body -> Convertor.common(body, UserTagRes.class));
+    }
+
+    /**
      * 查询带有指定标签的用户漫画
      * @param userId 用户id
      * @param param  参数
@@ -214,8 +227,9 @@ public class UserWorksApi {
     }
 
     private void zTestTag(long authorId) {
-        illustTags(authorId).async(res -> System.out.printf("[用户绘画标签] %s 个\n", res.getBody().size()));
+        illustTags(authorId).async(res -> System.out.printf("[用户插画标签] %s 个\n", res.getBody().size()));
         novelTags(authorId).async(res -> System.out.printf("[用户小说标签] %s 个\n", res.getBody().size()));
+        mangaTags(authorId).async(res -> System.out.printf("[用户漫画标签] %s 个\n", res.getBody().size()));
     }
 
     private void zTestWithTag(long authorId) {
