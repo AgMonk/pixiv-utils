@@ -587,10 +587,19 @@ Pixiv工具类
 - 请求方法：`GET`
 - 传参方式：`QUERY`
 - 参数含义：
-    - uid：(PATH传递)用户id
-    - tag：标签
-    - offset：
-    - limit：
+  - uid：(PATH传递)用户id
+  - tag：标签
+  - offset：
+  - limit：
+
+### 查询用户漫画中使用的标签
+
+- 方法名：mangaTags
+- URL：`https://www.pixiv.net/ajax/user/${uid}/manga/tags`
+- 请求方法：`GET`
+- 传参方式：`QUERY`
+- 参数含义：
+  - uid：(PATH传递)用户id
 
 ### 查询带有指定标签的用户漫画
 
@@ -599,8 +608,8 @@ Pixiv工具类
 - 请求方法：`GET`
 - 传参方式：`QUERY`
 - 参数含义：
-    - uid：(PATH传递)用户id
-    - tag：标签
+  - uid：(PATH传递)用户id
+  - tag：标签
     - offset：
     - limit：
 
