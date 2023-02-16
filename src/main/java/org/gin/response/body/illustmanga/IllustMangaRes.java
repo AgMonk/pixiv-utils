@@ -10,6 +10,8 @@ import org.gin.response.fields.FanRequest;
 import org.gin.response.fields.PixivTagInfo;
 
 import java.time.ZonedDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 作品详情信息
@@ -122,5 +124,22 @@ public class IllustMangaRes extends PixivResponse<IllustMangaRes.IllustMangaBody
          * 宽
          */
         Integer width;
+
+        /**
+         * 全部原图URL
+         * @return 全部原图URL
+         */
+        public List<String> getOriginalUrls() {
+            if (urls == null || pageCount == null) {
+                return null;
+            }
+
+            final String originalUrl = urls.getOriginal();
+            final ArrayList<String> urls = new ArrayList<>();
+            for (int i = 0; i < pageCount; i++) {
+                urls.add(originalUrl.replace("_p0", "_p" + i));
+            }
+            return urls;
+        }
     }
 }
