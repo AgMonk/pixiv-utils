@@ -5,7 +5,6 @@ import lombok.Setter;
 import lombok.experimental.Accessors;
 import okhttp3.OkHttpClient;
 import org.gin.api.groups.*;
-import org.gin.exception.PixivException;
 import org.gin.interceptor.HeaderInterceptor;
 import org.gin.interceptor.LangInterceptor;
 import org.gin.interceptor.LoggingInterceptor;
@@ -68,6 +67,7 @@ public class PixivApi {
         PixivCookieToken cookieToken;
         String domain = "https://www.pixiv.net";
         String lang = "zh";
+        boolean log = false;
 
         @NotNull
         private static OkHttpClient defaultClient() {
@@ -86,19 +86,21 @@ public class PixivApi {
             if (client == null) {
                 client = defaultClient();
             }
-            client = client.newBuilder()
+            final OkHttpClient.Builder builder = client.newBuilder()
                     //添加语言拦截器
                     .addInterceptor(new LangInterceptor(lang))
                     //添加Header拦截器
-                    .addInterceptor(new HeaderInterceptor(cookieToken))
-                    //日志输出拦截器
-                    .addInterceptor(new LoggingInterceptor())
-                    .build();
+                    .addInterceptor(new HeaderInterceptor(cookieToken));
+            if (log) {
+                //日志输出拦截器
+                builder.addInterceptor(new LoggingInterceptor());
+            }
 
+            client = builder.build();
             return new PixivApi(client, cookieToken, domain);
         }
 
-        public Builder setSessionId(String sessionId) throws PixivException, IOException {
+        public Builder setSessionId(String sessionId) throws IOException {
             this.cookieToken = new PixivCookieToken(sessionId);
             this.cookieToken.findToken(defaultClient(), domain);
             return this;
