@@ -15,4 +15,12 @@ public class ArtworkUrls {
     String regular;
     String small;
     String thumb;
+
+    public String getZipUrl() {
+        return original == null ? null : original
+                .replace("img-original", "img-zip-ugoira")
+                .replace("_ugoira0.jpg", "_ugoira1920x1080.zip")
+                .replace("_ugoira0.png", "_ugoira1920x1080.zip")
+                ;
+    }
 }
