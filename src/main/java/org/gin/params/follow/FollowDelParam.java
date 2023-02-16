@@ -1,6 +1,7 @@
 package org.gin.params.follow;
 
-import com.alibaba.fastjson.annotation.JSONField;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 /**
@@ -13,7 +14,7 @@ import lombok.Data;
 public class FollowDelParam {
     final String mode = "del";
     final String type = "bookuser";
-    @JSONField(name = "id")
+    @JsonProperty("id")
     long userId;
 
     public FollowDelParam(long userId) {

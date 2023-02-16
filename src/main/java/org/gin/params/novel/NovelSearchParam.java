@@ -1,14 +1,13 @@
 package org.gin.params.novel;
 
-import com.alibaba.fastjson.annotation.JSONField;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.gin.emuns.PixivNovelSearchMode;
-import org.gin.emuns.PixivNovelSearchModeSerializer;
 import org.gin.emuns.PixivWorkLang;
-import org.gin.emuns.PixivWorkLangSerializer;
 import org.gin.params.BaseSearchParam;
 
 /**
@@ -25,23 +24,23 @@ public class NovelSearchParam extends BaseSearchParam {
     /**
      * 是否以系列分组显示
      */
-    @JSONField(name = "gs")
+    @JsonProperty("gs")
     Integer groupBySeries = 0;
     /**
      * 字数范围（最高），官方提供的字数范围选项为：`0-4999`,`5000-19999`,`20000-79999`,`80000-`，指定文字数为会员功能
      */
-    @JSONField(name = "tgt")
+    @JsonProperty("tgt")
     Integer wordCountMax;
     /**
      * 字数范围（最低）
      */
-    @JSONField(name = "tlt")
+    @JsonProperty("tlt")
     Integer wordCountMin;
 
-    @JSONField(name = "work_lang", serializeUsing = PixivWorkLangSerializer.class)
+    @JsonProperty("work_lang")
     PixivWorkLang workLang = PixivWorkLang.ZH_CN;
 
-    @JSONField(name = "s_mode", serializeUsing = PixivNovelSearchModeSerializer.class)
+    @JsonProperty("s_mode")
     PixivNovelSearchMode searchMode = PixivNovelSearchMode.DEFAULT;
 
     public NovelSearchParam(int page) {

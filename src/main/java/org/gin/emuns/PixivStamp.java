@@ -1,5 +1,7 @@
 package org.gin.emuns;
 
+import com.fasterxml.jackson.annotation.JsonValue;
+
 /**
  * 表情贴图
  * @author : ginstone
@@ -60,6 +62,7 @@ public enum PixivStamp {
         this.id = id;
     }
 
+    @JsonValue
     public int getId() {
         return id;
     }

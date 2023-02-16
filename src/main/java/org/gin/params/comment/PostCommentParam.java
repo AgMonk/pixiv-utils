@@ -1,11 +1,11 @@
 package org.gin.params.comment;
 
-import com.alibaba.fastjson.annotation.JSONField;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
 import org.gin.emuns.PixivCommentType;
 import org.gin.emuns.PixivStamp;
-import org.gin.emuns.PixivStampSerializer;
 
 /**
  * 评论参数(相同部分)
@@ -17,15 +17,15 @@ import org.gin.emuns.PixivStampSerializer;
 public class PostCommentParam {
     final PixivCommentType type;
 
-    @JSONField(name = "author_user_id")
+    @JsonProperty("author_user_id")
     final Long authorUserId;
     /**
      * 评论到楼中楼
      */
-    @JSONField(name = "parent_id")
+    @JsonProperty("parent_id")
     final Long parentId;
     final String comment;
-    @JSONField(name = "stamp_id", serializeUsing = PixivStampSerializer.class)
+    @JsonProperty("stamp_id")
     final PixivStamp stamp;
 
     /**
@@ -65,7 +65,7 @@ public class PostCommentParam {
     @Getter
     @Setter
     public static class Illust extends PostCommentParam {
-        @JSONField(name = "illust_id")
+        @JsonProperty("illust_id")
         final Long pid;
 
         /**
@@ -101,7 +101,7 @@ public class PostCommentParam {
     @Getter
     @Setter
     public static class Novel extends PostCommentParam {
-        @JSONField(name = "novel_id")
+        @JsonProperty("novel_id")
         final Long nid;
 
         /**

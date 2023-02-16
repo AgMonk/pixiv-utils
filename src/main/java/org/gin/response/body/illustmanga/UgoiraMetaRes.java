@@ -1,6 +1,7 @@
 package org.gin.response.body.illustmanga;
 
-import com.alibaba.fastjson.annotation.JSONField;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
 import org.gin.response.PixivResponse;
@@ -21,7 +22,7 @@ public class UgoiraMetaRes extends PixivResponse<UgoiraMetaRes.UgoiraMetaBody> {
     @Getter
     @Setter
     public static class UgoiraMetaBody {
-        @JSONField(alternateNames = "mime_type")
+        @JsonProperty("mime_type")
         String mimeType;
         String originalSrc;
         String src;

@@ -1,6 +1,6 @@
 package org.gin.response.body.tag;
 
-import com.alibaba.fastjson.annotation.JSONField;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 /**
@@ -10,20 +10,20 @@ import lombok.Data;
  */
 @Data
 public class TagInfo {
-    @JSONField(alternateNames = "abstract")
+    @JsonProperty("abstract")
     String abs;
     LangInfo en;
-    @JSONField(alternateNames = "en_new")
+    @JsonProperty("en_new")
     LangInfo enNew;
     LangInfo ja;
-    @JSONField(alternateNames = "ja_new")
+    @JsonProperty("ja_new")
     LangInfo jaNew;
     String tag;
     String thumbnail;
 
     @Data
     static class LangInfo {
-        @JSONField(alternateNames = "abstract")
+        @JsonProperty("abstract")
         String abs;
         String tag;
         String url;

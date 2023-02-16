@@ -1,6 +1,7 @@
 package org.gin.response.fields;
 
-import com.alibaba.fastjson.annotation.JSONField;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 /**
@@ -18,6 +19,6 @@ public class BookmarkData {
     /**
      * 私有收藏
      */
-    @JSONField(alternateNames = "private")
+    @JsonProperty("private")
     boolean pri;
 }

@@ -1,6 +1,6 @@
 package org.gin.response.body.tag;
 
-import com.alibaba.fastjson.annotation.JSONField;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 import java.util.List;
@@ -16,11 +16,11 @@ public class SuggestByWordBody {
 
     @Data
     public static class Candidate {
-        @JSONField(alternateNames = "illust_count")
+        @JsonProperty("illust_count")
         Long illustCount;
-        @JSONField(alternateNames = "tag_name")
+        @JsonProperty("tag_name")
         String tagName;
-        @JSONField(alternateNames = "total_count")
+        @JsonProperty("total_count")
         Long totalCount;
     }
 }

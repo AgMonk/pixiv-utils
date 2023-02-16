@@ -1,13 +1,10 @@
 package org.gin.request;
 
-import com.alibaba.fastjson.serializer.SerializerFeature;
 import okhttp3.HttpUrl;
 import org.gin.utils.JsonUtils;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.List;
 
 /**
  * HttpUrl Builder
@@ -19,17 +16,7 @@ public class PixivUrlBuilder {
 
     HttpUrl httpUrl;
     HashMap<String, Object> params = new HashMap<>();
-    List<SerializerFeature> features = new ArrayList<>();
 
-    /**
-     * 添加Feature
-     * @param serializerFeature serializerFeature
-     * @return this.
-     */
-    public PixivUrlBuilder addFeature(SerializerFeature serializerFeature) {
-        this.features.add(serializerFeature);
-        return this;
-    }
 
     /**
      * 添加参数
@@ -52,10 +39,8 @@ public class PixivUrlBuilder {
                 //如果value 是集合，添加多个同名参数
                 ((Collection<?>) v).forEach(i -> builder.addQueryParameter(k, String.valueOf(i)));
             } else if (v == null) {
-                if (features.contains(SerializerFeature.WriteMapNullValue)) {
-                    //如果value是null 且传入了该值则把null值写成空串
-                    builder.addQueryParameter(k, "");
-                }
+                //如果value是null 且传入了该值则把null值写成空串
+                builder.addQueryParameter(k, "");
             } else {
                 //常规写入
                 builder.addQueryParameter(k, v.toString());

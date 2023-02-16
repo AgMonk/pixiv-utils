@@ -1,6 +1,7 @@
 package org.gin.response.fields;
 
-import com.alibaba.fastjson.annotation.JSONField;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 import java.time.ZonedDateTime;
@@ -66,7 +67,7 @@ public class CommissionRequest {
      * 根据要求创作的作品
      */
     @Data
-    static class PostWork{
+    static class PostWork {
         Long postWorkId;
         String postWorkType;
     }
@@ -75,12 +76,12 @@ public class CommissionRequest {
      * 提议（约稿要求）
      */
     @Data
-    static class RequestProposal{
-        @JSONField(alternateNames = {"requestOriginalProposal","requestProposal"})
+    static class RequestProposal {
+        @JsonProperty("requestOriginalProposal")
         String requestOriginalProposal;
-        @JSONField(alternateNames = {"requestOriginalProposalHtml","requestProposalHtml"})
+        @JsonProperty("requestOriginalProposalHtml")
         String requestOriginalProposalHtml;
-        @JSONField(alternateNames = {"requestOriginalProposalLang","requestProposalLang"})
+        @JsonProperty("requestOriginalProposalLang")
         String requestOriginalProposalLang;
         List<RequestProposal> requestTranslationProposal;
     }

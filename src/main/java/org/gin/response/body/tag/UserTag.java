@@ -1,6 +1,7 @@
 package org.gin.response.body.tag;
 
-import com.alibaba.fastjson.annotation.JSONField;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 /**
@@ -11,12 +12,12 @@ import lombok.Data;
  */
 @Data
 public class UserTag {
-    @JSONField(alternateNames = "cnt")
+    @JsonProperty("cnt")
     long count;
     String tag;
-    @JSONField(alternateNames = "tag_translation")
+    @JsonProperty("tag_translation")
     String translation;
-    @JSONField(alternateNames = "tag_yomigana")
+    @JsonProperty("tag_yomigana")
     String yomigana;
 
 }

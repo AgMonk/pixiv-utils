@@ -1,5 +1,7 @@
 package org.gin.emuns;
 
+import com.fasterxml.jackson.annotation.JsonValue;
+
 /**
  * 小说的写作语言
  * @author : ginstone
@@ -30,4 +32,8 @@ public enum PixivWorkLang {
         this.name = name;
     }
 
+    @JsonValue
+    public String getName() {
+        return name;
+    }
 }

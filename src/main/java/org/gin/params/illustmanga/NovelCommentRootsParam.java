@@ -1,6 +1,7 @@
 package org.gin.params.illustmanga;
 
-import com.alibaba.fastjson.annotation.JSONField;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 /**
@@ -11,7 +12,7 @@ import lombok.Data;
  */
 @Data
 public class NovelCommentRootsParam {
-    @JSONField(name = "novel_id")
+    @JsonProperty("novel_id")
     Long nid;
     int offset;
     int limit;

@@ -1,6 +1,6 @@
 package org.gin.response.body;
 
-import com.alibaba.fastjson.annotation.JSONField;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 /**
@@ -13,9 +13,9 @@ public class BookmarkAddBody {
     /**
      * 收藏id 用于移除收藏
      */
-    @JSONField(alternateNames = "last_bookmark_id")
+    @JsonProperty(value = "last_bookmark_id")
     Long lastBookmarkId;
 
-    @JSONField(alternateNames = "stacc_status_id")
+    @JsonProperty(value = "stacc_status_id")
     Long statusId;
 }

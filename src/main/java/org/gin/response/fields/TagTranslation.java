@@ -1,6 +1,7 @@
 package org.gin.response.fields;
 
-import com.alibaba.fastjson.annotation.JSONField;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 /**
@@ -14,6 +15,6 @@ public class TagTranslation {
     String ko;
     String zh;
     String romaji;
-    @JSONField(alternateNames = "zh_tw")
+    @JsonProperty("zh_tw")
     String zhTw;
 }

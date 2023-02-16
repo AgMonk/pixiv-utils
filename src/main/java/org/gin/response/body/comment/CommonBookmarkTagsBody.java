@@ -1,6 +1,6 @@
 package org.gin.response.body.comment;
 
-import com.alibaba.fastjson.annotation.JSONField;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 import java.util.List;
@@ -13,16 +13,16 @@ import java.util.List;
  **/
 @Data
 public class CommonBookmarkTagsBody {
-    @JSONField(alternateNames = "private")
+    @JsonProperty("private")
     List<Tag> privateTag;
-    @JSONField(alternateNames = "public")
+    @JsonProperty("public")
     List<Tag> publicTag;
     Boolean tooManyBookmark;
     Boolean tooManyBookmarkTags;
 
     @Data
     static class Tag {
-        @JSONField(alternateNames = "cnt")
+        @JsonProperty("cnt")
         long count;
         String tag;
     }

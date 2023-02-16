@@ -1,12 +1,12 @@
 package org.gin.params.illustmanga;
 
-import com.alibaba.fastjson.annotation.JSONField;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.gin.emuns.PixivIllustSearchMode;
-import org.gin.emuns.PixivIllustSearchModeSerializer;
 import org.gin.params.BaseSearchParam;
 
 /**
@@ -21,7 +21,7 @@ import org.gin.params.BaseSearchParam;
 @AllArgsConstructor
 public class IllustMangaSearchParam extends BaseSearchParam {
 
-    @JSONField(name = "s_mode", serializeUsing = PixivIllustSearchModeSerializer.class)
+    @JsonProperty("s_mode")
     PixivIllustSearchMode searchMode = PixivIllustSearchMode.DEFAULT;
 
     public IllustMangaSearchParam(int page) {

@@ -1,6 +1,7 @@
 package org.gin.params.rank;
 
-import com.alibaba.fastjson.annotation.JSONField;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import org.gin.emuns.PixivRankingMode;
 import org.gin.emuns.RankingContent;
@@ -13,7 +14,7 @@ import org.gin.emuns.RankingContent;
  */
 @Getter
 public class RankingParam {
-    @JSONField(name = "p")
+    @JsonProperty("p")
     final int page;
     final PixivRankingMode mode;
     final String format = "json";

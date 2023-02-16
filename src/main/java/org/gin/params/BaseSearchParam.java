@@ -1,13 +1,13 @@
 package org.gin.params;
 
-import com.alibaba.fastjson.annotation.JSONField;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.gin.emuns.PixivMode;
 import org.gin.emuns.PixivOrder;
-import org.gin.emuns.PixivOrderSerializer;
 
 /**
  * 插画/漫画搜索参数
@@ -23,12 +23,11 @@ public class BaseSearchParam {
     /**
      * 页码
      */
-    @JSONField(name = "p")
+    @JsonProperty("p")
     int page = 1;
     /**
      * 排序模式
      */
-    @JSONField(serializeUsing = PixivOrderSerializer.class)
     PixivOrder order = PixivOrder.DSC;
     /**
      * 模式
@@ -37,12 +36,12 @@ public class BaseSearchParam {
     /**
      * 发布时间（起），以东九区为准，格式：yyyy-MM-dd
      */
-    @JSONField(name = "scd")
+    @JsonProperty("scd")
     String dateStart;
     /**
      * 发布时间（止），以东九区为准，格式：yyyy-MM-dd
      */
-    @JSONField(name = "ecd")
+    @JsonProperty("ecd")
     String dateEnd;
 
     public BaseSearchParam(int page) {

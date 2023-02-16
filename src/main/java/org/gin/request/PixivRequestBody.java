@@ -1,7 +1,5 @@
 package org.gin.request;
 
-import com.alibaba.fastjson.JSONObject;
-import com.alibaba.fastjson.serializer.SerializerFeature;
 import okhttp3.FormBody;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
@@ -52,7 +50,7 @@ public class PixivRequestBody {
      * @return RequestBody
      */
     public static RequestBody createJsonBody(Object obj) {
-        return RequestBody.create(JSONObject.toJSONString(obj, SerializerFeature.WriteMapNullValue), MEDIA_TYPE_JSON);
+        return RequestBody.create(JsonUtils.obj2Str(obj), MEDIA_TYPE_JSON);
     }
 
     /**

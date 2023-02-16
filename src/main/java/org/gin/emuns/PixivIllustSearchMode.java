@@ -1,5 +1,7 @@
 package org.gin.emuns;
 
+import com.fasterxml.jackson.annotation.JsonValue;
+
 /**
  * 绘画的检索模式
  * @author : ginstone
@@ -23,6 +25,10 @@ public enum PixivIllustSearchMode {
 
     PixivIllustSearchMode(String value) {
         this.value = value;
+    }
 
+    @JsonValue
+    public String getValue() {
+        return value;
     }
 }

@@ -15,5 +15,5 @@ public enum PixivOrderBy {
      * 从旧到新
      */
     asc,
-    ;
+
 }

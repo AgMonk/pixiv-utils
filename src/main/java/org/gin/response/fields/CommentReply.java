@@ -1,6 +1,7 @@
 package org.gin.response.fields;
 
-import com.alibaba.fastjson.annotation.JSONField;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -23,7 +24,7 @@ public class CommentReply {
     /**
      * 用户头像
      */
-    @JSONField(alternateNames = "img")
+    @JsonProperty("img")
     String userAvatar;
     Boolean isDeletedUser;
     /**

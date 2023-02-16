@@ -1,6 +1,7 @@
 package org.gin.params.novel;
 
-import com.alibaba.fastjson.annotation.JSONField;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -15,14 +16,14 @@ import org.gin.emuns.PixivOrderBy;
 @Setter
 @AllArgsConstructor
 public class NovelSeriesContentParam {
-    @JSONField(name = "limit")
+    @JsonProperty("limit")
     int size;
     /**
      * 排序
      */
-    @JSONField(name = "order_by")
+    @JsonProperty("order_by")
     PixivOrderBy orderBy = PixivOrderBy.asc;
-    @JSONField(name = "last_order")
+    @JsonProperty("last_order")
     int offset;
 
     public NovelSeriesContentParam(int page, int size) {

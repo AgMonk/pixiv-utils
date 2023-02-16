@@ -1,5 +1,7 @@
 package org.gin.emuns;
 
+import com.fasterxml.jackson.annotation.JsonValue;
+
 /**
  * 是否为公开收藏 / 关注
  * @author : ginstone
@@ -21,4 +23,10 @@ public enum PixivRestrict {
     PixivRestrict(int id) {
         this.id = id;
     }
+
+    @JsonValue
+    public int getId() {
+        return id;
+    }
 }
+

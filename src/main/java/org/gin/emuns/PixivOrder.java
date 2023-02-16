@@ -1,5 +1,7 @@
 package org.gin.emuns;
 
+import com.fasterxml.jackson.annotation.JsonValue;
+
 /**
  * 排序规则
  * @author : ginstone
@@ -21,5 +23,10 @@ public enum PixivOrder {
 
     PixivOrder(String name) {
         this.name = name;
+    }
+
+    @JsonValue
+    public String getName() {
+        return name;
     }
 }

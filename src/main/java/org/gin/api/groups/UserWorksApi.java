@@ -1,7 +1,6 @@
 package org.gin.api.groups;
 
-import com.alibaba.fastjson.JSONObject;
-import com.alibaba.fastjson.TypeReference;
+import com.fasterxml.jackson.core.type.TypeReference;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
@@ -52,7 +51,7 @@ public class UserWorksApi {
             string = Convertor.replaceEmptyArray(string, "manga");
             string = Convertor.replaceEmptyArray(string, "illusts");
             string = Convertor.replaceEmptyArray(string, "novels");
-            final PixivResponse<ProfileBody> response = JSONObject.parseObject(string, new TypeReference<PixivResponse<ProfileBody>>() {
+            final PixivResponse<ProfileBody> response = JsonUtils.MAPPER.readValue(string, new TypeReference<PixivResponse<ProfileBody>>() {
             });
             final ProfileRealBody body = new ProfileRealBody(response.getBody());
             final PixivResponse<ProfileRealBody> res = new PixivResponse<>();

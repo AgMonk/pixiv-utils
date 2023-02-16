@@ -1,6 +1,7 @@
 package org.gin.response.fields;
 
-import com.alibaba.fastjson.annotation.JSONField;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 import java.util.List;
@@ -24,7 +25,7 @@ public class NovelSeriesContent {
     /**
      * 再上传时间
      */
-    @JSONField(alternateNames = "reuploadTimestamp")
+    @JsonProperty("reuploadTimestamp")
     Long reUploadTimestamp;
     /**
      * 作品描述

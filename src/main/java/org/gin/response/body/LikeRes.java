@@ -1,6 +1,7 @@
 package org.gin.response.body;
 
-import com.alibaba.fastjson.annotation.JSONField;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
@@ -20,7 +21,7 @@ public class LikeRes extends PixivResponse<LikeRes.LikeBody> {
         /**
          * 操作之前是否已经喜欢该作品
          */
-        @JSONField(alternateNames = "is_liked")
+        @JsonProperty("is_liked")
         Boolean isLiked;
     }
 }

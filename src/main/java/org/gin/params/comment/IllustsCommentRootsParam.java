@@ -1,6 +1,7 @@
 package org.gin.params.comment;
 
-import com.alibaba.fastjson.annotation.JSONField;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 /**
@@ -11,7 +12,7 @@ import lombok.Data;
  */
 @Data
 public class IllustsCommentRootsParam {
-    @JSONField(name = "illust_id")
+    @JsonProperty("illust_id")
     Long pid;
     int offset;
     int limit;

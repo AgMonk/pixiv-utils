@@ -1,8 +1,11 @@
 package org.gin.utils;
 
-import com.alibaba.fastjson.JSONObject;
-import com.alibaba.fastjson.TypeReference;
-import com.alibaba.fastjson.serializer.SerializerFeature;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
@@ -18,10 +21,20 @@ import java.util.HashMap;
 @Setter
 @RequiredArgsConstructor
 public class JsonUtils {
+    public final static ObjectMapper MAPPER = new ObjectMapper();
 
-    public static void printJson(Object o) {
-        System.out.println(JSONObject.toJSONString(o, SerializerFeature.PrettyFormat));
+    static {
+        //美化输出
+        MAPPER.enable(SerializationFeature.INDENT_OUTPUT);
+        //反序列化时 空串识别为 null
+        MAPPER.enable(DeserializationFeature.ACCEPT_EMPTY_STRING_AS_NULL_OBJECT);
+        //反序列化时,遇到未知属性会不会报错
+        //true - 遇到没有的属性就报错 false - 没有的属性不会管，不会报错
+        MAPPER.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+        // 支持 ZonedDateTime
+        MAPPER.registerModule(new JavaTimeModule());
     }
+
 
     /**
      * 把对象转换为HashMap
@@ -29,7 +42,35 @@ public class JsonUtils {
      * @return HashMap
      */
     public static HashMap<String, Object> jsonToMap(Object obj) {
-        return JSONObject.parseObject(JSONObject.toJSONString(obj, SerializerFeature.WriteMapNullValue), new TypeReference<HashMap<String, Object>>() {
-        });
+        try {
+            return MAPPER.readValue(MAPPER.writeValueAsString(obj), new TypeReference<HashMap<String, Object>>() {
+            });
+        } catch (JsonProcessingException e) {
+            return new HashMap<>(0);
+        }
+    }
+
+    public static String obj2Str(Object o) {
+        try {
+            return MAPPER.writeValueAsString(o);
+        } catch (JsonProcessingException e) {
+            return "";
+        }
+    }
+
+    public static <T> T parse(String s, Class<T> clazz) {
+        try {
+            return MAPPER.readValue(s, clazz);
+        } catch (JsonProcessingException e) {
+            return null;
+        }
+    }
+
+    public static void printJson(Object o) {
+        try {
+            System.out.println(MAPPER.writeValueAsString(o));
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -1,13 +1,14 @@
 package org.gin.response.convertor;
 
-import com.alibaba.fastjson.JSONObject;
-import com.alibaba.fastjson.TypeReference;
+import com.fasterxml.jackson.core.type.TypeReference;
 import okhttp3.ResponseBody;
 import org.gin.response.PixivResponse;
 import org.gin.response.SimplePixivResponse;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
+
+import static org.gin.utils.JsonUtils.MAPPER;
 
 /**
  * 转换器
@@ -20,30 +21,29 @@ public interface Convertor<R> {
     /**
      * 通用转换器
      * @param responseBody ResponseBody
-     * @return org.gin.response.PixivResponse<T>
-     * @throws IOException 异常
-     * @since 2022/10/15 11:01
-     */
-    static PixivResponse<Void> toVoid(ResponseBody responseBody) throws IOException {
-        return JSONObject.parseObject(responseBody.string(), new TypeReference<PixivResponse<Void>>() {
-        });
-    }
-
-    /**
-     * 通用转换器
-     * @param responseBody ResponseBody
      * @param clazz        body类型
      * @return org.gin.response.PixivResponse<T>
      * @throws IOException 异常
      * @since 2022/10/15 11:01
      */
     static <T> T common(ResponseBody responseBody, Class<T> clazz) throws IOException {
-        return JSONObject.parseObject(responseBody.string(), clazz);
+        return MAPPER.readValue(responseBody.string(), clazz);
     }
 
-
     static SimplePixivResponse simple(ResponseBody responseBody) throws IOException {
-        return JSONObject.parseObject(responseBody.string(), SimplePixivResponse.class);
+        return MAPPER.readValue(responseBody.string(), SimplePixivResponse.class);
+    }
+
+    /**
+     * 通用转换器
+     * @param responseBody ResponseBody
+     * @return org.gin.response.PixivResponse<T>
+     * @throws IOException 异常
+     * @since 2022/10/15 11:01
+     */
+    static PixivResponse<Void> toVoid(ResponseBody responseBody) throws IOException {
+        return MAPPER.readValue(responseBody.string(), new TypeReference<PixivResponse<Void>>() {
+        });
     }
 
     /**

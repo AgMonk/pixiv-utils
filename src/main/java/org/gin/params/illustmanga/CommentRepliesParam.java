@@ -1,6 +1,7 @@
 package org.gin.params.illustmanga;
 
-import com.alibaba.fastjson.annotation.JSONField;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -13,7 +14,7 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class CommentRepliesParam {
-    @JSONField(name = "comment_id")
+    @JsonProperty("comment_id")
     Long commentId;
     int page;
 

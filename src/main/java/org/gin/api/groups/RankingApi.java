@@ -1,6 +1,5 @@
 package org.gin.api.groups;
 
-import com.alibaba.fastjson.JSONObject;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
@@ -12,6 +11,7 @@ import org.gin.params.rank.RankingParam;
 import org.gin.request.PixivRequest;
 import org.gin.request.PixivUrlBuilder;
 import org.gin.response.RankingResponse;
+import org.gin.utils.JsonUtils;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
@@ -43,7 +43,7 @@ public class RankingApi {
         return new PixivRequest<>(url, api.getClient(), responseBody -> {
             String string = responseBody.string();
             string = string.replace("\"illust_series\":false", "\"illust_series\":{}");
-            return JSONObject.parseObject(string, RankingResponse.class);
+            return JsonUtils.parse(string, RankingResponse.class);
         });
 
     }

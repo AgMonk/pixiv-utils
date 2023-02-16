@@ -1,11 +1,10 @@
 package org.gin.params.bookmark;
 
-import com.alibaba.fastjson.annotation.JSONField;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.gin.emuns.PixivRestrict;
-import org.gin.emuns.PixivRestrictSerializer;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -18,12 +17,11 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class AddIllustMangaParam implements Serializable {
-    @JSONField(name = "illust_id")
+    @JsonProperty(value = "illust_id")
     long pid;
     /**
      * 是否为非公开收藏
      */
-    @JSONField(serializeUsing = PixivRestrictSerializer.class)
     PixivRestrict restrict = PixivRestrict.TRUE;
     /**
      * 备注

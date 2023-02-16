@@ -1,6 +1,7 @@
 package org.gin.response;
 
-import com.alibaba.fastjson.annotation.JSONField;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -24,65 +25,65 @@ public class RankingResponse {
     List<RankingData> contents;
     String date;
     Integer page;
-    @JSONField(alternateNames = "rank_total")
+    @JsonProperty("rank_total")
     Integer rankTotal;
 
     @Data
     public static class RankingData {
         String attr;
-        @JSONField(alternateNames = "bookmark_id")
+        @JsonProperty("bookmark_id")
         Long bookmarkId;
-        @JSONField(alternateNames = "bookmark_illust_restrict")
+        @JsonProperty("bookmark_illust_restrict")
         Integer bookmarkIllustRestrict;
         String date;
         Integer height;
-        @JSONField(alternateNames = "illust_id")
+        @JsonProperty("illust_id")
         Integer illustId;
-        @JSONField(alternateNames = "illust_page_count")
+        @JsonProperty("illust_page_count")
         Integer illustPageCount;
-        @JSONField(alternateNames = "illust_series")
+        @JsonProperty("illust_series")
         IllustSeries illustSeries;
-        @JSONField(alternateNames = "illust_type")
+        @JsonProperty("illust_type")
         Integer illustType;
-        @JSONField(alternateNames = "illust_upload_timestamp")
+        @JsonProperty("illust_upload_timestamp")
         Long illustUploadTimestamp;
-        @JSONField(alternateNames = "profile_img")
+        @JsonProperty("profile_img")
         String profileImg;
         Integer rank;
-        @JSONField(alternateNames = "rating_count")
+        @JsonProperty("rating_count")
         Integer ratingCount;
         List<String> tags = new ArrayList<>();
         String title;
         String url;
-        @JSONField(alternateNames = "user_id")
+        @JsonProperty("user_id")
         Long userId;
-        @JSONField(alternateNames = "user_name")
+        @JsonProperty("user_name")
         String userName;
-        @JSONField(alternateNames = "view_count")
+        @JsonProperty("view_count")
         Integer viewCount;
         Integer width;
-        @JSONField(alternateNames = "yes_rank")
+        @JsonProperty("yes_rank")
         Integer yesRank;
 
         @Data
         static class IllustSeries {
-            @JSONField(alternateNames = "illust_series_caption")
+            @JsonProperty("illust_series_caption")
             String illustSeriesCaption;
-            @JSONField(alternateNames = "illust_series_content_count")
+            @JsonProperty("illust_series_content_count")
             Integer illustSeriesContentCount;
-            @JSONField(alternateNames = "illust_series_content_illust_id")
+            @JsonProperty("illust_series_content_illust_id")
             Long illustSeriesContentIllustId;
-            @JSONField(alternateNames = "illust_series_content_order")
+            @JsonProperty("illust_series_content_order")
             Integer illustSeriesContentOrder;
-            @JSONField(alternateNames = "illust_series_create_datetime")
+            @JsonProperty("illust_series_create_datetime")
             LocalDateTime illustSeriesCreateDatetime;
-            @JSONField(alternateNames = "illust_series_id")
+            @JsonProperty("illust_series_id")
             Long illustSeriesId;
-            @JSONField(alternateNames = "illust_series_title")
+            @JsonProperty("illust_series_title")
             String illustSeriesTitle;
-            @JSONField(alternateNames = "illust_series_user_id")
+            @JsonProperty("illust_series_user_id")
             Long illustSeriesUserId;
-            @JSONField(alternateNames = "page_url")
+            @JsonProperty("page_url")
             String pageUrl;
 
         }

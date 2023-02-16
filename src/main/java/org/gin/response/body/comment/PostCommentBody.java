@@ -1,6 +1,7 @@
 package org.gin.response.body.comment;
 
-import com.alibaba.fastjson.annotation.JSONField;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 /**
@@ -12,14 +13,14 @@ import lombok.Data;
 @Data
 public class PostCommentBody {
     String comment;
-    @JSONField(alternateNames = "comment_id")
+    @JsonProperty("comment_id")
     Long commentId;
-    @JSONField(alternateNames = "parent_id")
+    @JsonProperty("parent_id")
     Long parentId;
-    @JSONField(alternateNames = "stamp_id")
+    @JsonProperty("stamp_id")
     Integer stampId;
-    @JSONField(alternateNames = "user_id")
+    @JsonProperty("user_id")
     Long userId;
-    @JSONField(alternateNames = "user_name")
+    @JsonProperty("user_name")
     String userName;
 }
