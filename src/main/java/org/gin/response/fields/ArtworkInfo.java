@@ -14,6 +14,10 @@ import java.util.List;
 @Data
 public class ArtworkInfo {
     /**
+     * ai 类型 ，1 = 常规图 ， 2 = ai 图
+     */
+    Integer aiType;
+    /**
      * 网页标题
      */
     String alt;

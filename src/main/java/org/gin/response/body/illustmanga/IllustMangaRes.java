@@ -25,6 +25,10 @@ public class IllustMangaRes extends PixivResponse<IllustMangaRes.IllustMangaBody
     @Data
     public static class IllustMangaBody {
         /**
+         * ai 类型 ，1 = 常规图 ， 2 = ai 图
+         */
+        Integer aiType;
+        /**
          * 网页标题
          */
         String alt;
