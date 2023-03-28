@@ -4,7 +4,7 @@ import okhttp3.Call;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
 import org.gin.exception.PixivException;
-import org.gin.pixiv.callback.AbstractPixivCallback;
+import org.gin.pixiv.callback.AbstractCallback;
 
 import java.io.IOException;
 
@@ -23,7 +23,7 @@ public class PixivCallString {
      * 异步请求, 回调参数为字符串类型
      * @param callback 回调方法
      */
-    public void asyncString(AbstractPixivCallback callback) {
+    public void asyncString(AbstractCallback callback) {
         this.call.enqueue(callback);
     }
 
@@ -33,7 +33,7 @@ public class PixivCallString {
      */
     public String syncString() throws IOException, PixivException {
         try (Response response = this.call.execute()) {
-            ResponseBody body = AbstractPixivCallback.body(this.call, response);
+            ResponseBody body = AbstractCallback.body(this.call, response);
             return body != null ? body.string() : null;
         }
     }

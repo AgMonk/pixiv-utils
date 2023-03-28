@@ -19,7 +19,7 @@ import java.io.IOException;
  * @version : v1.0.0
  * @since : 2023/3/27 17:44
  */
-public abstract class AbstractPixivCallback implements Callback {
+public abstract class AbstractCallback implements Callback {
     public static ResponseBody body(@NotNull Call call, @NotNull Response response) throws IOException, PixivException {
         final int code = response.code();
         final int co = code / 100;

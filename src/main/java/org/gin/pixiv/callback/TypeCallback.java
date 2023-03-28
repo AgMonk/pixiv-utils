@@ -1,5 +1,6 @@
 package org.gin.pixiv.callback;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.Setter;
 import org.gin.utils.JsonUtils;
 import org.jetbrains.annotations.NotNull;
@@ -11,14 +12,15 @@ import org.jetbrains.annotations.NotNull;
  * @since : 2023/3/27 17:54
  */
 @Setter
-public abstract class ClassPixivCallback<T> extends AbstractPixivCallback {
+public abstract class TypeCallback<T> extends AbstractCallback {
     Class<T> eClass;
 
     @Override
     public final void onSuccess(@NotNull String body) {
-        final T response = JsonUtils.parse(body, eClass);
-        if (response != null) {
-            handleResponse(response);
+        try {
+            handleResponse(JsonUtils.MAPPER.readValue(body, eClass));
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
         }
     }
 

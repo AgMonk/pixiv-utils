@@ -4,7 +4,8 @@ import lombok.Getter;
 import okhttp3.*;
 import org.gin.exception.PixivException;
 import org.gin.exception.PixivExceptionEnum;
-import org.gin.pixiv.call.PixivCall;
+import org.gin.pixiv.call.PixivCallStandard;
+import org.gin.pixiv.call.PixivCallType;
 import org.gin.pixiv.enums.Headers;
 import org.gin.pixiv.enums.Language;
 import org.gin.pixiv.enums.Method;
@@ -211,10 +212,10 @@ public class PixivClient {
      * @param responseClass 响应类型
      * @return Call
      */
-    public <T> PixivCall<T> call(
+    public <T> PixivCallType<T> call(
             @NotNull String url,
             @Nullable Object param,
-            Class<T> responseClass
+            @NotNull Class<T> responseClass
     ) {
         return call(ParamType.QUERY, url, param, responseClass);
     }
@@ -227,12 +228,44 @@ public class PixivClient {
      * @param responseClass 响应类型
      * @return Call
      */
-    public <T> PixivCall<T> call(
+    public <T> PixivCallType<T> call(
             @NotNull ParamType type,
             @NotNull String url,
             @Nullable Object param,
-            Class<T> responseClass
+            @NotNull Class<T> responseClass
     ) {
-        return new PixivCall<>(call(type, url, param), responseClass);
+        return new PixivCallType<>(call(type, url, param), responseClass);
+    }
+
+    /**
+     * 生成标准返回call(带响应类型的) QUERY方法(GET)
+     * @param url           url
+     * @param param         参数
+     * @param responseClass 响应类型
+     * @return Call
+     */
+    public <T> PixivCallStandard<T> sCall(
+            @NotNull String url,
+            @Nullable Object param,
+            @NotNull Class<T> responseClass
+    ) {
+        return sCall(ParamType.QUERY, url, param, responseClass);
+    }
+
+    /**
+     * 生成标准返回call(带响应类型的)
+     * @param type          传参方式
+     * @param url           url
+     * @param param         参数
+     * @param responseClass 响应类型
+     * @return Call
+     */
+    public <T> PixivCallStandard<T> sCall(
+            @NotNull ParamType type,
+            @NotNull String url,
+            @Nullable Object param,
+            @NotNull Class<T> responseClass
+    ) {
+        return new PixivCallStandard<>(call(type, url, param), responseClass);
     }
 }
