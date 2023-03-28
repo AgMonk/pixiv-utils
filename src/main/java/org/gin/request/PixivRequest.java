@@ -72,7 +72,10 @@ public class PixivRequest<R> {
      * @throws PixivRequestException 异常
      * @throws IOException           异常
      */
-    private static ResponseBody handle(@NotNull Call call, @NotNull Response response) throws IOException {
+    private static ResponseBody handle(
+            @NotNull Call call,
+            @NotNull Response response
+    ) throws IOException, PixivClientException, PixivServerException {
         final int code = response.code();
         final int co = code / 100;
         final ResponseBody body = response.body();
@@ -134,7 +137,7 @@ public class PixivRequest<R> {
      * @throws IOException           异常
      * @throws PixivRequestException pixiv异常
      */
-    public R sync() throws IOException {
+    public R sync() throws IOException, PixivClientException, PixivServerException {
         return convertor.convert(syncBody());
     }
 
@@ -143,7 +146,7 @@ public class PixivRequest<R> {
      * @return ResponseBody
      * @throws IOException 异常
      */
-    public ResponseBody syncBody() throws IOException {
+    public ResponseBody syncBody() throws IOException, PixivClientException, PixivServerException {
         final Call call = client.newCall(request);
         final Response response = call.execute();
         return handle(call, response);

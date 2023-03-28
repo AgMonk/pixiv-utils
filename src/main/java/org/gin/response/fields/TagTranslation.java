@@ -2,14 +2,16 @@ package org.gin.response.fields;
 
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * @author : ginstone
  * @version : v1.0.0
  * @since : 2022/10/12 17:45
  **/
-@Data
+@Getter
+@Setter
 public class TagTranslation {
     String en;
     String ko;

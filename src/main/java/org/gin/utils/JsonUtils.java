@@ -24,11 +24,11 @@ public class JsonUtils {
     public final static ObjectMapper MAPPER = new ObjectMapper();
 
     static {
+//        MAPPER.setSerializationInclusion(JsonInclude.Include.NON_NULL);
         //美化输出
         MAPPER.enable(SerializationFeature.INDENT_OUTPUT);
         //反序列化时 空串识别为 null
         MAPPER.enable(DeserializationFeature.ACCEPT_EMPTY_STRING_AS_NULL_OBJECT);
-        //反序列化时,遇到未知属性会不会报错
         //true - 遇到没有的属性就报错 false - 没有的属性不会管，不会报错
         MAPPER.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         // 支持 ZonedDateTime

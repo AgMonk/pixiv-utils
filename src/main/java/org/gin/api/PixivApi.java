@@ -5,6 +5,7 @@ import lombok.Setter;
 import lombok.experimental.Accessors;
 import okhttp3.OkHttpClient;
 import org.gin.api.groups.*;
+import org.gin.exception.PixivException;
 import org.gin.interceptor.HeaderInterceptor;
 import org.gin.interceptor.LangInterceptor;
 import org.gin.interceptor.LoggingInterceptor;
@@ -100,7 +101,7 @@ public class PixivApi {
             return new PixivApi(client, cookieToken, domain);
         }
 
-        public Builder setSessionId(String sessionId) throws IOException {
+        public Builder setSessionId(String sessionId) throws IOException, PixivException {
             this.cookieToken = new PixivCookieToken(sessionId);
             this.cookieToken.findToken(defaultClient(), domain);
             return this;
