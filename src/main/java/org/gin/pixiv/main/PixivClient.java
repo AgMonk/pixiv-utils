@@ -9,7 +9,6 @@ import org.gin.pixiv.enums.Headers;
 import org.gin.pixiv.enums.Language;
 import org.gin.pixiv.enums.Method;
 import org.gin.pixiv.enums.ParamType;
-import org.gin.response.PixivResponse;
 import org.gin.utils.JsonUtils;
 import org.gin.utils.ObjectUtils;
 import org.jetbrains.annotations.NotNull;
@@ -215,7 +214,7 @@ public class PixivClient {
     public <T> PixivCall<T> call(
             @NotNull String url,
             @Nullable Object param,
-            Class<? extends PixivResponse<T>> responseClass
+            Class<T> responseClass
     ) {
         return call(ParamType.QUERY, url, param, responseClass);
     }
@@ -232,7 +231,7 @@ public class PixivClient {
             @NotNull ParamType type,
             @NotNull String url,
             @Nullable Object param,
-            Class<? extends PixivResponse<T>> responseClass
+            Class<T> responseClass
     ) {
         return new PixivCall<>(call(type, url, param), responseClass);
     }

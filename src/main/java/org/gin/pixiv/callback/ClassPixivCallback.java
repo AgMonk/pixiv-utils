@@ -1,10 +1,8 @@
 package org.gin.pixiv.callback;
 
 import lombok.Setter;
-import org.gin.response.PixivResponse;
 import org.gin.utils.JsonUtils;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 /**
  * 指定返回类型的回调
@@ -14,17 +12,19 @@ import org.jetbrains.annotations.Nullable;
  */
 @Setter
 public abstract class ClassPixivCallback<T> extends AbstractPixivCallback {
-    Class<? extends PixivResponse<T>> eClass;
+    Class<T> eClass;
 
     @Override
     public final void onSuccess(@NotNull String body) {
-        final PixivResponse<T> response = JsonUtils.parse(body, eClass);
-        onSuccess(response == null ? null : response.getBody());
+        final T response = JsonUtils.parse(body, eClass);
+        if (response != null) {
+            handleResponse(response);
+        }
     }
 
     /**
-     * 执行成功回调
-     * @param body 响应对象
+     * 处理响应
+     * @param response 响应
      */
-    abstract public void onSuccess(@Nullable T body);
+    abstract public void handleResponse(@NotNull T response);
 }   

@@ -19,7 +19,7 @@ public class Main {
 
         final PixivClient client = new PixivClient(sessionId, token);
 
-        final IllustBodyDetail body = client.call("/ajax/illust/" + 99147997, null, IllustBodyDetail.Res.class).sync();
+        final IllustBodyDetail body = client.call("/ajax/illust/" + 99147997, null, IllustBodyDetail.class).sync();
 
         JsonUtils.printJson(body);
     }
