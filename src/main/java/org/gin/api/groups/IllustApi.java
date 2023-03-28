@@ -6,6 +6,7 @@ import org.gin.api.PixivApi;
 import org.gin.emuns.PixivMode;
 import org.gin.params.illustmanga.IllustMangaSearchParam;
 import org.gin.params.illustmanga.IllustsDiscoveryParam;
+import org.gin.pixiv.response.body.common.DiscoveryBody;
 import org.gin.request.PixivRequest;
 import org.gin.request.PixivUrlBuilder;
 import org.gin.response.body.BookmarkDataRes;
@@ -62,7 +63,7 @@ public class IllustApi {
     /**
      * 发现绘画
      * @param param 参数
-     * @return org.gin.request.PixivRequest<org.gin.response.PixivResponse < org.gin.response.body.illustmanga.DiscoveryBody>>
+     * @return org.gin.request.PixivRequest<org.gin.response.PixivResponse < org.gin.pixiv.response.body.common.DiscoveryBody>>
      * @since 2022/10/21 9:14
      */
     public PixivRequest<DiscoveryRes> discovery(@NotNull IllustsDiscoveryParam param) {
@@ -106,7 +107,7 @@ public class IllustApi {
     /**
      * 查询推荐绘画2
      * @param ids 基准id，可以直接使用 recommendInit 方法的返回结果
-     * @return org.gin.request.PixivRequest<org.gin.response.PixivResponse < org.gin.response.body.illustmanga.DiscoveryBody>>
+     * @return org.gin.request.PixivRequest<org.gin.response.PixivResponse < org.gin.pixiv.response.body.common.DiscoveryBody>>
      * @since 2022/11/1 9:48
      */
     public PixivRequest<IllustRecommendRes> recommendIllusts(@NotNull List<Long> ids) {
@@ -122,7 +123,7 @@ public class IllustApi {
      * 查询推荐绘画
      * @param pid   基准绘画pid
      * @param limit 绘画数量
-     * @return org.gin.request.PixivRequest<org.gin.response.PixivResponse < org.gin.response.body.illustmanga.DiscoveryBody>>
+     * @return org.gin.request.PixivRequest<org.gin.response.PixivResponse < org.gin.pixiv.response.body.common.DiscoveryBody>>
      * @since 2022/11/1 9:43
      */
     public PixivRequest<IllustRecommendInitRes> recommendInit(long pid, int limit) {

@@ -1,6 +1,7 @@
 package org.gin.response.body.novel;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.gin.response.fields.NovelSeriesContent;
 
 import java.util.List;
@@ -11,7 +12,8 @@ import java.util.List;
  * @version : v1.0.0
  * @since : 2022/11/15 17:08
  */
-@Data
+@Getter
+@Setter
 public class NovelSeriesContentBody {
 
     List<NovelSeriesContent> seriesContents;

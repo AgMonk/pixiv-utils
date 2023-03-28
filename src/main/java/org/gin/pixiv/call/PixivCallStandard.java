@@ -2,6 +2,7 @@ package org.gin.pixiv.call;
 
 import okhttp3.Call;
 import org.gin.exception.PixivException;
+import org.gin.pixiv.callback.StandardCallback;
 import org.gin.utils.JsonUtils;
 
 import java.io.IOException;
@@ -13,6 +14,15 @@ import java.io.IOException;
 public class PixivCallStandard<T> extends PixivCall<T> {
     public PixivCallStandard(Call call, Class<T> responseClass) {
         super(call, responseClass);
+    }
+
+    /**
+     * 异步请求
+     * @param callback 回调方法
+     */
+    public void async(StandardCallback<T> callback) {
+        callback.setEClass(responseClass);
+        this.call.enqueue(callback);
     }
 
     /**

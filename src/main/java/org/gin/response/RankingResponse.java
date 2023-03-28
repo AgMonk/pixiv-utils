@@ -2,7 +2,8 @@ package org.gin.response;
 
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -13,7 +14,8 @@ import java.util.List;
  * @version : v1.0.0
  * @since : 2022/10/18 09:42
  */
-@Data
+@Getter
+@Setter
 public class RankingResponse {
     /**
      * 正文类型
@@ -28,7 +30,8 @@ public class RankingResponse {
     @JsonProperty("rank_total")
     Integer rankTotal;
 
-    @Data
+    @Getter
+    @Setter
     public static class RankingData {
         String attr;
         @JsonProperty("bookmark_id")
@@ -65,7 +68,8 @@ public class RankingResponse {
         @JsonProperty("yes_rank")
         Integer yesRank;
 
-        @Data
+        @Getter
+        @Setter
         static class IllustSeries {
             @JsonProperty("illust_series_caption")
             String illustSeriesCaption;

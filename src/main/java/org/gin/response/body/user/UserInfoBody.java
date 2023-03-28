@@ -1,6 +1,7 @@
 package org.gin.response.body.user;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * 用户信息
@@ -8,7 +9,8 @@ import lombok.Data;
  * @version : v1.0.0
  * @since : 2022/10/13 10:52
  **/
-@Data
+@Getter
+@Setter
 public class UserInfoBody {
     /**
      * 是否接受约稿
@@ -71,7 +73,8 @@ public class UserInfoBody {
      */
     WorkSpace workspace;
 
-    @Data
+    @Getter
+    @Setter
     static class Region {
         String name;
         /**
@@ -85,18 +88,21 @@ public class UserInfoBody {
     /**
      * 其他社交媒体
      */
-    @Data
+    @Getter
+    @Setter
     static class Social {
         SocialUrl pawoo;
         SocialUrl twitter;
     }
 
-    @Data
+    @Getter
+    @Setter
     static class SocialUrl {
         String url;
     }
 
-    @Data
+    @Getter
+    @Setter
     static class WorkSpace {
         /**
          * 椅子

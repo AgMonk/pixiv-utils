@@ -1,9 +1,9 @@
 package org.gin.pixiv.response.body.illust;
 
+import com.fasterxml.jackson.annotation.JsonAlias;
 import lombok.Getter;
 import lombok.Setter;
-import org.gin.pixiv.response.body.BaseSearchBody;
-import org.gin.response.PixivResponse;
+import org.gin.pixiv.response.body.search.BaseSearchBody;
 import org.gin.response.fields.Popular;
 
 import java.util.List;
@@ -17,6 +17,7 @@ import java.util.List;
 @Getter
 @Setter
 public class IllustBodySearch extends BaseSearchBody {
+    @JsonAlias({"illust", "illustManga"})
     IllustManga illustManga;
     Popular popular;
 
@@ -27,6 +28,4 @@ public class IllustBodySearch extends BaseSearchBody {
         List<IllustBodySimple> data;
     }
 
-    public static class Res extends PixivResponse<IllustBodySearch> {
-    }
-}   
+}

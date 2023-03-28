@@ -1,6 +1,7 @@
 package org.gin.response.body.novel;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.gin.response.fields.BookmarkData;
 
 import java.time.ZonedDateTime;
@@ -13,7 +14,8 @@ import java.util.List;
  * @version : v1.0.0
  * @since : 2022/10/17 09:42
  */
-@Data
+@Getter
+@Setter
 public class NovelDetailBody {
     Integer bookmarkCount;
     /**
@@ -85,13 +87,15 @@ public class NovelDetailBody {
      */
     Integer wordCount;
 
-    @Data
+    @Getter
+    @Setter
     static class TagData {
         Boolean isLocked;
         List<Tag> tags;
         Boolean writable;
 
-        @Data
+        @Getter
+        @Setter
         static class Tag {
             Boolean deletable;
             Boolean locked;
@@ -101,7 +105,8 @@ public class NovelDetailBody {
         }
     }
 
-    @Data
+    @Getter
+    @Setter
     static class SeriesNavData {
         Boolean isConcluded;
         Boolean isNotifying;
@@ -114,7 +119,8 @@ public class NovelDetailBody {
         String seriesType;
         String title;
 
-        @Data
+        @Getter
+        @Setter
         static class Link {
             Boolean available;
             Long id;

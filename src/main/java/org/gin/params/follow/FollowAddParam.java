@@ -2,7 +2,8 @@ package org.gin.params.follow;
 
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.gin.emuns.PixivRestrict;
 
 /**
@@ -11,7 +12,8 @@ import org.gin.emuns.PixivRestrict;
  * @version : v1.0.0
  * @since : 2022/10/15 15:03
  */
-@Data
+@Getter
+@Setter
 public class FollowAddParam {
     final String mode = "add";
     final String type = "user";

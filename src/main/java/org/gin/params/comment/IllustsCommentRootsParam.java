@@ -2,7 +2,8 @@ package org.gin.params.comment;
 
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * 查询绘画评论(根)参数
@@ -10,7 +11,8 @@ import lombok.Data;
  * @version : v1.0.0
  * @since : 2022/10/15 16:22
  */
-@Data
+@Getter
+@Setter
 public class IllustsCommentRootsParam {
     @JsonProperty("illust_id")
     Long pid;

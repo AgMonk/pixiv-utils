@@ -1,6 +1,7 @@
 package org.gin.response.fields;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.List;
 
@@ -9,7 +10,8 @@ import java.util.List;
  * @version : v1.0.0
  * @since : 2022/11/1 09:59
  */
-@Data
+@Getter
+@Setter
 public class RecommendDetail {
     String banditInfo;
     List<String> methods;

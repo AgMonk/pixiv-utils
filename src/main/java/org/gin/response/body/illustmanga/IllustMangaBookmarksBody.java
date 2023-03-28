@@ -1,6 +1,7 @@
 package org.gin.response.body.illustmanga;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.gin.response.fields.ArtworkInfo;
 
 import java.util.List;
@@ -11,7 +12,8 @@ import java.util.List;
  * @version : v1.0.0
  * @since : 2022/10/13 14:35
  **/
-@Data
+@Getter
+@Setter
 public class IllustMangaBookmarksBody {
     Long total;
     List<ArtworkInfo> works;

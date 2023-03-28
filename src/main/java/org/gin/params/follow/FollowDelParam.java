@@ -2,7 +2,8 @@ package org.gin.params.follow;
 
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * 添加关注的参数
@@ -10,7 +11,8 @@ import lombok.Data;
  * @version : v1.0.0
  * @since : 2022/10/15 15:03
  */
-@Data
+@Getter
+@Setter
 public class FollowDelParam {
     final String mode = "del";
     final String type = "bookuser";

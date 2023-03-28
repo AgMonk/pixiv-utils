@@ -71,7 +71,7 @@ public abstract class AbstractCallback<T> implements Callback {
      * 执行成功回调
      * @param body body字符串
      */
-    public abstract void onSuccess(@NotNull T body);
+    public abstract void onSuccess(T body);
 
     /**
      * 处理异常

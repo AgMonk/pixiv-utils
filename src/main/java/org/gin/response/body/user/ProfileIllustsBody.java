@@ -1,6 +1,7 @@
 package org.gin.response.body.user;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.gin.response.fields.ArtworkInfo;
 
 import java.util.HashMap;
@@ -11,7 +12,8 @@ import java.util.HashMap;
  * @version : v1.0.0
  * @since : 2022/10/13 14:01
  **/
-@Data
+@Getter
+@Setter
 public class ProfileIllustsBody {
     HashMap<Long, ArtworkInfo> works;
 }

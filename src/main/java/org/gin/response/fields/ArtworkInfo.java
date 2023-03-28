@@ -1,6 +1,7 @@
 package org.gin.response.fields;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.time.ZonedDateTime;
 import java.util.List;
@@ -11,7 +12,8 @@ import java.util.List;
  * @version : v1.0.0
  * @since : 2022/10/10 17:08
  **/
-@Data
+@Getter
+@Setter
 public class ArtworkInfo {
     /**
      * ai 类型 ，1 = 常规图 ， 2 = ai 图

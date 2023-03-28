@@ -1,8 +1,9 @@
 package org.gin.params.illustmanga;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.gin.emuns.PixivMode;
 
 /**
@@ -10,7 +11,8 @@ import org.gin.emuns.PixivMode;
  * @version : v1.0.0
  * @since : 2022/10/21 09:13
  */
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class NovelsDiscoveryParam {

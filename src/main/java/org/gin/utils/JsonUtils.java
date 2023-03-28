@@ -29,6 +29,7 @@ public class JsonUtils {
 //        MAPPER.setSerializationInclusion(JsonInclude.Include.NON_NULL);
         //美化输出
         MAPPER.enable(SerializationFeature.INDENT_OUTPUT);
+        MAPPER.enable(DeserializationFeature.ACCEPT_EMPTY_ARRAY_AS_NULL_OBJECT);
         //反序列化时 空串识别为 null
         MAPPER.enable(DeserializationFeature.ACCEPT_EMPTY_STRING_AS_NULL_OBJECT);
         //true - 遇到没有的属性就报错 false - 没有的属性不会管，不会报错

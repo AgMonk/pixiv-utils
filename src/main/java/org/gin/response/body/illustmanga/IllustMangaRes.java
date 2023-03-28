@@ -1,6 +1,5 @@
 package org.gin.response.body.illustmanga;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import org.gin.response.PixivResponse;
@@ -22,7 +21,8 @@ import java.util.List;
 @Getter
 @Setter
 public class IllustMangaRes extends PixivResponse<IllustMangaRes.IllustMangaBody> {
-    @Data
+    @Getter
+    @Setter
     public static class IllustMangaBody {
         /**
          * ai 类型 ，1 = 常规图 ， 2 = ai 图

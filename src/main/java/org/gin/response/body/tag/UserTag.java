@@ -2,7 +2,8 @@ package org.gin.response.body.tag;
 
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * 用户在作品中使用的标签
@@ -10,7 +11,8 @@ import lombok.Data;
  * @version : v1.0.0
  * @since : 2022/11/15 17:53
  */
-@Data
+@Getter
+@Setter
 public class UserTag {
     @JsonProperty("cnt")
     long count;

@@ -1,8 +1,9 @@
 package org.gin.params.follow;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.gin.emuns.PixivMode;
 
 /**
@@ -11,7 +12,8 @@ import org.gin.emuns.PixivMode;
  * @version : v1.0.0
  * @since : 2022/10/14 16:48
  **/
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class FollowLatestParam {

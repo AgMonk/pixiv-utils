@@ -2,7 +2,8 @@ package org.gin.response.fields;
 
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 
@@ -12,7 +13,8 @@ import java.time.LocalDateTime;
  * @version : v1.0.0
  * @since : 2022/10/15 16:29
  */
-@Data
+@Getter
+@Setter
 public class CommentReply {
     String comment;
     LocalDateTime commentDate;

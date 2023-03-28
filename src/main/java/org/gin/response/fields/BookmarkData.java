@@ -2,7 +2,8 @@ package org.gin.response.fields;
 
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * 收藏数据
@@ -10,7 +11,8 @@ import lombok.Data;
  * @version : v1.0.0
  * @since : 2022/10/10 15:29
  **/
-@Data
+@Getter
+@Setter
 public class BookmarkData {
     /**
      * 收藏id

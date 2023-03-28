@@ -1,14 +1,16 @@
 package org.gin.response.body.tag;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * @author : ginstone
  * @version : v1.0.0
  * @since : 2022/11/1 10:11
  */
-@Data
+@Getter
+@Setter
 public class TagInfo {
     @JsonProperty("abstract")
     String abs;
@@ -21,7 +23,8 @@ public class TagInfo {
     String tag;
     String thumbnail;
 
-    @Data
+    @Getter
+    @Setter
     static class LangInfo {
         @JsonProperty("abstract")
         String abs;

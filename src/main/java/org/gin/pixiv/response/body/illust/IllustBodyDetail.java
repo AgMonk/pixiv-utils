@@ -3,7 +3,6 @@ package org.gin.pixiv.response.body.illust;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
-import org.gin.response.PixivResponse;
 import org.gin.response.fields.ArtworkUrls;
 import org.gin.response.fields.FanRequest;
 import org.gin.response.fields.PixivTagInfo;
@@ -94,9 +93,4 @@ public class IllustBodyDetail extends BaseIllustBody {
         return urls;
     }
 
-    @Getter
-    @Setter
-    public static class Res extends PixivResponse<IllustBodyDetail> {
-
-    }
 }

@@ -1,7 +1,8 @@
 package org.gin.response.body.comment;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.List;
 
@@ -11,7 +12,8 @@ import java.util.List;
  * @version : v1.0.0
  * @since : 2022/10/13 15:19
  **/
-@Data
+@Getter
+@Setter
 public class CommonBookmarkTagsBody {
     @JsonProperty("private")
     List<Tag> privateTag;
@@ -20,7 +22,8 @@ public class CommonBookmarkTagsBody {
     Boolean tooManyBookmark;
     Boolean tooManyBookmarkTags;
 
-    @Data
+    @Getter
+    @Setter
     static class Tag {
         @JsonProperty("cnt")
         long count;

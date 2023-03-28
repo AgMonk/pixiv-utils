@@ -2,7 +2,8 @@ package org.gin.response.fields;
 
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.time.ZonedDateTime;
 import java.util.List;
@@ -13,7 +14,8 @@ import java.util.List;
  * @version : v1.0.0
  * @since : 2022/10/13 15:53
  **/
-@Data
+@Getter
+@Setter
 public class CommissionRequest {
     /**
      * 作者uid
@@ -66,7 +68,8 @@ public class CommissionRequest {
     /**
      * 根据要求创作的作品
      */
-    @Data
+    @Getter
+    @Setter
     static class PostWork {
         Long postWorkId;
         String postWorkType;
@@ -75,7 +78,8 @@ public class CommissionRequest {
     /**
      * 提议（约稿要求）
      */
-    @Data
+    @Getter
+    @Setter
     static class RequestProposal {
         @JsonProperty("requestOriginalProposal")
         String requestOriginalProposal;

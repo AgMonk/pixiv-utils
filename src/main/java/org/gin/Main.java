@@ -1,12 +1,8 @@
 package org.gin;
 
 import org.gin.exception.PixivException;
-import org.gin.pixiv.call.PixivCallStandard;
-import org.gin.pixiv.callback.StandardCallback;
+import org.gin.pixiv.api.IllustApi;
 import org.gin.pixiv.main.PixivClient;
-import org.gin.pixiv.response.body.illust.IllustBodyDetail;
-import org.gin.utils.JsonUtils;
-import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 
@@ -22,16 +18,9 @@ public class Main {
 
         final PixivClient client = new PixivClient(sessionId, token);
 
-        final PixivCallStandard<IllustBodyDetail> call = client.standard("/ajax/illust/" + 99147997,
-                                                                         null,
-                                                                         IllustBodyDetail.class);
+        final IllustApi illustApi = new IllustApi(client);
 
-        call.async(new StandardCallback<IllustBodyDetail>() {
-            @Override
-            public void onSuccess(@NotNull IllustBodyDetail body) {
-                JsonUtils.printJson(body);
-            }
-        });
 
+        illustApi.zTest();
     }
 }

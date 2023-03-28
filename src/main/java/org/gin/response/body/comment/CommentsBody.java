@@ -1,6 +1,7 @@
 package org.gin.response.body.comment;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.gin.response.fields.CommentReply;
 
 import java.util.List;
@@ -11,7 +12,8 @@ import java.util.List;
  * @version : v1.0.0
  * @since : 2022/10/15 16:28
  */
-@Data
+@Getter
+@Setter
 public class CommentsBody {
     /**
      * 是否还有更多数据

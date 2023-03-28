@@ -4,6 +4,7 @@ import lombok.Getter;
 import okhttp3.*;
 import org.gin.exception.PixivException;
 import org.gin.exception.PixivExceptionEnum;
+import org.gin.interceptor.LoggingInterceptor;
 import org.gin.pixiv.call.PixivCallStandard;
 import org.gin.pixiv.call.PixivCallType;
 import org.gin.pixiv.enums.Headers;
@@ -66,15 +67,15 @@ public class PixivClient {
             @NotNull String phpSessionId,
             @NotNull String token
     ) throws PixivException, IOException {
-        this(phpSessionId, null, null, null, token);
+        this(phpSessionId, token, null, null, null);
     }
 
     public PixivClient(
             @NotNull String phpSessionId,
+            @Nullable String token,
             @Nullable Language lang,
             @Nullable String host,
-            @Nullable OkHttpClient client,
-            @Nullable String token
+            @Nullable OkHttpClient client
     ) throws PixivException, IOException {
         this.phpSessionId = phpSessionId;
         this.cookie = "PHPSESSID=" + phpSessionId;
@@ -135,6 +136,7 @@ public class PixivClient {
     @NotNull
     private static OkHttpClient getOkHttpClient() {
         return new OkHttpClient.Builder()
+                .addInterceptor(new LoggingInterceptor())
                 .readTimeout(30, TimeUnit.SECONDS)
                 .callTimeout(30, TimeUnit.SECONDS)
                 .connectTimeout(30, TimeUnit.SECONDS).build();

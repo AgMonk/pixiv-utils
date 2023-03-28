@@ -1,6 +1,7 @@
 package org.gin.response.fields;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.time.ZonedDateTime;
 
@@ -10,7 +11,8 @@ import java.time.ZonedDateTime;
  * @version : v1.0.0
  * @since : 2022/10/13 11:53
  **/
-@Data
+@Getter
+@Setter
 public class MangaSeriesInfo {
     /**
      * 说明

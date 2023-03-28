@@ -1,6 +1,7 @@
 package org.gin.response.fields;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.List;
 
@@ -9,7 +10,8 @@ import java.util.List;
  * @version : v1.0.0
  * @since : 2022/10/13 15:55
  **/
-@Data
+@Getter
+@Setter
 public class Thumbnails {
     List<ArtworkInfo> illust;
     List<NovelInfo> novel;

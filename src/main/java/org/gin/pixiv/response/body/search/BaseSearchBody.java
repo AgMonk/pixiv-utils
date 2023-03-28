@@ -1,4 +1,4 @@
-package org.gin.pixiv.response.body;
+package org.gin.pixiv.response.body.search;
 
 import lombok.Getter;
 import lombok.Setter;

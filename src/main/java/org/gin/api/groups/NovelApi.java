@@ -63,7 +63,7 @@ public class NovelApi {
     /**
      * 发现
      * @param param 参数
-     * @return org.gin.request.PixivRequest<org.gin.response.PixivResponse < org.gin.response.body.illustmanga.DiscoveryBody>>
+     * @return org.gin.request.PixivRequest<org.gin.response.PixivResponse < org.gin.pixiv.response.body.common.DiscoveryBody>>
      * @since 2022/10/21 9:14
      */
     public PixivRequest<DiscoveryRes> discovery(@NotNull NovelsDiscoveryParam param) {

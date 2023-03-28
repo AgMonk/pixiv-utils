@@ -19,15 +19,6 @@ public class PixivCall<T> {
     final Class<T> responseClass;
 
     /**
-     * 异步请求
-     * @param callback 回调方法
-     */
-    public void async(AbstractCallback<T> callback) {
-        callback.setEClass(responseClass);
-        this.call.enqueue(callback);
-    }
-
-    /**
      * 同步请求
      * @return 字符串
      */

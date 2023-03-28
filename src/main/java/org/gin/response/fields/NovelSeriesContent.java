@@ -2,7 +2,8 @@ package org.gin.response.fields;
 
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.List;
 
@@ -12,7 +13,8 @@ import java.util.List;
  * @version : v1.0.0
  * @since : 2022/10/17 09:28
  */
-@Data
+@Getter
+@Setter
 public class NovelSeriesContent {
     Integer bookmarkCount;
     /**
@@ -65,7 +67,8 @@ public class NovelSeriesContent {
      */
     Integer wordCount;
 
-    @Data
+    @Getter
+    @Setter
     static class Series {
         Integer contentOrder;
         Long id;

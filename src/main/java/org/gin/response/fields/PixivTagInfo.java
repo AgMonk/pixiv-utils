@@ -1,6 +1,7 @@
 package org.gin.response.fields;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.List;
 
@@ -10,7 +11,8 @@ import java.util.List;
  * @version : v1.0.0
  * @since : 2022/10/10 16:08
  **/
-@Data
+@Getter
+@Setter
 public class PixivTagInfo {
     Long authorId;
     boolean isLocked;

@@ -1,6 +1,7 @@
 package org.gin.response.fields;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * 基础用户信息
@@ -8,7 +9,8 @@ import lombok.Data;
  * @version : v1.0.0
  * @since : 2022/10/10 15:46
  **/
-@Data
+@Getter
+@Setter
 public class BaseUserInfo {
     /**
      * 头像链接

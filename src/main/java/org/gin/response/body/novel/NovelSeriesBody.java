@@ -1,6 +1,7 @@
 package org.gin.response.body.novel;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.time.ZonedDateTime;
 import java.util.HashMap;
@@ -12,7 +13,8 @@ import java.util.List;
  * @version : v1.0.0
  * @since : 2022/10/17 10:36
  */
-@Data
+@Getter
+@Setter
 public class NovelSeriesBody {
     String caption;
     Cover cover;
@@ -50,7 +52,8 @@ public class NovelSeriesBody {
     Long userId;
     String userName;
 
-    @Data
+    @Getter
+    @Setter
     public static class Cover {
         HashMap<String, String> urls;
     }

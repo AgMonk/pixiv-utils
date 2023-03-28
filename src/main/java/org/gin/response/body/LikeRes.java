@@ -2,7 +2,6 @@ package org.gin.response.body;
 
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import org.gin.response.PixivResponse;
@@ -16,7 +15,8 @@ import org.gin.response.PixivResponse;
 @Setter
 public class LikeRes extends PixivResponse<LikeRes.LikeBody> {
 
-    @Data
+    @Getter
+    @Setter
     public static class LikeBody {
         /**
          * 操作之前是否已经喜欢该作品

@@ -2,8 +2,9 @@ package org.gin.params.bookmark;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.gin.emuns.PixivRestrict;
 
 import java.io.Serializable;
@@ -13,7 +14,8 @@ import java.util.List;
 /**
  * @author bx002
  */
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class AddNovelParam implements Serializable {

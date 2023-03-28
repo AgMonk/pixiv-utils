@@ -1,7 +1,8 @@
 package org.gin.response.body.tag;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.List;
 
@@ -10,11 +11,13 @@ import java.util.List;
  * @version : v1.0.0
  * @since : 2022/11/1 10:16
  */
-@Data
+@Getter
+@Setter
 public class SuggestByWordBody {
     List<Candidate> candidates;
 
-    @Data
+    @Getter
+    @Setter
     public static class Candidate {
         @JsonProperty("illust_count")
         Long illustCount;

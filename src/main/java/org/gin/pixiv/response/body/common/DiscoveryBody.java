@@ -1,10 +1,11 @@
-package org.gin.response.body.illustmanga;
+package org.gin.pixiv.response.body.common;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+import org.gin.response.fields.TagTranslation;
 import org.gin.response.fields.Thumbnails;
 
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -16,12 +17,14 @@ import java.util.List;
 @Setter
 public class DiscoveryBody {
     List<RecommendedIllust> recommendedIllusts;
-    Object tagTranslation;
-    //        HashMap<String, TagTranslation> tagTranslation;
+    //    Object tagTranslation;
+    HashMap<String, TagTranslation> tagTranslation;
+
     Thumbnails thumbnails;
     List<Long> recommendedNovelIds;
 
-    @Data
+    @Getter
+    @Setter
     public static class RecommendedIllust {
         Long illustId;
         List<String> recommendMethods;

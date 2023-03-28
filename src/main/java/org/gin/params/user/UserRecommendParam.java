@@ -1,15 +1,17 @@
 package org.gin.params.user;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 /**
  * @author : ginstone
  * @version : v1.0.0
  * @since : 2022/10/24 09:12
  */
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserRecommendParam {

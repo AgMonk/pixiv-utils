@@ -2,7 +2,8 @@ package org.gin.response.body.comment;
 
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * 发表评论的body
@@ -10,7 +11,8 @@ import lombok.Data;
  * @version : v1.0.0
  * @since : 2022/10/17 14:40
  */
-@Data
+@Getter
+@Setter
 public class PostCommentBody {
     String comment;
     @JsonProperty("comment_id")

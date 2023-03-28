@@ -1,6 +1,7 @@
 package org.gin.response.body.user;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.gin.response.body.novel.NovelSeriesBody;
 import org.gin.response.fields.MangaSeriesInfo;
 
@@ -14,7 +15,8 @@ import java.util.List;
  * @version : v1.0.0
  * @since : 2022/10/13 11:50
  **/
-@Data
+@Getter
+@Setter
 public class ProfileRealBody {
     /**
      * 插画信息

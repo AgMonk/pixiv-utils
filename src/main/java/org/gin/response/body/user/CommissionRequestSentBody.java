@@ -1,6 +1,7 @@
 package org.gin.response.body.user;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.gin.response.fields.CommissionRequest;
 import org.gin.response.fields.TagTranslation;
 import org.gin.response.fields.Thumbnails;
@@ -13,7 +14,8 @@ import java.util.List;
  * @version : v1.0.0
  * @since : 2022/10/13 15:48
  **/
-@Data
+@Getter
+@Setter
 public class CommissionRequestSentBody {
     RequestInfo page;
     List<CommissionRequest> requests;
@@ -21,7 +23,8 @@ public class CommissionRequestSentBody {
     Thumbnails thumbnails;
     List<UserInfoBody> users;
 
-    @Data
+    @Getter
+    @Setter
     static class RequestInfo {
         /**
          * 发出的约稿图数量

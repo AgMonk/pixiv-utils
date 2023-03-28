@@ -1,6 +1,7 @@
 package org.gin.response.fields;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.io.Serializable;
 import java.util.HashMap;
@@ -11,7 +12,8 @@ import java.util.HashMap;
  * @version : v1.0.0
  * @since : 2022/10/10 15:42
  **/
-@Data
+@Getter
+@Setter
 public class FanRequest {
     HashMap<String, Serializable> collaborateStatus;
     /**
@@ -23,7 +25,8 @@ public class FanRequest {
      */
     FanRequestInfo request;
 
-    @Data
+    @Getter
+    @Setter
     static class FanRequestInfo {
         Long requestId;
     }

@@ -1,6 +1,7 @@
 package org.gin.response.fields;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * 作品的图片url
@@ -8,7 +9,8 @@ import lombok.Data;
  * @version : v1.0.0
  * @since : 2022/10/10 16:12
  **/
-@Data
+@Getter
+@Setter
 public class ArtworkUrls {
     String mini;
     String original;

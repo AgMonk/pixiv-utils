@@ -1,6 +1,5 @@
 package org.gin.response.body;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import org.gin.response.PixivResponse;
@@ -15,7 +14,8 @@ import org.gin.response.fields.BookmarkData;
 @Getter
 @Setter
 public class BookmarkDataRes extends PixivResponse<BookmarkDataRes.BookmarkDataBody> {
-    @Data
+    @Getter
+    @Setter
     public static class BookmarkDataBody {
         BookmarkData bookmarkData;
         Long id;
