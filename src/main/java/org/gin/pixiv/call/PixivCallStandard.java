@@ -1,10 +1,7 @@
 package org.gin.pixiv.call;
 
-import com.fasterxml.jackson.databind.JavaType;
 import okhttp3.Call;
 import org.gin.exception.PixivException;
-import org.gin.pixiv.callback.StandardCallback;
-import org.gin.response.PixivResponse;
 import org.gin.utils.JsonUtils;
 
 import java.io.IOException;
@@ -13,17 +10,9 @@ import java.io.IOException;
  * 标准返回Call
  * @author bx002
  */
-public class PixivCallStandard<T> extends PixivCallString {
-    final Class<T> responseClass;
-
+public class PixivCallStandard<T> extends PixivCall<T> {
     public PixivCallStandard(Call call, Class<T> responseClass) {
-        super(call);
-        this.responseClass = responseClass;
-    }
-
-    public void async(StandardCallback<T> callback) {
-        callback.setEClass(responseClass);
-        this.asyncString(callback);
+        super(call, responseClass);
     }
 
     /**
@@ -35,8 +24,6 @@ public class PixivCallStandard<T> extends PixivCallString {
         if (s == null) {
             return null;
         }
-        final JavaType javaType = JsonUtils.MAPPER.getTypeFactory().constructParametricType(PixivResponse.class, responseClass);
-        final PixivResponse<T> response = JsonUtils.MAPPER.readValue(s, javaType);
-        return response.getBody();
+        return JsonUtils.parseRes(s, responseClass);
     }
 }   

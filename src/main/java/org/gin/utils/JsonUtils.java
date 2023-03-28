@@ -3,12 +3,14 @@ package org.gin.utils;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import org.gin.response.PixivResponse;
 
 import java.util.HashMap;
 
@@ -58,13 +60,16 @@ public class JsonUtils {
         }
     }
 
-    public static <T> T parse(String s, Class<T> clazz) {
-        try {
-            return MAPPER.readValue(s, clazz);
-        } catch (JsonProcessingException e) {
-            return null;
-        }
+    public static <T> T parse(String s, Class<T> clazz) throws JsonProcessingException {
+        return MAPPER.readValue(s, clazz);
     }
+
+    public static <T> T parseRes(String s, Class<T> clazz) throws JsonProcessingException {
+        final JavaType javaType = JsonUtils.MAPPER.getTypeFactory().constructParametricType(PixivResponse.class, clazz);
+        final PixivResponse<T> response = JsonUtils.MAPPER.readValue(s, javaType);
+        return response.getBody();
+    }
+
 
     public static void printJson(Object o) {
         try {

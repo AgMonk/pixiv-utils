@@ -1,5 +1,6 @@
 package org.gin.pixiv.call;
 
+import lombok.RequiredArgsConstructor;
 import okhttp3.Call;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
@@ -12,18 +13,17 @@ import java.io.IOException;
  * 基础Call类
  * @author bx002
  */
-public class PixivCallString {
+@RequiredArgsConstructor
+public class PixivCall<T> {
     final Call call;
-
-    public PixivCallString(Call call) {
-        this.call = call;
-    }
+    final Class<T> responseClass;
 
     /**
-     * 异步请求, 回调参数为字符串类型
+     * 异步请求
      * @param callback 回调方法
      */
-    public void asyncString(AbstractCallback callback) {
+    public void async(AbstractCallback<T> callback) {
+        callback.setEClass(responseClass);
         this.call.enqueue(callback);
     }
 

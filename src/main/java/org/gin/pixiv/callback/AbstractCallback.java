@@ -1,5 +1,7 @@
 package org.gin.pixiv.callback;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import lombok.Setter;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
@@ -19,7 +21,10 @@ import java.io.IOException;
  * @version : v1.0.0
  * @since : 2023/3/27 17:44
  */
-public abstract class AbstractCallback implements Callback {
+@Setter
+public abstract class AbstractCallback<T> implements Callback {
+    Class<T> eClass;
+
     public static ResponseBody body(@NotNull Call call, @NotNull Response response) throws IOException, PixivException {
         final int code = response.code();
         final int co = code / 100;
@@ -46,7 +51,7 @@ public abstract class AbstractCallback implements Callback {
         try {
             try (ResponseBody body = body(call, response)) {
                 if (body != null) {
-                    onSuccess(body.string());
+                    onSuccess(parse(body.string()));
                 }
             }
         } catch (PixivException e) {
@@ -55,10 +60,18 @@ public abstract class AbstractCallback implements Callback {
     }
 
     /**
+     * 将字符串解析为指定类型对象
+     * @param string body
+     * @return 对象
+     * @throws JsonProcessingException 解析错误
+     */
+    public abstract T parse(String string) throws JsonProcessingException;
+
+    /**
      * 执行成功回调
      * @param body body字符串
      */
-    public abstract void onSuccess(@NotNull String body);
+    public abstract void onSuccess(@NotNull T body);
 
     /**
      * 处理异常

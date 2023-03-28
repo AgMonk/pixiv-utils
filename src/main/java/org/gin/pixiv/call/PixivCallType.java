@@ -2,7 +2,6 @@ package org.gin.pixiv.call;
 
 import okhttp3.Call;
 import org.gin.exception.PixivException;
-import org.gin.pixiv.callback.TypeCallback;
 import org.gin.utils.JsonUtils;
 
 import java.io.IOException;
@@ -11,17 +10,10 @@ import java.io.IOException;
  * 规定了返回值的Call类
  * @author bx002
  */
-public class PixivCallType<T> extends PixivCallString {
-    final Class<T> responseClass;
+public class PixivCallType<T> extends PixivCall<T> {
 
     public PixivCallType(Call call, Class<T> responseClass) {
-        super(call);
-        this.responseClass = responseClass;
-    }
-
-    public void async(TypeCallback<T> callback) {
-        callback.setEClass(responseClass);
-        this.asyncString(callback);
+        super(call, responseClass);
     }
 
     /**

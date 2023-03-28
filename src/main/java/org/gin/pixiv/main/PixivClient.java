@@ -206,50 +206,18 @@ public class PixivClient {
     }
 
     /**
-     * 生成call(带响应类型的) QUERY方法(GET)
-     * @param url           url
-     * @param param         参数
-     * @param responseClass 响应类型
-     * @return Call
-     */
-    public <T> PixivCallType<T> call(
-            @NotNull String url,
-            @Nullable Object param,
-            @NotNull Class<T> responseClass
-    ) {
-        return call(ParamType.QUERY, url, param, responseClass);
-    }
-
-    /**
-     * 生成call(带响应类型的)
-     * @param type          传参方式
-     * @param url           url
-     * @param param         参数
-     * @param responseClass 响应类型
-     * @return Call
-     */
-    public <T> PixivCallType<T> call(
-            @NotNull ParamType type,
-            @NotNull String url,
-            @Nullable Object param,
-            @NotNull Class<T> responseClass
-    ) {
-        return new PixivCallType<>(call(type, url, param), responseClass);
-    }
-
-    /**
      * 生成标准返回call(带响应类型的) QUERY方法(GET)
      * @param url           url
      * @param param         参数
      * @param responseClass 响应类型
      * @return Call
      */
-    public <T> PixivCallStandard<T> sCall(
+    public <T> PixivCallStandard<T> standard(
             @NotNull String url,
             @Nullable Object param,
             @NotNull Class<T> responseClass
     ) {
-        return sCall(ParamType.QUERY, url, param, responseClass);
+        return standard(ParamType.QUERY, url, param, responseClass);
     }
 
     /**
@@ -260,12 +228,44 @@ public class PixivClient {
      * @param responseClass 响应类型
      * @return Call
      */
-    public <T> PixivCallStandard<T> sCall(
+    public <T> PixivCallStandard<T> standard(
             @NotNull ParamType type,
             @NotNull String url,
             @Nullable Object param,
             @NotNull Class<T> responseClass
     ) {
         return new PixivCallStandard<>(call(type, url, param), responseClass);
+    }
+
+    /**
+     * 生成call(带响应类型的) QUERY方法(GET)
+     * @param url           url
+     * @param param         参数
+     * @param responseClass 响应类型
+     * @return Call
+     */
+    public <T> PixivCallType<T> type(
+            @NotNull String url,
+            @Nullable Object param,
+            @NotNull Class<T> responseClass
+    ) {
+        return type(ParamType.QUERY, url, param, responseClass);
+    }
+
+    /**
+     * 生成call(带响应类型的)
+     * @param type          传参方式
+     * @param url           url
+     * @param param         参数
+     * @param responseClass 响应类型
+     * @return Call
+     */
+    public <T> PixivCallType<T> type(
+            @NotNull ParamType type,
+            @NotNull String url,
+            @Nullable Object param,
+            @NotNull Class<T> responseClass
+    ) {
+        return new PixivCallType<>(call(type, url, param), responseClass);
     }
 }

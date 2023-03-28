@@ -1,5 +1,6 @@
 package org.gin.pixiv.response.body.illust;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 import org.gin.response.PixivResponse;
@@ -79,6 +80,7 @@ public class IllustBodyDetail extends BaseIllustBody {
      * 全部原图URL
      * @return 全部原图URL
      */
+    @JsonIgnore
     public List<String> getOriginalUrls() {
         if (urls == null || pageCount == null) {
             return null;
