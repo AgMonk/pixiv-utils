@@ -16,6 +16,7 @@ import org.gin.response.fields.PixivTagInfo;
 import org.gin.response.fields.PixivTagInfoRes;
 import org.gin.utils.JsonUtils;
 import org.gin.utils.MapUtils;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 import java.util.List;
@@ -36,10 +37,10 @@ public class TagApi {
      * 为绘画追加标签
      * @param pid 绘画id
      * @param tag 标签
-     * @return org.gin.request.PixivRequest<PixivTagInfoRes>
-     * @since 2022/11/17 17:14
+     * @return org.gin.pixiv.call.PixivCallStandard<org.gin.response.fields.PixivTagInfo>
+     * @since 2023/3/29 17:57
      */
-    public PixivCallStandard<PixivTagInfo> illustAdd(long pid, String tag) {
+    public PixivCallStandard<PixivTagInfo> postIllustAdd(long pid, @NotNull String tag) {
         return client.standard(ParamType.JSON, String.format("/ajax/tags/illust/%d/add", pid), PixivTagInfo.class, MapUtils.singleEntry("tag", tag));
     }
 
@@ -82,7 +83,7 @@ public class TagApi {
         long pid = 102177911;
         String tag = "RO635(ドールズフロントライン)";
 
-        final PixivTagInfoRes res = illustAdd(pid, tag).sync();
+        final PixivTagInfoRes res = postIllustAdd(pid, tag).sync();
         JsonUtils.printJson(res);
     }
 
