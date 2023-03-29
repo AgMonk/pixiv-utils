@@ -39,7 +39,7 @@ public class IllustApi {
      * @since 2022/10/15 17:19
      */
     public PixivCallStandard<BookmarkDataBody> getBookmarkData(long pid) {
-        return client.standard(String.format("/ajax/illust/%d/bookmarkData", pid), null, BookmarkDataBody.class);
+        return client.standard(String.format("/ajax/illust/%d/bookmarkData", pid), BookmarkDataBody.class);
     }
 
     /**
@@ -49,7 +49,7 @@ public class IllustApi {
      * @since 2022/10/14 17:07
      */
     public PixivCallStandard<IllustBodyDetail> getDetail(long pid) {
-        return client.standard(String.format("/ajax/illust/%d", pid), null, IllustBodyDetail.class);
+        return client.standard(String.format("/ajax/illust/%d", pid), IllustBodyDetail.class);
     }
 
     /**
@@ -59,7 +59,7 @@ public class IllustApi {
      * @since 2022/10/21 9:14
      */
     public PixivCallStandard<DiscoveryBody> getDiscovery(@NotNull IllustsDiscoveryParam param) {
-        return client.standard("/ajax/discovery/artworks", param, DiscoveryBody.class);
+        return client.standard("/ajax/discovery/artworks", DiscoveryBody.class, param);
     }
 
     /**
@@ -73,7 +73,7 @@ public class IllustApi {
         final HashMap<String, Object> param = new HashMap<>(2);
         param.put("page", page);
         param.put("mod", mode.name());
-        return client.standard("/ajax/follow_latest/illust", param, FollowLatestBody.class);
+        return client.standard("/ajax/follow_latest/illust", FollowLatestBody.class, param);
     }
 
     /**
@@ -83,7 +83,7 @@ public class IllustApi {
      * @since 2022/11/1 9:48
      */
     public PixivCallStandard<IllustBodyRecommend> getRecommendIllusts(@NotNull List<Long> ids) {
-        return client.standard("/ajax/illust/recommend/illusts", MapUtils.singleEntry("illust_ids[]", ids), IllustBodyRecommend.class);
+        return client.standard("/ajax/illust/recommend/illusts", IllustBodyRecommend.class, MapUtils.singleEntry("illust_ids[]", ids));
     }
 
     /**
@@ -95,8 +95,8 @@ public class IllustApi {
      */
     public PixivCallStandard<IllustBodyRecommendInit> getRecommendInit(long pid, int limit) {
         return client.standard(String.format("/ajax/illust/%d/recommend/init", pid),
-                               MapUtils.singleEntry("limit", limit),
-                               IllustBodyRecommendInit.class);
+                               IllustBodyRecommendInit.class, MapUtils.singleEntry("limit", limit)
+        );
     }
 
     /**
@@ -107,7 +107,7 @@ public class IllustApi {
      * @since 2022/10/14 17:28
      */
     public PixivCallStandard<IllustBodySearch> getSearch(@NotNull String keywords, @NotNull IllustMangaSearchParam param) {
-        return client.standard("/ajax/search/illustrations/" + keywords, param, IllustBodySearch.class);
+        return client.standard("/ajax/search/illustrations/" + keywords, IllustBodySearch.class, param);
     }
 
     /**
@@ -117,7 +117,7 @@ public class IllustApi {
      * @since 2022/10/15 16:52
      */
     public PixivCallStandard<UgoiraMetaBody> getUgoiraMeta(long pid) {
-        return client.standard(String.format("/ajax/illust/%d/ugoira_meta", pid), null, UgoiraMetaBody.class);
+        return client.standard(String.format("/ajax/illust/%d/ugoira_meta", pid), UgoiraMetaBody.class);
     }
 
     /**
@@ -127,7 +127,7 @@ public class IllustApi {
      * @since 2022/10/15 16:06
      */
     public PixivCallStandard<LikeBody> postLike(long pid) {
-        return client.standard(ParamType.JSON, "/ajax/illusts/like", MapUtils.singleEntry("illust_id", pid), LikeBody.class);
+        return client.standard(ParamType.JSON, "/ajax/illusts/like", LikeBody.class, MapUtils.singleEntry("illust_id", pid));
     }
 
     public void zTest() {

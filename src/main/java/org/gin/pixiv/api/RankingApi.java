@@ -34,7 +34,7 @@ public class RankingApi {
      * @since 2023/3/29 10:44
      */
     public PixivCallType<RankingResponse> getIllust(@NotNull RankingParam param) {
-        return client.type(RANKING_PATH, param, RankingResponse.class);
+        return client.type(RANKING_PATH, RankingResponse.class, param);
     }
 
     public void zTest() throws IOException {

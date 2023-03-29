@@ -32,7 +32,7 @@ public class BookmarkApi {
      * @since 2023/3/29 11:19
      */
     public PixivCallStandard<BookmarkAddBody> postAddIllust(@NonNull AddIllustMangaParam param) {
-        return client.standard(ParamType.JSON, "/ajax/illusts/bookmarks/add", param, BookmarkAddBody.class);
+        return client.standard(ParamType.JSON, "/ajax/illusts/bookmarks/add", BookmarkAddBody.class, param);
     }
 
     /**
@@ -42,7 +42,7 @@ public class BookmarkApi {
      * @since 2023/3/29 11:21
      */
     public PixivCallStandard<String> postAddNovel(@NonNull AddNovelParam param) {
-        return client.standard(ParamType.JSON, "/ajax/novels/bookmarks/add", param, String.class);
+        return client.standard(ParamType.JSON, "/ajax/novels/bookmarks/add", String.class, param);
     }
 
     /**
@@ -52,7 +52,7 @@ public class BookmarkApi {
      * @since 2023/3/29 11:35
      */
     public PixivCallStandard<String> postDelIllust(long bookmarkId) {
-        return client.standard(ParamType.FORM, "/ajax/illusts/bookmarks/delete", MapUtils.singleEntry("bookmark_id", bookmarkId), String.class);
+        return client.standard(ParamType.FORM, "/ajax/illusts/bookmarks/delete", String.class, MapUtils.singleEntry("bookmark_id", bookmarkId));
     }
 
     /**
@@ -62,7 +62,7 @@ public class BookmarkApi {
      * @since 2023/3/29 11:36
      */
     public PixivCallStandard<String> postDelIllusts(@NonNull Collection<Long> bookmarkIds) {
-        return client.standard(ParamType.JSON, "/ajax/illusts/bookmarks/remove", MapUtils.singleEntry("bookmarkIds", bookmarkIds), String.class);
+        return client.standard(ParamType.JSON, "/ajax/illusts/bookmarks/remove", String.class, MapUtils.singleEntry("bookmarkIds", bookmarkIds));
     }
 
     /**
@@ -76,7 +76,7 @@ public class BookmarkApi {
         param.put("book_id", bookmarkId);
         param.put("del", 1L);
 
-        return client.standard(ParamType.FORM, "/ajax/novels/bookmarks/delete", param, String.class);
+        return client.standard(ParamType.FORM, "/ajax/novels/bookmarks/delete", String.class, param);
     }
 
     /**
@@ -86,7 +86,7 @@ public class BookmarkApi {
      * @since 2023/3/29 11:36
      */
     public PixivCallStandard<String> postDelNovels(Collection<Long> bookmarkIds) {
-        return client.standard(ParamType.JSON, "/ajax/novels/bookmarks/remove", MapUtils.singleEntry("bookmarkIds", bookmarkIds), String.class);
+        return client.standard(ParamType.JSON, "/ajax/novels/bookmarks/remove", String.class, MapUtils.singleEntry("bookmarkIds", bookmarkIds));
     }
 
     public void zTest() throws IOException {
