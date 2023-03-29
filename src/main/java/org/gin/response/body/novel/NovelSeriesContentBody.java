@@ -15,6 +15,5 @@ import java.util.List;
 @Getter
 @Setter
 public class NovelSeriesContentBody {
-
     List<NovelSeriesContent> seriesContents;
 }

@@ -2,6 +2,8 @@ package org.gin.pixiv.response.body.novel;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.gin.pixiv.enums.AiType;
+import org.gin.pixiv.enums.RestrictLevel;
 import org.gin.response.fields.BookmarkData;
 
 import java.time.ZonedDateTime;
@@ -15,6 +17,8 @@ import java.time.ZonedDateTime;
 @Getter
 @Setter
 public class BaseNovelBody {
+    AiType aiType;
+
     Integer bookmarkCount;
     /**
      * 收藏数据
@@ -52,4 +56,8 @@ public class BaseNovelBody {
      */
     Integer wordCount;
 
+    /**
+     * 限制级别
+     */
+    RestrictLevel xRestrict;
 }   

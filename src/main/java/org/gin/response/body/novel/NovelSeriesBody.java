@@ -2,6 +2,8 @@ package org.gin.response.body.novel;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.gin.pixiv.enums.AiType;
+import org.gin.pixiv.enums.RestrictLevel;
 
 import java.time.ZonedDateTime;
 import java.util.HashMap;
@@ -16,6 +18,7 @@ import java.util.List;
 @Getter
 @Setter
 public class NovelSeriesBody {
+    AiType aiType;
     String caption;
     Cover cover;
     /**
@@ -39,6 +42,10 @@ public class NovelSeriesBody {
     Integer publishedTotalCharacterCount;
     Integer publishedTotalWordCount;
     /**
+     * 分享文本
+     */
+    String shareText;
+    /**
      * 标签
      */
     List<String> tags;
@@ -51,6 +58,7 @@ public class NovelSeriesBody {
     Integer updatedTimestamp;
     Long userId;
     String userName;
+    RestrictLevel xRestrict;
 
     @Getter
     @Setter
