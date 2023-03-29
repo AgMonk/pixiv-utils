@@ -9,6 +9,7 @@ import org.gin.pixiv.callback.StandardCallback;
 import org.gin.pixiv.enums.IllustSearchType;
 import org.gin.pixiv.enums.ParamType;
 import org.gin.pixiv.main.PixivClient;
+import org.gin.pixiv.param.LatestParam;
 import org.gin.pixiv.response.body.bookmark.BookmarkDataBody;
 import org.gin.pixiv.response.body.common.DiscoveryBody;
 import org.gin.pixiv.response.body.common.FollowLatestBody;
@@ -18,7 +19,6 @@ import org.gin.utils.MapUtils;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -64,15 +64,11 @@ public class IllustApi {
 
     /**
      * 查询关注作者的最新绘画
-     * @param page 页码
-     * @param mode 模式 可选值: all r18
-     * @return org.gin.request.PixivRequest<org.gin.response.body.illustmanga.IllustMangaFollowLatestRes>
-     * @since 2022/11/16 14:11
+     * @param param 参数
+     * @return {@link PixivCallStandard<FollowLatestBody>}
+     * @since 2023/3/29 13:14
      */
-    public PixivCallStandard<FollowLatestBody> getLatest(int page, @NotNull PixivMode mode) {
-        final HashMap<String, Object> param = new HashMap<>(2);
-        param.put("page", page);
-        param.put("mod", mode.name());
+    public PixivCallStandard<FollowLatestBody> getLatest(@NotNull LatestParam param) {
         return client.standard("/ajax/follow_latest/illust", FollowLatestBody.class, param);
     }
 
@@ -180,7 +176,7 @@ public class IllustApi {
     }
 
     private void zTestLatest(int page, PixivMode mode) {
-        getLatest(page, mode).async(new StandardCallback<FollowLatestBody>() {
+        getLatest(new LatestParam(page, mode)).async(new StandardCallback<FollowLatestBody>() {
             @Override
             public void onSuccess(FollowLatestBody body) {
                 System.out.printf("[最新关注] page = %d 模式 = %s %d 个\n", page, mode.name(), body.getThumbnails().getIllust().size());

@@ -3,7 +3,6 @@ package org.gin.pixiv.response.body.common;
 import lombok.Getter;
 import lombok.Setter;
 import org.gin.response.fields.TagTranslation;
-import org.gin.response.fields.Thumbnails;
 
 import java.util.HashMap;
 import java.util.List;

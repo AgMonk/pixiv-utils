@@ -3,6 +3,7 @@ package org.gin.pixiv.response.body.common;
 import lombok.Getter;
 import lombok.Setter;
 import org.gin.pixiv.response.body.illust.IllustBodySimple;
+import org.gin.pixiv.response.body.novel.NovelBodySimple;
 
 import java.util.List;
 
@@ -17,7 +18,8 @@ import java.util.List;
 public class Thumbnails {
     List<IllustBodySimple> illust;
 
-    //todo novel
+    List<NovelBodySimple> novel;
+
     //todo novelDraft
     //todo novelSeries
 }

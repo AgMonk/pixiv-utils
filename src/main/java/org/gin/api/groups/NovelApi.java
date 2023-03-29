@@ -6,6 +6,7 @@ import org.gin.api.PixivApi;
 import org.gin.emuns.PixivMode;
 import org.gin.params.illustmanga.NovelsDiscoveryParam;
 import org.gin.params.novel.NovelSearchParam;
+import org.gin.pixiv.response.body.novel.NovelBodySimple;
 import org.gin.request.PixivRequest;
 import org.gin.request.PixivUrlBuilder;
 import org.gin.response.body.BookmarkDataRes;
@@ -144,7 +145,7 @@ public class NovelApi {
 
     private void zTestDiscovery(long nid) {
         discovery(new NovelsDiscoveryParam(nid)).async(res -> {
-            final List<NovelInfo> data = res.getBody().getThumbnails().getNovel();
+            final List<NovelBodySimple> data = res.getBody().getThumbnails().getNovel();
             System.out.printf("[发现小说] nid: %d 结果 %d 个 \n", nid, data.size());
         });
     }
