@@ -15,6 +15,9 @@ import java.util.List;
 @Setter
 public class FollowLatestBody {
     Page page;
+    /**
+     * 快照
+     */
     Thumbnails thumbnails;
     Object tagTranslation;
 

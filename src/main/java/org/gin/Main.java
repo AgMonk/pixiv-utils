@@ -1,7 +1,7 @@
 package org.gin;
 
 import org.gin.exception.PixivException;
-import org.gin.pixiv.api.BookmarkApi;
+import org.gin.pixiv.api.CommentIllustApi;
 import org.gin.pixiv.main.PixivClient;
 
 import java.io.IOException;
@@ -20,7 +20,7 @@ public class Main {
 
 //        final IllustApi illustApi = new IllustApi(client);
 //        illustApi.zTest();
-        new BookmarkApi(client).zTest();
+        new CommentIllustApi(client).zTest();
 
     }
 }

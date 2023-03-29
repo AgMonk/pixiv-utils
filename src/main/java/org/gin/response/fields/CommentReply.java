@@ -1,6 +1,7 @@
 package org.gin.response.fields;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
@@ -17,6 +18,7 @@ import java.time.LocalDateTime;
 @Setter
 public class CommentReply {
     String comment;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm")
     LocalDateTime commentDate;
     Long commentParentId;
     Long commentUserId;
