@@ -120,12 +120,11 @@ public class PixivClient {
                     if (v instanceof Collection<?>) {
                         //如果value 是集合，添加多个同名参数
                         ((Collection<?>) v).forEach(i -> urlBuilder.addQueryParameter(k, String.valueOf(i)));
-                    } else if (v == null) {
-                        //如果value是null 且传入了该值则把null值写成空串
-                        urlBuilder.addQueryParameter(k, "");
-                    } else {
+                    } else if (!ObjectUtils.isEmpty(v)) {
                         //常规写入
                         urlBuilder.addQueryParameter(k, v.toString());
+//                    } else if (v == null) {
+//                        urlBuilder.addQueryParameter(k, "");
                     }
                 });
             }

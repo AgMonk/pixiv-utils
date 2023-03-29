@@ -9,7 +9,6 @@ public enum RankingContent {
     /**
      * 排行榜正文类型
      */
-
     all,
     illust,
     ugoira,

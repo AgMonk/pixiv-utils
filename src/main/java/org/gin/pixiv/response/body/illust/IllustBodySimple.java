@@ -2,7 +2,6 @@ package org.gin.pixiv.response.body.illust;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.gin.response.PixivResponse;
 
 import java.util.List;
 
@@ -33,9 +32,4 @@ public class IllustBodySimple extends BaseIllustBody {
      */
     String url;
 
-    @Getter
-    @Setter
-    public static class Res extends PixivResponse<IllustBodySimple> {
-
-    }
-}   
+}

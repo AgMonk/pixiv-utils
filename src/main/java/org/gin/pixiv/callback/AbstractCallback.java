@@ -1,6 +1,7 @@
 package org.gin.pixiv.callback;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
 import lombok.Setter;
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -9,11 +10,13 @@ import okhttp3.ResponseBody;
 import org.gin.exception.PixivClientException;
 import org.gin.exception.PixivException;
 import org.gin.exception.PixivServerException;
+import org.gin.pixiv.api.RankingApi;
 import org.gin.response.PixivResponse;
-import org.gin.response.convertor.Convertor;
+import org.gin.utils.JsonUtils;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
+import java.util.HashMap;
 
 /**
  * 抽象回调
@@ -37,8 +40,7 @@ public abstract class AbstractCallback<T> implements Callback {
                 if (body == null) {
                     throw new PixivClientException(code, "", call);
                 }
-                PixivResponse<Void> res = Convertor.toVoid(body);
-                throw new PixivClientException(code, res.getMessage(), call);
+                throw new PixivClientException(code, getClientExceptionMessage(call, body.string()), call);
             case 5:
                 throw new PixivServerException(code, "服务器异常", call);
             default:
@@ -56,6 +58,28 @@ public abstract class AbstractCallback<T> implements Callback {
             }
         } catch (PixivException e) {
             handleException(e);
+        }
+    }
+
+    /**
+     * 生成客户端错误的报错信息
+     * @param call call
+     * @param body body
+     * @return {@link String}
+     * @since 2023/3/29 10:58
+     */
+    private static String getClientExceptionMessage(Call call, String body) {
+        try {
+            if (call.request().url().toString().contains(RankingApi.RANKING_PATH)) {
+                // 是排行报错
+                return JsonUtils.MAPPER.readValue(body, new TypeReference<HashMap<String, String>>() {
+                }).get("error");
+            }
+            return JsonUtils.MAPPER.readValue(body, new TypeReference<PixivResponse<Void>>() {
+            }).getMessage();
+
+        } catch (JsonProcessingException e) {
+            return null;
         }
     }
 

@@ -1,9 +1,12 @@
 package org.gin.response;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.Getter;
 import lombok.Setter;
+import org.gin.utils.JsonUtils;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -45,7 +48,7 @@ public class RankingResponse {
         @JsonProperty("illust_page_count")
         Integer illustPageCount;
         @JsonProperty("illust_series")
-        IllustSeries illustSeries;
+        Object illustSeries;
         @JsonProperty("illust_type")
         Integer illustType;
         @JsonProperty("illust_upload_timestamp")
@@ -68,9 +71,21 @@ public class RankingResponse {
         @JsonProperty("yes_rank")
         Integer yesRank;
 
+        public IllustSeries getIllustSeries() {
+            if (illustSeries == null || illustSeries instanceof Boolean) {
+                return null;
+            }
+            try {
+                return JsonUtils.MAPPER.readValue(JsonUtils.MAPPER.writeValueAsString(illustSeries), IllustSeries.class);
+            } catch (JsonProcessingException e) {
+                e.printStackTrace();
+                return null;
+            }
+        }
+
         @Getter
         @Setter
-        static class IllustSeries {
+        public static class IllustSeries {
             @JsonProperty("illust_series_caption")
             String illustSeriesCaption;
             @JsonProperty("illust_series_content_count")
@@ -80,6 +95,7 @@ public class RankingResponse {
             @JsonProperty("illust_series_content_order")
             Integer illustSeriesContentOrder;
             @JsonProperty("illust_series_create_datetime")
+            @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
             LocalDateTime illustSeriesCreateDatetime;
             @JsonProperty("illust_series_id")
             Long illustSeriesId;
@@ -89,8 +105,6 @@ public class RankingResponse {
             Long illustSeriesUserId;
             @JsonProperty("page_url")
             String pageUrl;
-
         }
-
     }
 }

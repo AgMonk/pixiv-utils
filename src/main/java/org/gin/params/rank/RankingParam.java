@@ -1,10 +1,14 @@
 package org.gin.params.rank;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import org.gin.emuns.PixivRankingMode;
 import org.gin.emuns.RankingContent;
+import org.jetbrains.annotations.NotNull;
+
+import java.time.LocalDate;
 
 /**
  * 排行参数
@@ -20,11 +24,12 @@ public class RankingParam {
     final String format = "json";
     final RankingContent content;
     /**
-     * 日期，格式：yyyyMMdd
+     * 指定日期排行，最多只能请求当前日期-2天的数据
      */
-    final String date;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyyMMdd")
+    final LocalDate date;
 
-    public RankingParam(int page, PixivRankingMode mode, RankingContent content, String date) {
+    public RankingParam(int page, @NotNull PixivRankingMode mode, @NotNull RankingContent content, LocalDate date) {
         this.page = page;
         this.mode = mode;
         this.content = content;

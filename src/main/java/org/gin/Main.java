@@ -1,7 +1,7 @@
 package org.gin;
 
 import org.gin.exception.PixivException;
-import org.gin.pixiv.api.IllustApi;
+import org.gin.pixiv.api.RankingApi;
 import org.gin.pixiv.main.PixivClient;
 
 import java.io.IOException;
@@ -18,9 +18,9 @@ public class Main {
 
         final PixivClient client = new PixivClient(sessionId, token);
 
-        final IllustApi illustApi = new IllustApi(client);
+//        final IllustApi illustApi = new IllustApi(client);
+//        illustApi.zTest();
+        new RankingApi(client).zTest();
 
-
-        illustApi.zTest();
     }
 }
