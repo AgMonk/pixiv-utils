@@ -24,8 +24,9 @@ public class NovelSeriesApi {
     /**
      * 查询系列中作品的基础信息
      * @param seriesId 系列id
-     * @return org.gin.request.PixivRequest<NovelSeriesContentRes>
-     * @since 2022/11/16 16:07
+     * @param param    参数
+     * @return org.gin.pixiv.call.PixivCallStandard<org.gin.pixiv.response.body.novel.NovelBodySeriesContent>
+     * @since 2023/3/29 17:56
      */
     public PixivCallStandard<NovelBodySeriesContent> getContents(long seriesId, NovelSeriesContentParam param) {
         return client.standard("/ajax/novel/series_content/" + seriesId, NovelBodySeriesContent.class, param);
@@ -34,8 +35,9 @@ public class NovelSeriesApi {
     /**
      * 查询小说系列详情
      * @param seriesId 系列id
-     * @return org.gin.request.PixivRequest<NovelSeriesRes>
-     * @since 2022/11/16 16:07
+     * @return org.gin.pixiv.call.PixivCallStandard<org.gin.response.body.novel.NovelSeriesBody>
+     * @author bx002
+     * @since 2023/3/29 17:55
      */
     public PixivCallStandard<NovelSeriesBody> getDetail(long seriesId) {
         return client.standard("/ajax/novel/series/" + seriesId, NovelSeriesBody.class);
@@ -44,8 +46,9 @@ public class NovelSeriesApi {
     /**
      * 查询系列的各篇标题
      * @param seriesId 系列id
-     * @return org.gin.request.PixivRequest<org.gin.response.body.novel.NovelContentTitleRes>
-     * @since 2022/11/16 16:07
+     * @return org.gin.pixiv.call.PixivCallType<org.gin.response.body.novel.NovelContentTitleRes>
+     * @author bx002
+     * @since 2023/3/29 17:55
      */
     public PixivCallType<NovelContentTitleRes> getTitles(long seriesId) {
         return client.type(String.format("/ajax/novel/series/%d/content_titles", seriesId), NovelContentTitleRes.class);
