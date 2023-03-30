@@ -51,7 +51,7 @@ public class UserWorksApi {
             string = Convertor.replaceEmptyArray(string, "manga");
             string = Convertor.replaceEmptyArray(string, "illusts");
             string = Convertor.replaceEmptyArray(string, "novels");
-            final PixivResponse<ProfileBody> response = JsonUtils.MAPPER.readValue(string, new TypeReference<PixivResponse<ProfileBody>>() {
+            final PixivResponse<ProfileAllBody> response = JsonUtils.MAPPER.readValue(string, new TypeReference<PixivResponse<ProfileAllBody>>() {
             });
             final ProfileRealBody body = new ProfileRealBody(response.getBody());
             final PixivResponse<ProfileRealBody> res = new PixivResponse<>();

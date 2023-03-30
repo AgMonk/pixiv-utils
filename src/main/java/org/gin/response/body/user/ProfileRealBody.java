@@ -43,13 +43,13 @@ public class ProfileRealBody {
      */
     List<Object> pickup;
 
-    public ProfileRealBody(ProfileBody profileBody) {
-        this.illusts = new ArrayList<>(profileBody.getIllusts().keySet());
-        this.manga = new ArrayList<>(profileBody.getManga().keySet());
-        this.novels = new ArrayList<>(profileBody.getNovels().keySet());
-        this.mangaSeries = profileBody.getMangaSeries();
-        this.novelSeries = profileBody.getNovelSeries();
-        this.pickup = profileBody.getPickup();
+    public ProfileRealBody(ProfileAllBody profileAllBody) {
+        this.illusts = new ArrayList<>(profileAllBody.getIllusts().keySet());
+        this.manga = new ArrayList<>(profileAllBody.getManga().keySet());
+        this.novels = new ArrayList<>(profileAllBody.getNovels().keySet());
+        this.mangaSeries = profileAllBody.getMangaSeries();
+        this.novelSeries = profileAllBody.getNovelSeries();
+        this.pickup = profileAllBody.getPickup();
         Collections.sort(this.illusts);
         Collections.sort(this.manga);
         Collections.sort(this.novels);

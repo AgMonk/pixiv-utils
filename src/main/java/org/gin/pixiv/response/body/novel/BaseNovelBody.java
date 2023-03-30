@@ -1,13 +1,8 @@
 package org.gin.pixiv.response.body.novel;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
-import org.gin.pixiv.enums.AiType;
-import org.gin.pixiv.enums.RestrictLevel;
-import org.gin.response.fields.BookmarkData;
-
-import java.time.ZonedDateTime;
+import org.gin.pixiv.response.body.common.BaseWorkBody;
 
 /**
  * 小说body的公共字段
@@ -17,26 +12,8 @@ import java.time.ZonedDateTime;
  */
 @Getter
 @Setter
-public class BaseNovelBody {
-    AiType aiType;
-
+public class BaseNovelBody extends BaseWorkBody {
     Integer bookmarkCount;
-    /**
-     * 收藏数据
-     */
-    BookmarkData bookmarkData;
-    /**
-     * 创建时间
-     */
-    ZonedDateTime createDate;
-    /**
-     * 作品描述
-     */
-    String description;
-    /**
-     * nid
-     */
-    Long id;
     /**
      * 头像链接
      */
@@ -45,21 +22,9 @@ public class BaseNovelBody {
      * 阅读时长
      */
     Integer readingTime;
-    /**
-     * 标题
-     */
-    String title;
     String url;
-    Long userId;
-    String userName;
     /**
      * 字数(?)
      */
     Integer wordCount;
-
-    /**
-     * 限制级别
-     */
-    @JsonProperty("xRestrict")
-    RestrictLevel xRestrict;
-}   
+}

@@ -65,6 +65,10 @@ public class JsonUtils {
         return MAPPER.readValue(s, clazz);
     }
 
+    public static <T> T parseObject(Object obj, Class<T> clazz) throws JsonProcessingException {
+        return MAPPER.readValue(MAPPER.writeValueAsString(obj), clazz);
+    }
+
     public static <T> T parseRes(String s, Class<T> clazz) throws JsonProcessingException {
         final JavaType javaType = JsonUtils.MAPPER.getTypeFactory().constructParametricType(PixivResponse.class, clazz);
         final PixivResponse<T> response = JsonUtils.MAPPER.readValue(s, javaType);
