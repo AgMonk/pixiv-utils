@@ -17,6 +17,10 @@ public abstract class TypeCallback<T> extends AbstractCallback<T> {
      */
     @Override
     public T parse(String string) throws JsonProcessingException {
+        if (eClass == String.class) {
+            //noinspection unchecked
+            return (T) string;
+        }
         return JsonUtils.parse(string, eClass);
     }
 }
