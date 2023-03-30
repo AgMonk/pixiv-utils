@@ -1,7 +1,7 @@
 package org.gin;
 
 import org.gin.exception.PixivException;
-import org.gin.pixiv.api.UserApi;
+import org.gin.pixiv.api.UserBookmarkApi;
 import org.gin.pixiv.main.PixivClient;
 
 import java.io.IOException;
@@ -18,7 +18,7 @@ public class Main {
 
         final PixivClient client = new PixivClient(SESSION_ID, TOKEN);
 
-        new UserApi(client).zTest();
+        new UserBookmarkApi(client).zTest();
 
     }
 }

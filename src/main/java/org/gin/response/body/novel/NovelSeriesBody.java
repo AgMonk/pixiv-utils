@@ -1,5 +1,6 @@
 package org.gin.response.body.novel;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
 import org.gin.pixiv.enums.AiType;
@@ -58,6 +59,7 @@ public class NovelSeriesBody {
     Integer updatedTimestamp;
     Long userId;
     String userName;
+    @JsonProperty("xRestrict")
     RestrictLevel xRestrict;
 
     @Getter

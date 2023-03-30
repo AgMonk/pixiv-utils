@@ -104,6 +104,7 @@ public class NovelBodySeriesContent {
         /**
          * 限制级别
          */
+        @JsonProperty("xRestrict")
         RestrictLevel xRestrict;
 
     }

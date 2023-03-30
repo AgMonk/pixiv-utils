@@ -1,5 +1,6 @@
 package org.gin.pixiv.response.body.novel;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
 import org.gin.pixiv.enums.AiType;
@@ -59,5 +60,6 @@ public class BaseNovelBody {
     /**
      * 限制级别
      */
+    @JsonProperty("xRestrict")
     RestrictLevel xRestrict;
 }   
