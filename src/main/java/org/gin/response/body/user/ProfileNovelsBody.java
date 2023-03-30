@@ -1,10 +1,11 @@
 package org.gin.response.body.user;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
-import org.gin.response.fields.NovelInfo;
+import org.gin.pixiv.response.body.novel.NovelBodySimple;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 /**
  * 用户作品Body
@@ -15,5 +16,6 @@ import java.util.HashMap;
 @Getter
 @Setter
 public class ProfileNovelsBody {
-    HashMap<Long, NovelInfo> works;
+    @JsonProperty("works")
+    LinkedHashMap<Long, NovelBodySimple> novels;
 }

@@ -2,9 +2,9 @@ package org.gin.response.body.user;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.gin.pixiv.response.body.common.Thumbnails;
 import org.gin.response.fields.CommissionRequest;
 import org.gin.response.fields.TagTranslation;
-import org.gin.response.fields.Thumbnails;
 
 import java.util.HashMap;
 import java.util.List;

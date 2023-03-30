@@ -26,7 +26,6 @@ public class JsonUtils {
     public final static ObjectMapper MAPPER = new ObjectMapper();
 
     static {
-//        MAPPER.setSerializationInclusion(JsonInclude.Include.NON_NULL);
         //美化输出
         MAPPER.enable(SerializationFeature.INDENT_OUTPUT);
         MAPPER.enable(DeserializationFeature.ACCEPT_EMPTY_ARRAY_AS_NULL_OBJECT);

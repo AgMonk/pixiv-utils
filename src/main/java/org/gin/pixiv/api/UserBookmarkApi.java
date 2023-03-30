@@ -6,8 +6,8 @@ import org.gin.params.user.BookmarksParam;
 import org.gin.pixiv.call.PixivCallStandard;
 import org.gin.pixiv.callback.StandardCallback;
 import org.gin.pixiv.main.PixivClient;
-import org.gin.pixiv.response.body.illust.IllustBodyUserBookmark;
-import org.gin.pixiv.response.body.novel.NovelBodyUserBookmark;
+import org.gin.pixiv.response.body.illust.IllustBodyFromUser;
+import org.gin.pixiv.response.body.novel.NovelBodyFromUser;
 import org.gin.response.body.comment.CommonBookmarkTagsBody;
 import org.gin.utils.JsonUtils;
 import org.jetbrains.annotations.NotNull;
@@ -40,8 +40,8 @@ public class UserBookmarkApi {
      * @return org.gin.pixiv.call.PixivCallStandard<org.gin.pixiv.response.body.illust.IllustBodyUserBookmark>
      * @since 2023/3/30 10:44
      */
-    public PixivCallStandard<IllustBodyUserBookmark> getIllusts(long userId, @NotNull BookmarksParam param) {
-        return client.standard(String.format("/ajax/user/%d/illusts/bookmarks", userId), IllustBodyUserBookmark.class, param);
+    public PixivCallStandard<IllustBodyFromUser> getIllusts(long userId, @NotNull BookmarksParam param) {
+        return client.standard(String.format("/ajax/user/%d/illusts/bookmarks", userId), IllustBodyFromUser.class, param);
     }
 
     /**
@@ -61,8 +61,8 @@ public class UserBookmarkApi {
      * @return org.gin.pixiv.call.PixivCallStandard<org.gin.pixiv.response.body.novel.NovelBodyUserBookmark>
      * @since 2023/3/30 10:53
      */
-    public PixivCallStandard<NovelBodyUserBookmark> getNovels(long userId, @NotNull BookmarksParam param) {
-        return client.standard(String.format("/ajax/user/%d/novels/bookmarks", userId), NovelBodyUserBookmark.class, param);
+    public PixivCallStandard<NovelBodyFromUser> getNovels(long userId, @NotNull BookmarksParam param) {
+        return client.standard(String.format("/ajax/user/%d/novels/bookmarks", userId), NovelBodyFromUser.class, param);
     }
 
     public void zTest() {
@@ -75,9 +75,9 @@ public class UserBookmarkApi {
     }
 
     private void zTestIllust(long uid, BookmarksParam param) {
-        getIllusts(uid, param).async(new StandardCallback<IllustBodyUserBookmark>() {
+        getIllusts(uid, param).async(new StandardCallback<IllustBodyFromUser>() {
             @Override
-            public void onSuccess(IllustBodyUserBookmark body) {
+            public void onSuccess(IllustBodyFromUser body) {
                 JsonUtils.printJson(body);
             }
         });
@@ -91,9 +91,9 @@ public class UserBookmarkApi {
     }
 
     private void zTestNovel(long uid, BookmarksParam param) {
-        getNovels(uid, param).async(new StandardCallback<NovelBodyUserBookmark>() {
+        getNovels(uid, param).async(new StandardCallback<NovelBodyFromUser>() {
             @Override
-            public void onSuccess(NovelBodyUserBookmark body) {
+            public void onSuccess(NovelBodyFromUser body) {
                 JsonUtils.printJson(body);
             }
         });

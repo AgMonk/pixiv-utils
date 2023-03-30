@@ -1,11 +1,10 @@
 package org.gin;
 
 import org.gin.exception.PixivException;
+import org.gin.pixiv.api.UserProfileApi;
 import org.gin.pixiv.main.PixivClient;
-import org.gin.response.body.user.ProfileAllBody;
 
 import java.io.IOException;
-import java.util.List;
 
 /**
  * @author bx002
@@ -19,10 +18,7 @@ public class Main {
 
         final PixivClient client = new PixivClient(SESSION_ID, TOKEN);
 
-//        new UserBookmarkApi(client).zTest();
+        new UserProfileApi(client).zTest();
 
-        final ProfileAllBody body = client.standard("/ajax/user/33397446/profile/all", ProfileAllBody.class).sync();
-        final List<Object> pickup = body.getPickup();
-        pickup.forEach(item -> System.out.println(item.getClass()));
     }
 }

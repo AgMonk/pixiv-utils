@@ -7,6 +7,7 @@ import lombok.Setter;
 import okhttp3.HttpUrl;
 import org.gin.api.PixivApi;
 import org.gin.params.user.WorksWithTagParam;
+import org.gin.pixiv.response.body.illust.IllustBodySimple;
 import org.gin.request.PixivRequest;
 import org.gin.request.PixivUrlBuilder;
 import org.gin.response.PixivResponse;
@@ -15,7 +16,6 @@ import org.gin.response.body.novel.NovelBookmarksRes;
 import org.gin.response.body.tag.UserTagRes;
 import org.gin.response.body.user.*;
 import org.gin.response.convertor.Convertor;
-import org.gin.response.fields.ArtworkInfo;
 import org.gin.utils.JsonUtils;
 import org.jetbrains.annotations.NotNull;
 
@@ -201,8 +201,8 @@ public class UserWorksApi {
     private void zTestCommission() {
         final long uid = 67898338L;
         commissionRequestSent(uid).async(res -> {
-            final List<ArtworkInfo> illust = res.getBody().getThumbnails().getIllust();
-            final String ids = illust.stream().map(ArtworkInfo::getId).map(Object::toString).collect(Collectors.joining(","));
+            final List<IllustBodySimple> illust = res.getBody().getThumbnails().getIllust();
+            final String ids = illust.stream().map(IllustBodySimple::getId).map(Object::toString).collect(Collectors.joining(","));
             System.out.printf("[用户约稿] uid: %d pid: %s", uid, ids);
         });
     }
@@ -216,11 +216,11 @@ public class UserWorksApi {
 
         illusts(authorId, illusts.subList(0, Math.min(3, illusts.size())))
                 .async(res -> System.out.printf("[用户绘画] ID: %s \n"
-                        , res.getBody().getWorks().keySet().stream().map(Object::toString).collect(Collectors.joining(","))));
+                        , res.getBody().getIllusts().keySet().stream().map(Object::toString).collect(Collectors.joining(","))));
 
         novels(authorId, novels.subList(0, Math.min(3, illusts.size())))
                 .async(res -> System.out.printf("[用户小说] ID: %s \n"
-                        , res.getBody().getWorks().keySet().stream().map(Object::toString).collect(Collectors.joining(","))));
+                        , res.getBody().getNovels().keySet().stream().map(Object::toString).collect(Collectors.joining(","))));
 
 
     }
