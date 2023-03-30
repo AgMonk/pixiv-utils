@@ -12,8 +12,11 @@ import lombok.Setter;
 @Getter
 @Setter
 public class TagInfo {
+    /**
+     * 解释
+     */
     @JsonProperty("abstract")
-    String abs;
+    String description;
     LangInfo en;
     @JsonProperty("en_new")
     LangInfo enNew;
@@ -21,13 +24,17 @@ public class TagInfo {
     @JsonProperty("ja_new")
     LangInfo jaNew;
     String tag;
-    String thumbnail;
+    /**
+     * 头像(封面)缩略图地址
+     */
+    @JsonProperty("thumbnail")
+    String thumbnailUrl;
 
     @Getter
     @Setter
     static class LangInfo {
         @JsonProperty("abstract")
-        String abs;
+        String description;
         String tag;
         String url;
     }

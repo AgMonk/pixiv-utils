@@ -2,18 +2,12 @@ package org.gin.pixiv.api;
 
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
-import okhttp3.HttpUrl;
 import org.gin.pixiv.call.PixivCallStandard;
 import org.gin.pixiv.enums.ParamType;
 import org.gin.pixiv.main.PixivClient;
-import org.gin.request.PixivRequest;
-import org.gin.request.PixivUrlBuilder;
 import org.gin.response.body.tag.SuggestByWordBody;
-import org.gin.response.body.tag.SuggestByWordRes;
-import org.gin.response.body.tag.TagInfoRes;
-import org.gin.response.convertor.Convertor;
+import org.gin.response.body.tag.TagInfo;
 import org.gin.response.fields.PixivTagInfo;
-import org.gin.response.fields.PixivTagInfoRes;
 import org.gin.utils.JsonUtils;
 import org.gin.utils.MapUtils;
 import org.jetbrains.annotations.NotNull;
@@ -45,18 +39,13 @@ public class TagApi {
     }
 
     /**
-     * 查询标签建议(追加标签时使用)
+     * 查询标签建议(追加标签或搜索时使用)
      * @param keyword 关键字
-     * @return org.gin.request.PixivRequest<org.gin.response.body.tag.SuggestByWordRes>
-     * @since 2022/11/17 16:59
+     * @return {@link org.gin.pixiv.call.PixivCallStandard<org.gin.response.body.tag.SuggestByWordBody>}
+     * @since 2023/3/30 9:22
      */
-    public PixivRequest<SuggestByWordRes> suggestByWord(@NonNull String keyword) {
-        final HttpUrl url = new PixivUrlBuilder()
-                .setUrl(api.getDomain() + "/ajax/tags/suggest_by_word")
-                .addParam("content_types_to_count[]", "illust")
-                .addParam("word", keyword)
-                .build();
-        return new PixivRequest<>(url, api.getClient(), body -> Convertor.common(body, SuggestByWordRes.class));
+    public PixivCallStandard<SuggestByWordBody> getSuggestByWord(@NonNull String keyword) {
+        return client.standard("/ajax/tags/suggest_by_word", SuggestByWordBody.class, MapUtils.singleEntry("word", keyword));
     }
 
     /**
@@ -65,12 +54,8 @@ public class TagApi {
      * @return org.gin.request.PixivRequest<org.gin.response.PixivResponse < ?>>
      * @since 2022/11/1 9:55
      */
-    public PixivRequest<TagInfoRes> tagInfo(@NonNull String tag) {
-        final HttpUrl url = new PixivUrlBuilder()
-                .setUrl(api.getDomain() + "/ajax/tag/info")
-                .addParam("tag", tag)
-                .build();
-        return new PixivRequest<>(url, api.getClient(), body -> Convertor.common(body, TagInfoRes.class));
+    public PixivCallStandard<TagInfo> getTagInfo(@NonNull String tag) {
+        return client.standard("/ajax/tag/info", TagInfo.class, MapUtils.singleEntry("tag", tag));
     }
 
     public void zTest() throws IOException {
@@ -83,19 +68,19 @@ public class TagApi {
         long pid = 102177911;
         String tag = "RO635(ドールズフロントライン)";
 
-        final PixivTagInfoRes res = postIllustAdd(pid, tag).sync();
+        final PixivTagInfo res = postIllustAdd(pid, tag).sync();
         JsonUtils.printJson(res);
     }
 
     private void zTestSuggest() throws IOException {
-        final SuggestByWordRes res = suggestByWord("RO635").sync();
-        final List<SuggestByWordBody.Candidate> candidates = res.getBody().getCandidates();
+        final SuggestByWordBody res = getSuggestByWord("RO635").sync();
+        final List<SuggestByWordBody.Candidate> candidates = res.getCandidates();
         final String join = candidates.stream().map(SuggestByWordBody.Candidate::getTagName).collect(Collectors.joining(","));
         System.out.println("join = " + join);
     }
 
     private void zTestTagInfo() throws IOException {
-        final TagInfoRes res = tagInfo("RO635(ドールズフロントライン)").sync();
+        final TagInfo res = getTagInfo("RO635(ドールズフロントライン)").sync();
         JsonUtils.printJson(res);
     }
 
