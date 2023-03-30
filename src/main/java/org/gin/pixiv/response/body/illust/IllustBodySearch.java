@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonAlias;
 import lombok.Getter;
 import lombok.Setter;
 import org.gin.pixiv.response.body.search.BaseSearchBody;
-import org.gin.response.fields.Popular;
 
 import java.util.List;
 
@@ -26,6 +25,19 @@ public class IllustBodySearch extends BaseSearchBody {
     public static class IllustManga {
         Integer total;
         List<IllustBodySimple> data;
+    }
+
+    @Getter
+    @Setter
+    public static class Popular {
+        /**
+         * 长期的
+         */
+        List<IllustBodySimple> permanent;
+        /**
+         * 最近的
+         */
+        List<IllustBodySimple> recent;
     }
 
 }

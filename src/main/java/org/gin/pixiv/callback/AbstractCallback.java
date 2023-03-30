@@ -7,11 +7,11 @@ import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
-import org.gin.exception.PixivClientException;
-import org.gin.exception.PixivException;
-import org.gin.exception.PixivServerException;
 import org.gin.pixiv.api.RankingApi;
-import org.gin.response.PixivResponse;
+import org.gin.pixiv.exception.PixivClientException;
+import org.gin.pixiv.exception.PixivException;
+import org.gin.pixiv.exception.PixivServerException;
+import org.gin.pixiv.response.PixivResponse;
 import org.gin.utils.JsonUtils;
 import org.jetbrains.annotations.NotNull;
 

@@ -4,8 +4,8 @@ import lombok.RequiredArgsConstructor;
 import okhttp3.Call;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
-import org.gin.exception.PixivException;
 import org.gin.pixiv.callback.AbstractCallback;
+import org.gin.pixiv.exception.PixivException;
 
 import java.io.IOException;
 

@@ -2,12 +2,12 @@ package org.gin.pixiv.api;
 
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
-import org.gin.params.bookmark.AddIllustMangaParam;
-import org.gin.params.bookmark.AddNovelParam;
 import org.gin.pixiv.call.PixivCallStandard;
 import org.gin.pixiv.enums.ParamType;
 import org.gin.pixiv.main.PixivClient;
-import org.gin.response.body.BookmarkAddBody;
+import org.gin.pixiv.params.bookmark.AddIllustParam;
+import org.gin.pixiv.params.bookmark.AddNovelParam;
+import org.gin.pixiv.response.body.bookmark.BookmarkAddBody;
 import org.gin.utils.MapUtils;
 
 import java.io.IOException;
@@ -31,7 +31,7 @@ public class BookmarkApi {
      * @return {@link PixivCallStandard<BookmarkAddBody>}
      * @since 2023/3/29 11:19
      */
-    public PixivCallStandard<BookmarkAddBody> postAddIllust(@NonNull AddIllustMangaParam param) {
+    public PixivCallStandard<BookmarkAddBody> postAddIllust(@NonNull AddIllustParam param) {
         return client.standard(ParamType.JSON, "/ajax/illusts/bookmarks/add", BookmarkAddBody.class, param);
     }
 
@@ -102,10 +102,10 @@ public class BookmarkApi {
         final Long bookmarkId = illustApi.getDetail(pid).sync().getBookmarkData().getId();
 
         postDelIllust(bookmarkId).sync();
-        final BookmarkAddBody bookmarkAddBody = postAddIllust(new AddIllustMangaParam(pid)).sync();
+        final BookmarkAddBody bookmarkAddBody = postAddIllust(new AddIllustParam(pid)).sync();
         final Long lastBookmarkId = bookmarkAddBody.getLastBookmarkId();
         postDelIllusts(Collections.singleton(lastBookmarkId)).sync();
-        postAddIllust(new AddIllustMangaParam(pid)).sync();
+        postAddIllust(new AddIllustParam(pid)).sync();
     }
 
     private void zTestNovel(long nid) throws IOException {

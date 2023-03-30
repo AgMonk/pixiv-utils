@@ -1,14 +1,14 @@
 package org.gin.pixiv.api;
 
 import lombok.RequiredArgsConstructor;
-import org.gin.emuns.PixivRest;
-import org.gin.params.user.BookmarksParam;
 import org.gin.pixiv.call.PixivCallStandard;
 import org.gin.pixiv.callback.StandardCallback;
+import org.gin.pixiv.enums.PixivRest;
 import org.gin.pixiv.main.PixivClient;
+import org.gin.pixiv.params.user.BookmarksParam;
+import org.gin.pixiv.response.body.comment.CommonBookmarkTagsBody;
 import org.gin.pixiv.response.body.illust.IllustBodyFromUser;
 import org.gin.pixiv.response.body.novel.NovelBodyFromUser;
-import org.gin.response.body.comment.CommonBookmarkTagsBody;
 import org.gin.utils.JsonUtils;
 import org.jetbrains.annotations.NotNull;
 
@@ -26,7 +26,7 @@ public class UserBookmarkApi {
     /**
      * 查询用户收藏的绘画中使用的标签
      * @param userId 用户id
-     * @return org.gin.pixiv.call.PixivCallStandard<org.gin.response.body.comment.CommonBookmarkTagsBody>
+     * @return org.gin.pixiv.call.PixivCallStandard<org.gin.pixiv.response.body.comment.CommonBookmarkTagsBody>
      * @since 2023/3/30 10:41
      */
     public PixivCallStandard<CommonBookmarkTagsBody> getIllustTags(long userId) {
@@ -47,7 +47,7 @@ public class UserBookmarkApi {
     /**
      * 查询用户收藏小说中使用的标签
      * @param userId 用户id
-     * @return org.gin.pixiv.call.PixivCallStandard<org.gin.response.body.comment.CommonBookmarkTagsBody>
+     * @return org.gin.pixiv.call.PixivCallStandard<org.gin.pixiv.response.body.comment.CommonBookmarkTagsBody>
      * @since 2023/3/30 10:53
      */
     public PixivCallStandard<CommonBookmarkTagsBody> getNovelTags(long userId) {

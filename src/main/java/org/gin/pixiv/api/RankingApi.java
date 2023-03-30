@@ -2,12 +2,12 @@ package org.gin.pixiv.api;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import org.gin.emuns.PixivRankingMode;
-import org.gin.emuns.RankingContent;
-import org.gin.params.rank.RankingParam;
 import org.gin.pixiv.call.PixivCallType;
+import org.gin.pixiv.enums.PixivRankingMode;
+import org.gin.pixiv.enums.RankingContent;
 import org.gin.pixiv.main.PixivClient;
-import org.gin.response.RankingResponse;
+import org.gin.pixiv.params.rank.RankingParam;
+import org.gin.pixiv.response.body.RankingResponse;
 import org.gin.utils.JsonUtils;
 import org.jetbrains.annotations.NotNull;
 
@@ -30,7 +30,7 @@ public class RankingApi {
     /**
      * 获取绘画作品排行
      * @param param 参数
-     * @return {@link org.gin.pixiv.call.PixivCallType<org.gin.response.RankingResponse>}
+     * @return {@link org.gin.pixiv.call.PixivCallType< RankingResponse >}
      * @since 2023/3/29 10:44
      */
     public PixivCallType<RankingResponse> getIllust(@NotNull RankingParam param) {

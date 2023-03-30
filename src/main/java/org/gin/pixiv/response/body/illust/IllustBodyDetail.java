@@ -3,11 +3,11 @@ package org.gin.pixiv.response.body.illust;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
-import org.gin.response.fields.ArtworkUrls;
-import org.gin.response.fields.FanRequest;
-import org.gin.response.fields.PixivTagInfo;
+import org.gin.pixiv.response.body.tag.PixivTagInfo;
 
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -93,4 +93,58 @@ public class IllustBodyDetail extends BaseIllustBody {
         return urls;
     }
 
+    @Getter
+    @Setter
+    public static class ArtworkUrls {
+        String mini;
+        String original;
+        String regular;
+        String small;
+        String thumb;
+
+        public String getZipUrl() {
+            return original == null ? null : original
+                    .replace("img-original", "img-zip-ugoira")
+                    .replace("_ugoira0.jpg", "_ugoira1920x1080.zip")
+                    .replace("_ugoira0.png", "_ugoira1920x1080.zip")
+                    ;
+        }
+    }
+
+    @Getter
+    @Setter
+    public static class FanRequest {
+        HashMap<String, Serializable> collaborateStatus;
+        /**
+         * 约稿方
+         */
+        BaseUserInfo fan;
+        /**
+         * 约稿请求
+         */
+        FanRequestInfo request;
+
+        @Getter
+        @Setter
+        static class FanRequestInfo {
+            Long requestId;
+        }
+    }
+
+    @Getter
+    @Setter
+    public static class BaseUserInfo {
+        /**
+         * 头像链接
+         */
+        String profileImg;
+        /**
+         * 用户id
+         */
+        Long userId;
+        /**
+         * 用户昵称
+         */
+        String userName;
+    }
 }

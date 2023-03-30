@@ -2,7 +2,6 @@ package org.gin.pixiv.response.body.illust;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.gin.response.fields.RecommendDetail;
 
 import java.util.HashMap;
 import java.util.List;
@@ -20,4 +19,14 @@ public class IllustBodyRecommendInit extends IllustBodyRecommend {
     List<IllustBodySimple> illusts;
     List<Long> nextIds;
 
+
+    @Getter
+    @Setter
+    public static class RecommendDetail {
+        String banditInfo;
+        List<String> methods;
+        String recommendListId;
+        Double score;
+        List<Long> seedIllustIds;
+    }
 }   

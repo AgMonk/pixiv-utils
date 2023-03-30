@@ -2,17 +2,17 @@ package org.gin.pixiv.api;
 
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
-import org.gin.params.follow.FollowAddParam;
-import org.gin.params.follow.FollowDelParam;
-import org.gin.params.user.UserRecommendParam;
 import org.gin.pixiv.call.PixivCallStandard;
 import org.gin.pixiv.call.PixivCallType;
 import org.gin.pixiv.callback.StandardCallback;
 import org.gin.pixiv.callback.TypeCallback;
 import org.gin.pixiv.enums.ParamType;
 import org.gin.pixiv.main.PixivClient;
-import org.gin.response.body.user.UserInfoBody;
-import org.gin.response.body.user.UserRecommendBody;
+import org.gin.pixiv.params.follow.FollowAddParam;
+import org.gin.pixiv.params.follow.FollowDelParam;
+import org.gin.pixiv.params.user.UserRecommendParam;
+import org.gin.pixiv.response.body.user.UserInfoBody;
+import org.gin.pixiv.response.body.user.UserRecommendBody;
 import org.gin.utils.JsonUtils;
 import org.gin.utils.MapUtils;
 import org.jetbrains.annotations.NotNull;
@@ -33,7 +33,7 @@ public class UserApi {
      * 推荐用户
      * @param userId 用户id
      * @param param  参数
-     * @return org.gin.pixiv.call.PixivCallStandard<org.gin.response.body.user.UserRecommendBody>
+     * @return org.gin.pixiv.call.PixivCallStandard<org.gin.pixiv.response.body.user.UserRecommendBody>
      * @since 2023/3/30 9:39
      */
     public PixivCallStandard<UserRecommendBody> getRecommend(long userId, @NotNull UserRecommendParam param) {
@@ -44,7 +44,7 @@ public class UserApi {
      * 查询用户信息
      * @param userId   用户id
      * @param fullData 是否请求完整数据
-     * @return org.gin.pixiv.call.PixivCallStandard<org.gin.response.body.user.UserInfoBody>
+     * @return org.gin.pixiv.call.PixivCallStandard<org.gin.pixiv.response.body.user.UserInfoBody>
      * @since 2023/3/30 10:18
      */
     public PixivCallStandard<UserInfoBody> getUserInfo(long userId, boolean fullData) {

@@ -1,8 +1,8 @@
 package org.gin.pixiv.call;
 
 import okhttp3.Call;
-import org.gin.exception.PixivException;
 import org.gin.pixiv.callback.TypeCallback;
+import org.gin.pixiv.exception.PixivException;
 import org.gin.utils.JsonUtils;
 
 import java.io.IOException;

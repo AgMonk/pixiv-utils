@@ -10,7 +10,7 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
-import org.gin.response.PixivResponse;
+import org.gin.pixiv.response.PixivResponse;
 
 import java.util.HashMap;
 

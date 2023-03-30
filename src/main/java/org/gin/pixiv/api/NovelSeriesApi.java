@@ -1,15 +1,15 @@
 package org.gin.pixiv.api;
 
 import lombok.RequiredArgsConstructor;
-import org.gin.params.novel.NovelSeriesContentParam;
 import org.gin.pixiv.call.PixivCallStandard;
 import org.gin.pixiv.call.PixivCallType;
 import org.gin.pixiv.callback.StandardCallback;
 import org.gin.pixiv.callback.TypeCallback;
 import org.gin.pixiv.main.PixivClient;
+import org.gin.pixiv.params.novel.NovelSeriesContentParam;
 import org.gin.pixiv.response.body.novel.NovelBodySeriesContent;
-import org.gin.response.body.novel.NovelContentTitleRes;
-import org.gin.response.body.novel.NovelSeriesBody;
+import org.gin.pixiv.response.body.novel.NovelContentTitleRes;
+import org.gin.pixiv.response.body.novel.NovelSeriesBody;
 
 /**
  * 小说系列API
@@ -35,8 +35,7 @@ public class NovelSeriesApi {
     /**
      * 查询小说系列详情
      * @param seriesId 系列id
-     * @return org.gin.pixiv.call.PixivCallStandard<org.gin.response.body.novel.NovelSeriesBody>
-     * @author bx002
+     * @return org.gin.pixiv.call.PixivCallStandard<org.gin.pixiv.response.body.novel.NovelSeriesBody>
      * @since 2023/3/29 17:55
      */
     public PixivCallStandard<NovelSeriesBody> getDetail(long seriesId) {
@@ -46,7 +45,7 @@ public class NovelSeriesApi {
     /**
      * 查询系列的各篇标题
      * @param seriesId 系列id
-     * @return org.gin.pixiv.call.PixivCallType<org.gin.response.body.novel.NovelContentTitleRes>
+     * @return org.gin.pixiv.call.PixivCallType<org.gin.pixiv.response.body.novel.NovelContentTitleRes>
      * @author bx002
      * @since 2023/3/29 17:55
      */

@@ -5,9 +5,9 @@ import lombok.Getter;
 import lombok.Setter;
 import org.gin.pixiv.enums.AiType;
 import org.gin.pixiv.enums.RestrictLevel;
+import org.gin.pixiv.response.body.common.BookmarkData;
 import org.gin.pixiv.response.body.common.Thumbnails;
-import org.gin.response.fields.BookmarkData;
-import org.gin.response.fields.TagTranslation;
+import org.gin.pixiv.response.body.tag.TagTranslation;
 
 import java.util.HashMap;
 import java.util.List;

@@ -1,18 +1,18 @@
 package org.gin.pixiv.api;
 
 import lombok.RequiredArgsConstructor;
-import org.gin.emuns.PixivStamp;
-import org.gin.params.comment.NovelsCommentRootsParam;
-import org.gin.params.comment.PostCommentParam;
-import org.gin.params.illustmanga.CommentRepliesParam;
 import org.gin.pixiv.call.PixivCallStandard;
 import org.gin.pixiv.callback.StandardCallback;
 import org.gin.pixiv.enums.ParamType;
+import org.gin.pixiv.enums.PixivStamp;
 import org.gin.pixiv.main.PixivClient;
-import org.gin.pixiv.param.CommentDelParam;
-import org.gin.response.body.comment.CommentsBody;
-import org.gin.response.body.comment.PostCommentBody;
-import org.gin.response.fields.CommentReply;
+import org.gin.pixiv.params.comment.CommentDelParam;
+import org.gin.pixiv.params.comment.CommentRepliesParam;
+import org.gin.pixiv.params.comment.NovelsCommentRootsParam;
+import org.gin.pixiv.params.comment.PostCommentParam;
+import org.gin.pixiv.response.body.comment.CommentReply;
+import org.gin.pixiv.response.body.comment.CommentsBody;
+import org.gin.pixiv.response.body.comment.PostCommentBody;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
@@ -62,7 +62,7 @@ public class CommentNovelApi {
     /**
      * 发表评论
      * @param param 参数
-     * @return org.gin.pixiv.call.PixivCallStandard<org.gin.response.body.comment.PostCommentBody>
+     * @return org.gin.pixiv.call.PixivCallStandard<org.gin.pixiv.response.body.comment.PostCommentBody>
      * @since 2023/3/29 16:09
      */
     public PixivCallStandard<PostCommentBody> postReply(@NotNull PostCommentParam.Novel param) {

@@ -1,13 +1,13 @@
 package org.gin.pixiv.api;
 
 import lombok.RequiredArgsConstructor;
-import org.gin.emuns.PixivMode;
-import org.gin.params.illustmanga.NovelsDiscoveryParam;
-import org.gin.params.novel.NovelSearchParam;
 import org.gin.pixiv.call.PixivCallStandard;
 import org.gin.pixiv.callback.StandardCallback;
+import org.gin.pixiv.enums.PixivMode;
 import org.gin.pixiv.main.PixivClient;
-import org.gin.pixiv.param.LatestParam;
+import org.gin.pixiv.params.LatestParam;
+import org.gin.pixiv.params.illustmanga.NovelsDiscoveryParam;
+import org.gin.pixiv.params.novel.NovelSearchParam;
 import org.gin.pixiv.response.body.bookmark.BookmarkDataBody;
 import org.gin.pixiv.response.body.common.DiscoveryBody;
 import org.gin.pixiv.response.body.common.FollowLatestBody;
@@ -48,7 +48,7 @@ public class NovelApi {
     /**
      * 发现
      * @param param 参数
-     * @return org.gin.request.PixivRequest<org.gin.response.PixivResponse < org.gin.pixiv.response.body.common.DiscoveryBody>>
+     * @return org.gin.request.PixivRequest<org.gin.pixiv.response.PixivResponse < org.gin.pixiv.response.body.common.DiscoveryBody>>
      * @since 2022/10/21 9:14
      */
     public PixivCallStandard<DiscoveryBody> getDiscovery(@NotNull NovelsDiscoveryParam param) {
@@ -69,7 +69,7 @@ public class NovelApi {
      * 搜索
      * @param keywords 关键字
      * @param param    参数
-     * @return org.gin.request.PixivRequest<org.gin.response.PixivResponse < org.gin.response.body.novel.NovelSearchBody>>
+     * @return org.gin.request.PixivRequest<org.gin.pixiv.response.PixivResponse < org.gin.response.body.novel.NovelSearchBody>>
      * @since 2022/11/16 15:00
      */
     public PixivCallStandard<NovelBodySearch> getSearch(@NotNull String keywords, @NotNull NovelSearchParam param) {

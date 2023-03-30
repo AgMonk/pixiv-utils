@@ -5,7 +5,6 @@ import lombok.Getter;
 import lombok.Setter;
 import org.gin.pixiv.enums.AiType;
 import org.gin.pixiv.enums.RestrictLevel;
-import org.gin.response.fields.BookmarkData;
 
 import java.time.ZonedDateTime;
 

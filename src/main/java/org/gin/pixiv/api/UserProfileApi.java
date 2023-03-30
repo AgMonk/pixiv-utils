@@ -1,21 +1,21 @@
 package org.gin.pixiv.api;
 
 import lombok.RequiredArgsConstructor;
-import org.gin.params.user.WorksWithTagParam;
 import org.gin.pixiv.call.PixivCallStandard;
 import org.gin.pixiv.call.PixivCallType;
 import org.gin.pixiv.callback.StandardCallback;
 import org.gin.pixiv.callback.TypeCallback;
 import org.gin.pixiv.main.PixivClient;
+import org.gin.pixiv.params.user.WorksWithTagParam;
 import org.gin.pixiv.response.body.common.BaseWorkBody;
 import org.gin.pixiv.response.body.illust.IllustBodyFromUser;
 import org.gin.pixiv.response.body.illust.IllustBodySimple;
 import org.gin.pixiv.response.body.novel.NovelBodyFromUser;
-import org.gin.response.body.tag.UserTagRes;
-import org.gin.response.body.user.CommissionRequestSentBody;
-import org.gin.response.body.user.ProfileAllBody;
-import org.gin.response.body.user.ProfileIllustsBody;
-import org.gin.response.body.user.ProfileNovelsBody;
+import org.gin.pixiv.response.body.tag.UserTagRes;
+import org.gin.pixiv.response.body.user.CommissionRequestSentBody;
+import org.gin.pixiv.response.body.user.ProfileAllBody;
+import org.gin.pixiv.response.body.user.ProfileIllustsBody;
+import org.gin.pixiv.response.body.user.ProfileNovelsBody;
 import org.gin.utils.JsonUtils;
 import org.gin.utils.MapUtils;
 import org.jetbrains.annotations.NotNull;
@@ -39,7 +39,7 @@ public class UserProfileApi {
     /**
      * 查询用户作品概况
      * @param userId 用户id
-     * @return org.gin.pixiv.call.PixivCallStandard<org.gin.response.body.user.ProfileAllBody>
+     * @return org.gin.pixiv.call.PixivCallStandard<org.gin.pixiv.response.body.user.ProfileAllBody>
      * @since 2023/3/30 12:07
      */
     public PixivCallStandard<ProfileAllBody> getAll(long userId) {
@@ -49,7 +49,7 @@ public class UserProfileApi {
     /**
      * 查询用户发出的约稿
      * @param userId 用户id
-     * @return org.gin.pixiv.call.PixivCallStandard<org.gin.response.body.user.CommissionRequestSentBody>
+     * @return org.gin.pixiv.call.PixivCallStandard<org.gin.pixiv.response.body.user.CommissionRequestSentBody>
      * @since 2023/3/30 14:22
      */
     public PixivCallStandard<CommissionRequestSentBody> getCommissionRequestSent(long userId) {
@@ -59,7 +59,7 @@ public class UserProfileApi {
     /**
      * 查询用户的绘画中使用的标签
      * @param userId 用户id
-     * @return org.gin.pixiv.call.PixivCallType<org.gin.response.body.tag.UserTagRes>
+     * @return org.gin.pixiv.call.PixivCallType<org.gin.pixiv.response.body.tag.UserTagRes>
      * @since 2023/3/30 14:23
      */
     public PixivCallType<UserTagRes> getIllustTags(long userId) {
@@ -70,7 +70,7 @@ public class UserProfileApi {
      * 查询用户的绘画信息
      * @param userId 用户id
      * @param ids    查询的作品id
-     * @return org.gin.request.PixivRequest<org.gin.response.PixivResponse < org.gin.response.body.user.ProfileRealBody>>
+     * @return org.gin.request.PixivRequest<org.gin.pixiv.response.PixivResponse < org.gin.response.body.user.ProfileRealBody>>
      * @since 2022/10/15 11:18
      */
     public PixivCallStandard<ProfileIllustsBody> getIllusts(long userId, @NotNull List<Long> ids) {
@@ -94,7 +94,7 @@ public class UserProfileApi {
     /**
      * 查询用户的漫画中使用的标签
      * @param userId 用户id
-     * @return org.gin.pixiv.call.PixivCallType<org.gin.response.body.tag.UserTagRes>
+     * @return org.gin.pixiv.call.PixivCallType<org.gin.pixiv.response.body.tag.UserTagRes>
      * @since 2023/3/30 14:37
      */
     public PixivCallType<UserTagRes> getMangaTags(long userId) {
@@ -115,7 +115,7 @@ public class UserProfileApi {
     /**
      * 查询用户的小说中使用的标签
      * @param userId 用户id
-     * @return org.gin.pixiv.call.PixivCallType<org.gin.response.body.tag.UserTagRes>
+     * @return org.gin.pixiv.call.PixivCallType<org.gin.pixiv.response.body.tag.UserTagRes>
      * @since 2023/3/30 14:50
      */
     public PixivCallType<UserTagRes> getNovelTags(long userId) {
@@ -126,7 +126,7 @@ public class UserProfileApi {
      * 查询用户的小说
      * @param userId 用户id
      * @param ids    查询的作品id
-     * @return org.gin.pixiv.call.PixivCallStandard<org.gin.response.body.user.ProfileNovelsBody>
+     * @return org.gin.pixiv.call.PixivCallStandard<org.gin.pixiv.response.body.user.ProfileNovelsBody>
      * @since 2023/3/30 14:55
      */
     public PixivCallStandard<ProfileNovelsBody> getNovels(long userId, @NotNull List<Long> ids) {

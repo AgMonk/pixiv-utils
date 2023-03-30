@@ -2,7 +2,7 @@ package org.gin.pixiv.response.body.bookmark;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.gin.response.fields.BookmarkData;
+import org.gin.pixiv.response.body.common.BookmarkData;
 
 /**
  * @author bx002

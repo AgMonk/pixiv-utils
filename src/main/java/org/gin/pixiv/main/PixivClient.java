@@ -2,15 +2,15 @@ package org.gin.pixiv.main;
 
 import lombok.Getter;
 import okhttp3.*;
-import org.gin.exception.PixivException;
-import org.gin.exception.PixivExceptionEnum;
-import org.gin.interceptor.LoggingInterceptor;
 import org.gin.pixiv.call.PixivCallStandard;
 import org.gin.pixiv.call.PixivCallType;
 import org.gin.pixiv.enums.Headers;
 import org.gin.pixiv.enums.Language;
 import org.gin.pixiv.enums.Method;
 import org.gin.pixiv.enums.ParamType;
+import org.gin.pixiv.exception.PixivException;
+import org.gin.pixiv.exception.PixivExceptionEnum;
+import org.gin.pixiv.interceptor.LoggingInterceptor;
 import org.gin.utils.JsonUtils;
 import org.gin.utils.ObjectUtils;
 import org.jetbrains.annotations.NotNull;

@@ -1,15 +1,15 @@
 package org.gin.pixiv.api;
 
 import lombok.RequiredArgsConstructor;
-import org.gin.emuns.PixivMode;
-import org.gin.params.illustmanga.IllustMangaSearchParam;
-import org.gin.params.illustmanga.IllustsDiscoveryParam;
 import org.gin.pixiv.call.PixivCallStandard;
 import org.gin.pixiv.callback.StandardCallback;
 import org.gin.pixiv.enums.IllustSearchType;
 import org.gin.pixiv.enums.ParamType;
+import org.gin.pixiv.enums.PixivMode;
 import org.gin.pixiv.main.PixivClient;
-import org.gin.pixiv.param.LatestParam;
+import org.gin.pixiv.params.LatestParam;
+import org.gin.pixiv.params.illustmanga.IllustMangaSearchParam;
+import org.gin.pixiv.params.illustmanga.IllustsDiscoveryParam;
 import org.gin.pixiv.response.body.bookmark.BookmarkDataBody;
 import org.gin.pixiv.response.body.common.DiscoveryBody;
 import org.gin.pixiv.response.body.common.FollowLatestBody;
@@ -35,7 +35,7 @@ public class IllustApi {
     /**
      * 查询绘画的收藏状态
      * @param pid 绘画id
-     * @return org.gin.request.PixivRequest<org.gin.response.PixivResponse < org.gin.response.body.BookmarkDataBody>>
+     * @return org.gin.request.PixivRequest<org.gin.pixiv.response.PixivResponse < org.gin.response.body.BookmarkDataBody>>
      * @since 2022/10/15 17:19
      */
     public PixivCallStandard<BookmarkDataBody> getBookmarkData(long pid) {
@@ -45,7 +45,7 @@ public class IllustApi {
     /**
      * 查询绘画的详情信息
      * @param pid 绘画id
-     * @return org.gin.request.PixivRequest<org.gin.response.PixivResponse < org.gin.response.body.illustmanga.ArtworkBody>>
+     * @return org.gin.request.PixivRequest<org.gin.pixiv.response.PixivResponse < org.gin.response.body.illustmanga.ArtworkBody>>
      * @since 2022/10/14 17:07
      */
     public PixivCallStandard<IllustBodyDetail> getDetail(long pid) {
@@ -55,7 +55,7 @@ public class IllustApi {
     /**
      * 发现绘画
      * @param param 参数
-     * @return org.gin.request.PixivRequest<org.gin.response.PixivResponse < org.gin.pixiv.response.body.common.DiscoveryBody>>
+     * @return org.gin.request.PixivRequest<org.gin.pixiv.response.PixivResponse < org.gin.pixiv.response.body.common.DiscoveryBody>>
      * @since 2022/10/21 9:14
      */
     public PixivCallStandard<DiscoveryBody> getDiscovery(@NotNull IllustsDiscoveryParam param) {
@@ -75,7 +75,7 @@ public class IllustApi {
     /**
      * 查询推荐绘画2
      * @param ids 基准id，可以直接使用 recommendInit 方法的返回结果
-     * @return org.gin.request.PixivRequest<org.gin.response.PixivResponse < org.gin.pixiv.response.body.common.DiscoveryBody>>
+     * @return org.gin.request.PixivRequest<org.gin.pixiv.response.PixivResponse < org.gin.pixiv.response.body.common.DiscoveryBody>>
      * @since 2022/11/1 9:48
      */
     public PixivCallStandard<IllustBodyRecommend> getRecommendIllusts(@NotNull List<Long> ids) {
@@ -86,7 +86,7 @@ public class IllustApi {
      * 查询推荐绘画
      * @param pid   基准绘画pid
      * @param limit 绘画数量
-     * @return org.gin.request.PixivRequest<org.gin.response.PixivResponse < org.gin.pixiv.response.body.common.DiscoveryBody>>
+     * @return org.gin.request.PixivRequest<org.gin.pixiv.response.PixivResponse < org.gin.pixiv.response.body.common.DiscoveryBody>>
      * @since 2022/11/1 9:43
      */
     public PixivCallStandard<IllustBodyRecommendInit> getRecommendInit(long pid, int limit) {
@@ -99,7 +99,7 @@ public class IllustApi {
      * 搜索
      * @param keywords 关键字
      * @param param    参数
-     * @return org.gin.request.PixivRequest<org.gin.response.PixivResponse < org.gin.response.body.SearchBody>>
+     * @return org.gin.request.PixivRequest<org.gin.pixiv.response.PixivResponse < org.gin.response.body.SearchBody>>
      * @since 2022/10/14 17:28
      */
     public PixivCallStandard<IllustBodySearch> getSearch(@NotNull String keywords, @NotNull IllustMangaSearchParam param) {
@@ -109,7 +109,7 @@ public class IllustApi {
     /**
      * 查询动图的其他信息
      * @param pid 绘画id
-     * @return org.gin.request.PixivRequest<org.gin.response.PixivResponse < org.gin.response.body.illustmanga.UgoiraMetaBody>>
+     * @return org.gin.request.PixivRequest<org.gin.pixiv.response.PixivResponse < org.gin.response.body.illustmanga.UgoiraMetaBody>>
      * @since 2022/10/15 16:52
      */
     public PixivCallStandard<UgoiraMetaBody> getUgoiraMeta(long pid) {
@@ -119,7 +119,7 @@ public class IllustApi {
     /**
      * 喜欢绘画
      * @param pid 绘画id
-     * @return org.gin.request.PixivRequest<org.gin.response.PixivResponse < java.lang.String>>
+     * @return org.gin.request.PixivRequest<org.gin.pixiv.response.PixivResponse < java.lang.String>>
      * @since 2022/10/15 16:06
      */
     public PixivCallStandard<LikeBody> postLike(long pid) {
