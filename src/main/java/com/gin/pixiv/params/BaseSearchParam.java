@@ -43,6 +43,11 @@ public class BaseSearchParam {
      */
     @JsonProperty("ecd")
     String dateEnd;
+    /**
+     * 如果需要屏蔽AI作品，设置为1
+     */
+    @JsonProperty("ai_type")
+    Integer blockAi;
 
     public BaseSearchParam(int page) {
         this.page = page;
